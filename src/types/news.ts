@@ -1,0 +1,40 @@
+export type TopicTag =
+  | 'regulation'
+  | 'depeg'
+  | 'integration'
+  | 'infrastructure'
+  | 'payments'
+  | 'reserve'
+  | 'launch'
+  | 'partnership';
+
+export interface NewsItem {
+  id: string;
+  title: string;
+  source: string;
+  url: string;
+  publishedAt: string;
+  summary: string;
+  topics: TopicTag[];
+  assetSymbols: string[];
+  countryIsoCodes: string[];
+  imageUrl?: string;
+}
+
+export interface WeeklyBriefing {
+  id: string;
+  title: string;
+  weekOf: string;
+  summaryParagraph: string;
+  topEvents?: {
+    title: string;
+    description: string;
+  }[];
+}
+
+export interface NewsFilters {
+  search?: string;
+  asset?: string;
+  country?: string;
+  topic?: TopicTag | 'all';
+}
