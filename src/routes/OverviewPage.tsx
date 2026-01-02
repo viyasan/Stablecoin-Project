@@ -1,5 +1,6 @@
 import { PageContainer } from '../components/layout';
 import {
+  ChainBreakdownChart,
   GlobalKpiCard,
   MarketCapChart,
   MarketSharePieChart,
@@ -37,6 +38,11 @@ export function OverviewPage() {
             <MarketSharePieChart />
           </div>
         </div>
+      </section>
+
+      {/* Chain Breakdown Section */}
+      <section className="mb-8">
+        <ChainBreakdownChart />
       </section>
 
       {/* Main Content Grid */}

@@ -1,3 +1,4 @@
+export { ChainBreakdownChart } from './ChainBreakdownChart';
 export { GlobalKpiCard } from './GlobalKpiCard';
 export { MarketCapChart } from './MarketCapChart';
 export { MarketSharePieChart } from './MarketSharePieChart';

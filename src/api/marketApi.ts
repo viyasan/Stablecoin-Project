@@ -11,6 +11,7 @@ import type {
 // DefiLlama API endpoints
 const DEFILLAMA_STABLECOINS_API = 'https://stablecoins.llama.fi/stablecoins?includePrices=true';
 const DEFILLAMA_CHARTS_API = 'https://stablecoins.llama.fi/stablecoincharts/all';
+const DEFILLAMA_CHAINS_API = 'https://stablecoins.llama.fi/stablecoinchains';
 
 // Helper to map peg type to our PegCurrency type
 function mapPegType(pegType: string): PegCurrency {
@@ -306,6 +307,61 @@ export function useStablecoinList(
       setIsLoading(false);
     }
   }, [filters?.search, filters?.pegCurrency, filters?.issuerType, filters?.sortBy, filters?.sortOrder]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, isLoading, error, refetch: fetchData };
+}
+
+// Chain breakdown types and hook
+export interface ChainData {
+  name: string;
+  totalCirculating: number;
+  dominantStablecoin?: string;
+}
+
+interface DefiLlamaChainData {
+  gecko_id: string;
+  totalCirculatingUSD: { peggedUSD: number };
+  tokenSymbol: string;
+  name: string;
+}
+
+async function fetchChainData(): Promise<ChainData[]> {
+  const response = await fetch(DEFILLAMA_CHAINS_API);
+  if (!response.ok) throw new Error('Failed to fetch chain data');
+
+  const data: DefiLlamaChainData[] = await response.json();
+
+  return data
+    .filter((chain) => chain.totalCirculatingUSD?.peggedUSD > 0)
+    .map((chain) => ({
+      name: chain.name,
+      totalCirculating: chain.totalCirculatingUSD?.peggedUSD || 0,
+      dominantStablecoin: chain.tokenSymbol,
+    }))
+    .sort((a, b) => b.totalCirculating - a.totalCirculating);
+}
+
+export function useChainBreakdown(): UseApiResult<ChainData[]> {
+  const [data, setData] = useState<ChainData[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const chainData = await fetchChainData();
+      setData(chainData);
+      setError(null);
+    } catch (err) {
+      setError(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchData();
