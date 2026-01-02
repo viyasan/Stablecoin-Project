@@ -92,7 +92,7 @@ interface MarketCapChartProps {
 }
 
 export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
-  const [timeRange, setTimeRange] = useState<TimeRange>('30d');
+  const [timeRange, setTimeRange] = useState<TimeRange>('max');
   const { data, isLoading, error, refetch } = useMarketCapChart(timeRange);
 
   if (isLoading) {
@@ -158,7 +158,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
         </div>
       </div>
       <div className="p-6">
-        <div className="h-72">
+        <div className="h-[460px]">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
               <defs>

@@ -2,6 +2,7 @@ import { PageContainer } from '../components/layout';
 import {
   GlobalKpiCard,
   MarketCapChart,
+  MarketSharePieChart,
   RegulationMiniMap,
   TopHeadlinesList,
   WeeklyBriefingCard,
@@ -26,11 +27,22 @@ export function OverviewPage() {
         <GlobalKpiCard />
       </section>
 
+      {/* Charts Section - Market Cap and Pie Chart side by side */}
+      <section className="mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-3">
+            <MarketCapChart showBreakdown={false} />
+          </div>
+          <div className="lg:col-span-2">
+            <MarketSharePieChart />
+          </div>
+        </div>
+      </section>
+
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column - Chart and Regulatory Map */}
+        {/* Left Column - Regulatory Map */}
         <div className="lg:col-span-2 space-y-8">
-          <MarketCapChart showBreakdown={true} />
           <RegulationMiniMap />
         </div>
 

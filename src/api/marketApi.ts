@@ -157,10 +157,11 @@ async function fetchChartData(days: number): Promise<MarketCapDataPoint[]> {
 
   const data: DefiLlamaChartDataPoint[] = await response.json();
 
-  // Get the last N days of data
-  const recentData = data.slice(-days);
+  // If days is 0 or very large, return all data (full history since 2018)
+  // Otherwise, get the last N days of data
+  const chartData = days === 0 || days >= data.length ? data : data.slice(-days);
 
-  return recentData.map((point) => ({
+  return chartData.map((point) => ({
     timestamp: new Date(parseInt(point.date) * 1000).toISOString(),
     totalMarketCap: point.totalCirculatingUSD?.peggedUSD || point.totalCirculating?.peggedUSD || 0,
   }));
@@ -224,7 +225,7 @@ export function useMarketSummary(): UseApiResult<MarketSummary> {
 }
 
 export function useMarketCapChart(
-  timeRange: '7d' | '30d' | '1y' | 'max' = '30d'
+  timeRange: '7d' | '30d' | '1y' | 'max' = 'max'
 ): UseApiResult<MarketCapDataPoint[]> {
   const [data, setData] = useState<MarketCapDataPoint[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -233,8 +234,9 @@ export function useMarketCapChart(
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
+      // 0 means fetch all historical data (since 2018)
       const days =
-        timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : timeRange === '1y' ? 365 : 730;
+        timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : timeRange === '1y' ? 365 : 0;
       const chartData = await fetchChartData(days);
       setData(chartData);
       setError(null);
