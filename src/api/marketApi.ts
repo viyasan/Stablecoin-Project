@@ -4,106 +4,192 @@ import type {
   MarketCapDataPoint,
   StablecoinWithSnapshot,
   MarketFilters,
+  PegCurrency,
+  IssuerType,
 } from '../types';
 
-// Mock data for development - will be replaced with real API calls
-const mockMarketSummary: MarketSummary = {
-  totalMarketCap: 178_500_000_000,
-  change24h: 0.42,
-  change7d: 1.28,
-  change30d: 3.15,
-  trackedStablecoins: 156,
-  lastUpdated: new Date().toISOString(),
-  dataSource: 'CoinGecko API',
-};
+// DefiLlama API endpoints
+const DEFILLAMA_STABLECOINS_API = 'https://stablecoins.llama.fi/stablecoins?includePrices=true';
+const DEFILLAMA_CHARTS_API = 'https://stablecoins.llama.fi/stablecoincharts/all';
 
-const generateMockChartData = (days: number): MarketCapDataPoint[] => {
-  const data: MarketCapDataPoint[] = [];
-  const now = Date.now();
-  const baseValue = 178_500_000_000;
+// Helper to map peg type to our PegCurrency type
+function mapPegType(pegType: string): PegCurrency {
+  if (pegType === 'peggedUSD') return 'USD';
+  if (pegType === 'peggedEUR') return 'EUR';
+  if (pegType === 'peggedGBP') return 'GBP';
+  return 'OTHER';
+}
 
-  for (let i = days; i >= 0; i--) {
-    const timestamp = new Date(now - i * 24 * 60 * 60 * 1000).toISOString();
-    const randomVariation = (Math.random() - 0.5) * 0.02; // ±2% variation
-    const totalMarketCap = baseValue * (1 + randomVariation - i * 0.001);
+// Helper to map peg mechanism to our IssuerType
+function mapPegMechanism(mechanism: string): IssuerType {
+  if (mechanism === 'fiat-backed' || mechanism === 'fiat') return 'fiat-backed';
+  if (mechanism === 'crypto-backed' || mechanism === 'cdp') return 'crypto-collateralized';
+  return 'algorithmic';
+}
 
-    data.push({
-      timestamp,
-      totalMarketCap,
-      breakdown: [
-        { symbol: 'USDT', marketCap: totalMarketCap * 0.65 },
-        { symbol: 'USDC', marketCap: totalMarketCap * 0.22 },
-        { symbol: 'DAI', marketCap: totalMarketCap * 0.03 },
-        { symbol: 'Others', marketCap: totalMarketCap * 0.10 },
-      ],
-    });
+// Helper to find dominant chain from chainCirculating
+function getDominantChain(chainCirculating: Record<string, { current: { peggedUSD: number } }>): string {
+  let maxChain = 'Unknown';
+  let maxValue = 0;
+  for (const [chain, data] of Object.entries(chainCirculating)) {
+    const value = data?.current?.peggedUSD || 0;
+    if (value > maxValue) {
+      maxValue = value;
+      maxChain = chain;
+    }
+  }
+  return maxChain;
+}
+
+// DefiLlama API response types
+interface DefiLlamaStablecoin {
+  id: string;
+  name: string;
+  symbol: string;
+  gecko_id: string;
+  pegType: string;
+  pegMechanism: string;
+  price: number;
+  circulating: { peggedUSD: number };
+  circulatingPrevDay: { peggedUSD: number };
+  circulatingPrevWeek: { peggedUSD: number };
+  circulatingPrevMonth: { peggedUSD: number };
+  chainCirculating: Record<string, { current: { peggedUSD: number } }>;
+}
+
+interface DefiLlamaStablecoinsResponse {
+  peggedAssets: DefiLlamaStablecoin[];
+}
+
+interface DefiLlamaChartDataPoint {
+  date: string;
+  totalCirculating: { peggedUSD: number };
+  totalCirculatingUSD: { peggedUSD: number };
+}
+
+// Fetch and transform market summary from DefiLlama
+async function fetchMarketSummary(): Promise<MarketSummary> {
+  // Fetch both stablecoins list and historical chart data
+  const [stablecoinsResponse, chartsResponse] = await Promise.all([
+    fetch(DEFILLAMA_STABLECOINS_API),
+    fetch(DEFILLAMA_CHARTS_API),
+  ]);
+
+  if (!stablecoinsResponse.ok) throw new Error('Failed to fetch stablecoin data');
+  if (!chartsResponse.ok) throw new Error('Failed to fetch chart data');
+
+  const stablecoinsData: DefiLlamaStablecoinsResponse = await stablecoinsResponse.json();
+  const chartsData: DefiLlamaChartDataPoint[] = await chartsResponse.json();
+
+  const stablecoins = stablecoinsData.peggedAssets;
+
+  // Calculate current total from stablecoins list
+  let totalMarketCap = 0;
+  let totalPrevDay = 0;
+
+  for (const coin of stablecoins) {
+    totalMarketCap += coin.circulating?.peggedUSD || 0;
+    totalPrevDay += coin.circulatingPrevDay?.peggedUSD || 0;
   }
 
-  return data;
-};
+  // Use historical chart data for accurate 7d and 30d changes (matching DefiLlama website)
+  const now = Date.now();
+  const oneDayAgo = now - 1 * 24 * 60 * 60 * 1000;
+  const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
+  const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
 
-const mockStablecoins: StablecoinWithSnapshot[] = [
-  {
-    id: '1',
-    symbol: 'USDT',
-    name: 'Tether',
-    pegCurrency: 'USD',
-    issuerType: 'fiat-backed',
-    dominantChain: 'Ethereum',
-    marketCap: 116_000_000_000,
-    volume24h: 45_000_000_000,
-    price: 1.0001,
-    priceDeviation: 0.01,
-  },
-  {
-    id: '2',
-    symbol: 'USDC',
-    name: 'USD Coin',
-    pegCurrency: 'USD',
-    issuerType: 'fiat-backed',
-    dominantChain: 'Ethereum',
-    marketCap: 42_000_000_000,
-    volume24h: 8_500_000_000,
-    price: 0.9999,
-    priceDeviation: -0.01,
-  },
-  {
-    id: '3',
-    symbol: 'DAI',
-    name: 'Dai',
-    pegCurrency: 'USD',
-    issuerType: 'crypto-collateralized',
-    dominantChain: 'Ethereum',
-    marketCap: 5_200_000_000,
-    volume24h: 320_000_000,
-    price: 1.0002,
-    priceDeviation: 0.02,
-  },
-  {
-    id: '4',
-    symbol: 'FRAX',
-    name: 'Frax',
-    pegCurrency: 'USD',
-    issuerType: 'algorithmic',
-    dominantChain: 'Ethereum',
-    marketCap: 650_000_000,
-    volume24h: 12_000_000,
-    price: 0.9998,
-    priceDeviation: -0.02,
-  },
-  {
-    id: '5',
-    symbol: 'TUSD',
-    name: 'TrueUSD',
-    pegCurrency: 'USD',
-    issuerType: 'fiat-backed',
-    dominantChain: 'Ethereum',
-    marketCap: 495_000_000,
-    volume24h: 28_000_000,
-    price: 0.9997,
-    priceDeviation: -0.03,
-  },
-];
+  // Find the chart data points closest to our target dates
+  const findClosestDataPoint = (targetTimestamp: number): DefiLlamaChartDataPoint | null => {
+    let closest: DefiLlamaChartDataPoint | null = null;
+    let minDiff = Infinity;
+
+    for (const point of chartsData) {
+      const pointTimestamp = parseInt(point.date) * 1000;
+      const diff = Math.abs(pointTimestamp - targetTimestamp);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = point;
+      }
+    }
+    return closest;
+  };
+
+  const latestChartPoint = chartsData[chartsData.length - 1];
+  const sevenDayPoint = findClosestDataPoint(sevenDaysAgo);
+  const thirtyDayPoint = findClosestDataPoint(thirtyDaysAgo);
+
+  // Get market cap values from chart data
+  const currentFromChart = latestChartPoint?.totalCirculatingUSD?.peggedUSD ||
+                           latestChartPoint?.totalCirculating?.peggedUSD || totalMarketCap;
+  const sevenDayValue = sevenDayPoint?.totalCirculatingUSD?.peggedUSD ||
+                        sevenDayPoint?.totalCirculating?.peggedUSD || currentFromChart;
+  const thirtyDayValue = thirtyDayPoint?.totalCirculatingUSD?.peggedUSD ||
+                         thirtyDayPoint?.totalCirculating?.peggedUSD || currentFromChart;
+
+  // Calculate absolute dollar changes
+  const change24hValue = totalMarketCap - totalPrevDay;
+  const change7dValue = currentFromChart - sevenDayValue;
+  const change30dValue = currentFromChart - thirtyDayValue;
+
+  // Calculate percentage changes
+  const change24h = totalPrevDay > 0 ? ((totalMarketCap - totalPrevDay) / totalPrevDay) * 100 : 0;
+  const change7d = sevenDayValue > 0 ? ((currentFromChart - sevenDayValue) / sevenDayValue) * 100 : 0;
+  const change30d = thirtyDayValue > 0 ? ((currentFromChart - thirtyDayValue) / thirtyDayValue) * 100 : 0;
+
+  return {
+    totalMarketCap,
+    change24h: Math.round(change24h * 100) / 100,
+    change24hValue,
+    change7d: Math.round(change7d * 100) / 100,
+    change7dValue,
+    change30d: Math.round(change30d * 100) / 100,
+    change30dValue,
+    trackedStablecoins: stablecoins.length,
+    lastUpdated: new Date().toISOString(),
+    dataSource: 'DefiLlama',
+  };
+}
+
+// Fetch and transform chart data from DefiLlama
+async function fetchChartData(days: number): Promise<MarketCapDataPoint[]> {
+  const response = await fetch(DEFILLAMA_CHARTS_API);
+  if (!response.ok) throw new Error('Failed to fetch chart data');
+
+  const data: DefiLlamaChartDataPoint[] = await response.json();
+
+  // Get the last N days of data
+  const recentData = data.slice(-days);
+
+  return recentData.map((point) => ({
+    timestamp: new Date(parseInt(point.date) * 1000).toISOString(),
+    totalMarketCap: point.totalCirculatingUSD?.peggedUSD || point.totalCirculating?.peggedUSD || 0,
+  }));
+}
+
+// Fetch and transform stablecoin list from DefiLlama
+async function fetchStablecoinList(): Promise<StablecoinWithSnapshot[]> {
+  const response = await fetch(DEFILLAMA_STABLECOINS_API);
+  if (!response.ok) throw new Error('Failed to fetch stablecoin data');
+
+  const data: DefiLlamaStablecoinsResponse = await response.json();
+
+  return data.peggedAssets
+    .filter((coin) => coin.circulating?.peggedUSD > 0)
+    .map((coin) => ({
+      id: coin.id,
+      symbol: coin.symbol,
+      name: coin.name,
+      pegCurrency: mapPegType(coin.pegType),
+      issuerType: mapPegMechanism(coin.pegMechanism),
+      dominantChain: getDominantChain(coin.chainCirculating || {}),
+      externalId: coin.gecko_id,
+      marketCap: coin.circulating?.peggedUSD || 0,
+      volume24h: 0, // DefiLlama doesn't provide volume data
+      price: coin.price || 1,
+      priceDeviation: coin.price ? (coin.price - 1) * 100 : 0,
+    }))
+    .sort((a, b) => b.marketCap - a.marketCap);
+}
 
 interface UseApiResult<T> {
   data: T | null;
@@ -117,12 +203,11 @@ export function useMarketSummary(): UseApiResult<MarketSummary> {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchSummary = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setData(mockMarketSummary);
+      const summary = await fetchMarketSummary();
+      setData(summary);
       setError(null);
     } catch (err) {
       setError(err as Error);
@@ -132,10 +217,10 @@ export function useMarketSummary(): UseApiResult<MarketSummary> {
   }, []);
 
   useEffect(() => {
-    fetchSummary();
-  }, [fetchSummary]);
+    fetchData();
+  }, [fetchData]);
 
-  return { data, isLoading, error, refetch: fetchSummary };
+  return { data, isLoading, error, refetch: fetchData };
 }
 
 export function useMarketCapChart(
@@ -145,13 +230,13 @@ export function useMarketCapChart(
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchChartData = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
       const days =
         timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : timeRange === '1y' ? 365 : 730;
-      setData(generateMockChartData(days));
+      const chartData = await fetchChartData(days);
+      setData(chartData);
       setError(null);
     } catch (err) {
       setError(err as Error);
@@ -161,10 +246,10 @@ export function useMarketCapChart(
   }, [timeRange]);
 
   useEffect(() => {
-    fetchChartData();
-  }, [fetchChartData]);
+    fetchData();
+  }, [fetchData]);
 
-  return { data, isLoading, error, refetch: fetchChartData };
+  return { data, isLoading, error, refetch: fetchData };
 }
 
 export function useStablecoinList(
@@ -174,16 +259,15 @@ export function useStablecoinList(
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchList = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 400));
+      let stablecoins = await fetchStablecoinList();
 
-      let filteredData = [...mockStablecoins];
-
+      // Apply filters
       if (filters?.search) {
         const search = filters.search.toLowerCase();
-        filteredData = filteredData.filter(
+        stablecoins = stablecoins.filter(
           (coin) =>
             coin.name.toLowerCase().includes(search) ||
             coin.symbol.toLowerCase().includes(search)
@@ -191,13 +275,13 @@ export function useStablecoinList(
       }
 
       if (filters?.pegCurrency && filters.pegCurrency !== 'all') {
-        filteredData = filteredData.filter(
+        stablecoins = stablecoins.filter(
           (coin) => coin.pegCurrency === filters.pegCurrency
         );
       }
 
       if (filters?.issuerType && filters.issuerType !== 'all') {
-        filteredData = filteredData.filter(
+        stablecoins = stablecoins.filter(
           (coin) => coin.issuerType === filters.issuerType
         );
       }
@@ -206,13 +290,13 @@ export function useStablecoinList(
       const sortBy = filters?.sortBy || 'marketCap';
       const sortOrder = filters?.sortOrder || 'desc';
 
-      filteredData.sort((a, b) => {
+      stablecoins.sort((a, b) => {
         const aVal = a[sortBy as keyof StablecoinWithSnapshot] as number;
         const bVal = b[sortBy as keyof StablecoinWithSnapshot] as number;
         return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
       });
 
-      setData(filteredData);
+      setData(stablecoins);
       setError(null);
     } catch (err) {
       setError(err as Error);
@@ -222,8 +306,8 @@ export function useStablecoinList(
   }, [filters?.search, filters?.pegCurrency, filters?.issuerType, filters?.sortBy, filters?.sortOrder]);
 
   useEffect(() => {
-    fetchList();
-  }, [fetchList]);
+    fetchData();
+  }, [fetchData]);
 
-  return { data, isLoading, error, refetch: fetchList };
+  return { data, isLoading, error, refetch: fetchData };
 }

@@ -25,8 +25,11 @@ export interface MarketSnapshot {
 export interface MarketSummary {
   totalMarketCap: number;
   change24h: number;
+  change24hValue: number;
   change7d: number;
+  change7dValue: number;
   change30d: number;
+  change30dValue: number;
   trackedStablecoins: number;
   lastUpdated: string;
   dataSource: string;
