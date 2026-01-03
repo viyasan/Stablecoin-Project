@@ -17,7 +17,9 @@ const DEFILLAMA_CHAINS_API = 'https://stablecoins.llama.fi/stablecoinchains';
 function mapPegType(pegType: string): PegCurrency {
   if (pegType === 'peggedUSD') return 'USD';
   if (pegType === 'peggedEUR') return 'EUR';
+  if (pegType === 'peggedJPY') return 'JPY';
   if (pegType === 'peggedGBP') return 'GBP';
+  if (pegType === 'peggedSGD') return 'SGD';
   return 'OTHER';
 }
 

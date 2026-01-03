@@ -177,17 +177,17 @@ export function MarketSharePieChart() {
         <h2 className="text-lg font-semibold text-gray-900">Market Share</h2>
       </div>
       <div className="p-6">
-        <div className="h-96 flex">
+        <div className="h-96 flex gap-6">
           {/* Pie Chart */}
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={chartData}
-                  cx="50%"
+                  cx="45%"
                   cy="50%"
-                  innerRadius={80}
-                  outerRadius={130}
+                  innerRadius={70}
+                  outerRadius={115}
                   paddingAngle={2}
                   dataKey="value"
                 >
@@ -206,7 +206,7 @@ export function MarketSharePieChart() {
           </div>
 
           {/* Legend */}
-          <div className="w-40 flex items-center">
+          <div className="w-32 flex items-center pl-2 border-l border-gray-100">
             <CustomLegend
               payload={chartData.map((item, index) => ({
                 value: item.symbol,

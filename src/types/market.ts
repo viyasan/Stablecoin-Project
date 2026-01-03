@@ -1,4 +1,4 @@
-export type PegCurrency = 'USD' | 'EUR' | 'GBP' | 'OTHER';
+export type PegCurrency = 'USD' | 'EUR' | 'JPY' | 'GBP' | 'SGD' | 'OTHER';
 
 export type IssuerType = 'fiat-backed' | 'crypto-collateralized' | 'algorithmic';
 

@@ -1,7 +1,123 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { NewsItem, WeeklyBriefing, NewsFilters } from '../types';
+import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag } from '../types';
 
-// Mock data for development
+// CryptoPanic API configuration
+const CRYPTOPANIC_API_URL = 'https://cryptopanic.com/api/developer/v2/posts/';
+const CRYPTOPANIC_AUTH_TOKEN = import.meta.env.VITE_CRYPTOPANIC_API_KEY || '';
+
+// Stablecoin currencies to filter for
+const STABLECOIN_CURRENCIES = 'USDT,USDC,DAI,USDS';
+
+// CryptoPanic API response types
+interface CryptoPanicSource {
+  title: string;
+  domain: string;
+}
+
+interface CryptoPanicCurrency {
+  code: string;
+  title: string;
+}
+
+interface CryptoPanicPost {
+  id: number;
+  kind: string;
+  title: string;
+  description?: string;
+  published_at: string;
+  url: string;
+  slug: string;
+  source?: CryptoPanicSource;
+  currencies?: CryptoPanicCurrency[];
+  votes?: {
+    positive: number;
+    negative: number;
+    important: number;
+  };
+}
+
+interface CryptoPanicResponse {
+  count: number;
+  results: CryptoPanicPost[];
+}
+
+// Map CryptoPanic post to our NewsItem type
+function mapCryptoPanicToNewsItem(post: CryptoPanicPost): NewsItem {
+  // Extract asset symbols from currencies
+  const assetSymbols = post.currencies?.map(c => c.code) || [];
+
+  // Determine topics based on title keywords (basic categorization)
+  const topics: TopicTag[] = [];
+  const titleLower = post.title.toLowerCase();
+
+  if (titleLower.includes('regulat') || titleLower.includes('sec') || titleLower.includes('law') || titleLower.includes('ban')) {
+    topics.push('regulation');
+  }
+  if (titleLower.includes('depeg') || titleLower.includes('peg') || titleLower.includes('crash')) {
+    topics.push('depeg');
+  }
+  if (titleLower.includes('integrat') || titleLower.includes('support') || titleLower.includes('add')) {
+    topics.push('integration');
+  }
+  if (titleLower.includes('network') || titleLower.includes('chain') || titleLower.includes('layer')) {
+    topics.push('infrastructure');
+  }
+  if (titleLower.includes('payment') || titleLower.includes('remittance') || titleLower.includes('transfer')) {
+    topics.push('payments');
+  }
+  if (titleLower.includes('reserve') || titleLower.includes('audit') || titleLower.includes('backing')) {
+    topics.push('reserve');
+  }
+  if (titleLower.includes('launch') || titleLower.includes('release') || titleLower.includes('debut')) {
+    topics.push('launch');
+  }
+  if (titleLower.includes('partner') || titleLower.includes('collaborat') || titleLower.includes('deal')) {
+    topics.push('partnership');
+  }
+
+  // Default topic if none matched
+  if (topics.length === 0) {
+    topics.push('integration');
+  }
+
+  return {
+    id: post.id.toString(),
+    title: post.title,
+    source: post.source?.title || 'CryptoPanic',
+    url: post.url || `https://cryptopanic.com/news/${post.slug}`,
+    publishedAt: post.published_at,
+    summary: post.description || post.title,
+    topics,
+    assetSymbols,
+    countryIsoCodes: [], // CryptoPanic doesn't provide country data
+  };
+}
+
+// Fetch news from CryptoPanic API
+async function fetchCryptoPanicNews(limit: number = 20): Promise<NewsItem[]> {
+  if (!CRYPTOPANIC_AUTH_TOKEN) {
+    console.warn('CryptoPanic API key not configured. Using mock data.');
+    return [];
+  }
+
+  const params = new URLSearchParams({
+    auth_token: CRYPTOPANIC_AUTH_TOKEN,
+    currencies: STABLECOIN_CURRENCIES,
+    public: 'true',
+  });
+
+  const response = await fetch(`${CRYPTOPANIC_API_URL}?${params}`);
+
+  if (!response.ok) {
+    throw new Error(`CryptoPanic API error: ${response.status}`);
+  }
+
+  const data: CryptoPanicResponse = await response.json();
+
+  return data.results.slice(0, limit).map(mapCryptoPanicToNewsItem);
+}
+
+// Mock data for development/fallback
 const mockNews: NewsItem[] = [
   {
     id: '1',
@@ -126,13 +242,18 @@ export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
   const fetchNews = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 400));
+      // Try to fetch from CryptoPanic first
+      let newsData = await fetchCryptoPanicNews(20);
 
-      let filteredData = [...mockNews];
+      // Fall back to mock data if API fails or no API key
+      if (newsData.length === 0) {
+        newsData = [...mockNews];
+      }
 
+      // Apply filters
       if (filters?.search) {
         const search = filters.search.toLowerCase();
-        filteredData = filteredData.filter(
+        newsData = newsData.filter(
           (item) =>
             item.title.toLowerCase().includes(search) ||
             item.summary.toLowerCase().includes(search)
@@ -140,27 +261,30 @@ export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
       }
 
       if (filters?.asset) {
-        filteredData = filteredData.filter((item) =>
+        newsData = newsData.filter((item) =>
           item.assetSymbols.includes(filters.asset!)
         );
       }
 
       if (filters?.country) {
-        filteredData = filteredData.filter((item) =>
+        newsData = newsData.filter((item) =>
           item.countryIsoCodes.includes(filters.country!)
         );
       }
 
       if (filters?.topic && filters.topic !== 'all') {
-        filteredData = filteredData.filter((item) =>
-          item.topics.includes(filters.topic as any)
+        newsData = newsData.filter((item) =>
+          item.topics.includes(filters.topic as TopicTag)
         );
       }
 
-      setData(filteredData);
+      setData(newsData);
       setError(null);
     } catch (err) {
-      setError(err as Error);
+      console.error('Failed to fetch news:', err);
+      // Fall back to mock data on error
+      setData(mockNews);
+      setError(null);
     } finally {
       setIsLoading(false);
     }
@@ -181,11 +305,21 @@ export function useTopHeadlines(limit: number = 5): UseApiResult<NewsItem[]> {
   const fetchHeadlines = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      setData(mockNews.slice(0, limit));
+      // Try to fetch from CryptoPanic first
+      let newsData = await fetchCryptoPanicNews(limit);
+
+      // Fall back to mock data if API fails or no API key
+      if (newsData.length === 0) {
+        newsData = mockNews.slice(0, limit);
+      }
+
+      setData(newsData);
       setError(null);
     } catch (err) {
-      setError(err as Error);
+      console.error('Failed to fetch headlines:', err);
+      // Fall back to mock data on error
+      setData(mockNews.slice(0, limit));
+      setError(null);
     } finally {
       setIsLoading(false);
     }
@@ -206,6 +340,8 @@ export function useWeeklyBriefing(): UseApiResult<WeeklyBriefing> {
   const fetchBriefing = useCallback(async () => {
     setIsLoading(true);
     try {
+      // Weekly briefing is still mock data for now
+      // This would need a separate summarization service
       await new Promise((resolve) => setTimeout(resolve, 200));
       setData(mockWeeklyBriefing);
       setError(null);

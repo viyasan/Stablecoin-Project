@@ -4,7 +4,7 @@ import { useState } from 'react';
 const navItems = [
   { to: '/', label: 'Overview' },
   { to: '/market', label: 'Market Data' },
-  { to: '/countries', label: 'Countries' },
+  { to: '/countries', label: 'Regulatory Landscape' },
   { to: '/news', label: 'News' },
 ];
 
@@ -20,7 +20,7 @@ export function Header() {
             <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">S</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">StabledUp</span>
+            <span className="text-xl font-bold text-gray-900">StablecoinStats.ca</span>
           </Link>
 
           {/* Desktop Navigation */}

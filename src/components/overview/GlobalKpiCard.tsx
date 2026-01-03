@@ -1,4 +1,6 @@
-import { useMarketSummary } from '../../api';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMarketSummary, useStablecoinList } from '../../api';
 import { Spinner } from '../common';
 
 function formatCurrency(value: number): string {
@@ -79,6 +81,128 @@ function KpiItem({ label, value, change, changeValue, subtext }: KpiItemProps) {
   );
 }
 
+interface TrackedAssetsKpiProps {
+  count: number;
+}
+
+function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const { data: stablecoins } = useStablecoinList();
+
+  // Calculate breakdowns
+  const pegBreakdown = { USD: 0, EUR: 0, JPY: 0, GBP: 0, SGD: 0, OTHER: 0 };
+  const issuerBreakdown = { 'fiat-backed': 0, 'crypto-collateralized': 0, algorithmic: 0 };
+
+  if (stablecoins) {
+    for (const coin of stablecoins) {
+      pegBreakdown[coin.pegCurrency] = (pegBreakdown[coin.pegCurrency] || 0) + 1;
+      issuerBreakdown[coin.issuerType] = (issuerBreakdown[coin.issuerType] || 0) + 1;
+    }
+  }
+
+  return (
+    <div
+      className="text-center px-4 py-2 relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <p className="text-sm font-medium text-gray-500 mb-1">Tracked Assets</p>
+      <p className="text-2xl lg:text-3xl font-bold text-gray-900 cursor-pointer hover:text-primary-600 transition-colors">
+        {count}
+      </p>
+      <p className="text-xs text-gray-400 mt-1">Hover for details</p>
+
+      {/* Hover Popover */}
+      {isHovered && stablecoins && (
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-64 bg-white rounded-lg shadow-lg border border-gray-200 p-4 text-left">
+          {/* Arrow */}
+          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45" />
+
+          {/* Peg Type Breakdown */}
+          <div className="mb-4">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              By Peg Type
+            </h4>
+            <div className="space-y-1">
+              {pegBreakdown.USD > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">USD-pegged</span>
+                  <span className="font-medium text-gray-900">{pegBreakdown.USD}</span>
+                </div>
+              )}
+              {pegBreakdown.EUR > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">EUR-pegged</span>
+                  <span className="font-medium text-gray-900">{pegBreakdown.EUR}</span>
+                </div>
+              )}
+              {pegBreakdown.JPY > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">JPY-pegged</span>
+                  <span className="font-medium text-gray-900">{pegBreakdown.JPY}</span>
+                </div>
+              )}
+              {pegBreakdown.GBP > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">GBP-pegged</span>
+                  <span className="font-medium text-gray-900">{pegBreakdown.GBP}</span>
+                </div>
+              )}
+              {pegBreakdown.SGD > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">SGD-pegged</span>
+                  <span className="font-medium text-gray-900">{pegBreakdown.SGD}</span>
+                </div>
+              )}
+              {pegBreakdown.OTHER > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Other</span>
+                  <span className="font-medium text-gray-900">{pegBreakdown.OTHER}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Issuer Type Breakdown */}
+          <div className="mb-4">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              By Issuer Type
+            </h4>
+            <div className="space-y-1">
+              {issuerBreakdown['fiat-backed'] > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Fiat-backed</span>
+                  <span className="font-medium text-gray-900">{issuerBreakdown['fiat-backed']}</span>
+                </div>
+              )}
+              {issuerBreakdown['crypto-collateralized'] > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Crypto-backed</span>
+                  <span className="font-medium text-gray-900">{issuerBreakdown['crypto-collateralized']}</span>
+                </div>
+              )}
+              {issuerBreakdown.algorithmic > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Algorithmic</span>
+                  <span className="font-medium text-gray-900">{issuerBreakdown.algorithmic}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* View All Link */}
+          <Link
+            to="/market"
+            className="block w-full text-center text-sm font-medium text-primary-600 hover:text-primary-700 pt-3 border-t border-gray-100"
+          >
+            View all assets →
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function GlobalKpiCard() {
   const { data, isLoading, error, refetch } = useMarketSummary();
 
@@ -135,10 +259,7 @@ export function GlobalKpiCard() {
             change={data.change30d}
             changeValue={data.change30dValue}
           />
-          <KpiItem
-            label="Tracked Assets"
-            value={data.trackedStablecoins.toString()}
-          />
+          <TrackedAssetsKpi count={data.trackedStablecoins} />
         </div>
         <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
           <span>Last updated: {formatTimeAgo(data.lastUpdated)}</span>

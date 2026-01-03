@@ -11,7 +11,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">S</span>
               </div>
-              <span className="text-xl font-bold text-white">StabledUp</span>
+              <span className="text-xl font-bold text-white">StablecoinStats.ca</span>
             </div>
             <p className="text-sm max-w-md">
               Your destination for stablecoin market data, regulatory tracking,
@@ -30,7 +30,7 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/countries" className="hover:text-white transition-colors">
-                  Countries
+                  Regulatory Landscape
                 </Link>
               </li>
               <li>
@@ -68,14 +68,14 @@ export function Footer() {
         {/* Disclaimer & Copyright */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-xs text-gray-500 mb-4">
-            <strong>Disclaimer:</strong> The information provided on StabledUp
+            <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
             is for informational purposes only and does not constitute
             investment, legal, or financial advice. Always conduct your own
             research and consult with qualified professionals before making any
             decisions.
           </p>
           <p className="text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} StabledUp. All rights reserved.
+            &copy; {new Date().getFullYear()} StablecoinStats.ca. All rights reserved.
           </p>
         </div>
       </div>

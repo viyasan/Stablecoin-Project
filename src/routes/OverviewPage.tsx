@@ -4,7 +4,6 @@ import {
   GlobalKpiCard,
   MarketCapChart,
   MarketSharePieChart,
-  RegulationMiniMap,
   TopHeadlinesList,
   WeeklyBriefingCard,
 } from '../components/overview';
@@ -45,18 +44,10 @@ export function OverviewPage() {
         <ChainBreakdownChart />
       </section>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column - Regulatory Map */}
-        <div className="lg:col-span-2 space-y-8">
-          <RegulationMiniMap />
-        </div>
-
-        {/* Right Column - News and Briefing */}
-        <div className="space-y-8">
-          <WeeklyBriefingCard />
-          <TopHeadlinesList />
-        </div>
+      {/* News and Briefing Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <WeeklyBriefingCard />
+        <TopHeadlinesList />
       </div>
     </PageContainer>
   );
