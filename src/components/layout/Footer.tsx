@@ -68,7 +68,7 @@ export function Footer() {
         {/* Data Sources */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-xs text-gray-500 mb-4">
-            <span className="text-gray-400">*</span> Data Sources:{' '}
+            Data Sources:{' '}
             <a
               href="https://defillama.com/stablecoins"
               target="_blank"
@@ -77,7 +77,7 @@ export function Footer() {
             >
               DefiLlama
             </a>{' '}
-            (market data),{' '}
+            and{' '}
             <a
               href="https://cryptopanic.com"
               target="_blank"
@@ -85,8 +85,7 @@ export function Footer() {
               className="text-gray-400 hover:text-white transition-colors"
             >
               CryptoPanic
-            </a>{' '}
-            (news)
+            </a>
           </p>
         </div>
 
@@ -95,9 +94,7 @@ export function Footer() {
           <p className="text-xs text-gray-500 mb-4">
             <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
             is for informational purposes only and does not constitute
-            investment, legal, or financial advice. Always conduct your own
-            research and consult with qualified professionals before making any
-            decisions.
+            investment, legal, or financial advice.
           </p>
           <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} StablecoinStats.ca. All rights reserved.
