@@ -5,7 +5,6 @@ import {
   MarketCapChart,
   MarketSharePieChart,
   TopHeadlinesList,
-  WeeklyBriefingCard,
 } from '../components/overview';
 
 export function OverviewPage() {
@@ -44,11 +43,10 @@ export function OverviewPage() {
         <ChainBreakdownChart />
       </section>
 
-      {/* News and Briefing Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <WeeklyBriefingCard />
+      {/* Top Headlines Section */}
+      <section>
         <TopHeadlinesList />
-      </div>
+      </section>
     </PageContainer>
   );
 }

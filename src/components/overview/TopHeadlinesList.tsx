@@ -39,8 +39,6 @@ function HeadlineItem({ item }: HeadlineItemProps) {
             {item.title}
           </h4>
           <div className="flex items-center gap-2 mt-2">
-            <span className="text-xs text-gray-500">{item.source}</span>
-            <span className="text-gray-300">•</span>
             <span className="text-xs text-gray-500">
               {formatTimeAgo(item.publishedAt)}
             </span>

@@ -84,7 +84,8 @@ function mapCryptoPanicToNewsItem(post: CryptoPanicPost): NewsItem {
     id: post.id.toString(),
     title: post.title,
     source: post.source?.title || 'CryptoPanic',
-    url: post.url || `https://cryptopanic.com/news/${post.slug}`,
+    // Use CryptoPanic's click-through URL which redirects to the original source
+    url: `https://cryptopanic.com/news/click/${post.id}/`,
     publishedAt: post.published_at,
     summary: post.description || post.title,
     topics,

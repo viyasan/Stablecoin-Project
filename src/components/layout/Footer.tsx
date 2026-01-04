@@ -65,8 +65,33 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Disclaimer & Copyright */}
+        {/* Data Sources */}
         <div className="mt-12 pt-8 border-t border-gray-800">
+          <p className="text-xs text-gray-500 mb-4">
+            <span className="text-gray-400">*</span> Data Sources:{' '}
+            <a
+              href="https://defillama.com/stablecoins"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              DefiLlama
+            </a>{' '}
+            (market data),{' '}
+            <a
+              href="https://cryptopanic.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              CryptoPanic
+            </a>{' '}
+            (news)
+          </p>
+        </div>
+
+        {/* Disclaimer & Copyright */}
+        <div className="mt-6">
           <p className="text-xs text-gray-500 mb-4">
             <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
             is for informational purposes only and does not constitute

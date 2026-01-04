@@ -36,19 +36,26 @@ function formatPercent(value: number): string {
   return `${sign}${value.toFixed(2)}%`;
 }
 
-function formatTimeAgo(isoString: string): string {
+function formatLastUpdated(isoString: string): string {
   const date = new Date(isoString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMins = Math.floor(diffMs / 60000);
 
-  if (diffMins < 1) return 'Just now';
-  if (diffMins < 60) return `${diffMins} min ago`;
+  const month = date.toLocaleDateString('en-US', { month: 'long' });
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
 
-  const diffHours = Math.floor(diffMins / 60);
-  if (diffHours < 24) return `${diffHours} hr ago`;
+  // Add ordinal suffix (1st, 2nd, 3rd, 4th, etc.)
+  const ordinal = (n: number) => {
+    const s = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  };
 
-  return date.toLocaleDateString();
+  // Format as 12-hour time with am/pm
+  const period = hours >= 12 ? 'pm' : 'am';
+  const hour12 = hours % 12 || 12;
+
+  return `${month} ${ordinal(day)} at ${hour12}:${minutes}${period}`;
 }
 
 interface KpiItemProps {
@@ -57,16 +64,17 @@ interface KpiItemProps {
   change?: number;
   changeValue?: number;
   subtext?: string;
+  valueColorClass?: string;
 }
 
-function KpiItem({ label, value, change, changeValue, subtext }: KpiItemProps) {
+function KpiItem({ label, value, change, changeValue, subtext, valueColorClass }: KpiItemProps) {
   const isPositive = change !== undefined ? change >= 0 : (changeValue !== undefined ? changeValue >= 0 : true);
   const colorClass = isPositive ? 'text-green-600' : 'text-red-600';
 
   return (
     <div className="text-center px-4 py-2">
       <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
-      <p className="text-2xl lg:text-3xl font-bold text-gray-900">{value}</p>
+      <p className={`text-2xl lg:text-3xl font-bold ${valueColorClass || 'text-gray-900'}`}>{value}</p>
       {changeValue !== undefined && change !== undefined ? (
         <p className={`text-sm font-medium mt-1 ${colorClass}`}>
           {formatCurrencyChange(changeValue)} ({formatPercent(change)})
@@ -110,7 +118,6 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
       <p className="text-2xl lg:text-3xl font-bold text-gray-900 cursor-pointer hover:text-primary-600 transition-colors">
         {count}
       </p>
-      <p className="text-xs text-gray-400 mt-1">Hover for details</p>
 
       {/* Hover Popover */}
       {isHovered && stablecoins && (
@@ -249,21 +256,18 @@ export function GlobalKpiCard() {
           />
           <KpiItem
             label="7D Change"
-            value={formatCurrencyChange(data.change7dValue)}
-            change={data.change7d}
-            changeValue={data.change7dValue}
+            value={formatPercent(data.change7d)}
+            valueColorClass={data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}
           />
           <KpiItem
             label="30D Change"
-            value={formatCurrencyChange(data.change30dValue)}
-            change={data.change30d}
-            changeValue={data.change30dValue}
+            value={formatPercent(data.change30d)}
+            valueColorClass={data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}
           />
           <TrackedAssetsKpi count={data.trackedStablecoins} />
         </div>
-        <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
-          <span>Last updated: {formatTimeAgo(data.lastUpdated)}</span>
-          <span>Source: {data.dataSource}</span>
+        <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400">
+          <span>Last updated: {formatLastUpdated(data.lastUpdated)}</span>
         </div>
       </div>
     </div>
