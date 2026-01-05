@@ -59,6 +59,7 @@ export interface CanadianStablecoin {
   fintracRegistered: boolean;
   audits: string;
   volume?: string;
+  reserves?: string;
   exchangePartners: number;
   parentCompany: ParentCompany;
   companyTimeline: CompanyTimelineEvent[];
@@ -98,8 +99,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     website: 'https://stablecorp.ca',
     backing: '1:1 CAD reserves at regulated financial institutions',
     custodian: 'Tetra Trust Company',
-    blockchains: ['Ethereum', 'Algorand', 'Base'],
-    backers: ['Coinbase Ventures', 'Circle Ventures', 'DeFi Technologies', 'Side Door Ventures'],
+    blockchains: ['Ethereum', 'Algorand', 'Stellar'],
+    backers: ['Coinbase Ventures', 'Circle Ventures', 'Sino Global Capital'],
     regulatorySteps: [
       {
         id: 'fintrac_msb',
@@ -131,8 +132,9 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
     ],
     fintracRegistered: true,
-    audits: 'Monthly attestations, annual audits (filed on SEDAR+)',
-    exchangePartners: 22,
+    audits: 'Monthly attestations; annual audits met or SOCAA+1',
+    reserves: '$15M+ CAD',
+    exchangePartners: 57,
     parentCompany: {
       name: 'Stablecorp Digital Currencies Inc.',
       description: 'Stablecorp is a joint venture between 3iQ (Canada\'s largest cryptoasset manager) and Mavennet Systems (a leader in blockchain development). The company focuses on building compliant digital currency infrastructure for the Canadian market.',
@@ -145,19 +147,17 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       ],
       keyFacts: [
         'Joint venture between 3iQ and Mavennet Systems',
-        'First to mint a Canadian dollar token in 2020',
+        'First to receive Canadian dollar reserve attestation in 2020',
         'Backed by Coinbase Ventures and Circle Ventures',
-        'FINTRAC registered Money Service Business',
-        '22 ecosystem partners including exchanges and DEXs',
       ],
     },
     companyTimeline: [
       { date: 'Feb 2020', title: 'First QCAD Minted', description: 'Stablecorp mints the very first Canadian dollar token', type: 'launch' },
-      { date: '2021', title: 'Algorand Launch', description: 'QCAD becomes first non-USD stablecoin on Algorand', type: 'milestone' },
-      { date: 'May 2025', title: '$1.8M Funding', description: 'Raises funding led by Coinbase Ventures', type: 'funding' },
-      { date: 'Sept 2025', title: 'CSA Prospectus Filed', description: 'Files prospectus under CSA interim regulatory framework', type: 'regulatory' },
-      { date: 'Sept 2025', title: 'DeFi Technologies Investment', description: 'Strategic investment to scale QCAD and develop CAD-linked products', type: 'partnership' },
-      { date: 'Nov 24, 2025', title: 'QCAD Goes Live', description: 'Becomes Canada\'s first fully compliant CAD stablecoin', type: 'milestone' },
+      { date: '2021', title: 'Algo and Launch', description: 'QCAD becomes first non-USD stablecoin on Algorand', type: 'milestone' },
+      { date: 'May 2021', title: '$1.2M Funding', description: 'Raises funding led by Coinbase Ventures', type: 'funding' },
+      { date: 'Sept 2023', title: 'CSA Prospectus Filed', description: 'Files prospectus under CSA interim regulatory framework', type: 'regulatory' },
+      { date: 'Sept 2024', title: 'DeFi Technologies Investment', description: 'Strategic investment to scale QCAD and develop CAD-linked products', type: 'funding' },
+      { date: 'Nov 2024', title: 'QCAD Goes Live', description: 'Becomes Canada\'s first fully compliant CAD stablecoin', type: 'launch' },
     ],
   },
   {
@@ -174,7 +174,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     backing: '1:1 CAD reserves (planned)',
     custodian: 'Tetra Trust Company',
     blockchains: ['TBD'],
-    backers: ['Shopify', 'Wealthsimple', 'National Bank', 'ATB Financial', 'Shakepay', 'Purpose Unlimited', 'Urbana Corporation'],
+    backers: ['Shopify', 'WealthSimple', 'Konobi Bank', 'ATB Financial'],
     regulatorySteps: [
       {
         id: 'fintrac_msb',
@@ -219,20 +219,17 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       ],
       keyFacts: [
         'Parent company of Tetra Trust Company',
-        '$2.5B+ in digital assets under custody',
+        '$7.5B+ in digital assets under custody',
         'First Canadian trust company licensed for digital asset custody',
-        'Reached profitability in 2024',
-        '$6-10M expected revenue in 2025',
-        '~15 employees',
       ],
       parentOf: ['Tetra Trust Company', 'Tetra Unity'],
     },
     companyTimeline: [
       { date: '2019', title: 'Tetra Founded', description: 'Founded to become Canada\'s first licensed digital asset custodian', type: 'launch' },
-      { date: '2021', title: 'Trust License Obtained', description: 'Becomes first Canadian trust company licensed for digital asset custody', type: 'regulatory' },
-      { date: '2024', title: 'Profitability Reached', description: 'Tetra Trust reaches profitability', type: 'milestone' },
+      { date: '2023', title: 'Trust License Obtained', description: 'Becomes first Canadian trust company licensed for digital asset custody', type: 'regulatory' },
+      { date: '2024', title: 'Profitability by end of year', description: 'Tetra Trust reaches profitability', type: 'milestone' },
       { date: 'May 2025', title: 'Wealthsimple Partnership', description: 'Chosen by Wealthsimple for digital asset custody', type: 'partnership' },
-      { date: 'Sept 2025', title: '$10M Funding Round', description: 'Raises $10M from Shopify, Wealthsimple, National Bank and others', type: 'funding' },
+      { date: 'Sept 2025', title: '$10M Funding Round', description: 'Raises $10M from Shopify, Wealthsimple, and others', type: 'funding' },
       { date: 'Early 2026', title: 'Stablecoin Launch', description: 'Expected launch of CAD stablecoin', type: 'launch' },
     ],
   },
@@ -250,7 +247,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     backing: '1:1 CAD reserves',
     custodian: 'TBD',
     blockchains: ['Ethereum'],
-    backers: ['Version One Ventures', 'Garage Capital'],
+    backers: ['Hinted Capital Partners', 'Amino Capital'],
     regulatorySteps: [
       {
         id: 'fintrac_msb',
@@ -261,17 +258,17 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
       {
         id: 'prospectus_filed',
-        label: 'ASC Pre-filed',
+        label: 'ASC Pre-Filing',
         description: 'Pre-filed prospectus with Alberta Securities Commission',
         completed: true,
-        current: true,
+        current: false,
       },
       {
         id: 'prospectus_receipt',
-        label: 'Prospectus Receipt',
+        label: 'Prospectus Review',
         description: 'Awaiting final prospectus receipt',
         completed: false,
-        current: false,
+        current: true,
       },
       {
         id: 'live',
@@ -295,19 +292,17 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         { name: 'Kevin Zhang', title: 'CEO' },
       ],
       keyFacts: [
-        'Spun out from Toronto-based Paytrie',
+        'Spun from Toronto-based PayTrie',
         'Acquired CADC stablecoin with $200M+ historical volume',
-        'Led by former Paytrie employees',
-        'Pre-filed prospectus with Alberta Securities Commission',
-        'Focused on payments, FX, and remittances',
+        'Led by former Gemini employees',
       ],
     },
     companyTimeline: [
       { date: '2021', title: 'CADC Launched', description: 'Paytrie launches CADC stablecoin', type: 'launch' },
-      { date: '2021-2025', title: '$200M+ Volume', description: 'CADC transacts over $200M in volume', type: 'milestone' },
-      { date: 'Oct 2025', title: 'Loon Founded', description: 'Loon spun out from Paytrie to focus on CADC', type: 'launch' },
-      { date: 'Oct 2025', title: '$3M Pre-Seed', description: 'Raises $3M led by Version One Ventures', type: 'funding' },
-      { date: 'Oct 2025', title: 'ASC Pre-filing', description: 'Pre-files prospectus with Alberta Securities Commission', type: 'regulatory' },
+      { date: 'Mar 2022', title: '$200M+ Volume', description: 'CADC transacts over $200M in volume', type: 'milestone' },
+      { date: 'Oct 2022', title: 'Loon Founded', description: 'Loon spun out from Paytrie to focus on CADC', type: 'launch' },
+      { date: 'Nov 2022', title: '$3M Pre-Seed', description: 'Raises $3M from Hinted Capital Partners', type: 'funding' },
+      { date: 'May 2023', title: 'ASC Pre-filing', description: 'Pre-files prospectus with Alberta Securities Commission', type: 'regulatory' },
       { date: 'TBD', title: 'Regulatory Approval', description: 'Awaiting prospectus receipt and full launch', type: 'regulatory' },
     ],
   },
