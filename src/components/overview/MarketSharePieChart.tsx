@@ -4,7 +4,6 @@ import {
   Cell,
   ResponsiveContainer,
   Tooltip,
-  Legend,
 } from 'recharts';
 import { useStablecoinList } from '../../api';
 import { Spinner } from '../common';
@@ -58,6 +57,7 @@ function formatPercent(value: number): string {
 }
 
 interface PieChartData {
+  [key: string]: string | number;
   name: string;
   symbol: string;
   value: number;

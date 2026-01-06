@@ -97,7 +97,6 @@ async function fetchMarketSummary(): Promise<MarketSummary> {
 
   // Use historical chart data for accurate 7d and 30d changes (matching DefiLlama website)
   const now = Date.now();
-  const oneDayAgo = now - 1 * 24 * 60 * 60 * 1000;
   const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
   const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
 
