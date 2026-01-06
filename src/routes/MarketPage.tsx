@@ -50,7 +50,7 @@ export function MarketPage() {
       {/* Hero Section */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-3xl font-bold text-gray-900">Oh Canada</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Canada</h1>
           <MapleLeafIcon className="w-8 h-8 text-red-600" />
         </div>
         <p className="text-lg text-gray-600">

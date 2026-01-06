@@ -17,7 +17,7 @@ function MapleLeafIcon({ className }: { className?: string }) {
 
 const navItems = [
   { to: '/', label: 'Overview' },
-  { to: '/market', label: 'Oh Canada', icon: MapleLeafIcon },
+  { to: '/market', label: 'Canada', icon: MapleLeafIcon },
   { to: '/countries', label: 'Regulatory Landscape' },
   { to: '/news', label: 'News' },
 ];
