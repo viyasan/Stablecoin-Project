@@ -7,36 +7,36 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
-} from 'recharts';
-import { useChainBreakdown } from '../../api';
-import { Spinner } from '../common';
+} from "recharts";
+import { useChainBreakdown } from "../../api";
+import { Spinner } from "../common";
 
 // Chain colors - distinct colors for each chain
 const CHAIN_COLORS: Record<string, string> = {
-  Ethereum: '#627EEA',
-  Tron: '#FF0013',
-  BSC: '#F0B90B',
-  Solana: '#9945FF',
-  Arbitrum: '#28A0F0',
-  'Hyperliquid L1': '#00D395',
-  Base: '#0052FF',
-  Polygon: '#8247E5',
-  Avalanche: '#E84142',
-  'OP Mainnet': '#FF0420',
-  Aptos: '#66CCFF',
-  Sui: '#4DA2FF',
-  TON: '#0098EA',
-  Near: '#00C08B',
-  Fantom: '#1969FF',
+  Ethereum: "#627EEA",
+  Tron: "#FF0013",
+  BSC: "#F0B90B",
+  Solana: "#9945FF",
+  Arbitrum: "#28A0F0",
+  Hyperliquid: "#00D395",
+  Base: "#0052FF",
+  Polygon: "#8247E5",
+  Avalanche: "#E84142",
+  "OP Mainnet": "#FF0420",
+  Aptos: "#66CCFF",
+  Sui: "#4DA2FF",
+  TON: "#0098EA",
+  Near: "#00C08B",
+  Fantom: "#1969FF",
 };
 
 const FALLBACK_COLORS = [
-  '#6366F1',
-  '#EC4899',
-  '#14B8A6',
-  '#F97316',
-  '#84CC16',
-  '#06B6D4',
+  "#6366F1",
+  "#EC4899",
+  "#14B8A6",
+  "#F97316",
+  "#84CC16",
+  "#06B6D4",
 ];
 
 function getColorForChain(chain: string, index: number): string {
@@ -90,8 +90,12 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
       <p className="text-sm font-semibold text-gray-900">{data.name}</p>
-      <p className="text-sm text-gray-600">{formatCurrency(data.totalCirculating)}</p>
-      <p className="text-sm text-gray-500">{data.percentage.toFixed(2)}% of total</p>
+      <p className="text-sm text-gray-600">
+        {formatCurrency(data.totalCirculating)}
+      </p>
+      <p className="text-sm text-gray-500">
+        {data.percentage.toFixed(2)}% of total
+      </p>
     </div>
   );
 }
@@ -128,7 +132,10 @@ export function ChainBreakdownChart() {
   }
 
   // Calculate total and get top 10 chains
-  const totalCirculating = chains.reduce((sum, chain) => sum + chain.totalCirculating, 0);
+  const totalCirculating = chains.reduce(
+    (sum, chain) => sum + chain.totalCirculating,
+    0
+  );
   const topChains = chains.slice(0, 10);
 
   // Prepare chart data with percentages
@@ -151,7 +158,9 @@ export function ChainBreakdownChart() {
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-500">Total Supply</p>
-          <p className="text-lg font-bold text-gray-900">{formatCurrency(totalCirculating)}</p>
+          <p className="text-lg font-bold text-gray-900">
+            {formatCurrency(totalCirculating)}
+          </p>
         </div>
       </div>
       <div className="p-6">
@@ -162,23 +171,31 @@ export function ChainBreakdownChart() {
               layout="vertical"
               margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={true} vertical={false} />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#e5e7eb"
+                horizontal={true}
+                vertical={false}
+              />
               <XAxis
                 type="number"
                 tickFormatter={formatCurrencyShort}
-                tick={{ fontSize: 12, fill: '#6b7280' }}
-                axisLine={{ stroke: '#e5e7eb' }}
+                tick={{ fontSize: 12, fill: "#6b7280" }}
+                axisLine={{ stroke: "#e5e7eb" }}
                 tickLine={false}
               />
               <YAxis
                 type="category"
                 dataKey="name"
-                tick={{ fontSize: 12, fill: '#374151', fontWeight: 500 }}
+                tick={{ fontSize: 12, fill: "#374151", fontWeight: 500 }}
                 axisLine={false}
                 tickLine={false}
                 width={75}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f3f4f6' }} />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{ fill: "#f3f4f6" }}
+              />
               <Bar
                 dataKey="totalCirculating"
                 radius={[0, 4, 4, 0]}
