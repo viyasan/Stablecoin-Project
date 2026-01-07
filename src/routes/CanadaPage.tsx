@@ -22,7 +22,7 @@ function MapleLeafIcon({ className }: { className?: string }) {
   );
 }
 
-export function MarketPage() {
+export function CanadaPage() {
   const { data: stablecoins, isLoading } = useCanadianStablecoins();
 
   if (isLoading) {

@@ -4,23 +4,6 @@ interface ComparisonTableProps {
   stablecoins: CanadianStablecoin[];
 }
 
-function CheckIcon() {
-  return (
-    <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
-
-
-function PendingIcon() {
-  return (
-    <svg className="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}
-
 function StatusCell({ status }: { status: CanadianStablecoin['status'] }) {
   if (status === 'live') {
     return (
