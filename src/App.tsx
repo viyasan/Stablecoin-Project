@@ -6,7 +6,6 @@ import {
   CountriesPage,
   CountryDetailPage,
   NewsPage,
-  ExplainerPage,
 } from './routes';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
             <Route path="/countries" element={<CountriesPage />} />
             <Route path="/countries/:code" element={<CountryDetailPage />} />
             <Route path="/news" element={<NewsPage />} />
-            <Route path="/explainer/:slug" element={<ExplainerPage />} />
           </Routes>
         </div>
         <Footer />
