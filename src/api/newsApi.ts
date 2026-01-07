@@ -1,77 +1,103 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag } from '../types';
 
-// CryptoPanic API configuration
-const CRYPTOPANIC_API_URL = 'https://cryptopanic.com/api/developer/v2/posts/';
-const CRYPTOPANIC_AUTH_TOKEN = import.meta.env.VITE_CRYPTOPANIC_API_KEY || '';
+// RSS Feed sources - high-quality crypto news outlets
+const RSS_FEEDS = [
+  { url: 'https://www.coindesk.com/arc/outboundfeeds/rss/', source: 'CoinDesk' },
+  { url: 'https://cointelegraph.com/rss', source: 'CoinTelegraph' },
+  { url: 'https://decrypt.co/feed', source: 'Decrypt' },
+];
 
-// Stablecoin currencies to filter for
-const STABLECOIN_CURRENCIES = 'USDT,USDC,DAI,USDS';
+// Stablecoin-related keywords for filtering
+const STABLECOIN_KEYWORDS = [
+  'stablecoin', 'stablecoins',
+  'usdt', 'tether',
+  'usdc', 'circle',
+  'dai', 'makerdao',
+  'pyusd', 'paypal',
+  'busd',
+  'tusd',
+  'frax',
+  'usdd',
+  'gusd',
+  'paxos',
+  'fdusd',
+  'eurs',
+  'cadc', 'qcad', 'cadd', // Canadian stablecoins
+  'cbdc', 'digital dollar', 'digital euro',
+  'reserve', 'peg', 'depeg',
+];
 
-// CryptoPanic API response types
-interface CryptoPanicSource {
+// Parse RSS XML to extract articles
+function parseRSSFeed(xmlText: string, sourceName: string): RSSArticle[] {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+  const items = xmlDoc.querySelectorAll('item');
+
+  const articles: RSSArticle[] = [];
+
+  items.forEach((item) => {
+    const title = item.querySelector('title')?.textContent || '';
+    const link = item.querySelector('link')?.textContent || '';
+    const description = item.querySelector('description')?.textContent || '';
+    const pubDate = item.querySelector('pubDate')?.textContent || '';
+
+    // Clean HTML from description
+    const cleanDescription = description.replace(/<[^>]*>/g, '').trim();
+
+    articles.push({
+      title,
+      link,
+      description: cleanDescription,
+      pubDate,
+      source: sourceName,
+    });
+  });
+
+  return articles;
+}
+
+interface RSSArticle {
   title: string;
-  domain: string;
+  link: string;
+  description: string;
+  pubDate: string;
+  source: string;
 }
 
-interface CryptoPanicCurrency {
-  code: string;
-  title: string;
+// Check if article is stablecoin-related
+function isStablecoinRelated(article: RSSArticle): boolean {
+  const searchText = `${article.title} ${article.description}`.toLowerCase();
+  return STABLECOIN_KEYWORDS.some(keyword => searchText.includes(keyword.toLowerCase()));
 }
 
-interface CryptoPanicPost {
-  id: number;
-  kind: string;
-  title: string;
-  description?: string;
-  published_at: string;
-  url: string;
-  slug: string;
-  source?: CryptoPanicSource;
-  currencies?: CryptoPanicCurrency[];
-  votes?: {
-    positive: number;
-    negative: number;
-    important: number;
-  };
-}
-
-interface CryptoPanicResponse {
-  count: number;
-  results: CryptoPanicPost[];
-}
-
-// Map CryptoPanic post to our NewsItem type
-function mapCryptoPanicToNewsItem(post: CryptoPanicPost): NewsItem {
-  // Extract asset symbols from currencies
-  const assetSymbols = post.currencies?.map(c => c.code) || [];
-
-  // Determine topics based on title keywords (basic categorization)
+// Determine topics based on article content
+function determineTopics(article: RSSArticle): TopicTag[] {
   const topics: TopicTag[] = [];
-  const titleLower = post.title.toLowerCase();
+  const searchText = `${article.title} ${article.description}`.toLowerCase();
 
-  if (titleLower.includes('regulat') || titleLower.includes('sec') || titleLower.includes('law') || titleLower.includes('ban')) {
+  if (searchText.includes('regulat') || searchText.includes('sec') || searchText.includes('law') || searchText.includes('ban') || searchText.includes('legislation')) {
     topics.push('regulation');
   }
-  if (titleLower.includes('depeg') || titleLower.includes('peg') || titleLower.includes('crash')) {
+  if (searchText.includes('depeg') || searchText.includes('de-peg') || searchText.includes('lost peg') || searchText.includes('crash')) {
     topics.push('depeg');
   }
-  if (titleLower.includes('integrat') || titleLower.includes('support') || titleLower.includes('add')) {
+  if (searchText.includes('integrat') || searchText.includes('support') || searchText.includes('listing') || searchText.includes('adds')) {
     topics.push('integration');
   }
-  if (titleLower.includes('network') || titleLower.includes('chain') || titleLower.includes('layer')) {
+  if (searchText.includes('network') || searchText.includes('chain') || searchText.includes('layer') || searchText.includes('blockchain')) {
     topics.push('infrastructure');
   }
-  if (titleLower.includes('payment') || titleLower.includes('remittance') || titleLower.includes('transfer')) {
+  if (searchText.includes('payment') || searchText.includes('remittance') || searchText.includes('transfer') || searchText.includes('transaction')) {
     topics.push('payments');
   }
-  if (titleLower.includes('reserve') || titleLower.includes('audit') || titleLower.includes('backing')) {
+  if (searchText.includes('reserve') || searchText.includes('audit') || searchText.includes('backing') || searchText.includes('attestation')) {
     topics.push('reserve');
   }
-  if (titleLower.includes('launch') || titleLower.includes('release') || titleLower.includes('debut')) {
+  if (searchText.includes('launch') || searchText.includes('release') || searchText.includes('debut') || searchText.includes('announces')) {
     topics.push('launch');
   }
-  if (titleLower.includes('partner') || titleLower.includes('collaborat') || titleLower.includes('deal')) {
+  if (searchText.includes('partner') || searchText.includes('collaborat') || searchText.includes('deal') || searchText.includes('agreement')) {
     topics.push('partnership');
   }
 
@@ -80,42 +106,73 @@ function mapCryptoPanicToNewsItem(post: CryptoPanicPost): NewsItem {
     topics.push('integration');
   }
 
+  return topics;
+}
+
+// Extract stablecoin symbols mentioned in article
+function extractAssetSymbols(article: RSSArticle): string[] {
+  const searchText = `${article.title} ${article.description}`.toUpperCase();
+  const symbols: string[] = [];
+
+  const stablecoinSymbols = ['USDT', 'USDC', 'DAI', 'PYUSD', 'BUSD', 'TUSD', 'FRAX', 'USDD', 'GUSD', 'FDUSD', 'EURS', 'CADC', 'QCAD', 'CADD'];
+
+  for (const symbol of stablecoinSymbols) {
+    if (searchText.includes(symbol)) {
+      symbols.push(symbol);
+    }
+  }
+
+  return symbols;
+}
+
+// Map RSS article to NewsItem type
+function mapRSSToNewsItem(article: RSSArticle): NewsItem {
   return {
-    id: post.id.toString(),
-    title: post.title,
-    source: post.source?.title || 'CryptoPanic',
-    // Use CryptoPanic's click-through URL which redirects to the original source
-    url: `https://cryptopanic.com/news/click/${post.id}/`,
-    publishedAt: post.published_at,
-    summary: post.description || post.title,
-    topics,
-    assetSymbols,
-    countryIsoCodes: [], // CryptoPanic doesn't provide country data
+    id: article.link,
+    title: article.title,
+    source: article.source,
+    url: article.link,
+    publishedAt: new Date(article.pubDate).toISOString(),
+    summary: article.description.slice(0, 200) + (article.description.length > 200 ? '...' : ''),
+    topics: determineTopics(article),
+    assetSymbols: extractAssetSymbols(article),
+    countryIsoCodes: [],
   };
 }
 
-// Fetch news from CryptoPanic API
-async function fetchCryptoPanicNews(limit: number = 20): Promise<NewsItem[]> {
-  if (!CRYPTOPANIC_AUTH_TOKEN) {
-    console.warn('CryptoPanic API key not configured. Using mock data.');
-    return [];
-  }
+// Fetch and parse RSS feeds from multiple sources
+async function fetchRSSNews(limit: number = 20): Promise<NewsItem[]> {
+  const allArticles: RSSArticle[] = [];
 
-  const params = new URLSearchParams({
-    auth_token: CRYPTOPANIC_AUTH_TOKEN,
-    currencies: STABLECOIN_CURRENCIES,
-    public: 'true',
+  // Fetch all RSS feeds in parallel
+  const feedPromises = RSS_FEEDS.map(async (feed) => {
+    try {
+      const response = await fetch(feed.url);
+      if (!response.ok) {
+        console.warn(`Failed to fetch ${feed.source} RSS: ${response.status}`);
+        return [];
+      }
+      const xmlText = await response.text();
+      return parseRSSFeed(xmlText, feed.source);
+    } catch (error) {
+      console.warn(`Error fetching ${feed.source} RSS:`, error);
+      return [];
+    }
   });
 
-  const response = await fetch(`${CRYPTOPANIC_API_URL}?${params}`);
+  const feedResults = await Promise.all(feedPromises);
+  feedResults.forEach(articles => allArticles.push(...articles));
 
-  if (!response.ok) {
-    throw new Error(`CryptoPanic API error: ${response.status}`);
-  }
+  // Filter for stablecoin-related articles
+  const stablecoinArticles = allArticles.filter(isStablecoinRelated);
 
-  const data: CryptoPanicResponse = await response.json();
+  // Sort by date (newest first)
+  stablecoinArticles.sort((a, b) =>
+    new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+  );
 
-  return data.results.slice(0, limit).map(mapCryptoPanicToNewsItem);
+  // Map to NewsItem and limit results
+  return stablecoinArticles.slice(0, limit).map(mapRSSToNewsItem);
 }
 
 // Mock data for development/fallback
@@ -243,10 +300,10 @@ export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
   const fetchNews = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Try to fetch from CryptoPanic first
-      let newsData = await fetchCryptoPanicNews(20);
+      // Try to fetch from RSS feeds first
+      let newsData = await fetchRSSNews(20);
 
-      // Fall back to mock data if API fails or no API key
+      // Fall back to mock data if no stablecoin articles found
       if (newsData.length === 0) {
         newsData = [...mockNews];
       }
@@ -306,10 +363,10 @@ export function useTopHeadlines(limit: number = 5): UseApiResult<NewsItem[]> {
   const fetchHeadlines = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Try to fetch from CryptoPanic first
-      let newsData = await fetchCryptoPanicNews(limit);
+      // Try to fetch from RSS feeds first
+      let newsData = await fetchRSSNews(limit);
 
-      // Fall back to mock data if API fails or no API key
+      // Fall back to mock data if no stablecoin articles found
       if (newsData.length === 0) {
         newsData = mockNews.slice(0, limit);
       }

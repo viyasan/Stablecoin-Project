@@ -76,15 +76,33 @@ export function Footer() {
               className="text-gray-400 hover:text-white transition-colors"
             >
               DefiLlama
-            </a>{' '}
-            and{' '}
+            </a>
+            {' | News: '}
             <a
-              href="https://cryptopanic.com"
+              href="https://www.coindesk.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              CryptoPanic
+              CoinDesk
+            </a>
+            {', '}
+            <a
+              href="https://cointelegraph.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              CoinTelegraph
+            </a>
+            {', '}
+            <a
+              href="https://decrypt.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Decrypt
             </a>
           </p>
         </div>
