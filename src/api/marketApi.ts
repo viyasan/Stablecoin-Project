@@ -330,6 +330,15 @@ interface DefiLlamaChainData {
   name: string;
 }
 
+// Normalize chain names from API to display names
+const CHAIN_NAME_MAP: Record<string, string> = {
+  'Hyperliquid L1': 'Hyperliquid',
+};
+
+function normalizeChainName(name: string): string {
+  return CHAIN_NAME_MAP[name] || name;
+}
+
 async function fetchChainData(): Promise<ChainData[]> {
   const response = await fetch(DEFILLAMA_CHAINS_API);
   if (!response.ok) throw new Error('Failed to fetch chain data');
@@ -339,7 +348,7 @@ async function fetchChainData(): Promise<ChainData[]> {
   return data
     .filter((chain) => chain.totalCirculatingUSD?.peggedUSD > 0)
     .map((chain) => ({
-      name: chain.name,
+      name: normalizeChainName(chain.name),
       totalCirculating: chain.totalCirculatingUSD?.peggedUSD || 0,
       dominantStablecoin: chain.tokenSymbol,
     }))
