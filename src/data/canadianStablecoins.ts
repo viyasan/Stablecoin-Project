@@ -48,6 +48,11 @@ export interface DesignPartner {
   name: string;
 }
 
+export interface PlatformIntegration {
+  name: string;
+  role: string;
+}
+
 export interface CanadianStablecoin {
   id: string;
   name: string;
@@ -66,6 +71,7 @@ export interface CanadianStablecoin {
   backers: string[];
   strategicPartners?: StrategicPartner[];
   designPartners?: DesignPartner[];
+  platformIntegrations?: PlatformIntegration[];
   regulatorySteps: RegulatoryStep[];
   fintracRegistered: boolean;
   audits: string;
@@ -147,7 +153,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
     ],
     fintracRegistered: true,
-    audits: 'Monthly attestations, annual audits (filed on SEDAR+)',
+    audits: 'Monthly attestations with annual audits',
+    volume: 'N/A (Launched Nov 2025)',
     exchangePartners: 22,
     parentCompany: {
       name: 'Stablecorp Digital Currencies Inc.',
@@ -233,7 +240,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
     ],
     fintracRegistered: false,
-    audits: 'TBD',
+    audits: 'Planned monthly attestations',
+    volume: 'N/A (Launching Q1 2026)',
     exchangePartners: 0,
     parentCompany: {
       name: 'Tetra Digital Group',
@@ -276,6 +284,11 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     custodian: 'Regulated Canadian financial institutions',
     blockchains: ['Base'],
     backers: ['Version One Ventures', 'Garage Capital'],
+    platformIntegrations: [
+      { name: 'MetaMask', role: 'Wallet' },
+      { name: 'Aerodrome', role: 'DeFi/Liquidity' },
+      { name: 'Base', role: 'Blockchain' },
+    ],
     regulatorySteps: [
       {
         id: 'fintrac_msb',
@@ -307,12 +320,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
     ],
     fintracRegistered: true,
-    audits: 'TBD',
+    audits: 'Monthly attestations',
     volume: '$200M+',
     exchangePartners: 0,
     parentCompany: {
       name: 'Loon',
-      description: 'Loon is a Calgary-based fintech building Canada\'s regulated digital dollar. They acquired CADC from Paytrie (launched 2021) and position it as a sovereign alternative to US stablecoins. Vision: "Canada can build its own rails for the digital era."',
+      description: 'Loon is a Calgary-based fintech building Canada\'s regulated digital dollar. They acquired CADC from Paytrie (launched 2021) and position it as a sovereign alternative to US stablecoins, with a vision for Canada to build its own rails for the digital era.',
       founded: '2025',
       headquarters: 'Calgary, AB',
       website: 'https://loon.finance',

@@ -39,23 +39,20 @@ function ProgressStep({ step, isLast }: ProgressStepProps) {
   const getStepStyles = () => {
     if (step.completed) {
       return {
-        circle: 'bg-red-600 border-red-600',
-        icon: 'text-white',
+        circle: 'bg-red-600 border-red-600 text-white',
         line: 'bg-red-600',
         label: 'text-gray-900 font-medium',
       };
     }
     if (step.current) {
       return {
-        circle: 'bg-white border-red-600 border-2',
-        icon: 'text-red-600',
+        circle: 'bg-white border-red-600',
         line: 'bg-gray-200',
         label: 'text-red-600 font-medium',
       };
     }
     return {
-      circle: 'bg-gray-200 border-gray-200',
-      icon: 'text-gray-400',
+      circle: 'bg-white border-gray-300',
       line: 'bg-gray-200',
       label: 'text-gray-400',
     };
@@ -64,15 +61,23 @@ function ProgressStep({ step, isLast }: ProgressStepProps) {
   const styles = getStepStyles();
 
   return (
-    <div className="flex items-center flex-1">
+    <div className="flex-1 flex flex-col items-center relative">
+      {/* Connector line - positioned behind the circle */}
+      {!isLast && (
+        <div
+          className={`absolute top-4 left-1/2 w-full h-0.5 ${styles.line}`}
+          style={{ transform: 'translateY(-50%)' }}
+        />
+      )}
+
       <Tooltip content={step.description}>
-        <div className="flex flex-col items-center cursor-help">
+        <div className="flex flex-col items-center cursor-help relative z-10">
           {/* Circle */}
           <div
             className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${styles.circle}`}
           >
             {step.completed ? (
-              <svg className={`w-4 h-4 ${styles.icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
             ) : step.current ? (
@@ -82,16 +87,11 @@ function ProgressStep({ step, isLast }: ProgressStepProps) {
             )}
           </div>
           {/* Label */}
-          <span className={`mt-2 text-xs text-center max-w-[80px] ${styles.label}`}>
+          <span className={`mt-2 text-xs text-center whitespace-nowrap ${styles.label}`}>
             {step.label}
           </span>
         </div>
       </Tooltip>
-
-      {/* Connector line */}
-      {!isLast && (
-        <div className={`flex-1 h-1 mx-2 rounded ${styles.line}`} />
-      )}
     </div>
   );
 }
@@ -124,7 +124,7 @@ function StablecoinTracker({ stablecoin }: StablecoinTrackerProps) {
       </div>
 
       {/* Progress Bar */}
-      <div className="flex items-start">
+      <div className="flex items-start px-4">
         {stablecoin.regulatorySteps.map((step, index) => (
           <ProgressStep
             key={step.id}

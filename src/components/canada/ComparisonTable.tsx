@@ -33,7 +33,7 @@ export function ComparisonTable({ stablecoins }: ComparisonTableProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">Comparison</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Canadian Stablecoins - Across the Board</h2>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">

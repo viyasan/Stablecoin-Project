@@ -69,11 +69,11 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
           <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
             Key Facts
           </h4>
-          <ul className="space-y-1.5">
+          <ul className="space-y-2">
             {parentCompany.keyFacts.slice(0, 3).map((fact, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
-                <span className="text-red-600 mt-1">•</span>
-                {fact}
+              <li key={index} className="flex items-center gap-2.5 text-xs text-gray-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 flex-shrink-0" />
+                <span>{fact}</span>
               </li>
             ))}
           </ul>
@@ -161,6 +161,23 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
                 >
                   {partner.name}
                 </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Platform Integrations */}
+        {stablecoin.platformIntegrations && stablecoin.platformIntegrations.length > 0 && (
+          <div className="mb-5">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              Platform Integrations
+            </h4>
+            <div className="space-y-1.5">
+              {stablecoin.platformIntegrations.map((integration) => (
+                <div key={integration.name} className="flex items-center justify-between text-sm">
+                  <span className="font-medium text-gray-900">{integration.name}</span>
+                  <span className="text-gray-500">{integration.role}</span>
+                </div>
               ))}
             </div>
           </div>
