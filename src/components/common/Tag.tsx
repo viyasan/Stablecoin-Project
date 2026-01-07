@@ -19,7 +19,9 @@ const topicColors: Record<TopicTag, { bg: string; text: string }> = {
 };
 
 export function Tag({ label, onClick, active, className = '' }: TagProps) {
-  const colors = topicColors[label as TopicTag] || {
+  // Lookup colors using lowercase key to match topicColors
+  const colorKey = label.toLowerCase() as TopicTag;
+  const colors = topicColors[colorKey] || {
     bg: 'bg-gray-100',
     text: 'text-gray-700',
   };

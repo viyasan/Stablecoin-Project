@@ -70,7 +70,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
             Key Facts
           </h4>
           <ul className="space-y-2">
-            {parentCompany.keyFacts.slice(0, 3).map((fact, index) => (
+            {parentCompany.keyFacts.slice(0, 2).map((fact, index) => (
               <li key={index} className="flex items-center gap-2.5 text-xs text-gray-600">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-600 flex-shrink-0" />
                 <span>{fact}</span>

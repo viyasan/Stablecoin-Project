@@ -50,7 +50,7 @@ function HeadlineItem({ item }: HeadlineItemProps) {
               </Badge>
             ))}
             {item.topics.slice(0, 2).map((topic) => (
-              <Tag key={topic} label={topic} />
+              <Tag key={topic} label={topic.charAt(0).toUpperCase() + topic.slice(1)} />
             ))}
           </div>
         </div>
@@ -93,7 +93,7 @@ export function TopHeadlinesList() {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Top Headlines</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Today's Top Headlines</h2>
         <Link
           to="/news"
           className="text-sm text-primary-600 hover:text-primary-700 font-medium"

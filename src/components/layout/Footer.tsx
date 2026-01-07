@@ -41,29 +41,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  to="/explainer/what-is-a-stablecoin"
-                  className="hover:text-white transition-colors"
-                >
-                  What is a Stablecoin?
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/explainer/regulatory-models"
-                  className="hover:text-white transition-colors"
-                >
-                  Regulatory Models
-                </Link>
-              </li>
-            </ul>
           </div>
-        </div>
 
         {/* Data Sources */}
         <div className="mt-12 pt-8 border-t border-gray-800">
