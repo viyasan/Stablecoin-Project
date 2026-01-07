@@ -120,18 +120,6 @@ export function ComparisonTable({ stablecoins }: ComparisonTableProps) {
               ))}
             </tr>
 
-            {/* FINTRAC Registered */}
-            <tr className="bg-gray-50/50">
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">FINTRAC Registered</td>
-              {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4">
-                  <div className="flex justify-center">
-                    {s.fintracRegistered ? <CheckIcon /> : <PendingIcon />}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
             {/* Audits */}
             <tr>
               <td className="px-6 py-4 text-sm font-medium text-gray-700">Audits</td>
@@ -152,16 +140,7 @@ export function ComparisonTable({ stablecoins }: ComparisonTableProps) {
               ))}
             </tr>
 
-            {/* Exchange Partners */}
-            <tr>
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Exchange Partners</td>
-              {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-900">
-                  {s.exchangePartners > 0 ? `${s.exchangePartners} partners` : 'TBD'}
-                </td>
-              ))}
-            </tr>
-          </tbody>
+            </tbody>
         </table>
       </div>
     </div>

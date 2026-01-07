@@ -25,7 +25,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/market" className="hover:text-white transition-colors">
-                  Market Data
+                  Canada
                 </Link>
               </li>
               <li>

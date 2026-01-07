@@ -39,6 +39,15 @@ export interface CompanyTimelineEvent {
   type: 'milestone' | 'regulatory' | 'funding' | 'launch' | 'partnership';
 }
 
+export interface StrategicPartner {
+  name: string;
+  role: string;
+}
+
+export interface DesignPartner {
+  name: string;
+}
+
 export interface CanadianStablecoin {
   id: string;
   name: string;
@@ -55,6 +64,8 @@ export interface CanadianStablecoin {
   custodian: string;
   blockchains: string[];
   backers: string[];
+  strategicPartners?: StrategicPartner[];
+  designPartners?: DesignPartner[];
   regulatorySteps: RegulatoryStep[];
   fintracRegistered: boolean;
   audits: string;
@@ -100,6 +111,11 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     custodian: 'Tetra Trust Company',
     blockchains: ['Ethereum', 'Algorand', 'Base'],
     backers: ['Coinbase Ventures', 'Circle Ventures', 'DeFi Technologies', 'Side Door Ventures'],
+    strategicPartners: [
+      { name: 'Valour', role: 'CAD-linked ETPs & yield products' },
+      { name: 'Stillman Digital', role: 'Liquidity provider' },
+      { name: 'BTQ', role: 'Post-quantum security' },
+    ],
     regulatorySteps: [
       {
         id: 'fintrac_msb',
@@ -156,25 +172,36 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       { date: '2021', title: 'Algorand Launch', description: 'QCAD becomes first non-USD stablecoin on Algorand', type: 'milestone' },
       { date: 'May 2025', title: '$1.8M Funding', description: 'Raises funding led by Coinbase Ventures', type: 'funding' },
       { date: 'Sept 2025', title: 'CSA Prospectus Filed', description: 'Files prospectus under CSA interim regulatory framework', type: 'regulatory' },
-      { date: 'Sept 2025', title: 'DeFi Technologies Investment', description: 'Strategic investment to scale QCAD and develop CAD-linked products', type: 'partnership' },
+      { date: 'Sept 2025', title: '$5M Strategic Round', description: 'Raises $5M CAD led by FTP Ventures to accelerate scaling', type: 'funding' },
+      { date: 'Sept 2025', title: 'DeFi Technologies Partnership', description: 'Strategic partnership with Valour (ETPs), Stillman Digital (liquidity), and BTQ (post-quantum security)', type: 'partnership' },
       { date: 'Nov 24, 2025', title: 'QCAD Goes Live', description: 'Becomes Canada\'s first fully compliant CAD stablecoin', type: 'milestone' },
     ],
   },
   {
     id: 'tetra',
-    name: 'Tetra CAD',
-    symbol: 'TBD',
-    issuer: 'Tetra Digital Group',
+    name: 'CADD',
+    symbol: 'CADD',
+    issuer: 'CAD Digital (Tetra)',
     status: 'coming_soon',
-    statusLabel: 'Coming 2026',
-    tagline: "Backed by Canada's Leading Fintechs",
+    statusLabel: 'Q1 2026',
+    tagline: "First regulated CAD stablecoin issued by a financial institution",
     founded: '2019',
     headquarters: 'Calgary, AB',
-    website: 'https://tetradg.com',
-    backing: '1:1 CAD reserves (planned)',
+    website: 'https://tetradg.com/cadd-stablecoin/',
+    backing: '1:1 CAD reserves held domestically',
     custodian: 'Tetra Trust Company',
     blockchains: ['TBD'],
     backers: ['Shopify', 'Wealthsimple', 'National Bank', 'ATB Financial', 'Shakepay', 'Purpose Unlimited', 'Urbana Corporation'],
+    designPartners: [
+      { name: 'Aquanow' },
+      { name: 'Capco' },
+      { name: 'Cybrid' },
+      { name: 'Float Financial' },
+      { name: 'KOHO' },
+      { name: 'Sling Money' },
+      { name: 'Tempo' },
+      { name: 'WealthONE' },
+    ],
     regulatorySteps: [
       {
         id: 'fintrac_msb',
@@ -210,7 +237,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     exchangePartners: 0,
     parentCompany: {
       name: 'Tetra Digital Group',
-      description: 'Tetra Digital Group is one of Canada\'s leading digital asset infrastructure providers and the parent company of Tetra Trust Company. They became Canada\'s first trust company licensed to custody digital assets and are now developing a regulated CAD stablecoin.',
+      description: 'Tetra Digital Group is one of Canada\'s leading digital asset infrastructure providers. Through subsidiary CAD Digital, they are launching CADD - the first regulated CAD stablecoin issued by a financial institution. In Dec 2025, CADD became the first Canadian stablecoin to transfer between two financial institutions.',
       founded: '2019',
       headquarters: 'Calgary, AB',
       website: 'https://tetradg.com',
@@ -218,22 +245,20 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         { name: 'Didier Lavallée', title: 'CEO' },
       ],
       keyFacts: [
-        'Parent company of Tetra Trust Company',
+        'First CAD stablecoin to transfer between financial institutions',
         '$2.5B+ in digital assets under custody',
-        'First Canadian trust company licensed for digital asset custody',
-        'Reached profitability in 2024',
-        '$6-10M expected revenue in 2025',
-        '~15 employees',
+        'Backed by National Bank, Wealthsimple, Shopify & more',
       ],
-      parentOf: ['Tetra Trust Company', 'Tetra Unity'],
+      parentOf: ['Tetra Trust Company', 'CAD Digital', 'Tetra Unity'],
     },
     companyTimeline: [
       { date: '2019', title: 'Tetra Founded', description: 'Founded to become Canada\'s first licensed digital asset custodian', type: 'launch' },
       { date: '2021', title: 'Trust License Obtained', description: 'Becomes first Canadian trust company licensed for digital asset custody', type: 'regulatory' },
-      { date: '2024', title: 'Profitability Reached', description: 'Tetra Trust reaches profitability', type: 'milestone' },
       { date: 'May 2025', title: 'Wealthsimple Partnership', description: 'Chosen by Wealthsimple for digital asset custody', type: 'partnership' },
       { date: 'Sept 2025', title: '$10M Funding Round', description: 'Raises $10M from Shopify, Wealthsimple, National Bank and others', type: 'funding' },
-      { date: 'Early 2026', title: 'Stablecoin Launch', description: 'Expected launch of CAD stablecoin', type: 'launch' },
+      { date: 'Sept 2025', title: 'Design Partner Program', description: 'Expands partners to include Aquanow, Capco, Cybrid, Float, KOHO, Sling Money, Tempo, WealthONE', type: 'partnership' },
+      { date: 'Dec 2025', title: 'Testnet Milestone', description: 'First CAD stablecoin to move between two financial institutions (National Bank ↔ Wealthsimple)', type: 'milestone' },
+      { date: 'Q1 2026', title: 'CADD Launch', description: 'Expected launch of CADD stablecoin', type: 'launch' },
     ],
   },
   {
@@ -243,13 +268,13 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     issuer: 'Loon',
     status: 'pending_approval',
     statusLabel: 'Pending Approval',
-    tagline: "Canada's Digital Dollar",
+    tagline: "Canada's leading CAD stablecoin by usage",
     founded: '2021',
     headquarters: 'Calgary, AB',
-    website: 'https://loon.money',
-    backing: '1:1 CAD reserves',
-    custodian: 'TBD',
-    blockchains: ['Ethereum'],
+    website: 'https://loon.finance',
+    backing: '101% CAD reserves with monthly verification',
+    custodian: 'Regulated Canadian financial institutions',
+    blockchains: ['Base'],
     backers: ['Version One Ventures', 'Garage Capital'],
     regulatorySteps: [
       {
@@ -287,19 +312,17 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     exchangePartners: 0,
     parentCompany: {
       name: 'Loon',
-      description: 'Loon is a Calgary-based fintech startup spun out from Paytrie, focused exclusively on building Canada\'s regulated digital dollar. The company acquired the CADC stablecoin (originally launched by Paytrie in 2021) and is working to make it fully compliant under Canadian regulations.',
+      description: 'Loon is a Calgary-based fintech building Canada\'s regulated digital dollar. They acquired CADC from Paytrie (launched 2021) and position it as a sovereign alternative to US stablecoins. Vision: "Canada can build its own rails for the digital era."',
       founded: '2025',
       headquarters: 'Calgary, AB',
-      website: 'https://loon.money',
+      website: 'https://loon.finance',
       leadership: [
         { name: 'Kevin Zhang', title: 'CEO' },
       ],
       keyFacts: [
-        'Spun out from Toronto-based Paytrie',
-        'Acquired CADC stablecoin with $200M+ historical volume',
-        'Led by former Paytrie employees',
-        'Pre-filed prospectus with Alberta Securities Commission',
-        'Focused on payments, FX, and remittances',
+        '$200M+ on-chain volume processed',
+        '5 institutional partners (FIs and DApps)',
+        '3-second average settlement time',
       ],
     },
     companyTimeline: [
@@ -418,21 +441,28 @@ export const timelineEvents: TimelineEvent[] = [
   },
   {
     date: 'Dec 2025',
+    title: 'CADD Testnet Milestone',
+    description: 'First CAD stablecoin transferred between two financial institutions (National Bank ↔ Wealthsimple)',
+    type: 'milestone',
+    stablecoinId: 'tetra',
+  },
+  {
+    date: 'Dec 2025',
     title: 'Stablecoin Act Introduced',
     description: 'Federal government introduces proposed Stablecoin Act',
     type: 'regulatory',
+  },
+  {
+    date: 'Q1 2026',
+    title: 'CADD Launch',
+    description: 'CAD Digital expected to launch CADD stablecoin',
+    type: 'launch',
+    stablecoinId: 'tetra',
   },
   {
     date: '2026-27',
     title: 'Bank of Canada Oversight Begins',
     description: 'Bank of Canada begins formal stablecoin oversight under new legislation',
     type: 'regulatory',
-  },
-  {
-    date: 'Early 2026',
-    title: 'Tetra Stablecoin Launch',
-    description: 'Tetra Digital Group expected to launch CAD stablecoin',
-    type: 'launch',
-    stablecoinId: 'tetra',
   },
 ];
