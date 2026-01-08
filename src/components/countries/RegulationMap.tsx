@@ -3,6 +3,7 @@ import {
   ComposableMap,
   Geographies,
   Geography,
+  Marker,
 } from 'react-simple-maps';
 import { FlagPatterns } from './FlagPatterns';
 import { CountryDetailsPanel, CountryPromptPanel } from './CountryDetailsPanel';
@@ -22,7 +23,11 @@ interface GeoObject {
   id: string;
 }
 
-const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+// Higher resolution map (50m instead of 110m for more detail)
+const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json';
+
+// Antarctica numeric code - we'll filter this out
+const ANTARCTICA_CODE = '010';
 
 // ISO 3166-1 numeric codes to our country IDs
 const NUMERIC_TO_COUNTRY_ID: Record<string, string> = {
@@ -148,26 +153,28 @@ export function RegulationMap({ className = '' }: RegulationMapProps) {
         return '#D1D5DB';
       }
 
-      if (selectedCountry?.id === country.id) {
-        return STAGE_COLORS[country.stage];
+      // White border for selected or hovered countries
+      if (selectedCountry?.id === country.id || hoveredCountry?.id === country.id) {
+        return '#FFFFFF';
       }
 
       return '#9CA3AF';
     },
-    [selectedCountry]
+    [selectedCountry, hoveredCountry]
   );
 
   const getStrokeWidth = useCallback(
     (numericCode: string) => {
       const country = getCountryFromNumericCode(numericCode);
 
-      if (selectedCountry?.id === country?.id) {
-        return 2;
+      // Thinner white border for selected/hovered
+      if (selectedCountry?.id === country?.id || hoveredCountry?.id === country?.id) {
+        return 1;
       }
 
       return country ? 0.75 : 0.25;
     },
-    [selectedCountry]
+    [selectedCountry, hoveredCountry]
   );
 
   return (
@@ -185,17 +192,21 @@ export function RegulationMap({ className = '' }: RegulationMapProps) {
         {/* Map Container */}
         <div className="relative bg-gray-50 rounded-lg overflow-hidden">
           <ComposableMap
-            projection="geoEqualEarth"
+            projection="geoNaturalEarth1"
             projectionConfig={{
-              scale: 160,
-              center: [10, 0],
+              scale: 180,
+              center: [10, 20],
             }}
+            width={800}
+            height={480}
             style={{ width: '100%', height: 'auto' }}
           >
             <FlagPatterns />
               <Geographies geography={GEO_URL}>
                 {({ geographies }: { geographies: GeoObject[] }) =>
-                  geographies.map((geo: GeoObject) => {
+                  geographies
+                    .filter((geo: GeoObject) => geo.id !== ANTARCTICA_CODE)
+                    .map((geo: GeoObject) => {
                     const numericCode = geo.id;
                     const isHighlighted = HIGHLIGHTED_NUMERIC_CODES.has(numericCode);
 
@@ -227,6 +238,66 @@ export function RegulationMap({ className = '' }: RegulationMapProps) {
                   })
                 }
               </Geographies>
+
+              {/* Hong Kong Marker - small territory needs visible marker */}
+              <Marker coordinates={[114.17, 22.32]}>
+                <circle
+                  r={6}
+                  fill={
+                    selectedCountry?.id === 'hk' || hoveredCountry?.id === 'hk'
+                      ? COUNTRY_PRIMARY_COLORS['hk']
+                      : `${STAGE_COLORS['approved']}90`
+                  }
+                  stroke={
+                    selectedCountry?.id === 'hk' || hoveredCountry?.id === 'hk'
+                      ? '#FFFFFF'
+                      : '#9CA3AF'
+                  }
+                  strokeWidth={1}
+                  style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+                  onMouseEnter={() => {
+                    const hkCountry = ISO_TO_COUNTRY['hk'];
+                    if (hkCountry) setHoveredCountry(hkCountry);
+                  }}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => {
+                    const hkCountry = ISO_TO_COUNTRY['hk'];
+                    if (hkCountry) {
+                      setSelectedCountry((prev) => (prev?.id === 'hk' ? null : hkCountry));
+                    }
+                  }}
+                />
+              </Marker>
+
+              {/* Singapore Marker - small city-state needs visible marker */}
+              <Marker coordinates={[103.82, 1.35]}>
+                <circle
+                  r={6}
+                  fill={
+                    selectedCountry?.id === 'sg' || hoveredCountry?.id === 'sg'
+                      ? COUNTRY_PRIMARY_COLORS['sg']
+                      : `${STAGE_COLORS['implemented']}90`
+                  }
+                  stroke={
+                    selectedCountry?.id === 'sg' || hoveredCountry?.id === 'sg'
+                      ? '#FFFFFF'
+                      : '#9CA3AF'
+                  }
+                  strokeWidth={1}
+                  style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+                  onMouseEnter={() => {
+                    const sgCountry = ISO_TO_COUNTRY['sg'];
+                    if (sgCountry) setHoveredCountry(sgCountry);
+                  }}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => {
+                    const sgCountry = ISO_TO_COUNTRY['sg'];
+                    if (sgCountry) {
+                      setSelectedCountry((prev) => (prev?.id === 'sg' ? null : sgCountry));
+                    }
+                  }}
+                />
+              </Marker>
           </ComposableMap>
 
           {/* Tooltip - shows on hover or when selected */}
