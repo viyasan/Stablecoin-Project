@@ -68,6 +68,20 @@ const NUMERIC_TO_COUNTRY_ID: Record<string, string> = {
 // Set of all numeric codes that should be highlighted
 const HIGHLIGHTED_NUMERIC_CODES = new Set(Object.keys(NUMERIC_TO_COUNTRY_ID));
 
+// Primary flag colors for each country (used on hover/click)
+const COUNTRY_PRIMARY_COLORS: Record<string, string> = {
+  us: '#3B5998',    // Medium blue (USA)
+  eu: '#003399',    // Dark blue (EU - distinct from USA)
+  uk: '#C8102E',    // Red (Union Jack red)
+  sg: '#ED2939',    // Red (Singapore)
+  jp: '#BC002D',    // Red (Japan)
+  ca: '#FF0000',    // Red (Canada)
+  ae: '#00732F',    // Green (UAE)
+  hk: '#DE2910',    // Red (Hong Kong)
+  ch: '#FF0000',    // Red (Switzerland)
+  au: '#00008B',    // Dark blue (Australia)
+};
+
 // Get country data from numeric code
 function getCountryFromNumericCode(numericCode: string): RegulationCountry | null {
   const countryId = NUMERIC_TO_COUNTRY_ID[numericCode];
@@ -114,15 +128,15 @@ export function RegulationMap({ className = '' }: RegulationMapProps) {
         return '#E5E7EB'; // Gray for non-highlighted
       }
 
-      // If hovered, show flag pattern
-      if (hoveredCountry?.id === country.id) {
-        return `url(#flag-${country.id})`;
+      // If selected or hovered, show primary flag color
+      if (selectedCountry?.id === country.id || hoveredCountry?.id === country.id) {
+        return COUNTRY_PRIMARY_COLORS[country.id] || '#6B7280';
       }
 
       // Default: show neutral color with slight tint based on stage
       return `${STAGE_COLORS[country.stage]}30`;
     },
-    [hoveredCountry]
+    [hoveredCountry, selectedCountry]
   );
 
   // Get stroke for highlighted countries
@@ -215,46 +229,19 @@ export function RegulationMap({ className = '' }: RegulationMapProps) {
               </Geographies>
           </ComposableMap>
 
-          {/* Hover Tooltip */}
-          {hoveredCountry && !selectedCountry && (
+          {/* Tooltip - shows on hover or when selected */}
+          {(hoveredCountry || selectedCountry) && (
             <div className="absolute inset-x-0 top-3 flex justify-center pointer-events-none">
               <div className="bg-white rounded-lg shadow-lg border border-gray-200 px-4 py-3 animate-fadeIn text-center max-w-md">
-                <p className="text-base font-bold text-gray-900">{hoveredCountry.name}</p>
+                <p className="text-base font-bold text-gray-900">
+                  {(selectedCountry || hoveredCountry)?.name}
+                </p>
                 <p className="text-xs text-gray-600 mt-1">
-                  <span className="font-medium">Regulators:</span> {hoveredCountry.regulatorName}
+                  <span className="font-medium">Regulators:</span> {(selectedCountry || hoveredCountry)?.regulatorName}
                 </p>
               </div>
             </div>
           )}
-        </div>
-
-        {/* Legend */}
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
-          <div className="flex items-center gap-2">
-            <span
-              className="w-4 h-4 rounded"
-              style={{ backgroundColor: `${STAGE_COLORS.proposed}30` }}
-            />
-            <span className="text-gray-600">Proposed</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span
-              className="w-4 h-4 rounded"
-              style={{ backgroundColor: `${STAGE_COLORS.approved}30` }}
-            />
-            <span className="text-gray-600">Approved</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span
-              className="w-4 h-4 rounded"
-              style={{ backgroundColor: `${STAGE_COLORS.implemented}30` }}
-            />
-            <span className="text-gray-600">Implemented</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-4 h-4 rounded bg-gray-200" />
-            <span className="text-gray-600">Not tracked</span>
-          </div>
         </div>
 
         {/* Country Details or Prompt */}
