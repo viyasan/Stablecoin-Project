@@ -1,7 +1,9 @@
+export { AboutOurData } from './AboutOurData';
 export { ChainBreakdownChart } from './ChainBreakdownChart';
 export { GlobalKpiCard } from './GlobalKpiCard';
 export { MarketCapChart } from './MarketCapChart';
 export { MarketSharePieChart } from './MarketSharePieChart';
 export { RegulationMiniMap } from './RegulationMiniMap';
 export { TopHeadlinesList } from './TopHeadlinesList';
+export { TransactionKpiCard } from './TransactionKpiCard';
 export { WeeklyBriefingCard } from './WeeklyBriefingCard';

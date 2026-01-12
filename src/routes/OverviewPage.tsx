@@ -1,10 +1,12 @@
 import { PageContainer } from '../components/layout';
 import {
+  AboutOurData,
   ChainBreakdownChart,
   GlobalKpiCard,
   MarketCapChart,
   MarketSharePieChart,
   TopHeadlinesList,
+  TransactionKpiCard,
 } from '../components/overview';
 
 export function OverviewPage() {
@@ -24,6 +26,16 @@ export function OverviewPage() {
       {/* Global KPIs */}
       <section className="mb-8">
         <GlobalKpiCard />
+      </section>
+
+      {/* Transaction Activity KPIs */}
+      <section className="mb-8">
+        <TransactionKpiCard />
+      </section>
+
+      {/* About Our Data - Methodology Explainer */}
+      <section className="mb-8">
+        <AboutOurData />
       </section>
 
       {/* Charts Section - Market Cap and Pie Chart side by side */}
