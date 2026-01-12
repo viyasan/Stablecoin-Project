@@ -45,7 +45,7 @@ export function ComparisonTable({ stablecoins }: ComparisonTableProps) {
               {stablecoins.map((s) => (
                 <th
                   key={s.id}
-                  className="px-6 py-3 text-center text-xs font-semibold text-gray-900 uppercase tracking-wider"
+                  className="px-6 py-3 text-center text-sm font-bold text-gray-900 uppercase tracking-wider"
                 >
                   {s.name}
                 </th>

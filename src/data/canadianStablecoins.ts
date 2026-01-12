@@ -107,6 +107,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     name: "QCAD",
     symbol: "QCAD",
     issuer: "Stablecorp",
+    logo: "https://framerusercontent.com/images/lilr82jG0Ivzk8HOVqzlhx0wPas.png?scale-down-to=512",
     status: "live",
     statusLabel: "Live",
     tagline: "Canada's First Compliant CAD Stablecoin",
@@ -231,6 +232,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     name: "CADD",
     symbol: "CADD",
     issuer: "CAD Digital (Tetra)",
+    logo: "https://tetradg.com/wp-content/uploads/2025/11/TetraDigitalGroup-Icon.svg",
     status: "coming_soon",
     statusLabel: "Q1 2026",
     tagline: "First regulated CAD stablecoin issued by a financial institution",
@@ -376,7 +378,6 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     platformIntegrations: [
       { name: "MetaMask", role: "Wallet" },
       { name: "Aerodrome", role: "DeFi/Liquidity" },
-      { name: "Base", role: "Blockchain" },
     ],
     regulatorySteps: [
       {
@@ -460,7 +461,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       {
         date: "TBD",
         title: "Regulatory Approval",
-        description: "Awaiting prospectus receipt and full launch",
+        description: "Pending full regulatory approval",
         type: "regulatory",
       },
     ],

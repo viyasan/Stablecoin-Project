@@ -54,7 +54,7 @@ export function CanadaPage() {
           <MapleLeafIcon className="w-8 h-8 text-red-600" />
         </div>
         <p className="text-lg text-gray-600">
-          The Canadian Stablecoin Landscape: Issuer Progress and Regulations
+          The Canadian Stablecoin Landscape: Issuer Progress
         </p>
       </div>
 
@@ -74,9 +74,16 @@ export function CanadaPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* QCAD Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-600 to-green-700 px-6 py-3">
-              <h3 className="text-lg font-bold text-white">QCAD</h3>
-              <p className="text-green-100 text-sm">Stablecorp</p>
+            <div className="bg-gradient-to-r from-green-600 to-green-700 px-6 py-3 flex items-center gap-3">
+              <img
+                src={stablecoins[0].logo}
+                alt="Stablecorp logo"
+                className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain"
+              />
+              <div>
+                <h3 className="text-lg font-bold text-white">QCAD</h3>
+                <p className="text-green-100 text-sm">Stablecorp</p>
+              </div>
             </div>
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
@@ -117,9 +124,16 @@ export function CanadaPage() {
 
           {/* CADD Card (Tetra) */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3">
-              <h3 className="text-lg font-bold text-white">CADD</h3>
-              <p className="text-amber-100 text-sm">CAD Digital (Tetra)</p>
+            <div className="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3 flex items-center gap-3">
+              <img
+                src={stablecoins[1].logo}
+                alt="Tetra Digital Group logo"
+                className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain"
+              />
+              <div>
+                <h3 className="text-lg font-bold text-white">CADD</h3>
+                <p className="text-amber-100 text-sm">CAD Digital (Tetra)</p>
+              </div>
             </div>
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
@@ -141,7 +155,7 @@ export function CanadaPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Institutional Grade</h4>
-                  <p className="text-xs text-gray-600">Issued by licensed trust company, reserves held domestically</p>
+                  <p className="text-xs text-gray-600">Issued by licensed trust company</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -160,9 +174,14 @@ export function CanadaPage() {
 
           {/* CADC Card (Loon) */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-sky-500 to-sky-600 px-6 py-3">
-              <h3 className="text-lg font-bold text-white">CADC</h3>
-              <p className="text-sky-100 text-sm">Loon</p>
+            <div className="bg-gradient-to-r from-sky-500 to-sky-600 px-6 py-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
+                <span className="text-gray-900 font-bold text-xs">LOON</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">CADC</h3>
+                <p className="text-sky-100 text-sm">Loon</p>
+              </div>
             </div>
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">

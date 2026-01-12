@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export function Footer() {
+  const location = useLocation();
+  const isOverviewPage = location.pathname === '/';
+
   return (
     <footer className="bg-gray-900 text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -43,8 +46,9 @@ export function Footer() {
 
           </div>
 
-        {/* Data Sources */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        {/* Data Sources - Only show on overview page */}
+        {isOverviewPage && (
+          <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-xs text-gray-500 mb-4">
             Data Sources:{' '}
             <a
@@ -83,7 +87,8 @@ export function Footer() {
               Decrypt
             </a>
           </p>
-        </div>
+          </div>
+        )}
 
         {/* Disclaimer & Copyright */}
         <div className="mt-6">

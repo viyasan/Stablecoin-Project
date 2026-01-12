@@ -46,9 +46,22 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
       {/* Header */}
       <div className="bg-gradient-to-r from-red-600 to-red-700 px-6 py-4">
         <div className="flex items-start justify-between">
-          <div>
-            <h3 className="text-xl font-bold text-white">{stablecoin.issuer}</h3>
-            <p className="text-red-100 text-sm">Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
+          <div className="flex items-center gap-3">
+            {stablecoin.logo ? (
+              <img
+                src={stablecoin.logo}
+                alt={`${stablecoin.issuer} logo`}
+                className="w-12 h-12 rounded-lg bg-white p-2 object-contain flex-shrink-0"
+              />
+            ) : (
+              <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
+                <span className="text-gray-900 font-bold text-xs">LOON</span>
+              </div>
+            )}
+            <div>
+              <h3 className="text-xl font-bold text-white">{stablecoin.issuer}</h3>
+              <p className="text-red-100 text-sm">Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
+            </div>
           </div>
           <StatusBadge status={stablecoin.status} label={stablecoin.statusLabel} />
         </div>
