@@ -188,14 +188,14 @@ export function CanadaPage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">Pending Approval</h4>
-                  <p className="text-xs text-gray-600">Pre-filed with Alberta Securities Commission</p>
+                  <h4 className="font-semibold text-gray-900 text-sm">Live</h4>
+                  <p className="text-xs text-gray-600">Operational since 2021, acquired by Loon Oct 2025</p>
                 </div>
               </div>
             </div>
