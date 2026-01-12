@@ -41,10 +41,41 @@ interface CompanyCardProps {
 function CompanyCard({ stablecoin }: CompanyCardProps) {
   const { parentCompany } = stablecoin;
 
+  // Determine header color based on stablecoin ID
+  const getHeaderColors = () => {
+    switch (stablecoin.id) {
+      case 'qcad':
+        return { gradient: 'from-red-600 to-red-700', text: 'text-red-100' };
+      case 'tetra':
+        return { gradient: 'from-rose-600 to-rose-700', text: 'text-rose-100' };
+      case 'cadc':
+        return { gradient: 'from-red-500 to-red-600', text: 'text-red-100' };
+      default:
+        return { gradient: 'from-red-600 to-red-700', text: 'text-red-100' };
+    }
+  };
+
+  // Determine button color based on stablecoin ID
+  const getButtonColors = () => {
+    switch (stablecoin.id) {
+      case 'qcad':
+        return 'bg-red-600 hover:bg-red-700';
+      case 'tetra':
+        return 'bg-rose-600 hover:bg-rose-700';
+      case 'cadc':
+        return 'bg-red-500 hover:bg-red-600';
+      default:
+        return 'bg-red-600 hover:bg-red-700';
+    }
+  };
+
+  const headerColors = getHeaderColors();
+  const buttonColors = getButtonColors();
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 px-6 py-4">
+      <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4`}>
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             {stablecoin.logo ? (
@@ -60,7 +91,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
             )}
             <div>
               <h3 className="text-xl font-bold text-white">{stablecoin.issuer}</h3>
-              <p className="text-red-100 text-sm">Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
+              <p className={`${headerColors.text} text-sm`}>Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
             </div>
           </div>
           <StatusBadge status={stablecoin.status} label={stablecoin.statusLabel} />
@@ -201,7 +232,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
           href={stablecoin.website}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full text-center py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+          className={`block w-full text-center py-3 px-4 ${buttonColors} text-white font-medium rounded-lg transition-colors`}
         >
           Learn More
         </a>

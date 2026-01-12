@@ -298,7 +298,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     parentCompany: {
       name: "Tetra Digital Group",
       description:
-        "Tetra Digital Group is one of Canada's leading digital asset infrastructure providers. Through subsidiary CAD Digital, they are launching CADD - the first regulated CAD stablecoin issued by a financial institution. In Dec 2025, CADD became the first Canadian stablecoin to transfer between two financial institutions.",
+        "Tetra Digital Group is one of Canada's leading digital asset infrastructure providers. Through subsidiary CAD Digital, they are launching CADD - the first regulated CAD stablecoin issued by a financial institution.",
       founded: "2019",
       headquarters: "Calgary, AB",
       website: "https://tetradg.com",
