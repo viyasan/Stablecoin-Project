@@ -1,4 +1,4 @@
-import { useStablecoinTransactionMetrics, isArtemisConfigured } from '../../api';
+import { useStablecoinTransactionMetrics, isDuneConfigured } from '../../api';
 import { Spinner } from '../common';
 
 function formatCurrency(value: number): string {
@@ -90,13 +90,13 @@ function ConfigurationPrompt() {
               />
             </svg>
           </div>
-          <h3 className="text-gray-900 font-medium mb-2">Artemis API Not Configured</h3>
+          <h3 className="text-gray-900 font-medium mb-2">Dune API Not Configured</h3>
           <p className="text-sm text-gray-500 mb-4 max-w-md mx-auto">
             To display transaction volume, transaction count, and active addresses,
-            add your Artemis API key to the environment variables.
+            add your Dune API key and query IDs to the environment variables.
           </p>
           <a
-            href="https://www.artemisanalytics.com/pricing"
+            href="https://dune.com/settings/api"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
@@ -113,7 +113,7 @@ function ConfigurationPrompt() {
 }
 
 export function TransactionKpiCard() {
-  const isConfigured = isArtemisConfigured();
+  const isConfigured = isDuneConfigured();
   const { data, isLoading, error, refetch } = useStablecoinTransactionMetrics();
 
   // Show configuration prompt if API key not set
@@ -157,12 +157,12 @@ export function TransactionKpiCard() {
         <span className="text-xs text-gray-400 flex items-center gap-1">
           Powered by
           <a
-            href="https://www.artemis.xyz"
+            href="https://dune.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-600 hover:text-primary-700 font-medium"
           >
-            Artemis
+            Dune
           </a>
         </span>
       </div>
