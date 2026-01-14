@@ -84,7 +84,7 @@ async function executeQuery(queryId: string): Promise<string> {
 }
 
 // Poll for query results
-async function getQueryResults(executionId: string, maxRetries = 30): Promise<DuneResultRow[]> {
+async function getQueryResults(executionId: string, maxRetries = 60): Promise<DuneResultRow[]> {
   const apiKey = getApiKey();
   if (!apiKey) {
     throw new Error('Dune API key not configured');

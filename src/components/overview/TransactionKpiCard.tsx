@@ -1,49 +1,47 @@
-import { useStablecoinTransactionMetrics, isDuneConfigured } from '../../api';
-import { Spinner } from '../common';
+import { useState } from 'react';
 
-function formatCurrency(value: number): string {
-  if (value >= 1_000_000_000_000) {
-    return `$${(value / 1_000_000_000_000).toFixed(2)}T`;
-  }
-  if (value >= 1_000_000_000) {
-    return `$${(value / 1_000_000_000).toFixed(2)}B`;
-  }
-  if (value >= 1_000_000) {
-    return `$${(value / 1_000_000).toFixed(2)}M`;
-  }
-  return `$${value.toLocaleString()}`;
+// Static data from Visa Onchain Analytics
+// Source: https://visaonchainanalytics.com/
+// Last updated: January 2026
+
+type TimePeriod = '12M' | '3M' | 'All';
+
+interface VisaMetrics {
+  adjustedTransactionVolume: string;
+  adjustedTransactionCount: string;
+  totalActiveAddresses: string;
+  label: string;
 }
 
-function formatNumber(value: number): string {
-  if (value >= 1_000_000_000) {
-    return `${(value / 1_000_000_000).toFixed(2)}B`;
-  }
-  if (value >= 1_000_000) {
-    return `${(value / 1_000_000).toFixed(2)}M`;
-  }
-  if (value >= 1_000) {
-    return `${(value / 1_000).toFixed(1)}K`;
-  }
-  return value.toLocaleString();
-}
-
-function formatPercent(value: number): string {
-  const sign = value >= 0 ? '+' : '';
-  return `${sign}${value.toFixed(2)}%`;
-}
+const VISA_METRICS: Record<TimePeriod, VisaMetrics> = {
+  '12M': {
+    adjustedTransactionVolume: '$10.4T',
+    adjustedTransactionCount: '2.1B',
+    totalActiveAddresses: '316.0M',
+    label: 'Last 12 Months',
+  },
+  '3M': {
+    adjustedTransactionVolume: '$1.9T',
+    adjustedTransactionCount: '352.8M',
+    totalActiveAddresses: '116.8M',
+    label: 'Last 3 Months',
+  },
+  'All': {
+    adjustedTransactionVolume: '$29.2T',
+    adjustedTransactionCount: '5.4B',
+    totalActiveAddresses: '722.6M',
+    label: 'Since 2019',
+  },
+};
 
 interface KpiItemProps {
   label: string;
   value: string;
-  change?: number;
   subtext?: string;
   tooltip?: string;
 }
 
-function KpiItem({ label, value, change, subtext, tooltip }: KpiItemProps) {
-  const isPositive = change !== undefined ? change >= 0 : true;
-  const colorClass = isPositive ? 'text-green-600' : 'text-red-600';
-
+function KpiItem({ label, value, subtext, tooltip }: KpiItemProps) {
   return (
     <div className="text-center px-4 py-2 group relative">
       <p className="text-sm font-medium text-gray-500 mb-1">
@@ -55,137 +53,87 @@ function KpiItem({ label, value, change, subtext, tooltip }: KpiItemProps) {
         )}
       </p>
       <p className="text-2xl lg:text-3xl font-bold text-gray-900">{value}</p>
-      {change !== undefined && (
-        <p className={`text-sm font-medium mt-1 ${colorClass}`}>
-          {formatPercent(change)}
-        </p>
-      )}
       {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
     </div>
   );
 }
 
-function ConfigurationPrompt() {
+export function TransactionKpiCard() {
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>('All');
+  const metrics = VISA_METRICS[timePeriod];
+
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Transaction Activity
-        </h2>
-      </div>
-      <div className="px-6 py-8">
-        <div className="text-center">
-          <div className="w-12 h-12 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
-            <svg
-              className="w-6 h-6 text-amber-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-gray-900">
+            Transaction Activity
+          </h2>
+          <span className="text-xs text-gray-400 flex items-center gap-1">
+            Powered by
+            <a
+              href="https://visaonchainanalytics.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:text-primary-700 font-medium"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              />
-            </svg>
-          </div>
-          <h3 className="text-gray-900 font-medium mb-2">Dune API Not Configured</h3>
-          <p className="text-sm text-gray-500 mb-4 max-w-md mx-auto">
-            To display transaction volume, transaction count, and active addresses,
-            add your Dune API key and query IDs to the environment variables.
-          </p>
-          <a
-            href="https://dune.com/settings/api"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
-          >
-            Get a free API key
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+              Visa Onchain Analytics
+            </a>
+          </span>
         </div>
-      </div>
-    </div>
-  );
-}
 
-export function TransactionKpiCard() {
-  const isConfigured = isDuneConfigured();
-  const { data, isLoading, error, refetch } = useStablecoinTransactionMetrics();
-
-  // Show configuration prompt if API key not set
-  if (!isConfigured) {
-    return <ConfigurationPrompt />;
-  }
-
-  if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !data) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="text-center">
-          <p className="text-gray-500 mb-2">Failed to load transaction data</p>
-          <p className="text-sm text-gray-400 mb-4">{error?.message}</p>
+        {/* Time Period Toggle */}
+        <div className="flex gap-2">
           <button
-            onClick={refetch}
-            className="text-primary-600 hover:text-primary-700 font-medium"
+            onClick={() => setTimePeriod('All')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              timePeriod === 'All'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
           >
-            Try again
+            All-time
+          </button>
+          <button
+            onClick={() => setTimePeriod('3M')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              timePeriod === '3M'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            3 Months
+          </button>
+          <button
+            onClick={() => setTimePeriod('12M')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              timePeriod === '12M'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            12 Months
           </button>
         </div>
       </div>
-    );
-  }
-
-  return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Transaction Activity
-        </h2>
-        <span className="text-xs text-gray-400 flex items-center gap-1">
-          Powered by
-          <a
-            href="https://dune.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700 font-medium"
-          >
-            Dune
-          </a>
-        </span>
-      </div>
       <div className="px-6 py-6">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           <KpiItem
-            label="Adj. Transfer Volume"
-            value={formatCurrency(data.adjustedTransferVolume)}
-            change={data.adjustedTransferVolumeChange24h}
-            subtext="24h"
-            tooltip="Transfer volume filtered for bot activity and wash trading"
+            label="Adjusted Transaction Volume"
+            value={metrics.adjustedTransactionVolume}
+            subtext={metrics.label}
+            tooltip="Stablecoin transaction volume filtered for bot activity and wash trading"
           />
           <KpiItem
-            label="Transactions"
-            value={formatNumber(data.transactionCount)}
-            change={data.transactionCountChange24h}
-            subtext="24h"
+            label="Adjusted Transaction Count"
+            value={metrics.adjustedTransactionCount}
+            subtext={metrics.label}
+            tooltip="Number of stablecoin transactions filtered for bot activity"
           />
           <KpiItem
-            label="Active Addresses"
-            value={formatNumber(data.dailyActiveUsers)}
-            change={data.dailyActiveUsersChange24h}
-            subtext="24h unique"
+            label="Total Active Addresses"
+            value={metrics.totalActiveAddresses}
+            subtext={metrics.label}
             tooltip="Unique addresses that sent or received stablecoins"
           />
         </div>

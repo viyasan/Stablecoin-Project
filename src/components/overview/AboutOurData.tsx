@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 export function AboutOurData() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
 
   return (
     <div className="bg-gray-50 rounded-lg border border-dashed border-gray-300">
@@ -75,65 +74,16 @@ export function AboutOurData() {
             <p className="text-sm text-gray-600 leading-relaxed">
               <span className="font-semibold text-gray-700">Transaction activity</span> (volume, transactions, active addresses) is powered by{' '}
               <a
-                href="https://www.artemis.xyz"
+                href="https://visaonchainanalytics.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-600 hover:text-primary-700 font-medium"
               >
-                Artemis
+                Visa Onchain Analytics
               </a>
-              , which provides adjusted metrics that filter out bot activity and wash trading for more accurate insights.
+              , which tracks <span className="font-semibold text-gray-700">6 major fiat-backed stablecoins</span> across{' '}
+              <span className="font-semibold text-gray-700">11 chains</span>. This covers the majority of the market, with adjusted filters for bot activity and wash trading.
             </p>
-
-            {/* Level 2 Toggle */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowComparison(!showComparison);
-              }}
-              className="mt-4 flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
-            >
-              <svg
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  showComparison ? 'rotate-90' : ''
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-              <span>Why do other dashboards show different numbers?</span>
-            </button>
-
-            {/* Level 2 Content */}
-            <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                showComparison ? 'max-h-48 opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
-              }`}
-            >
-              <div className="bg-white rounded-lg border border-gray-200 p-4">
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Some platforms (like{' '}
-                  <a
-                    href="https://visaonchainanalytics.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-600 hover:text-primary-700 font-medium"
-                  >
-                    Visa Onchain Analytics
-                  </a>
-                  ) only track a subset of major fiat-backed stablecoins — for example, 6 stablecoins
-                  across 11 chains (~$272B). Our comprehensive approach gives you visibility into the
-                  full stablecoin ecosystem.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

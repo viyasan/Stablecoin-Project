@@ -210,7 +210,10 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
   );
 }
 
+type ViewMode = 'total' | '7d' | '30d';
+
 export function GlobalKpiCard() {
+  const [viewMode, setViewMode] = useState<ViewMode>('total');
   const { data, isLoading, error, refetch } = useMarketSummary();
 
   if (isLoading) {
@@ -239,32 +242,90 @@ export function GlobalKpiCard() {
     );
   }
 
+  // Calculate historical market cap values
+  const marketCap7dAgo = data.totalMarketCap / (1 + data.change7d / 100);
+  const marketCap30dAgo = data.totalMarketCap / (1 + data.change30d / 100);
+
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Global Stablecoin Market
-        </h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-gray-900">
+            Global Stablecoin Market
+          </h2>
+        </div>
+
+        {/* View Mode Toggle */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setViewMode('total')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              viewMode === 'total'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Today
+          </button>
+          <button
+            onClick={() => setViewMode('7d')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              viewMode === '7d'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            7D Change
+          </button>
+          <button
+            onClick={() => setViewMode('30d')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              viewMode === '30d'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            30D Change
+          </button>
+        </div>
       </div>
       <div className="px-6 py-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-          <KpiItem
-            label="Total Market Cap"
-            value={formatCurrency(data.totalMarketCap)}
-            change={data.change24h}
-            subtext="24h change"
-          />
-          <KpiItem
-            label="7D Change"
-            value={formatPercent(data.change7d)}
-            valueColorClass={data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}
-          />
-          <KpiItem
-            label="30D Change"
-            value={formatPercent(data.change30d)}
-            valueColorClass={data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}
-          />
-          <TrackedAssetsKpi count={data.trackedStablecoins} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+          {viewMode === 'total' && (
+            <>
+              <KpiItem
+                label="Total Market Cap"
+                value={formatCurrency(data.totalMarketCap)}
+              />
+              <TrackedAssetsKpi count={data.trackedStablecoins} />
+            </>
+          )}
+
+          {viewMode === '7d' && (
+            <>
+              <div className="text-center px-4 py-2">
+                <p className="text-sm font-medium text-gray-500 mb-1">Market Cap (7 days ago)</p>
+                <p className="text-2xl lg:text-3xl font-bold text-gray-900">{formatCurrency(marketCap7dAgo)}</p>
+                <p className={`text-xs font-medium mt-2 ${data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {formatPercent(data.change7d)} change
+                </p>
+              </div>
+              <TrackedAssetsKpi count={data.trackedStablecoins} />
+            </>
+          )}
+
+          {viewMode === '30d' && (
+            <>
+              <div className="text-center px-4 py-2">
+                <p className="text-sm font-medium text-gray-500 mb-1">Market Cap (30 days ago)</p>
+                <p className="text-2xl lg:text-3xl font-bold text-gray-900">{formatCurrency(marketCap30dAgo)}</p>
+                <p className={`text-xs font-medium mt-2 ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {formatPercent(data.change30d)} change
+                </p>
+              </div>
+              <TrackedAssetsKpi count={data.trackedStablecoins} />
+            </>
+          )}
         </div>
         <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400">
           <span>Last updated: {formatLastUpdated(data.lastUpdated)}</span>
