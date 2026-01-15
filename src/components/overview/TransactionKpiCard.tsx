@@ -67,7 +67,7 @@ export function TransactionKpiCard() {
       <div className="px-6 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-gray-900">
-            Transaction Activity
+            Stablecoin Transaction Activity
           </h2>
           <span className="text-xs text-gray-400 flex items-center gap-1">
             Powered by

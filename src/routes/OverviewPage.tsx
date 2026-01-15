@@ -33,11 +33,6 @@ export function OverviewPage() {
         <TransactionKpiCard />
       </section>
 
-      {/* About Our Data - Methodology Explainer */}
-      <section className="mb-8">
-        <AboutOurData />
-      </section>
-
       {/* Charts Section - Market Cap and Pie Chart side by side */}
       <section className="mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -56,8 +51,13 @@ export function OverviewPage() {
       </section>
 
       {/* Top Headlines Section */}
-      <section>
+      <section className="mb-8">
         <TopHeadlinesList />
+      </section>
+
+      {/* About Our Data - Methodology Explainer */}
+      <section>
+        <AboutOurData />
       </section>
     </PageContainer>
   );
