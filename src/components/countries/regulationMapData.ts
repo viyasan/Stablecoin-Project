@@ -128,7 +128,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'Canada',
     isoCodes: ['CA'],
     stage: 'proposed',
-    summary: 'Canada introduced the Stablecoin Act (Bill C-15) in November 2025 as part of Budget 2025, establishing the first national framework for fiat-referenced stablecoins. The Bank of Canada will serve as the primary regulator, maintaining a public issuer registry and overseeing compliance. Issuers must register with the Bank of Canada, maintain 1:1 reserve backing with qualified Canadian custodians (segregated and bankruptcy-remote), and submit monthly attestations and annual audits.\n\nEligible reserve assets include CAD, Government of Canada T-bills, and insured bank deposits. Stablecoins cannot pay interest or yield, and are not considered legal tender or deposits. The Act exempts financial institutions under the Bank Act, central banks, and closed-loop stablecoins.\n\nRoyal assent is expected Spring 2026 with full implementation 12-18 months after. The retail CBDC was shelved in September 2024, shifting focus to stablecoin oversight with $10M allocated for 2026-2027. Three Canadian stablecoin issuers are active: Stablecorp (QCAD - live since November 2025), Tetra Digital Group (CADD - launching Q1 2026), and Loon (CADC - live since 2021, acquired by Loon October 2025).',
+    summary: 'Canada introduced the Stablecoin Act (Bill C-15) in November 2025 as part of Budget 2025, establishing the first national framework for fiat-referenced stablecoins. The Bank of Canada will serve as the primary regulator, maintaining a public issuer registry and overseeing compliance. Issuers must register with the Bank of Canada, maintain 1:1 reserve backing with qualified Canadian custodians (segregated and bankruptcy-remote), and submit monthly attestations and annual audits.\n\nEligible reserve assets include CAD, Government of Canada T-bills, and insured bank deposits. Stablecoins cannot pay interest or yield, and are not considered legal tender or deposits. The Act exempts financial institutions under the Bank Act, central banks, and closed-loop stablecoins.',
     keyPoints: [
       'Stablecoin Act (Bill C-15) tabled November 2025, royal assent expected Spring 2026',
       '1:1 reserve backing required with qualified Canadian custodians',
@@ -150,22 +150,6 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
           'Establishes federal framework for fiat-referenced stablecoins',
           'Bank of Canada designated as primary regulator',
           'Royal assent expected Spring 2026',
-        ],
-      },
-      {
-        title: 'CSA Staff Notice 21-333 - March 2025',
-        points: [
-          'Updated guidance on crypto asset trading platforms',
-          'Clarified stablecoin custody and disclosure requirements',
-          'Enhanced investor protection measures',
-        ],
-      },
-      {
-        title: 'Budget 2025 Crypto Provisions',
-        points: [
-          '$10M allocated for stablecoin oversight (2026-2027)',
-          'Expanded Bank of Canada digital currency research mandate',
-          'Framework for regulated stablecoin issuance',
         ],
       },
     ],
@@ -191,13 +175,6 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Central banks and monetary authorities',
       'Closed-loop payment systems (gift cards, loyalty points)',
       'Stablecoins with market cap below threshold (TBD in regulations)',
-    ],
-    cbdcStatus: [
-      'Retail CBDC project shelved in September 2024',
-      'Bank of Canada shifted focus to stablecoin oversight',
-      'Wholesale CBDC research continues for interbank settlement',
-      'Project Jasper (wholesale) remains in research phase',
-      '$10M budget allocated for digital currency initiatives 2026-2027',
     ],
     stablecoinIssuers: [
       { company: 'Stablecorp', stablecoin: 'QCAD', status: 'Live (November 2025)' },
