@@ -23,14 +23,12 @@ export function OverviewPage() {
         </p>
       </div>
 
-      {/* Global KPIs */}
+      {/* KPI Cards - Side by side */}
       <section className="mb-8">
-        <GlobalKpiCard />
-      </section>
-
-      {/* Transaction Activity KPIs */}
-      <section className="mb-8">
-        <TransactionKpiCard />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <GlobalKpiCard />
+          <TransactionKpiCard />
+        </div>
       </section>
 
       {/* Charts Section - Market Cap and Pie Chart side by side */}

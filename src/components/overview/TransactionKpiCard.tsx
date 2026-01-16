@@ -44,16 +44,21 @@ interface KpiItemProps {
 function KpiItem({ label, value, subtext, tooltip }: KpiItemProps) {
   return (
     <div className="text-center px-4 py-2 group relative">
-      <p className="text-sm font-medium text-gray-500 mb-1">
-        {label}
-        {tooltip && (
-          <span className="ml-1 text-gray-400 cursor-help" title={tooltip}>
-            ⓘ
-          </span>
-        )}
-      </p>
+      <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
       <p className="text-2xl lg:text-3xl font-bold text-gray-900">{value}</p>
-      {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
+      {subtext && (
+        <p className="text-xs text-gray-400 mt-1">
+          {subtext}
+          {tooltip && (
+            <span className="ml-1 text-[10px] text-gray-300 cursor-help opacity-0 group-hover:opacity-100 transition-opacity relative inline-block">
+              <span className="peer">ⓘ</span>
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded whitespace-nowrap opacity-0 peer-hover:opacity-100 transition-opacity pointer-events-none">
+                {tooltip}
+              </span>
+            </span>
+          )}
+        </p>
+      )}
     </div>
   );
 }
