@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout';
-import { RegulationMap } from '../components/countries';
+import { CountryBentoGrid } from '../components/countries';
 
 export function CountriesPage() {
   return (
@@ -7,7 +7,7 @@ export function CountriesPage() {
       title="Regulatory Landscape"
       subtitle="Global view of stablecoin regulation and adoption by country"
     >
-      <RegulationMap />
+      <CountryBentoGrid />
     </PageContainer>
   );
 }

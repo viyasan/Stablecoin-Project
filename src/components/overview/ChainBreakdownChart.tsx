@@ -150,11 +150,22 @@ export function ChainBreakdownChart() {
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-gray-900">
-            Stablecoins by Chain
+            Stablecoin Supply by Chain
           </h2>
           <p className="text-sm text-gray-500 mt-1">
             Top 10 chains by stablecoin supply
           </p>
+          <span className="text-xs text-gray-400 flex items-center gap-1 mt-1">
+            Powered by
+            <a
+              href="https://defillama.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:text-primary-700 font-medium"
+            >
+              DefiLlama
+            </a>
+          </span>
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-500">Total Supply</p>
