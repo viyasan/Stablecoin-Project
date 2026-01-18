@@ -470,7 +470,6 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     ],
     stablecoinIssuers: [
       { company: 'Sygnum Bank', stablecoin: 'DCHF', status: 'Licensed Swiss bank; CHF-denominated stablecoin' },
-      { company: 'Bitcoin Suisse AG', stablecoin: 'XCHF', status: 'Discontinued August 2024' },
       { company: 'Circle', stablecoin: 'USDC / EURC', status: 'Operating in Switzerland' },
       { company: 'Tether', stablecoin: 'USDT', status: 'Operating in Switzerland' },
     ],
