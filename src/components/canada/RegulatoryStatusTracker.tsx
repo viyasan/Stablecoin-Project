@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Check } from 'lucide-react';
 import type { CanadianStablecoin, RegulatoryStep } from '../../api';
 
 interface TooltipProps {
@@ -77,9 +78,7 @@ function ProgressStep({ step, isLast }: ProgressStepProps) {
             className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${styles.circle}`}
           >
             {step.completed ? (
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-              </svg>
+              <Check className="w-4 h-4 text-white" strokeWidth={3} />
             ) : step.current ? (
               <div className="w-2.5 h-2.5 rounded-full bg-red-600" />
             ) : (

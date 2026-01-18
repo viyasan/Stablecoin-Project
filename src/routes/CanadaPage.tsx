@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout';
-import { Spinner } from '../components/common';
+import { SkeletonCanadaPage } from '../components/common';
 import {
   CompanyProfileCards,
   ComparisonTable,
@@ -7,6 +7,7 @@ import {
   CompanyTimelines,
 } from '../components/canada';
 import { useCanadianStablecoins } from '../api';
+import { ShieldCheck, CircleDollarSign, FileBarChart, CheckCircle, Building, Clock, Zap, Check } from 'lucide-react';
 
 // Maple Leaf icon for the header
 function MapleLeafIcon({ className }: { className?: string }) {
@@ -28,9 +29,7 @@ export function CanadaPage() {
   if (isLoading) {
     return (
       <PageContainer>
-        <div className="flex items-center justify-center h-64">
-          <Spinner size="lg" />
-        </div>
+        <SkeletonCanadaPage />
       </PageContainer>
     );
   }
@@ -88,9 +87,7 @@ export function CanadaPage() {
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
+                  <ShieldCheck className="w-5 h-5 text-red-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">QCAD Digital Trust</h4>
@@ -99,9 +96,7 @@ export function CanadaPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  <CircleDollarSign className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">1:1 CAD Backed</h4>
@@ -110,9 +105,7 @@ export function CanadaPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
+                  <FileBarChart className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Daily Transparency</h4>
@@ -138,9 +131,7 @@ export function CanadaPage() {
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Bank-to-Bank Tested</h4>
@@ -149,9 +140,7 @@ export function CanadaPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
+                  <Building className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Institutional Grade</h4>
@@ -160,9 +149,7 @@ export function CanadaPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  <Clock className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Q1 2026 Launch</h4>
@@ -186,9 +173,7 @@ export function CanadaPage() {
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">101% Over-Collateralized</h4>
@@ -197,9 +182,7 @@ export function CanadaPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+                  <Zap className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">3-Second Settlement</h4>
@@ -208,9 +191,7 @@ export function CanadaPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <Check className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Live</h4>

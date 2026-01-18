@@ -16,14 +16,84 @@
   --color-regulatory-partial: #f59e0b;
   --color-regulatory-restrictive: #ef4444;
   --color-regulatory-unknown: #6b7280;
+
+  /* Font families */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 }
 
 :root {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
   @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+/* =====================================================
+   NProgress Loading Bar
+   ===================================================== */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5), 0 0 5px rgba(14, 165, 233, 0.3);
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #0ea5e9, 0 0 5px #0ea5e9;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* =====================================================
+   Custom Scrollbar
+   ===================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* =====================================================
+   Monospace Numbers Utility
+   ===================================================== */
+.font-mono-numbers {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  font-variant-numeric: tabular-nums;
 }
 
 .card {

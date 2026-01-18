@@ -6,7 +6,7 @@ import {
   Tooltip,
 } from 'recharts';
 import { useStablecoinList } from '../../api';
-import { Spinner } from '../common';
+import { SkeletonPieChart } from '../common';
 
 // Specific colors for top stablecoins
 const STABLECOIN_COLORS: Record<string, string> = {
@@ -117,13 +117,7 @@ export function MarketSharePieChart() {
   const { data: stablecoins, isLoading, error, refetch } = useStablecoinList();
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center h-64">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
+    return <SkeletonPieChart />;
   }
 
   if (error || !stablecoins) {

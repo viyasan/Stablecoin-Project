@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMarketSummary, useStablecoinList } from '../../api';
-import { Spinner } from '../common';
+import { useMarketSummary, useStablecoinList, useMarketCapChart } from '../../api';
+import { SkeletonKpiCard, Sparkline } from '../common';
 
 function formatCurrency(value: number): string {
   if (value >= 1_000_000_000_000) {
@@ -72,19 +72,19 @@ function KpiItem({ label, value, change, changeValue, subtext, valueColorClass }
   const colorClass = isPositive ? 'text-green-600' : 'text-red-600';
 
   return (
-    <div className="text-center px-4 py-2">
-      <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
-      <p className={`text-2xl lg:text-3xl font-bold ${valueColorClass || 'text-gray-900'}`}>{value}</p>
+    <div className="flex flex-col items-center justify-center px-4 py-2">
+      <p className="text-sm font-medium text-gray-500 mb-1 text-center">{label}</p>
+      <p className={`text-2xl lg:text-3xl font-bold font-mono-numbers text-center ${valueColorClass || 'text-gray-900'}`}>{value}</p>
       {changeValue !== undefined && change !== undefined ? (
-        <p className={`text-sm font-medium mt-1 ${colorClass}`}>
+        <p className={`text-sm font-medium mt-1 text-center ${colorClass}`}>
           {formatCurrencyChange(changeValue)} ({formatPercent(change)})
         </p>
       ) : change !== undefined ? (
-        <p className={`text-sm font-medium mt-1 ${colorClass}`}>
+        <p className={`text-sm font-medium mt-1 text-center ${colorClass}`}>
           {formatPercent(change)}
         </p>
       ) : null}
-      {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
+      {subtext && <p className="text-xs text-gray-400 mt-1 text-center">{subtext}</p>}
     </div>
   );
 }
@@ -110,12 +110,12 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
 
   return (
     <div
-      className="text-center px-4 py-2 relative"
+      className="flex flex-col items-center justify-center px-4 py-2 relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <p className="text-sm font-medium text-gray-500 mb-1">Tracked Assets</p>
-      <p className="text-2xl lg:text-3xl font-bold text-gray-900 cursor-pointer hover:text-primary-600 transition-colors">
+      <p className="text-sm font-medium text-gray-500 mb-1 text-center">Tracked Assets</p>
+      <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 cursor-pointer hover:text-primary-600 transition-colors text-center">
         {count}
       </p>
 
@@ -215,15 +215,13 @@ type ViewMode = 'total' | '7d' | '30d';
 export function GlobalKpiCard() {
   const [viewMode, setViewMode] = useState<ViewMode>('total');
   const { data, isLoading, error, refetch } = useMarketSummary();
+  const { data: chartData } = useMarketCapChart('30d');
+
+  // Extract sparkline data (last 30 days of market cap values)
+  const sparklineData = chartData?.map((point) => point.totalMarketCap) || [];
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
+    return <SkeletonKpiCard showSparkline={true} />;
   }
 
   if (error || !data) {
@@ -304,22 +302,47 @@ export function GlobalKpiCard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
           {viewMode === 'total' && (
             <>
-              <KpiItem
-                label="Total Market Cap"
-                value={formatCurrency(data.totalMarketCap)}
-              />
+              <div className="flex flex-col items-center justify-center px-4 py-2">
+                <p className="text-sm font-medium text-gray-500 mb-1 text-center">Total Market Cap</p>
+                <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 text-center">
+                  {formatCurrency(data.totalMarketCap)}
+                </p>
+                {sparklineData.length > 0 && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <Sparkline
+                      data={sparklineData}
+                      width={80}
+                      height={24}
+                      color="auto"
+                    />
+                    <span className={`text-xs font-medium ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {formatPercent(data.change30d)} (30d)
+                    </span>
+                  </div>
+                )}
+              </div>
               <TrackedAssetsKpi count={data.trackedStablecoins} />
             </>
           )}
 
           {viewMode === '7d' && (
             <>
-              <div className="text-center px-4 py-2">
-                <p className="text-sm font-medium text-gray-500 mb-1">Market Cap (7 days ago)</p>
-                <p className="text-2xl lg:text-3xl font-bold text-gray-900">{formatCurrency(marketCap7dAgo)}</p>
-                <p className={`text-xs font-medium mt-2 ${data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {formatPercent(data.change7d)} change
-                </p>
+              <div className="flex flex-col items-center justify-center px-4 py-2">
+                <p className="text-sm font-medium text-gray-500 mb-1 text-center">Market Cap (7 days ago)</p>
+                <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 text-center">{formatCurrency(marketCap7dAgo)}</p>
+                {sparklineData.length > 0 && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <Sparkline
+                      data={sparklineData.slice(-7)}
+                      width={60}
+                      height={20}
+                      color="auto"
+                    />
+                    <span className={`text-xs font-medium ${data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {formatPercent(data.change7d)}
+                    </span>
+                  </div>
+                )}
               </div>
               <TrackedAssetsKpi count={data.trackedStablecoins} />
             </>
@@ -327,12 +350,22 @@ export function GlobalKpiCard() {
 
           {viewMode === '30d' && (
             <>
-              <div className="text-center px-4 py-2">
-                <p className="text-sm font-medium text-gray-500 mb-1">Market Cap (30 days ago)</p>
-                <p className="text-2xl lg:text-3xl font-bold text-gray-900">{formatCurrency(marketCap30dAgo)}</p>
-                <p className={`text-xs font-medium mt-2 ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {formatPercent(data.change30d)} change
-                </p>
+              <div className="flex flex-col items-center justify-center px-4 py-2">
+                <p className="text-sm font-medium text-gray-500 mb-1 text-center">Market Cap (30 days ago)</p>
+                <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 text-center">{formatCurrency(marketCap30dAgo)}</p>
+                {sparklineData.length > 0 && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <Sparkline
+                      data={sparklineData}
+                      width={80}
+                      height={20}
+                      color="auto"
+                    />
+                    <span className={`text-xs font-medium ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {formatPercent(data.change30d)}
+                    </span>
+                  </div>
+                )}
               </div>
               <TrackedAssetsKpi count={data.trackedStablecoins} />
             </>

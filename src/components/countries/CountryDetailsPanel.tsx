@@ -1,3 +1,4 @@
+import { X, MousePointer2 } from 'lucide-react';
 import type { RegulationCountry } from './regulationMapData';
 import { RegulationProgressBar } from './RegulationProgressBar';
 
@@ -38,19 +39,7 @@ export function CountryDetailsPanel({ country, onClose }: CountryDetailsPanelPro
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Close details"
             >
-              <svg
-                className="w-5 h-5 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <X className="w-5 h-5 text-gray-500" />
             </button>
           </div>
 
@@ -266,19 +255,7 @@ export function CountryPromptPanel() {
   return (
     <div className="mt-6 bg-gray-50 rounded-xl border border-gray-200 border-dashed p-8 text-center">
       <div className="w-12 h-12 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-        <svg
-          className="w-6 h-6 text-gray-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-          />
-        </svg>
+        <MousePointer2 className="w-6 h-6 text-gray-400" />
       </div>
       <p className="text-gray-500 font-medium">Click a country to view regulatory progress</p>
       <p className="text-sm text-gray-400 mt-1">

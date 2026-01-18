@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Database, ChevronDown } from 'lucide-react';
 
 export function AboutOurData() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -13,39 +14,17 @@ export function AboutOurData() {
         <div className="flex items-center gap-3">
           {/* Database Icon */}
           <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
-            <svg
-              className="w-4 h-4 text-gray-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
-              />
-            </svg>
+            <Database className="w-4 h-4 text-gray-500" />
           </div>
           <span className="text-sm font-medium text-gray-700">About Our Data</span>
         </div>
 
         {/* Chevron */}
-        <svg
+        <ChevronDown
           className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
             isExpanded ? 'rotate-180' : ''
           }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
+        />
       </button>
 
       {/* Expanded Content - Level 1 */}

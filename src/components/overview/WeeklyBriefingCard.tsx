@@ -1,5 +1,5 @@
 import { useWeeklyBriefing } from '../../api';
-import { Spinner } from '../common';
+import { SkeletonWeeklyBriefing } from '../common';
 
 function formatWeekOf(dateString: string): string {
   const date = new Date(dateString);
@@ -14,13 +14,7 @@ export function WeeklyBriefingCard() {
   const { data: briefing, isLoading, error, refetch } = useWeeklyBriefing();
 
   if (isLoading) {
-    return (
-      <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg shadow-sm p-8">
-        <div className="flex items-center justify-center h-32">
-          <Spinner size="lg" className="border-white/30 border-t-white" />
-        </div>
-      </div>
-    );
+    return <SkeletonWeeklyBriefing />;
   }
 
   if (error || !briefing) {

@@ -9,7 +9,7 @@ import {
   Cell,
 } from "recharts";
 import { useChainBreakdown } from "../../api";
-import { Spinner } from "../common";
+import { SkeletonBarChart } from "../common";
 
 // Chain colors - distinct colors for each chain
 const CHAIN_COLORS: Record<string, string> = {
@@ -104,13 +104,7 @@ export function ChainBreakdownChart() {
   const { data: chains, isLoading, error, refetch } = useChainBreakdown();
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center h-64">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
+    return <SkeletonBarChart />;
   }
 
   if (error || !chains) {

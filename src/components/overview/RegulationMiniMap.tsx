@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useCountries } from '../../api';
-import { Spinner, Badge } from '../common';
+import { SkeletonRegulationMiniMap, Badge } from '../common';
 import { REGULATORY_STATUS_COLORS, REGULATORY_STATUS_LABELS } from '../../types';
 import type { RegulatoryStatus, Country } from '../../types';
 
@@ -71,13 +71,7 @@ export function RegulationMiniMap() {
   const { data: countries, isLoading, error, refetch } = useCountries();
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center h-48">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
+    return <SkeletonRegulationMiniMap />;
   }
 
   if (error || !countries) {
@@ -150,7 +144,7 @@ export function RegulationMiniMap() {
               style={{ backgroundColor: `${REGULATORY_STATUS_COLORS[status]}15` }}
             >
               <p
-                className="text-2xl font-bold"
+                className="text-2xl font-bold font-mono-numbers"
                 style={{ color: REGULATORY_STATUS_COLORS[status] }}
               >
                 {statusCounts[status] || 0}

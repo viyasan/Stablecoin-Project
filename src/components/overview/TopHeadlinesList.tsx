@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTopHeadlines } from '../../api';
-import { Spinner, Tag, Badge } from '../common';
+import { SkeletonHeadlineList, Tag, Badge } from '../common';
 import type { NewsItem } from '../../types';
 
 function formatTimeAgo(isoString: string): string {
@@ -63,13 +63,7 @@ export function TopHeadlinesList() {
   const { data: headlines, isLoading, error, refetch } = useTopHeadlines(5);
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center h-48">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
+    return <SkeletonHeadlineList count={5} />;
   }
 
   if (error || !headlines) {

@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { PageContainer } from '../components/layout';
 import { useCountryDetail } from '../api';
-import { Spinner, Badge } from '../components/common';
+import { SkeletonCountryDetail, Badge } from '../components/common';
 import { REGULATORY_STATUS_LABELS } from '../types';
 
 export function CountryDetailPage() {
@@ -11,9 +11,7 @@ export function CountryDetailPage() {
   if (isLoading) {
     return (
       <PageContainer>
-        <div className="flex items-center justify-center py-16">
-          <Spinner size="lg" />
-        </div>
+        <SkeletonCountryDetail />
       </PageContainer>
     );
   }

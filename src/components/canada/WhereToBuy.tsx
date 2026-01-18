@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react';
 import type { Exchange, CanadianStablecoin } from '../../api';
 
 interface ExchangeCardProps {
@@ -24,19 +25,7 @@ function ExchangeCard({ exchange }: ExchangeCardProps) {
           <p className="text-xs text-gray-500">{exchange.type}</p>
         </div>
       </div>
-      <svg
-        className="w-5 h-5 text-gray-400 group-hover:text-red-600 transition-colors"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-        />
-      </svg>
+      <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-red-600 transition-colors" />
     </a>
   );
 }

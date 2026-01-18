@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'recharts';
 import { useMarketCapChart } from '../../api';
-import { Spinner } from '../common';
+import { SkeletonChart } from '../common';
 
 type TimeRange = '7d' | '30d' | '1y' | 'max';
 
@@ -96,13 +96,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   const { data, isLoading, error, refetch } = useMarketCapChart(timeRange);
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="flex items-center justify-center h-64">
-          <Spinner size="lg" />
-        </div>
-      </div>
-    );
+    return <SkeletonChart height={300} />;
   }
 
   if (error || !data) {

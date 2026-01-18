@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import TagManager from 'react-gtm-module';
+import NProgress from 'nprogress';
 import { Header, Footer } from './components/layout';
 import {
   OverviewPage,
@@ -10,6 +11,14 @@ import {
   NewsPage,
 } from './routes';
 
+// Configure NProgress
+NProgress.configure({
+  showSpinner: false,
+  minimum: 0.1,
+  easing: 'ease',
+  speed: 400,
+});
+
 // Initialize Google Tag Manager
 const GTM_ID = import.meta.env.VITE_GTM_CONTAINER_ID;
 if (GTM_ID) {
@@ -18,11 +27,14 @@ if (GTM_ID) {
   });
 }
 
-// Component to track page views
+// Component to track page views and show loading bar
 function PageViewTracker() {
   const location = useLocation();
 
   useEffect(() => {
+    // Start loading bar
+    NProgress.start();
+
     // Track page view on route change
     if (GTM_ID) {
       TagManager.dataLayer({
@@ -32,6 +44,16 @@ function PageViewTracker() {
         },
       });
     }
+
+    // Complete loading bar after a short delay (simulates page load)
+    const timer = setTimeout(() => {
+      NProgress.done();
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+      NProgress.done();
+    };
   }, [location]);
 
   return null;
