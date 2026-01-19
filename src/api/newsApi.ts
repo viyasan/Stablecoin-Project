@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag } from '../types';
+import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag, NewsPagination } from '../types';
+
+// CORS proxy for RSS feeds that don't support CORS
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 // RSS Feed sources - high-quality crypto news outlets
 const RSS_FEEDS = [
-  { url: 'https://www.coindesk.com/arc/outboundfeeds/rss/', source: 'CoinDesk' },
-  { url: 'https://cointelegraph.com/rss', source: 'CoinTelegraph' },
-  { url: 'https://decrypt.co/feed', source: 'Decrypt' },
+  { url: 'https://www.coindesk.com/arc/outboundfeeds/rss', source: 'CoinDesk', needsProxy: true },
+  { url: 'https://cointelegraph.com/rss', source: 'CoinTelegraph', needsProxy: false },  // Has CORS headers
 ];
 
 // Stablecoin-related keywords for filtering
@@ -28,6 +30,61 @@ const STABLECOIN_KEYWORDS = [
   'reserve', 'peg', 'depeg',
 ];
 
+// Extract image URL from RSS item using various common formats
+function extractImageFromItem(item: Element, description: string): string | undefined {
+  // Try media:content (most common for news RSS)
+  const mediaContent = item.querySelector('content');
+  if (mediaContent) {
+    const url = mediaContent.getAttribute('url');
+    if (url && isValidImageUrl(url)) return url;
+  }
+
+  // Try media:thumbnail
+  const mediaThumbnail = item.querySelector('thumbnail');
+  if (mediaThumbnail) {
+    const url = mediaThumbnail.getAttribute('url');
+    if (url && isValidImageUrl(url)) return url;
+  }
+
+  // Try enclosure (common for podcasts and some news)
+  const enclosure = item.querySelector('enclosure');
+  if (enclosure) {
+    const type = enclosure.getAttribute('type') || '';
+    const url = enclosure.getAttribute('url');
+    if (url && type.startsWith('image/')) return url;
+  }
+
+  // Try to find image in content:encoded
+  const contentEncoded = item.querySelector('encoded');
+  if (contentEncoded?.textContent) {
+    const imgMatch = contentEncoded.textContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+    if (imgMatch?.[1] && isValidImageUrl(imgMatch[1])) return imgMatch[1];
+  }
+
+  // Try to find image embedded in description HTML
+  const imgMatch = description.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (imgMatch?.[1] && isValidImageUrl(imgMatch[1])) return imgMatch[1];
+
+  return undefined;
+}
+
+// Check if URL is a valid image URL
+function isValidImageUrl(url: string): boolean {
+  if (!url) return false;
+  const lowerUrl = url.toLowerCase();
+  return (
+    lowerUrl.includes('.jpg') ||
+    lowerUrl.includes('.jpeg') ||
+    lowerUrl.includes('.png') ||
+    lowerUrl.includes('.webp') ||
+    lowerUrl.includes('.gif') ||
+    lowerUrl.includes('/image') ||
+    lowerUrl.includes('/img') ||
+    lowerUrl.includes('cloudinary') ||
+    lowerUrl.includes('imgix')
+  );
+}
+
 // Parse RSS XML to extract articles
 function parseRSSFeed(xmlText: string, sourceName: string): RSSArticle[] {
   const parser = new DOMParser();
@@ -42,6 +99,9 @@ function parseRSSFeed(xmlText: string, sourceName: string): RSSArticle[] {
     const description = item.querySelector('description')?.textContent || '';
     const pubDate = item.querySelector('pubDate')?.textContent || '';
 
+    // Extract image before cleaning description
+    const imageUrl = extractImageFromItem(item, description);
+
     // Clean HTML from description
     const cleanDescription = description.replace(/<[^>]*>/g, '').trim();
 
@@ -51,6 +111,7 @@ function parseRSSFeed(xmlText: string, sourceName: string): RSSArticle[] {
       description: cleanDescription,
       pubDate,
       source: sourceName,
+      imageUrl,
     });
   });
 
@@ -63,6 +124,7 @@ interface RSSArticle {
   description: string;
   pubDate: string;
   source: string;
+  imageUrl?: string;
 }
 
 // Check if article is stablecoin-related
@@ -137,42 +199,102 @@ function mapRSSToNewsItem(article: RSSArticle): NewsItem {
     topics: determineTopics(article),
     assetSymbols: extractAssetSymbols(article),
     countryIsoCodes: [],
+    imageUrl: article.imageUrl,
   };
+}
+
+// Source distribution percentages and priority order
+const SOURCE_PRIORITY = ['CoinDesk', 'CoinTelegraph'];
+const SOURCE_DISTRIBUTION: Record<string, number> = {
+  CoinDesk: 0.6,      // 60%
+  CoinTelegraph: 0.4, // 40%
+};
+
+// Distribute articles according to source preferences, prioritizing by source order
+function distributeArticles(
+  articlesBySource: Record<string, RSSArticle[]>,
+  totalLimit: number
+): RSSArticle[] {
+  const result: RSSArticle[] = [];
+
+  // Calculate how many articles we want from each source
+  const targetCounts: Record<string, number> = {};
+  for (const source of SOURCE_PRIORITY) {
+    targetCounts[source] = Math.floor(totalLimit * SOURCE_DISTRIBUTION[source]);
+  }
+
+  // Take articles from each source up to their target count, in priority order
+  // CoinDesk first, then CoinTelegraph
+  for (const source of SOURCE_PRIORITY) {
+    const sourceArticles = articlesBySource[source] || [];
+    const count = Math.min(targetCounts[source], sourceArticles.length);
+    // Articles within each source are already sorted by date
+    result.push(...sourceArticles.slice(0, count));
+  }
+
+  // If we don't have enough, fill from sources in priority order
+  if (result.length < totalLimit) {
+    const remaining = totalLimit - result.length;
+    const usedIds = new Set(result.map(a => a.link));
+
+    // Collect unused articles, maintaining source priority
+    const allUnused: RSSArticle[] = [];
+    for (const source of SOURCE_PRIORITY) {
+      const sourceArticles = articlesBySource[source] || [];
+      const unused = sourceArticles.filter(a => !usedIds.has(a.link));
+      allUnused.push(...unused);
+    }
+
+    result.push(...allUnused.slice(0, remaining));
+  }
+
+  // Keep source priority order (CoinDesk -> CoinTelegraph)
+  // Within each source group, articles are sorted by date (newest first)
+  return result;
 }
 
 // Fetch and parse RSS feeds from multiple sources
 async function fetchRSSNews(limit: number = 20): Promise<NewsItem[]> {
-  const allArticles: RSSArticle[] = [];
-
   // Fetch all RSS feeds in parallel
   const feedPromises = RSS_FEEDS.map(async (feed) => {
     try {
-      const response = await fetch(feed.url);
+      // Use CORS proxy for feeds that don't support CORS
+      const fetchUrl = feed.needsProxy
+        ? `${CORS_PROXY}${encodeURIComponent(feed.url)}`
+        : feed.url;
+
+      const response = await fetch(fetchUrl, { redirect: 'follow' });
       if (!response.ok) {
         console.warn(`Failed to fetch ${feed.source} RSS: ${response.status}`);
-        return [];
+        return { source: feed.source, articles: [] as RSSArticle[] };
       }
       const xmlText = await response.text();
-      return parseRSSFeed(xmlText, feed.source);
+      const articles = parseRSSFeed(xmlText, feed.source);
+      return { source: feed.source, articles };
     } catch (error) {
       console.warn(`Error fetching ${feed.source} RSS:`, error);
-      return [];
+      return { source: feed.source, articles: [] as RSSArticle[] };
     }
   });
 
   const feedResults = await Promise.all(feedPromises);
-  feedResults.forEach(articles => allArticles.push(...articles));
 
-  // Filter for stablecoin-related articles
-  const stablecoinArticles = allArticles.filter(isStablecoinRelated);
+  // Group stablecoin-related articles by source
+  const articlesBySource: Record<string, RSSArticle[]> = {};
+  for (const { source, articles } of feedResults) {
+    const stablecoinArticles = articles.filter(isStablecoinRelated);
+    // Sort each source's articles by date
+    stablecoinArticles.sort((a, b) =>
+      new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+    );
+    articlesBySource[source] = stablecoinArticles;
+  }
 
-  // Sort by date (newest first)
-  stablecoinArticles.sort((a, b) =>
-    new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
-  );
+  // Distribute articles according to source preferences
+  const distributedArticles = distributeArticles(articlesBySource, limit);
 
-  // Map to NewsItem and limit results
-  return stablecoinArticles.slice(0, limit).map(mapRSSToNewsItem);
+  // Map to NewsItem
+  return distributedArticles.map(mapRSSToNewsItem);
 }
 
 // Mock data for development/fallback
@@ -204,8 +326,8 @@ const mockNews: NewsItem[] = [
   {
     id: '3',
     title: 'Circle expands USDC to five new blockchain networks',
-    source: 'Decrypt',
-    url: 'https://decrypt.co',
+    source: 'CoinTelegraph',
+    url: 'https://cointelegraph.com',
     publishedAt: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
     summary:
       'Circle announces native USDC support on additional Layer 2 networks, expanding accessibility for users.',
@@ -292,6 +414,44 @@ interface UseApiResult<T> {
   refetch: () => void;
 }
 
+// Apply filters to news data
+function applyNewsFilters(newsData: NewsItem[], filters?: NewsFilters): NewsItem[] {
+  let filtered = [...newsData];
+
+  if (filters?.search) {
+    const search = filters.search.toLowerCase();
+    filtered = filtered.filter(
+      (item) =>
+        item.title.toLowerCase().includes(search) ||
+        item.summary.toLowerCase().includes(search)
+    );
+  }
+
+  if (filters?.asset) {
+    filtered = filtered.filter((item) =>
+      item.assetSymbols.includes(filters.asset!)
+    );
+  }
+
+  if (filters?.country) {
+    filtered = filtered.filter((item) =>
+      item.countryIsoCodes.includes(filters.country!)
+    );
+  }
+
+  if (filters?.topic && filters.topic !== 'all') {
+    filtered = filtered.filter((item) =>
+      item.topics.includes(filters.topic as TopicTag)
+    );
+  }
+
+  if (filters?.source && filters.source !== 'all') {
+    filtered = filtered.filter((item) => item.source === filters.source);
+  }
+
+  return filtered;
+}
+
 export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
   const [data, setData] = useState<NewsItem[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -301,7 +461,7 @@ export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
     setIsLoading(true);
     try {
       // Try to fetch from RSS feeds first
-      let newsData = await fetchRSSNews(20);
+      let newsData = await fetchRSSNews(50);
 
       // Fall back to mock data if no stablecoin articles found
       if (newsData.length === 0) {
@@ -309,32 +469,7 @@ export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
       }
 
       // Apply filters
-      if (filters?.search) {
-        const search = filters.search.toLowerCase();
-        newsData = newsData.filter(
-          (item) =>
-            item.title.toLowerCase().includes(search) ||
-            item.summary.toLowerCase().includes(search)
-        );
-      }
-
-      if (filters?.asset) {
-        newsData = newsData.filter((item) =>
-          item.assetSymbols.includes(filters.asset!)
-        );
-      }
-
-      if (filters?.country) {
-        newsData = newsData.filter((item) =>
-          item.countryIsoCodes.includes(filters.country!)
-        );
-      }
-
-      if (filters?.topic && filters.topic !== 'all') {
-        newsData = newsData.filter((item) =>
-          item.topics.includes(filters.topic as TopicTag)
-        );
-      }
+      newsData = applyNewsFilters(newsData, filters);
 
       setData(newsData);
       setError(null);
@@ -346,13 +481,95 @@ export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
     } finally {
       setIsLoading(false);
     }
-  }, [filters?.search, filters?.asset, filters?.country, filters?.topic]);
+  }, [filters?.search, filters?.asset, filters?.country, filters?.topic, filters?.source]);
 
   useEffect(() => {
     fetchNews();
   }, [fetchNews]);
 
   return { data, isLoading, error, refetch: fetchNews };
+}
+
+// Paginated news hook for News page with "Load More" functionality
+interface UsePaginatedNewsResult {
+  data: NewsItem[] | null;
+  isLoading: boolean;
+  isLoadingMore: boolean;
+  error: Error | null;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+}
+
+export function usePaginatedNews(
+  filters?: NewsFilters,
+  pageSize: number = 12
+): UsePaginatedNewsResult {
+  const [allData, setAllData] = useState<NewsItem[]>([]);
+  const [displayedData, setDisplayedData] = useState<NewsItem[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const fetchNews = useCallback(async () => {
+    setIsLoading(true);
+    setCurrentPage(1);
+    try {
+      // Fetch more articles for pagination
+      let newsData = await fetchRSSNews(100);
+
+      // Fall back to mock data if no stablecoin articles found
+      if (newsData.length === 0) {
+        newsData = [...mockNews];
+      }
+
+      // Apply filters
+      newsData = applyNewsFilters(newsData, filters);
+
+      setAllData(newsData);
+      setDisplayedData(newsData.slice(0, pageSize));
+      setError(null);
+    } catch (err) {
+      console.error('Failed to fetch news:', err);
+      setAllData(mockNews);
+      setDisplayedData(mockNews.slice(0, pageSize));
+      setError(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [filters?.search, filters?.asset, filters?.country, filters?.topic, filters?.source, pageSize]);
+
+  const loadMore = useCallback(() => {
+    if (isLoadingMore) return;
+
+    setIsLoadingMore(true);
+    const nextPage = currentPage + 1;
+    const endIndex = nextPage * pageSize;
+
+    // Simulate slight delay for UX
+    setTimeout(() => {
+      setDisplayedData(allData.slice(0, endIndex));
+      setCurrentPage(nextPage);
+      setIsLoadingMore(false);
+    }, 300);
+  }, [allData, currentPage, pageSize, isLoadingMore]);
+
+  useEffect(() => {
+    fetchNews();
+  }, [fetchNews]);
+
+  const hasMore = displayedData ? displayedData.length < allData.length : false;
+
+  return {
+    data: displayedData,
+    isLoading,
+    isLoadingMore,
+    error,
+    hasMore,
+    loadMore,
+    refetch: fetchNews,
+  };
 }
 
 export function useTopHeadlines(limit: number = 5): UseApiResult<NewsItem[]> {

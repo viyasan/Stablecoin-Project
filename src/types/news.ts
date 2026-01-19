@@ -37,4 +37,10 @@ export interface NewsFilters {
   asset?: string;
   country?: string;
   topic?: TopicTag | 'all';
+  source?: string | 'all';
+}
+
+export interface NewsPagination {
+  offset: number;
+  limit: number;
 }

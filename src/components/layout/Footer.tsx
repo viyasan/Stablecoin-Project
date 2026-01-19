@@ -77,15 +77,6 @@ export function Footer() {
             >
               CoinTelegraph
             </a>
-            {', '}
-            <a
-              href="https://decrypt.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Decrypt
-            </a>
           </p>
           </div>
         )}

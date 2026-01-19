@@ -5,6 +5,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useStablecoinList } from '../../api';
 import { SkeletonPieChart } from '../common';
 
@@ -62,6 +63,13 @@ interface PieChartData {
   symbol: string;
   value: number;
   percentage: number;
+  change7d: number;
+  change30d: number;
+}
+
+function formatChangePercent(value: number): string {
+  const sign = value >= 0 ? '+' : '';
+  return `${sign}${value.toFixed(2)}%`;
 }
 
 interface CustomTooltipProps {
@@ -75,11 +83,64 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
 
   const data = payload[0].payload;
+  const change7d = data.change7d;
+  const change30d = data.change30d;
+
+  const getTrendIcon = (change: number) => {
+    if (change > 0.5) return <TrendingUp className="w-3.5 h-3.5 text-green-500" />;
+    if (change < -0.5) return <TrendingDown className="w-3.5 h-3.5 text-red-500" />;
+    return <Minus className="w-3.5 h-3.5 text-gray-400" />;
+  };
+
+  const getChangeColor = (change: number) => {
+    if (change > 0.5) return 'text-green-600';
+    if (change < -0.5) return 'text-red-600';
+    return 'text-gray-500';
+  };
+
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
-      <p className="text-sm font-semibold text-gray-900">{data.name}</p>
-      <p className="text-sm text-gray-600">{formatCurrency(data.value)}</p>
-      <p className="text-sm text-gray-500">{formatPercent(data.percentage)}</p>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3 min-w-[180px]">
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-100">
+        <span className="text-sm font-semibold text-gray-900">{data.symbol}</span>
+        <span className="text-xs text-gray-500">{data.name}</span>
+      </div>
+
+      {/* Market Cap */}
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs text-gray-500">Market Cap</span>
+        <span className="text-sm font-semibold text-gray-900">{formatCurrency(data.value)}</span>
+      </div>
+
+      {/* Market Share */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs text-gray-500">Share</span>
+        <span className="text-sm font-medium text-gray-700">{formatPercent(data.percentage)}</span>
+      </div>
+
+      {/* Changes */}
+      {data.symbol !== 'Others' && (
+        <div className="pt-2 border-t border-gray-100 space-y-1.5">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-500">7d Change</span>
+            <div className="flex items-center gap-1">
+              {getTrendIcon(change7d)}
+              <span className={`text-xs font-medium ${getChangeColor(change7d)}`}>
+                {formatChangePercent(change7d)}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-500">30d Change</span>
+            <div className="flex items-center gap-1">
+              {getTrendIcon(change30d)}
+              <span className={`text-xs font-medium ${getChangeColor(change30d)}`}>
+                {formatChangePercent(change30d)}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -153,6 +214,8 @@ export function MarketSharePieChart() {
     symbol: coin.symbol,
     value: coin.marketCap,
     percentage: (coin.marketCap / totalMarketCap) * 100,
+    change7d: coin.change7d,
+    change30d: coin.change30d,
   }));
 
   // Add "Others" if there are more stablecoins
@@ -162,6 +225,8 @@ export function MarketSharePieChart() {
       symbol: 'Others',
       value: othersMarketCap,
       percentage: (othersMarketCap / totalMarketCap) * 100,
+      change7d: 0,
+      change30d: 0,
     });
   }
 

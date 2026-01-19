@@ -49,6 +49,8 @@ export interface StablecoinWithSnapshot extends Stablecoin {
   volume24h: number;
   price: number;
   priceDeviation: number;
+  change7d: number;
+  change30d: number;
 }
 
 export interface MarketFilters {

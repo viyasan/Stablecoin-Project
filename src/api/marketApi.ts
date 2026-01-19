@@ -178,19 +178,31 @@ async function fetchStablecoinList(): Promise<StablecoinWithSnapshot[]> {
 
   return data.peggedAssets
     .filter((coin) => coin.circulating?.peggedUSD > 0)
-    .map((coin) => ({
-      id: coin.id,
-      symbol: coin.symbol,
-      name: coin.name,
-      pegCurrency: mapPegType(coin.pegType),
-      issuerType: mapPegMechanism(coin.pegMechanism),
-      dominantChain: getDominantChain(coin.chainCirculating || {}),
-      externalId: coin.gecko_id,
-      marketCap: coin.circulating?.peggedUSD || 0,
-      volume24h: 0, // DefiLlama doesn't provide volume data
-      price: coin.price || 1,
-      priceDeviation: coin.price ? (coin.price - 1) * 100 : 0,
-    }))
+    .map((coin) => {
+      const currentCap = coin.circulating?.peggedUSD || 0;
+      const prevWeekCap = coin.circulatingPrevWeek?.peggedUSD || currentCap;
+      const prevMonthCap = coin.circulatingPrevMonth?.peggedUSD || currentCap;
+
+      // Calculate percentage changes
+      const change7d = prevWeekCap > 0 ? ((currentCap - prevWeekCap) / prevWeekCap) * 100 : 0;
+      const change30d = prevMonthCap > 0 ? ((currentCap - prevMonthCap) / prevMonthCap) * 100 : 0;
+
+      return {
+        id: coin.id,
+        symbol: coin.symbol,
+        name: coin.name,
+        pegCurrency: mapPegType(coin.pegType),
+        issuerType: mapPegMechanism(coin.pegMechanism),
+        dominantChain: getDominantChain(coin.chainCirculating || {}),
+        externalId: coin.gecko_id,
+        marketCap: currentCap,
+        volume24h: 0, // DefiLlama doesn't provide volume data
+        price: coin.price || 1,
+        priceDeviation: coin.price ? (coin.price - 1) * 100 : 0,
+        change7d: Math.round(change7d * 100) / 100,
+        change30d: Math.round(change30d * 100) / 100,
+      };
+    })
     .sort((a, b) => b.marketCap - a.marketCap);
 }
 

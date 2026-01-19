@@ -108,15 +108,6 @@ export function TopHeadlinesList() {
             >
               CoinTelegraph
             </a>
-            , and{' '}
-            <a
-              href="https://decrypt.co/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium"
-            >
-              Decrypt
-            </a>
           </span>
         </div>
         <Link

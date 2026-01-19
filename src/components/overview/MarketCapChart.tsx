@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   AreaChart,
   Area,
@@ -8,7 +8,10 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  LineChart,
+  Line,
 } from 'recharts';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useMarketCapChart } from '../../api';
 import { SkeletonChart } from '../common';
 
@@ -52,6 +55,12 @@ function formatDate(timestamp: string, range: TimeRange): string {
   });
 }
 
+interface ChartDataPoint {
+  timestamp: string;
+  'Total Market Cap': number;
+  [key: string]: string | number;
+}
+
 interface ChartTooltipProps {
   active?: boolean;
   payload?: Array<{
@@ -60,29 +69,96 @@ interface ChartTooltipProps {
     color: string;
   }>;
   label?: string;
+  chartData?: ChartDataPoint[];
+  timeRange?: TimeRange;
 }
 
-function ChartTooltip({ active, payload, label }: ChartTooltipProps) {
-  if (!active || !payload?.length) return null;
+function formatChangePercent(value: number): string {
+  const sign = value >= 0 ? '+' : '';
+  return `${sign}${value.toFixed(2)}%`;
+}
+
+function ChartTooltip({ active, payload, label, chartData, timeRange }: ChartTooltipProps) {
+  if (!active || !payload?.length || !chartData) return null;
+
+  const currentValue = payload[0]?.value || 0;
+  const currentIndex = chartData.findIndex((d) => d.timestamp === label);
+
+  // Get sparkline data (last 14 points up to and including current point)
+  const sparklineStart = Math.max(0, currentIndex - 13);
+  const sparklineData = chartData.slice(sparklineStart, currentIndex + 1).map((d) => ({
+    value: d['Total Market Cap'],
+  }));
+
+  // Calculate change from start of visible period
+  const startValue = chartData[0]?.['Total Market Cap'] || 0;
+  const changeFromStart = startValue > 0 ? ((currentValue - startValue) / startValue) * 100 : 0;
+
+  const getTrendIcon = (change: number) => {
+    if (change > 0.5) return <TrendingUp className="w-4 h-4 text-green-500" />;
+    if (change < -0.5) return <TrendingDown className="w-4 h-4 text-red-500" />;
+    return <Minus className="w-4 h-4 text-gray-400" />;
+  };
+
+  const getChangeColor = (change: number) => {
+    if (change > 0.5) return 'text-green-600';
+    if (change < -0.5) return 'text-red-600';
+    return 'text-gray-500';
+  };
+
+  const periodLabel = timeRange === '7d' ? '7d' : timeRange === '30d' ? '30d' : timeRange === '1y' ? '1y' : 'all time';
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
-      <p className="text-sm font-medium text-gray-900 mb-2">
+    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3 min-w-[200px]">
+      {/* Date Header */}
+      <p className="text-xs text-gray-500 mb-2">
         {new Date(label || '').toLocaleDateString(undefined, {
-          weekday: 'long',
+          weekday: 'short',
           year: 'numeric',
-          month: 'long',
+          month: 'short',
           day: 'numeric',
         })}
       </p>
-      {payload.map((entry, index) => (
-        <div key={index} className="flex items-center justify-between gap-4">
-          <span className="text-sm text-gray-600">{entry.dataKey}</span>
-          <span className="text-sm font-semibold" style={{ color: entry.color }}>
-            {formatCurrencyShort(entry.value)}
-          </span>
+
+      {/* Main Value */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-sm text-gray-600">Total Market Cap</span>
+        <span className="text-base font-semibold text-gray-900">
+          {formatCurrencyShort(currentValue)}
+        </span>
+      </div>
+
+      {/* Mini Sparkline - hide for 'max' since it's not meaningful */}
+      {timeRange !== 'max' && sparklineData.length > 1 && (
+        <div className="mb-3 border-t border-gray-100 pt-2">
+          <div className="h-10 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={sparklineData}>
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke={changeFromStart >= 0 ? '#22c55e' : '#ef4444'}
+                  strokeWidth={1.5}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-      ))}
+      )}
+
+      {/* Change from Period Start - hide for 'max' since it's not meaningful */}
+      {timeRange !== 'max' && (
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+          <span className="text-xs text-gray-500">Change ({periodLabel})</span>
+          <div className="flex items-center gap-1">
+            {getTrendIcon(changeFromStart)}
+            <span className={`text-sm font-medium ${getChangeColor(changeFromStart)}`}>
+              {formatChangePercent(changeFromStart)}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -92,7 +168,7 @@ interface MarketCapChartProps {
 }
 
 export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
-  const [timeRange, setTimeRange] = useState<TimeRange>('max');
+  const [timeRange, setTimeRange] = useState<TimeRange>('1y');
   const { data, isLoading, error, refetch } = useMarketCapChart(timeRange);
 
   if (isLoading) {
@@ -117,7 +193,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
     );
   }
 
-  const chartData = data.map((point) => ({
+  const chartData: ChartDataPoint[] = data.map((point) => ({
     timestamp: point.timestamp,
     'Total Market Cap': point.totalMarketCap,
     ...(showBreakdown && point.breakdown
@@ -199,7 +275,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                 tickLine={false}
                 width={60}
               />
-              <Tooltip content={<ChartTooltip />} />
+              <Tooltip content={<ChartTooltip chartData={chartData} timeRange={timeRange} />} />
               {showBreakdown && data[0]?.breakdown ? (
                 <>
                   <Legend />
