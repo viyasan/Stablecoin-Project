@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
-import { CountryDetailsPanel, CountryPromptPanel } from './CountryDetailsPanel';
+import { CountryPromptPanel } from './CountryDetailsPanel';
 import {
   REGULATION_COUNTRIES,
   STAGE_COLORS,

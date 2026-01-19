@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag, NewsPagination } from '../types';
+import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag } from '../types';
 
 // CORS proxy for RSS feeds that don't support CORS
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';

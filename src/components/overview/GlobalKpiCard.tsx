@@ -16,21 +16,6 @@ function formatCurrency(value: number): string {
   return `$${value.toLocaleString()}`;
 }
 
-function formatCurrencyChange(value: number): string {
-  const absValue = Math.abs(value);
-  const sign = value >= 0 ? '+$' : '-$';
-  if (absValue >= 1_000_000_000_000) {
-    return `${sign}${(absValue / 1_000_000_000_000).toFixed(2)}T`;
-  }
-  if (absValue >= 1_000_000_000) {
-    return `${sign}${(absValue / 1_000_000_000).toFixed(2)}B`;
-  }
-  if (absValue >= 1_000_000) {
-    return `${sign}${(absValue / 1_000_000).toFixed(2)}M`;
-  }
-  return `${sign}${absValue.toLocaleString()}`;
-}
-
 function formatPercent(value: number): string {
   const sign = value >= 0 ? '+' : '';
   return `${sign}${value.toFixed(2)}%`;
@@ -56,37 +41,6 @@ function formatLastUpdated(isoString: string): string {
   const hour12 = hours % 12 || 12;
 
   return `${month} ${ordinal(day)} at ${hour12}:${minutes}${period}`;
-}
-
-interface KpiItemProps {
-  label: string;
-  value: string;
-  change?: number;
-  changeValue?: number;
-  subtext?: string;
-  valueColorClass?: string;
-}
-
-function KpiItem({ label, value, change, changeValue, subtext, valueColorClass }: KpiItemProps) {
-  const isPositive = change !== undefined ? change >= 0 : (changeValue !== undefined ? changeValue >= 0 : true);
-  const colorClass = isPositive ? 'text-green-600' : 'text-red-600';
-
-  return (
-    <div className="flex flex-col items-center justify-center px-4 py-2">
-      <p className="text-sm font-medium text-gray-500 mb-1 text-center">{label}</p>
-      <p className={`text-2xl lg:text-3xl font-bold font-mono-numbers text-center ${valueColorClass || 'text-gray-900'}`}>{value}</p>
-      {changeValue !== undefined && change !== undefined ? (
-        <p className={`text-sm font-medium mt-1 text-center ${colorClass}`}>
-          {formatCurrencyChange(changeValue)} ({formatPercent(change)})
-        </p>
-      ) : change !== undefined ? (
-        <p className={`text-sm font-medium mt-1 text-center ${colorClass}`}>
-          {formatPercent(change)}
-        </p>
-      ) : null}
-      {subtext && <p className="text-xs text-gray-400 mt-1 text-center">{subtext}</p>}
-    </div>
-  );
 }
 
 interface TrackedAssetsKpiProps {
