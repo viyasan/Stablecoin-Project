@@ -44,7 +44,18 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Legal */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Legal</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/disclaimer" className="hover:text-white transition-colors">
+                  Disclaimer & Disclosures
+                </Link>
+              </li>
+            </ul>
           </div>
+        </div>
 
         {/* Data Sources - Only show on overview page */}
         {isOverviewPage && (
@@ -86,7 +97,10 @@ export function Footer() {
           <p className="text-xs text-gray-500 mb-4">
             <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
             is for informational purposes only and does not constitute
-            investment, legal, or financial advice.
+            investment, legal, or financial advice.{' '}
+            <Link to="/disclaimer" className="text-gray-400 hover:text-white transition-colors">
+              Read full disclaimer
+            </Link>
           </p>
           <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} StablecoinStats.ca. All rights reserved.

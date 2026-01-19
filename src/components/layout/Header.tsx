@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 // Maple Leaf icon component (Font Awesome Canadian maple leaf) - custom icon not in Lucide
 function MapleLeafIcon({ className }: { className?: string }) {
@@ -58,18 +58,6 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Search */}
-          <div className="hidden md:flex items-center">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search assets or countries..."
-                className="w-64 pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            </div>
-          </div>
-
           {/* Mobile menu button */}
           <button
             className="md:hidden p-2 text-gray-600 hover:text-gray-900"
@@ -106,13 +94,6 @@ export function Header() {
                 {item.icon && <item.icon className="w-4 h-4 text-red-600" />}
               </NavLink>
             ))}
-          </div>
-          <div className="px-4 pb-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg"
-            />
           </div>
         </div>
       )}

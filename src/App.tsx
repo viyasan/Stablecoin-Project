@@ -9,6 +9,7 @@ import {
   CountriesPage,
   CountryDetailPage,
   NewsPage,
+  DisclaimerPage,
 } from './routes';
 
 // Configure NProgress
@@ -72,6 +73,7 @@ function App() {
             <Route path="/countries" element={<CountriesPage />} />
             <Route path="/countries/:code" element={<CountryDetailPage />} />
             <Route path="/news" element={<NewsPage />} />
+            <Route path="/disclaimer" element={<DisclaimerPage />} />
           </Routes>
         </div>
         <Footer />
