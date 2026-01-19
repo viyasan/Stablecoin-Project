@@ -33,6 +33,9 @@ function PageViewTracker() {
   const location = useLocation();
 
   useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
+
     // Start loading bar
     NProgress.start();
 
