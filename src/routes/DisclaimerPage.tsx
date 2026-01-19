@@ -269,7 +269,14 @@ export function DisclaimerPage() {
           </h2>
           <p className="text-gray-600">
             If you have questions about this disclaimer or anything on StablecoinStats.ca,
-            feel free to reach out. We're happy to help.
+            feel free to reach out to{' '}
+            <a
+              href="mailto:viyasan.ari@gmail.com"
+              className="text-primary-600 hover:text-primary-700"
+            >
+              viyasan.ari@gmail.com
+            </a>
+            .
           </p>
         </section>
       </div>
