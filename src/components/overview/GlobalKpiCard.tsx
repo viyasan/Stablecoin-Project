@@ -5,13 +5,13 @@ import { SkeletonKpiCard, Sparkline } from '../common';
 
 function formatCurrency(value: number): string {
   if (value >= 1_000_000_000_000) {
-    return `$${(value / 1_000_000_000_000).toFixed(2)}T`;
+    return `$${(value / 1_000_000_000_000).toFixed(1)}T`;
   }
   if (value >= 1_000_000_000) {
-    return `$${(value / 1_000_000_000).toFixed(2)}B`;
+    return `$${(value / 1_000_000_000).toFixed(1)}B`;
   }
   if (value >= 1_000_000) {
-    return `$${(value / 1_000_000).toFixed(2)}M`;
+    return `$${(value / 1_000_000).toFixed(1)}M`;
   }
   return `$${value.toLocaleString()}`;
 }
@@ -64,14 +64,16 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
 
   return (
     <div
-      className="flex flex-col items-center justify-center px-4 py-2 relative"
+      className="flex flex-col items-center justify-center px-4 py-4 relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <p className="text-sm font-medium text-gray-500 mb-1 text-center">Tracked Assets</p>
-      <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 cursor-pointer hover:text-primary-600 transition-colors text-center">
+      <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2 text-center">Tracked Assets</p>
+      <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-gray-900 cursor-pointer hover:text-primary-600 transition-colors text-center">
         {count}
       </p>
+      {/* Spacer to match height of sparkline section */}
+      <div className="mt-3 h-7" />
 
       {/* Hover Popover */}
       {isHovered && stablecoins && (
@@ -256,20 +258,20 @@ export function GlobalKpiCard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
           {viewMode === 'total' && (
             <>
-              <div className="flex flex-col items-center justify-center px-4 py-2">
-                <p className="text-sm font-medium text-gray-500 mb-1 text-center">Total Market Cap</p>
-                <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 text-center">
+              <div className="flex flex-col items-center justify-center px-4 py-4">
+                <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2 text-center">Total Market Cap</p>
+                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-gray-900 text-center">
                   {formatCurrency(data.totalMarketCap)}
                 </p>
                 {sparklineData.length > 0 && (
-                  <div className="mt-2 flex items-center gap-2">
+                  <div className="mt-3 flex items-center gap-3">
                     <Sparkline
                       data={sparklineData}
-                      width={80}
-                      height={24}
+                      width={100}
+                      height={28}
                       color="auto"
                     />
-                    <span className={`text-xs font-medium ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <span className={`text-sm font-semibold ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                       {formatPercent(data.change30d)} (30d)
                     </span>
                   </div>
@@ -281,18 +283,18 @@ export function GlobalKpiCard() {
 
           {viewMode === '7d' && (
             <>
-              <div className="flex flex-col items-center justify-center px-4 py-2">
-                <p className="text-sm font-medium text-gray-500 mb-1 text-center">Market Cap (7 days ago)</p>
-                <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 text-center">{formatCurrency(marketCap7dAgo)}</p>
+              <div className="flex flex-col items-center justify-center px-4 py-4">
+                <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2 text-center">Market Cap (7 days ago)</p>
+                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-gray-900 text-center">{formatCurrency(marketCap7dAgo)}</p>
                 {sparklineData.length > 0 && (
-                  <div className="mt-2 flex items-center gap-2">
+                  <div className="mt-3 flex items-center gap-3">
                     <Sparkline
                       data={sparklineData.slice(-7)}
-                      width={60}
-                      height={20}
+                      width={100}
+                      height={28}
                       color="auto"
                     />
-                    <span className={`text-xs font-medium ${data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <span className={`text-sm font-semibold ${data.change7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                       {formatPercent(data.change7d)}
                     </span>
                   </div>
@@ -304,18 +306,18 @@ export function GlobalKpiCard() {
 
           {viewMode === '30d' && (
             <>
-              <div className="flex flex-col items-center justify-center px-4 py-2">
-                <p className="text-sm font-medium text-gray-500 mb-1 text-center">Market Cap (30 days ago)</p>
-                <p className="text-2xl lg:text-3xl font-bold font-mono-numbers text-gray-900 text-center">{formatCurrency(marketCap30dAgo)}</p>
+              <div className="flex flex-col items-center justify-center px-4 py-4">
+                <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2 text-center">Market Cap (30 days ago)</p>
+                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-gray-900 text-center">{formatCurrency(marketCap30dAgo)}</p>
                 {sparklineData.length > 0 && (
-                  <div className="mt-2 flex items-center gap-2">
+                  <div className="mt-3 flex items-center gap-3">
                     <Sparkline
                       data={sparklineData}
-                      width={80}
-                      height={20}
+                      width={100}
+                      height={28}
                       color="auto"
                     />
-                    <span className={`text-xs font-medium ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <span className={`text-sm font-semibold ${data.change30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                       {formatPercent(data.change30d)}
                     </span>
                   </div>

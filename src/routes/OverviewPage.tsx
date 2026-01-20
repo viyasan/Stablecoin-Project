@@ -5,8 +5,11 @@ import {
   GlobalKpiCard,
   MarketCapChart,
   MarketSharePieChart,
+  QuickInsightsCarousel,
+  ReserveCompositionCard,
   TopHeadlinesList,
   TransactionKpiCard,
+  TreasuryHoldingsCard,
 } from '../components/overview';
 
 export function OverviewPage() {
@@ -25,7 +28,7 @@ export function OverviewPage() {
 
       {/* KPI Cards - Side by side */}
       <section className="mb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <GlobalKpiCard />
           <TransactionKpiCard />
         </div>
@@ -48,9 +51,22 @@ export function OverviewPage() {
         <ChainBreakdownChart />
       </section>
 
+      {/* Treasury & Reserve Section */}
+      <section className="mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TreasuryHoldingsCard />
+          <ReserveCompositionCard />
+        </div>
+      </section>
+
       {/* Top Headlines Section */}
       <section className="mb-8">
         <TopHeadlinesList />
+      </section>
+
+      {/* Quick Market Insights Carousel */}
+      <section className="mb-8">
+        <QuickInsightsCarousel />
       </section>
 
       {/* About Our Data - Methodology Explainer */}

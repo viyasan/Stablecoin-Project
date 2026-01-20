@@ -391,3 +391,108 @@ export function useChainBreakdown(): UseApiResult<ChainData[]> {
 
   return { data, isLoading, error, refetch: fetchData };
 }
+
+// Reserve composition data for USDT and USDC
+// Percentages from quarterly attestation reports (update when new reports are published)
+// Sources: Tether Attestation Q3 2025, Circle Reserve Report Dec 2025
+export interface ReserveAsset {
+  name: string;
+  percentage: number;
+  color: string;
+}
+
+export interface StablecoinReserve {
+  name: string;
+  symbol: 'USDT' | 'USDC';
+  marketCap: number; // Live from DefiLlama
+  lastUpdated: string;
+  sourceUrl: string;
+  assets: ReserveAsset[];
+  usTreasuryPercentage: number; // For Treasury Holdings card
+}
+
+// Static percentages from attestation reports - update quarterly
+const RESERVE_PERCENTAGES = {
+  USDT: {
+    name: 'Tether',
+    lastUpdated: 'Q3 2025',
+    sourceUrl: 'https://tether.to/en/transparency/',
+    usTreasuryPercentage: 78, // US Treasuries only
+    assets: [
+      { name: 'US Treasuries', percentage: 78, color: '#3B82F6' },
+      { name: 'Reverse Repos', percentage: 11, color: '#60A5FA' },
+      { name: 'Gold', percentage: 7, color: '#F59E0B' },
+      { name: 'Bitcoin', percentage: 6, color: '#F97316' },
+      { name: 'Secured Loans', percentage: 8, color: '#8B5CF6' },
+      { name: 'Cash & Other', percentage: 4, color: '#6B7280' },
+    ],
+  },
+  USDC: {
+    name: 'Circle',
+    lastUpdated: 'Dec 2025',
+    sourceUrl: 'https://www.circle.com/transparency',
+    usTreasuryPercentage: 32, // US Treasuries only (not repos)
+    assets: [
+      { name: 'Treasury Repos', percentage: 53, color: '#3B82F6' },
+      { name: 'US Treasuries', percentage: 32, color: '#60A5FA' },
+      { name: 'Bank Deposits', percentage: 14, color: '#10B981' },
+      { name: 'Other', percentage: 1, color: '#6B7280' },
+    ],
+  },
+};
+
+interface StablecoinReservesData {
+  usdt: StablecoinReserve;
+  usdc: StablecoinReserve;
+}
+
+export function useStablecoinReserves(): UseApiResult<StablecoinReservesData> {
+  const [data, setData] = useState<StablecoinReservesData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(DEFILLAMA_STABLECOINS_API);
+      if (!response.ok) throw new Error('Failed to fetch stablecoin data');
+
+      const apiData: DefiLlamaStablecoinsResponse = await response.json();
+
+      // Find USDT and USDC
+      const usdtData = apiData.peggedAssets.find((coin) => coin.symbol === 'USDT');
+      const usdcData = apiData.peggedAssets.find((coin) => coin.symbol === 'USDC');
+
+      if (!usdtData || !usdcData) {
+        throw new Error('Could not find USDT or USDC data');
+      }
+
+      const usdtMarketCap = usdtData.circulating?.peggedUSD || 0;
+      const usdcMarketCap = usdcData.circulating?.peggedUSD || 0;
+
+      setData({
+        usdt: {
+          ...RESERVE_PERCENTAGES.USDT,
+          symbol: 'USDT',
+          marketCap: usdtMarketCap,
+        },
+        usdc: {
+          ...RESERVE_PERCENTAGES.USDC,
+          symbol: 'USDC',
+          marketCap: usdcMarketCap,
+        },
+      });
+      setError(null);
+    } catch (err) {
+      setError(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, isLoading, error, refetch: fetchData };
+}
