@@ -1,7 +1,8 @@
-import type { CanadianStablecoin } from '../../api';
+import type { CanadianStablecoin, Exchange } from '../../api';
 
 interface ComparisonTableProps {
   stablecoins: CanadianStablecoin[];
+  exchanges: Exchange[];
 }
 
 function StatusCell({ status }: { status: CanadianStablecoin['status'] }) {
@@ -29,7 +30,11 @@ function StatusCell({ status }: { status: CanadianStablecoin['status'] }) {
   );
 }
 
-export function ComparisonTable({ stablecoins }: ComparisonTableProps) {
+export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps) {
+  // Helper to get exchanges for a stablecoin
+  const getExchangesForStablecoin = (stablecoinId: string) => {
+    return exchanges.filter((e) => e.stablecoins.includes(stablecoinId));
+  };
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100">
@@ -121,6 +126,35 @@ export function ComparisonTable({ stablecoins }: ComparisonTableProps) {
                   {s.volume || 'N/A'}
                 </td>
               ))}
+            </tr>
+
+            {/* Where to Buy */}
+            <tr>
+              <td className="px-6 py-4 text-sm font-medium text-gray-700">Where to Buy</td>
+              {stablecoins.map((s) => {
+                const availableExchanges = getExchangesForStablecoin(s.id);
+                return (
+                  <td key={s.id} className="px-6 py-4 text-sm text-center">
+                    {availableExchanges.length > 0 ? (
+                      <div className="flex flex-wrap justify-center gap-1.5">
+                        {availableExchanges.map((e) => (
+                          <a
+                            key={e.name}
+                            href={e.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-50 text-red-700 rounded hover:bg-red-100 transition-colors"
+                          >
+                            {e.name}
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-gray-400">Coming soon</span>
+                    )}
+                  </td>
+                );
+              })}
             </tr>
 
             </tbody>

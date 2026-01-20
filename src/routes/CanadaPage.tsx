@@ -5,7 +5,6 @@ import {
   ComparisonTable,
   RegulatoryStatusTracker,
   CompanyTimelines,
-  WhereToBuy,
 } from '../components/canada';
 import { useCanadianStablecoins, useCanadianExchanges } from '../api';
 import { ShieldCheck, CircleDollarSign, FileBarChart, CheckCircle, Building, Clock, Zap, Check } from 'lucide-react';
@@ -120,14 +119,16 @@ export function CanadaPage() {
           {/* CADD Card (Tetra) */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="bg-gradient-to-r from-rose-600 to-rose-700 px-6 py-3 flex items-center gap-3">
-              <img
-                src={stablecoins[1].logo}
-                alt="Tetra Digital Group logo"
-                className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain"
-              />
+              <div className="w-10 h-10 rounded-lg bg-white p-1.5 flex-shrink-0 flex items-center justify-center">
+                <img
+                  src={stablecoins[1].logo}
+                  alt="Tetra Digital Group logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
               <div>
                 <h3 className="text-lg font-bold text-white">CADD</h3>
-                <p className="text-rose-100 text-sm">CAD Digital (Tetra)</p>
+                <p className="text-rose-100 text-sm">Tetra Trust</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
@@ -207,7 +208,7 @@ export function CanadaPage() {
 
       {/* Comparison Table */}
       <section className="mb-8">
-        <ComparisonTable stablecoins={stablecoins} />
+        <ComparisonTable stablecoins={stablecoins} exchanges={exchanges || []} />
       </section>
 
       {/* Regulatory Status Tracker */}
@@ -216,16 +217,9 @@ export function CanadaPage() {
       </section>
 
       {/* Company Timelines */}
-      <section className="mb-8">
+      <section>
         <CompanyTimelines stablecoins={stablecoins} />
       </section>
-
-      {/* Where to Buy */}
-      {exchanges && (
-        <section>
-          <WhereToBuy stablecoins={stablecoins} exchanges={exchanges} />
-        </section>
-      )}
     </PageContainer>
   );
 }

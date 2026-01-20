@@ -75,7 +75,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       {/* Header */}
-      <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4`}>
+      <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4 min-h-[88px]`}>
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             {stablecoin.logo ? (
@@ -89,8 +89,8 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
                 <span className="text-gray-900 font-bold text-xs">LOON</span>
               </div>
             )}
-            <div>
-              <h3 className="text-xl font-bold text-white">{stablecoin.issuer}</h3>
+            <div className="min-w-0">
+              <h3 className="text-xl font-bold text-white truncate">{stablecoin.issuer}</h3>
               <p className={`${headerColors.text} text-sm`}>Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
             </div>
           </div>

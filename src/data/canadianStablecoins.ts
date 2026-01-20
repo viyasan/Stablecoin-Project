@@ -486,22 +486,22 @@ export const exchanges: Exchange[] = [
     stablecoins: ["qcad"],
   },
   {
-    name: "Bitvo",
-    type: "CEX",
-    url: "https://bitvo.com",
-    stablecoins: ["qcad"],
-  },
-  {
     name: "Coinsmart",
     type: "CEX",
     url: "https://coinsmart.com",
     stablecoins: ["qcad"],
   },
   {
-    name: "DVeX",
+    name: "Paytrie",
+    type: "CEX",
+    url: "https://paytrie.com/cadc",
+    stablecoins: ["cadc"],
+  },
+  {
+    name: "Aerodrome",
     type: "DEX",
-    url: "https://dvex.io",
-    stablecoins: ["qcad"],
+    url: "https://aerodrome.finance",
+    stablecoins: ["cadc"],
   },
 ];
 
