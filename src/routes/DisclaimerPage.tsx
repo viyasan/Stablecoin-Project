@@ -44,7 +44,7 @@ export function DisclaimerPage() {
                 </p>
                 <p>
                   <strong>Always do your own due diligence</strong> before making any financial
-                  decisions. Our site is one resource among many you should consider.
+                  decisions.
                 </p>
               </div>
             </div>
