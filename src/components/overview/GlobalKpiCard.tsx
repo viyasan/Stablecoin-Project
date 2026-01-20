@@ -21,26 +21,23 @@ function formatPercent(value: number): string {
   return `${sign}${value.toFixed(2)}%`;
 }
 
-function formatLastUpdated(isoString: string): string {
+function formatTimeAgo(isoString: string): string {
   const date = new Date(isoString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  const month = date.toLocaleDateString('en-US', { month: 'long' });
-  const day = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-
-  // Add ordinal suffix (1st, 2nd, 3rd, 4th, etc.)
-  const ordinal = (n: number) => {
-    const s = ['th', 'st', 'nd', 'rd'];
-    const v = n % 100;
-    return n + (s[(v - 20) % 10] || s[v] || s[0]);
-  };
-
-  // Format as 12-hour time with am/pm
-  const period = hours >= 12 ? 'pm' : 'am';
-  const hour12 = hours % 12 || 12;
-
-  return `${month} ${ordinal(day)} at ${hour12}:${minutes}${period}`;
+  if (diffMins < 1) {
+    return 'just now';
+  } else if (diffMins < 60) {
+    return `${diffMins} minute${diffMins === 1 ? '' : 's'} ago`;
+  } else if (diffHours < 24) {
+    return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+  } else {
+    return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+  }
 }
 
 interface TrackedAssetsKpiProps {
@@ -328,7 +325,7 @@ export function GlobalKpiCard() {
           )}
         </div>
         <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400">
-          <span>Last updated: {formatLastUpdated(data.lastUpdated)}</span>
+          <span>Data refreshed {formatTimeAgo(data.lastUpdated)}</span>
         </div>
       </div>
     </div>

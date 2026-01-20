@@ -182,7 +182,7 @@ describe('GlobalKpiCard', () => {
     expect(link).toHaveAttribute('target', '_blank');
   });
 
-  it('renders last updated timestamp', () => {
+  it('renders data refreshed timestamp', () => {
     mockUseMarketSummary.mockReturnValue({
       data: mockMarketData,
       isLoading: false,
@@ -192,7 +192,7 @@ describe('GlobalKpiCard', () => {
 
     renderComponent();
 
-    expect(screen.getByText(/last updated/i)).toBeInTheDocument();
+    expect(screen.getByText(/data refreshed/i)).toBeInTheDocument();
   });
 
   it('shows percentage change with color coding', () => {

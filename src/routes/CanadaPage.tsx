@@ -5,8 +5,9 @@ import {
   ComparisonTable,
   RegulatoryStatusTracker,
   CompanyTimelines,
+  WhereToBuy,
 } from '../components/canada';
-import { useCanadianStablecoins } from '../api';
+import { useCanadianStablecoins, useCanadianExchanges } from '../api';
 import { ShieldCheck, CircleDollarSign, FileBarChart, CheckCircle, Building, Clock, Zap, Check } from 'lucide-react';
 
 // Maple Leaf icon for the header
@@ -25,6 +26,7 @@ function MapleLeafIcon({ className }: { className?: string }) {
 
 export function CanadaPage() {
   const { data: stablecoins, isLoading } = useCanadianStablecoins();
+  const { data: exchanges } = useCanadianExchanges();
 
   if (isLoading) {
     return (
@@ -214,9 +216,16 @@ export function CanadaPage() {
       </section>
 
       {/* Company Timelines */}
-      <section>
+      <section className="mb-8">
         <CompanyTimelines stablecoins={stablecoins} />
       </section>
+
+      {/* Where to Buy */}
+      {exchanges && (
+        <section>
+          <WhereToBuy stablecoins={stablecoins} exchanges={exchanges} />
+        </section>
+      )}
     </PageContainer>
   );
 }
