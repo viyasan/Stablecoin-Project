@@ -20,7 +20,7 @@ describe('RegulationProgressBar', () => {
   });
 
   it('shows first two stages as active for approved', () => {
-    const { container } = render(<RegulationProgressBar stage="approved" />);
+    render(<RegulationProgressBar stage="approved" />);
 
     // Check that stage labels exist
     expect(screen.getByText('Proposed')).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('RegulationProgressBar', () => {
   });
 
   it('shows all stages as active for implemented', () => {
-    const { container } = render(<RegulationProgressBar stage="implemented" />);
+    render(<RegulationProgressBar stage="implemented" />);
 
     // All stages should show as completed
     expect(screen.getByText('Proposed')).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe('RegulationProgressBar', () => {
   });
 
   it('renders stage numbers', () => {
-    const { container } = render(<RegulationProgressBar stage="proposed" />);
+    render(<RegulationProgressBar stage="proposed" />);
 
     // Stage 1 should show number 1
     expect(screen.getByText('1')).toBeInTheDocument();

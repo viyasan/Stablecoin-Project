@@ -16,8 +16,10 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock ResizeObserver for Recharts
-global.ResizeObserver = class ResizeObserver {
+class ResizeObserverMock {
   observe() {}
   unobserve() {}
   disconnect() {}
-};
+}
+
+globalThis.ResizeObserver = ResizeObserverMock;

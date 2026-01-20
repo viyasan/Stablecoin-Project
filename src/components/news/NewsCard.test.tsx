@@ -13,6 +13,7 @@ const mockNewsItem: NewsItem = {
   imageUrl: 'https://example.com/image.jpg',
   assetSymbols: ['USDT', 'USDC'],
   topics: ['regulation', 'payments'],
+  countryIsoCodes: ['US'],
 };
 
 describe('NewsCard', () => {

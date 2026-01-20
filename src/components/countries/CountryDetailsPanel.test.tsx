@@ -157,7 +157,7 @@ describe('CountryDetailsPanel', () => {
   });
 
   it('includes progress bar', () => {
-    const { container } = render(
+    render(
       <CountryDetailsPanel country={mockCountry} onClose={() => {}} />
     );
 
