@@ -18,3 +18,4 @@ export {
 export { Sparkline } from './Sparkline';
 export { Spinner } from './Spinner';
 export { Tag } from './Tag';
+export { TrustBadge } from './TrustBadge';

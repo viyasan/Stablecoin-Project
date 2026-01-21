@@ -190,19 +190,19 @@ export function GlobalKpiCard() {
   const marketCap30dAgo = data.totalMarketCap / (1 + data.change30d / 100);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-200 hover:shadow-md">
       <div className="px-6 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-gray-900">
             Global Stablecoin Market
           </h2>
           <span className="text-xs text-gray-400 flex items-center gap-1">
-            Powered by
+            <span className="italic">Powered by</span>
             <a
               href="https://defillama.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
             >
               DefiLlama
             </a>

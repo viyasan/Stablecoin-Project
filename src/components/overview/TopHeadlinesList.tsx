@@ -89,22 +89,22 @@ export function TopHeadlinesList() {
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-gray-900">Today's Top Headlines</h2>
-          <span className="text-xs text-gray-400">
-            Powered by{' '}
+          <span className="text-xs text-gray-400 flex items-center gap-1 mt-1">
+            <span className="italic">Powered by</span>
             <a
               href="https://www.coindesk.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
             >
               CoinDesk
             </a>
-            ,{' '}
+            <span>&</span>
             <a
               href="https://cointelegraph.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
             >
               CoinTelegraph
             </a>

@@ -101,7 +101,11 @@ body {
 }
 
 .btn-primary {
-  @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors;
+  @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium
+    hover:bg-primary-700 hover:shadow-md hover:-translate-y-0.5
+    active:scale-[0.98] active:bg-primary-800
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
+    transition-all duration-150 ease-out;
 }
 
 .status-clear {
@@ -118,6 +122,30 @@ body {
 
 .status-unknown {
   @apply bg-regulatory-unknown text-white;
+}
+
+/* =====================================================
+   Interactive Element Defaults
+   ===================================================== */
+/* Standard interactive card */
+.interactive-card {
+  @apply transition-all duration-150 ease-out
+    hover:-translate-y-1 hover:shadow-lg hover:border-gray-300
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
+}
+
+/* Clickable link with subtle feedback */
+.interactive-link {
+  @apply transition-colors duration-150 ease-out
+    hover:text-primary-600
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:rounded;
+}
+
+/* Button base with active state */
+.btn-base {
+  @apply transition-all duration-150 ease-out
+    active:scale-[0.98]
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
 }
 
 /* Animations */

@@ -43,8 +43,9 @@ function CountryCard({ country, flag, isSelected, onClick }: CountryCardProps) {
     <button
       onClick={onClick}
       className={`
-        relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200
-        hover:scale-105 hover:shadow-lg cursor-pointer
+        relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-150 ease-out
+        hover:scale-[1.03] hover:shadow-lg hover:-translate-y-0.5 cursor-pointer active:scale-[0.98]
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
         ${isSelected
           ? 'border-primary-500 bg-primary-50 shadow-md'
           : 'border-gray-200 bg-white hover:border-gray-300'
@@ -189,7 +190,7 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
         </div>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 hover:bg-gray-100 rounded-lg transition-all duration-150 ease-out active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
           aria-label="Close details"
         >
           <X className="w-5 h-5 text-gray-500" />

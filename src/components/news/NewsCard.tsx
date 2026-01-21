@@ -76,7 +76,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
     return (
       <article
         onClick={handleClick}
-        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-200 h-full flex flex-col"
+        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
       >
         {/* Hero Image - grows to fill available space */}
         <div className="relative flex-1 min-h-[200px] overflow-hidden">
@@ -84,7 +84,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
             <img
               src={item.imageUrl}
               alt={item.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-200 ease-out"
               onError={(e) => {
                 // Hide broken image and show gradient fallback
                 const target = e.target as HTMLImageElement;
@@ -138,7 +138,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
           </div>
 
           {/* Title */}
-          <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
+          <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150">
             {item.title}
           </h2>
 
@@ -148,7 +148,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
           {/* Footer */}
           <div className="flex items-center justify-between text-xs text-gray-500">
             <span>{formatTimeAgo(item.publishedAt)}</span>
-            <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
           </div>
         </div>
       </article>
@@ -159,7 +159,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
     return (
       <article
         onClick={handleClick}
-        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:border-gray-300 transition-all duration-200 h-full flex flex-col"
+        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
       >
         {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
@@ -167,7 +167,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
             <img
               src={item.imageUrl}
               alt={item.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-200 ease-out"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = 'none';
@@ -200,7 +200,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors flex-1">
+          <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150 flex-1">
             {item.title}
           </h3>
 
@@ -221,7 +221,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
   return (
     <article
       onClick={handleClick}
-      className="group cursor-pointer bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:border-gray-300 transition-all duration-200 h-full flex flex-col"
+      className="group cursor-pointer bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
     >
       {/* Thumbnail */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -229,7 +229,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
           <img
             src={item.imageUrl}
             alt={item.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-200 ease-out"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
@@ -247,7 +247,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
       {/* Content */}
       <div className="p-3 flex-1 flex flex-col">
         {/* Title */}
-        <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors flex-1">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150 flex-1">
           {item.title}
         </h3>
 

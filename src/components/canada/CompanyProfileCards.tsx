@@ -73,7 +73,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
   const buttonColors = getButtonColors();
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full transition-all duration-150 ease-out hover:shadow-lg hover:border-gray-300 hover:-translate-y-1">
       {/* Header */}
       <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4 min-h-[88px]`}>
         <div className="flex items-start justify-between">
@@ -232,7 +232,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
           href={stablecoin.website}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block w-full text-center py-3 px-4 ${buttonColors} text-white font-medium rounded-lg transition-colors mt-auto`}
+          className={`block w-full text-center py-3 px-4 ${buttonColors} text-white font-medium rounded-lg transition-all duration-150 ease-out mt-auto hover:scale-[1.02] hover:shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2`}
         >
           Learn More
         </a>

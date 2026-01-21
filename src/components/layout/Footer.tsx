@@ -27,17 +27,17 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Explore</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/canada" className="hover:text-white transition-colors">
+                <Link to="/canada" className="hover:text-white transition-colors duration-150">
                   Canada
                 </Link>
               </li>
               <li>
-                <Link to="/countries" className="hover:text-white transition-colors">
+                <Link to="/countries" className="hover:text-white transition-colors duration-150">
                   Regulatory Landscape
                 </Link>
               </li>
               <li>
-                <Link to="/news" className="hover:text-white transition-colors">
+                <Link to="/news" className="hover:text-white transition-colors duration-150">
                   News
                 </Link>
               </li>
@@ -49,7 +49,7 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/disclaimer" className="hover:text-white transition-colors">
+                <Link to="/disclaimer" className="hover:text-white transition-colors duration-150">
                   Disclaimer & Disclosures
                 </Link>
               </li>
@@ -66,7 +66,7 @@ export function Footer() {
               href="https://defillama.com/stablecoins"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors duration-150"
             >
               DefiLlama
             </a>
@@ -75,7 +75,7 @@ export function Footer() {
               href="https://www.coindesk.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors duration-150"
             >
               CoinDesk
             </a>
@@ -84,7 +84,7 @@ export function Footer() {
               href="https://cointelegraph.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors duration-150"
             >
               CoinTelegraph
             </a>
@@ -98,7 +98,7 @@ export function Footer() {
             <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
             is for informational purposes only and does not constitute
             investment, legal, or financial advice.{' '}
-            <Link to="/disclaimer" className="text-gray-400 hover:text-white transition-colors">
+            <Link to="/disclaimer" className="text-gray-400 hover:text-white transition-colors duration-150">
               Read full disclaimer
             </Link>
           </p>

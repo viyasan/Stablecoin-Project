@@ -143,7 +143,7 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
                             href={e.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-50 text-red-700 rounded hover:bg-red-100 transition-colors"
+                            className="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-50 text-red-700 rounded hover:bg-red-100 hover:scale-105 active:scale-100 transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                           >
                             {e.name}
                           </a>

@@ -80,7 +80,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
         {searchValue && (
           <button
             onClick={handleSearchClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-150 active:scale-90"
           >
             <X className="w-5 h-5" />
           </button>
@@ -100,7 +100,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
               <button
                 key={topic.value}
                 onClick={() => handleTopicChange(topic.value)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-150 ease-out active:scale-95 ${
                   isActive
                     ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -133,7 +133,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
         {hasActiveFilters && (
           <button
             onClick={clearAllFilters}
-            className="ml-auto px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
+            className="ml-auto px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition-all duration-150 ease-out active:scale-95"
           >
             Clear all
           </button>
@@ -154,7 +154,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
                     <button
                       key={topic.value}
                       onClick={() => handleTopicChange(topic.value)}
-                      className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                      className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-150 ease-out active:scale-95 ${
                         isActive
                           ? 'bg-primary-600 text-white'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -180,7 +180,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
                     <button
                       key={source.value}
                       onClick={() => handleSourceChange(source.value)}
-                      className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                      className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-150 ease-out active:scale-95 ${
                         isActive
                           ? 'bg-primary-600 text-white'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

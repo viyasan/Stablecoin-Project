@@ -28,7 +28,7 @@ export function Tag({ label, onClick, active, className = '' }: TagProps) {
 
   const baseClasses = `inline-flex items-center px-2 py-1 text-xs font-medium rounded-md ${colors.bg} ${colors.text}`;
   const interactiveClasses = onClick
-    ? 'cursor-pointer hover:opacity-80 transition-opacity'
+    ? 'cursor-pointer hover:opacity-80 hover:scale-105 active:scale-95 transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500'
     : '';
   const activeClasses = active ? 'ring-2 ring-offset-1 ring-primary-500' : '';
 

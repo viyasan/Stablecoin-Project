@@ -31,11 +31,11 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+          <Link to="/" className="flex items-center space-x-2 group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
+            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center group-hover:bg-primary-700 transition-colors duration-150">
               <span className="text-white font-bold text-lg">S</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">StablecoinStats.ca</span>
+            <span className="text-xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-150">StablecoinStats.ca</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -45,10 +45,10 @@ export function Header() {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1.5 ${
+                  `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 ease-out flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 hover:scale-[1.02] active:scale-[0.98]'
                   }`
                 }
               >
@@ -60,7 +60,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+            className="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 ease-out active:scale-95"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -83,10 +83,10 @@ export function Header() {
                 to={item.to}
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg ${
+                  `flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 ease-out ${
                     isActive
                       ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      : 'text-gray-600 hover:bg-gray-100 active:bg-gray-200'
                   }`
                 }
               >

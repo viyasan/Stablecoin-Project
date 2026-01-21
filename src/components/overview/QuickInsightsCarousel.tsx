@@ -80,7 +80,7 @@ export function QuickInsightsCarousel() {
         <div className="relative min-h-[60px] flex items-center">
           <button
             onClick={goToPrevious}
-            className="absolute left-0 -ml-2 p-1 text-primary-200 hover:text-white transition-colors"
+            className="absolute left-0 -ml-2 p-1 text-primary-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
             aria-label="Previous insight"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -94,7 +94,7 @@ export function QuickInsightsCarousel() {
 
           <button
             onClick={goToNext}
-            className="absolute right-0 -mr-2 p-1 text-primary-200 hover:text-white transition-colors"
+            className="absolute right-0 -mr-2 p-1 text-primary-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
             aria-label="Next insight"
           >
             <ChevronRight className="w-5 h-5" />
@@ -107,7 +107,7 @@ export function QuickInsightsCarousel() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
+              className={`w-2 h-2 rounded-full transition-all duration-150 ease-out hover:scale-125 active:scale-100 ${
                 index === currentIndex
                   ? 'bg-white w-4'
                   : 'bg-primary-300 hover:bg-primary-200'

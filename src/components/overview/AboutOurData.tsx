@@ -9,7 +9,7 @@ export function AboutOurData() {
       {/* Header - Always Visible */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-100/50 transition-colors rounded-lg"
+        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-100/50 transition-all duration-150 ease-out rounded-lg active:bg-gray-100"
       >
         <div className="flex items-center gap-3">
           {/* Database Icon */}

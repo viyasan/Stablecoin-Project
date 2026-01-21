@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useMarketCapChart } from '../../api';
-import { SkeletonChart } from '../common';
+import { SkeletonChart, TrustBadge } from '../common';
 
 type TimeRange = '7d' | '30d' | '1y' | 'max';
 
@@ -208,21 +208,11 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <div>
+        <div className="flex items-center gap-3">
           <h2 className="text-lg font-semibold text-gray-900">
             Market Cap Over Time
           </h2>
-          <span className="text-xs text-gray-400 flex items-center gap-1">
-            Powered by
-            <a
-              href="https://defillama.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium"
-            >
-              DefiLlama
-            </a>
-          </span>
+          <TrustBadge variant="defillama" />
         </div>
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
           {(Object.keys(timeRangeLabels) as TimeRange[]).map((range) => (

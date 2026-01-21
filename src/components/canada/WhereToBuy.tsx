@@ -11,7 +11,7 @@ function ExchangeCard({ exchange }: ExchangeCardProps) {
       href={exchange.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-between p-4 bg-gray-50 hover:bg-red-50 rounded-lg border border-gray-200 hover:border-red-200 transition-colors group"
+      className="flex items-center justify-between p-4 bg-gray-50 hover:bg-red-50 rounded-lg border border-gray-200 hover:border-red-200 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.99] transition-all duration-150 ease-out group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
     >
       <div className="flex items-center gap-3">
         {/* Placeholder for logo */}
@@ -25,7 +25,7 @@ function ExchangeCard({ exchange }: ExchangeCardProps) {
           <p className="text-xs text-gray-500">{exchange.type}</p>
         </div>
       </div>
-      <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-red-600 transition-colors" />
+      <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-red-600 transition-colors duration-150" />
     </a>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { TrustBadge } from '../common';
 
 // Static data from Visa Onchain Analytics
 // Source: https://visaonchainanalytics.com/
@@ -74,17 +75,7 @@ export function TransactionKpiCard() {
           <h2 className="text-lg font-semibold text-gray-900">
             Stablecoin Transaction Activity
           </h2>
-          <span className="text-xs text-gray-400 flex items-center gap-1">
-            Powered by
-            <a
-              href="https://visaonchainanalytics.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium"
-            >
-              Visa Onchain Analytics
-            </a>
-          </span>
+          <TrustBadge variant="visa" />
         </div>
 
         {/* Time Period Toggle */}
