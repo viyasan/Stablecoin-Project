@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useMarketSummary, useStablecoinList, useMarketCapChart } from '../../api';
 import { SkeletonKpiCard, Sparkline } from '../common';
 
@@ -150,13 +149,6 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
             </div>
           </div>
 
-          {/* View All Link */}
-          <Link
-            to="/canada"
-            className="block w-full text-center text-sm font-medium text-primary-600 hover:text-primary-700 pt-3 border-t border-gray-100"
-          >
-            View all assets →
-          </Link>
         </div>
       )}
     </div>
