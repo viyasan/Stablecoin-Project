@@ -250,6 +250,9 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       "Shakepay",
       "Purpose Unlimited",
       "Urbana Corporation",
+      "Canadian Securities Exchange",
+      "Horizon Kinetics",
+      "Coinbase Ventures",
     ],
     designPartners: [
       { name: "Aquanow" },
@@ -265,30 +268,30 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       {
         id: "fintrac_msb",
         label: "Trust License",
-        description: "Licensed trust company in Alberta",
+        description: "Licensed trust company in Alberta since 2021",
         completed: true,
         current: false,
       },
       {
         id: "prospectus_filed",
-        label: "Regulatory Filing",
-        description: "Preparing regulatory applications",
-        completed: false,
-        current: true,
+        label: "Qualified Custodian",
+        description: "Qualified custodian under NI 31-103 and NI 81-102",
+        completed: true,
+        current: false,
       },
       {
         id: "prospectus_receipt",
-        label: "Approval",
-        description: "Awaiting regulatory approval",
-        completed: false,
+        label: "Partner Testing",
+        description: "Completed testing with National Bank & Wealthsimple",
+        completed: true,
         current: false,
       },
       {
         id: "live",
         label: "Launch",
-        description: "Public launch expected early 2026",
+        description: "Public launch expected Q1 2026",
         completed: false,
-        current: false,
+        current: true,
       },
     ],
     fintracRegistered: false,
@@ -298,15 +301,15 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     parentCompany: {
       name: "Tetra Digital Group",
       description:
-        "Tetra Digital Group is one of Canada's leading digital asset infrastructure providers. Through subsidiary CAD Digital, they are launching CADD - the first regulated CAD stablecoin issued by a financial institution.",
+        "Tetra Digital Group is one of Canada's leading digital asset infrastructure providers. Tetra Trust, its subsidiary, is Canada's first qualified custodian for digital assets, licensed since 2021. Through CAD Digital, they are launching CADD - the first CAD stablecoin issued by a regulated financial institution.",
       founded: "2019",
       headquarters: "Calgary, AB",
       website: "https://tetradg.com",
       leadership: [{ name: "Didier Lavallée", title: "CEO" }],
       keyFacts: [
-        "First CAD stablecoin to transfer between financial institutions",
+        "Canada's first qualified custodian (NI 31-103 & NI 81-102)",
         "$2.5B+ in digital assets under custody",
-        "Backed by National Bank, Wealthsimple, Shopify & more",
+        "First CAD stablecoin to transfer between financial institutions",
       ],
       parentOf: ["Tetra Trust Company", "CAD Digital", "Tetra Unity"],
     },
@@ -319,11 +322,25 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "launch",
       },
       {
-        date: "2021",
-        title: "Trust License Obtained",
+        date: "July 2021",
+        title: "Trust License & Qualified Custodian",
         description:
-          "Becomes first Canadian trust company licensed for digital asset custody",
+          "Receives Alberta Certificate of Registration, becomes Canada's first qualified custodian for digital assets",
         type: "regulatory",
+      },
+      {
+        date: "April 2025",
+        title: "Urbana Majority Position",
+        description:
+          "Urbana Corporation increases holdings to majority equity position",
+        type: "funding",
+      },
+      {
+        date: "May 2025",
+        title: "Tetra Unity Launch",
+        description:
+          "Launches institutional-grade orchestration platform for digital asset services",
+        type: "milestone",
       },
       {
         date: "May 2025",
@@ -332,10 +349,17 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "partnership",
       },
       {
+        date: "May 2025",
+        title: "Corporate Reorganization",
+        description:
+          "Tetra Trust becomes subsidiary of Tetra Digital Group Inc.",
+        type: "milestone",
+      },
+      {
         date: "Sept 2025",
         title: "$10M Funding Round",
         description:
-          "Raises $10M from Shopify, Wealthsimple, National Bank and others",
+          "Raises $10M from Shopify, Wealthsimple, National Bank, Coinbase Ventures, Horizon Kinetics and others",
         type: "funding",
       },
       {

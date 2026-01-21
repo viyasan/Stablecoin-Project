@@ -73,7 +73,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
   const buttonColors = getButtonColors();
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
       {/* Header */}
       <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4 min-h-[88px]`}>
         <div className="flex items-start justify-between">
@@ -98,7 +98,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         {/* Parent Company Section */}
         <div className="mb-5">
           <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
@@ -232,7 +232,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
           href={stablecoin.website}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block w-full text-center py-3 px-4 ${buttonColors} text-white font-medium rounded-lg transition-colors`}
+          className={`block w-full text-center py-3 px-4 ${buttonColors} text-white font-medium rounded-lg transition-colors mt-auto`}
         >
           Learn More
         </a>
