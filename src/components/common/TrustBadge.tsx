@@ -10,7 +10,7 @@ const badgeConfig: Record<BadgeVariant, { name: string; url: string }> = {
     url: 'https://defillama.com/',
   },
   visa: {
-    name: 'Visa Onchain',
+    name: 'Visa Onchain Analytics',
     url: 'https://visaonchainanalytics.com/',
   },
   coindesk: {

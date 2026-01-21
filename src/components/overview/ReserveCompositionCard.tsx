@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Shield, ExternalLink, Loader2 } from 'lucide-react';
+import { Shield, Loader2 } from 'lucide-react';
 import { useStablecoinReserves, type ReserveAsset } from '../../api/marketApi';
 
 // Helper to format billions
@@ -191,18 +191,20 @@ export function ReserveCompositionCard() {
 
         {/* Source */}
         <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-          <p className="text-xs text-gray-400">
-            Percentages from: {reserve.lastUpdated}
-          </p>
-          <a
-            href={reserve.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-primary-600 hover:text-primary-700 flex items-center gap-1"
-          >
-            View attestation
-            <ExternalLink className="w-3 h-3" />
-          </a>
+          <span className="text-xs text-gray-400 flex items-center gap-1">
+            <span className="italic">Powered by</span>
+            <a
+              href={reserve.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
+            >
+              {selectedCoin === 'USDT' ? 'Tether' : 'Circle'} Attestation
+            </a>
+          </span>
+          <span className="text-xs text-gray-400">
+            {reserve.lastUpdated}
+          </span>
         </div>
       </div>
     </div>

@@ -137,31 +137,31 @@ export function TreasuryHoldingsCard() {
         </div>
 
         {/* Source */}
-        <p className="text-xs text-gray-400 mt-4 pt-3 border-t border-gray-100">
-          Sources:{' '}
+        <p className="text-xs text-gray-400 mt-4 pt-3 border-t border-gray-100 flex items-center gap-1 flex-wrap">
+          <span className="italic">Powered by</span>
           <a
             href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700"
+            className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
           >
             US Treasury
           </a>
-          {', '}
+          <span>,</span>
           <a
             href="https://tether.to/en/transparency/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700"
+            className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
           >
             Tether
           </a>
-          {', '}
+          <span>&</span>
           <a
             href="https://www.circle.com/en/transparency"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700"
+            className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
           >
             Circle
           </a>
