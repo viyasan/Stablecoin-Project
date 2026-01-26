@@ -1,36 +1,42 @@
 import { useState } from 'react';
-import { TrustBadge } from '../common';
 
-// Static data from Visa Onchain Analytics
+// Static data from Visa Onchain Analytics Dashboard
 // Source: https://visaonchainanalytics.com/
+// Data provided by Allium Labs
 // Last updated: January 2026
+//
+// To update these values:
+// 1. Visit https://visaonchainanalytics.com/transactions
+// 2. Select the appropriate time period (All, 12M, or 3M)
+// 3. Copy the Adjusted Transaction Volume, Adjusted Transaction Count values
+// 4. Visit https://visaonchainanalytics.com/ for Active Addresses
 
 type TimePeriod = '12M' | '3M' | 'All';
 
-interface VisaMetrics {
+interface AlliumMetrics {
   adjustedTransactionVolume: string;
   adjustedTransactionCount: string;
   totalActiveAddresses: string;
   label: string;
 }
 
-const VISA_METRICS: Record<TimePeriod, VisaMetrics> = {
+const VISA_METRICS: Record<TimePeriod, AlliumMetrics> = {
   '12M': {
-    adjustedTransactionVolume: '$10.4T',
-    adjustedTransactionCount: '2.1B',
-    totalActiveAddresses: '316.0M',
+    adjustedTransactionVolume: '$11.5T',
+    adjustedTransactionCount: '2.3B',
+    totalActiveAddresses: '361.4M',
     label: 'Last 12 Months',
   },
   '3M': {
-    adjustedTransactionVolume: '$1.9T',
-    adjustedTransactionCount: '352.8M',
-    totalActiveAddresses: '116.8M',
+    adjustedTransactionVolume: '$3.2T',
+    adjustedTransactionCount: '612.5M',
+    totalActiveAddresses: '142.8M',
     label: 'Last 3 Months',
   },
   'All': {
-    adjustedTransactionVolume: '$29.2T',
-    adjustedTransactionCount: '5.4B',
-    totalActiveAddresses: '722.6M',
+    adjustedTransactionVolume: '$57.8T',
+    adjustedTransactionCount: '12.7B',
+    totalActiveAddresses: '721.3M',
     label: 'Since 2019',
   },
 };
@@ -65,31 +71,18 @@ function KpiItem({ label, value, subtext, tooltip }: KpiItemProps) {
 }
 
 export function TransactionKpiCard() {
-  const [timePeriod, setTimePeriod] = useState<TimePeriod>('All');
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>('3M');
   const metrics = VISA_METRICS[timePeriod];
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Stablecoin Transaction Activity
-          </h2>
-          <TrustBadge variant="visa" />
-        </div>
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">
+          Stablecoin Transaction Activity
+        </h2>
 
         {/* Time Period Toggle */}
         <div className="flex gap-2">
-          <button
-            onClick={() => setTimePeriod('All')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-              timePeriod === 'All'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            All-time
-          </button>
           <button
             onClick={() => setTimePeriod('3M')}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
@@ -109,6 +102,16 @@ export function TransactionKpiCard() {
             }`}
           >
             12 Months
+          </button>
+          <button
+            onClick={() => setTimePeriod('All')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              timePeriod === 'All'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            All-time
           </button>
         </div>
       </div>

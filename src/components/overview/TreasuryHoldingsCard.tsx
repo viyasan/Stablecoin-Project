@@ -1,22 +1,35 @@
-import { Landmark, Loader2 } from 'lucide-react';
-import { useStablecoinReserves } from '../../api/marketApi';
+import { Landmark } from 'lucide-react';
 
-// Static country data - update periodically from US Treasury TIC Data
+// Static data - update periodically from US Treasury TIC Data
 // Source: https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.html
-// Last updated: January 2026
-interface CountryData {
+// Last updated: November 2025 TIC Data
+
+interface HolderData {
   name: string;
   holdings: number; // in billions
-  flag: string;
+  globalRank: number;
+  type: 'country' | 'stablecoin';
+  flag?: string;
 }
 
-const COUNTRIES: CountryData[] = [
-  { name: 'Japan', holdings: 1180, flag: '🇯🇵' },
-  { name: 'United Kingdom', holdings: 865, flag: '🇬🇧' },
-  { name: 'China', holdings: 784, flag: '🇨🇳' },
-  { name: 'Belgium', holdings: 466, flag: '🇧🇪' },
-  { name: 'Luxembourg', holdings: 421, flag: '🇱🇺' },
-  { name: 'South Korea', holdings: 130, flag: '🇰🇷' },
+// Top 8 foreign holders of US Treasury securities (November 2025)
+// Plus stablecoin issuers with their actual global rankings
+const HOLDERS: HolderData[] = [
+  { name: 'Japan', holdings: 1202.6, globalRank: 1, type: 'country', flag: '🇯🇵' },
+  { name: 'United Kingdom', holdings: 888.5, globalRank: 2, type: 'country', flag: '🇬🇧' },
+  { name: 'China', holdings: 682.6, globalRank: 3, type: 'country', flag: '🇨🇳' },
+  { name: 'Belgium', holdings: 481.0, globalRank: 4, type: 'country', flag: '🇧🇪' },
+  { name: 'Canada', holdings: 472.2, globalRank: 5, type: 'country', flag: '🇨🇦' },
+  { name: 'Cayman Islands', holdings: 427.4, globalRank: 6, type: 'country', flag: '🇰🇾' },
+  { name: 'Luxembourg', holdings: 425.6, globalRank: 7, type: 'country', flag: '🇱🇺' },
+  { name: 'France', holdings: 376.1, globalRank: 8, type: 'country', flag: '🇫🇷' },
+  // Stablecoin issuers with actual global rankings
+  // Tether: ~$135B - ranks 17th globally (Source: Tether Q3 2025 attestation)
+  // https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
+  { name: 'Tether (USDT)', holdings: 135, globalRank: 17, type: 'stablecoin' },
+  // Circle USDC: ~$62B - ranks ~23rd globally (estimated based on TIC data)
+  // https://www.circle.com/transparency
+  { name: 'Circle (USDC)', holdings: 62, globalRank: 23, type: 'stablecoin' },
 ];
 
 function formatBillions(value: number): string {
@@ -27,44 +40,10 @@ function formatBillions(value: number): string {
 }
 
 export function TreasuryHoldingsCard() {
-  const { data: reservesData, isLoading, error } = useStablecoinReserves();
-
-  if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
-      </div>
-    );
-  }
-
-  if (error || !reservesData) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex items-center justify-center min-h-[400px]">
-        <p className="text-gray-500">Failed to load data</p>
-      </div>
-    );
-  }
-
-  // Calculate live Treasury holdings from stablecoin market caps
-  const usdtTreasuryHoldings = (reservesData.usdt.usTreasuryPercentage / 100) * reservesData.usdt.marketCap / 1_000_000_000; // Convert to billions
-  const usdcTreasuryHoldings = (reservesData.usdc.usTreasuryPercentage / 100) * reservesData.usdc.marketCap / 1_000_000_000;
-
-  // Combine stablecoin and country data
-  interface HolderData {
-    name: string;
-    holdings: number;
-    type: 'stablecoin' | 'country';
-    flag?: string;
-  }
-
-  const allHolders: HolderData[] = [
-    ...COUNTRIES.map((c) => ({ ...c, type: 'country' as const })),
-    { name: 'Tether (USDT)', holdings: usdtTreasuryHoldings, type: 'stablecoin' as const },
-    { name: 'Circle (USDC)', holdings: usdcTreasuryHoldings, type: 'stablecoin' as const },
-  ].sort((a, b) => b.holdings - a.holdings);
-
-  const stablecoinTotal = usdtTreasuryHoldings + usdcTreasuryHoldings;
-  const maxHoldings = Math.max(...allHolders.map((h) => h.holdings));
+  const countries = HOLDERS.filter(h => h.type === 'country');
+  const stablecoins = HOLDERS.filter(h => h.type === 'stablecoin');
+  const maxHoldings = Math.max(...HOLDERS.map((h) => h.holdings));
+  const stablecoinTotal = stablecoins.reduce((sum, s) => sum + s.holdings, 0);
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full">
@@ -76,9 +55,17 @@ export function TreasuryHoldingsCard() {
               US Treasury Holdings
             </h2>
           </div>
+          <a
+            href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-gray-400 hover:text-gray-600"
+          >
+            Source: Nov 2025 TIC
+          </a>
         </div>
         <p className="text-xs text-gray-500 mt-1">
-          Stablecoin issuers vs. countries
+          Global rankings of foreign holders
         </p>
       </div>
 
@@ -92,29 +79,30 @@ export function TreasuryHoldingsCard() {
             {formatBillions(stablecoinTotal)}
           </p>
           <p className="text-xs text-primary-600 mt-1">
-            Tether + Circle hold more than South Korea
+            Stablecoin issuers are emerging as major Treasury holders
           </p>
         </div>
 
-        {/* Holdings list */}
-        <div className="space-y-3">
-          {allHolders.map((holder) => (
+        {/* Top 8 Countries */}
+        <div className="space-y-2.5">
+          {countries.map((holder) => (
             <div key={holder.name} className="flex items-center gap-3">
-              {/* Icon/Flag */}
+              {/* Global Rank */}
+              <div className="w-7 text-center shrink-0">
+                <span className="text-xs font-semibold text-gray-400">
+                  #{holder.globalRank}
+                </span>
+              </div>
+
+              {/* Flag */}
               <div className="w-6 text-center shrink-0">
-                {holder.type === 'stablecoin' ? (
-                  <span className="text-xs font-bold text-primary-600">₮</span>
-                ) : (
-                  <span className="text-sm">{holder.flag}</span>
-                )}
+                <span className="text-sm">{holder.flag}</span>
               </div>
 
               {/* Name and bar */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
-                  <span className={`text-sm font-medium truncate ${
-                    holder.type === 'stablecoin' ? 'text-primary-700' : 'text-gray-700'
-                  }`}>
+                  <span className="text-sm font-medium text-gray-700 truncate">
                     {holder.name}
                   </span>
                   <span className="text-sm font-mono-numbers text-gray-600 ml-2">
@@ -123,11 +111,7 @@ export function TreasuryHoldingsCard() {
                 </div>
                 <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all ${
-                      holder.type === 'stablecoin'
-                        ? 'bg-primary-500'
-                        : 'bg-gray-300'
-                    }`}
+                    className="h-full rounded-full bg-gray-300"
                     style={{ width: `${(holder.holdings / maxHoldings) * 100}%` }}
                   />
                 </div>
@@ -136,36 +120,46 @@ export function TreasuryHoldingsCard() {
           ))}
         </div>
 
-        {/* Source */}
-        <p className="text-xs text-gray-400 mt-4 pt-3 border-t border-gray-100 flex items-center gap-1 flex-wrap">
-          <span className="italic">Powered by</span>
-          <a
-            href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
-          >
-            US Treasury
-          </a>
-          <span>,</span>
-          <a
-            href="https://tether.to/en/transparency/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
-          >
-            Tether
-          </a>
-          <span>&</span>
-          <a
-            href="https://www.circle.com/en/transparency"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
-          >
-            Circle
-          </a>
-        </p>
+        {/* Stablecoin Issuers */}
+        <div className="space-y-2.5 mt-2.5">
+          {stablecoins.map((holder) => (
+            <div key={holder.name} className="flex items-center gap-3">
+              {/* Global Rank */}
+              <div className="w-7 text-center shrink-0">
+                <span className="text-xs font-semibold text-primary-600">
+                  #{holder.globalRank}
+                </span>
+              </div>
+
+              {/* Icon */}
+              <div className="w-6 text-center shrink-0">
+                {holder.name.includes('Tether') ? (
+                  <span className="text-xs font-bold text-emerald-600">₮</span>
+                ) : (
+                  <img src="/circle-logo.png" alt="Circle" className="w-4 h-4 object-contain mx-auto" />
+                )}
+              </div>
+
+              {/* Name and bar */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium text-primary-700 truncate">
+                    {holder.name}
+                  </span>
+                  <span className="text-sm font-mono-numbers text-gray-600 ml-2">
+                    {formatBillions(holder.holdings)}
+                  </span>
+                </div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-primary-500"
+                    style={{ width: `${(holder.holdings / maxHoldings) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

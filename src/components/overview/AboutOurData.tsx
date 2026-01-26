@@ -53,12 +53,12 @@ export function AboutOurData() {
             <p className="text-sm text-gray-600 leading-relaxed">
               <span className="font-semibold text-gray-700">Transaction activity</span> (volume, transactions, active addresses) is powered by{' '}
               <a
-                href="https://visaonchainanalytics.com/"
+                href="https://www.allium.so/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-600 hover:text-primary-700 font-medium"
               >
-                Visa Onchain Analytics
+                Allium
               </a>
               , which tracks <span className="font-semibold text-gray-700">6 major fiat-backed stablecoins</span> across{' '}
               <span className="font-semibold text-gray-700">11 chains</span>. This covers the majority of the market, with adjusted filters for bot activity and wash trading.

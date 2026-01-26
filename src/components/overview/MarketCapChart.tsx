@@ -13,12 +13,11 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useMarketCapChart } from '../../api';
-import { SkeletonChart, TrustBadge } from '../common';
+import { SkeletonChart } from '../common';
 
-type TimeRange = '7d' | '30d' | '1y' | 'max';
+type TimeRange = '30d' | '1y' | 'max';
 
 const timeRangeLabels: Record<TimeRange, string> = {
-  '7d': '7D',
   '30d': '30D',
   '1y': '1Y',
   max: 'Max',
@@ -36,22 +35,18 @@ function formatCurrencyShort(value: number): string {
 
 function formatDate(timestamp: string, range: TimeRange): string {
   const date = new Date(timestamp);
-  if (range === '7d') {
-    return date.toLocaleDateString(undefined, {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-    });
-  }
   if (range === '30d') {
     return date.toLocaleDateString(undefined, {
       month: 'short',
       day: 'numeric',
     });
   }
+  if (range === 'max') {
+    return date.getFullYear().toString();
+  }
+  // 1Y - just show month
   return date.toLocaleDateString(undefined, {
     month: 'short',
-    year: '2-digit',
   });
 }
 
@@ -106,7 +101,7 @@ function ChartTooltip({ active, payload, label, chartData, timeRange }: ChartToo
     return 'text-gray-500';
   };
 
-  const periodLabel = timeRange === '7d' ? '7d' : timeRange === '30d' ? '30d' : timeRange === '1y' ? '1y' : 'all time';
+  const periodLabel = timeRange === '30d' ? '30d' : timeRange === '1y' ? '1y' : 'all time';
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3 min-w-[200px]">
@@ -208,12 +203,9 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Market Cap Over Time
-          </h2>
-          <TrustBadge variant="defillama" />
-        </div>
+        <h2 className="text-lg font-semibold text-gray-900">
+          Market Cap Over Time
+        </h2>
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
           {(Object.keys(timeRangeLabels) as TimeRange[]).map((range) => (
             <button
@@ -256,7 +248,8 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                 tick={{ fontSize: 12, fill: '#6b7280' }}
                 axisLine={{ stroke: '#e5e7eb' }}
                 tickLine={false}
-                interval="preserveStartEnd"
+                interval={timeRange === '30d' ? 6 : timeRange === '1y' ? 'preserveStartEnd' : 'preserveStartEnd'}
+                minTickGap={50}
               />
               <YAxis
                 tickFormatter={formatCurrencyShort}
@@ -292,6 +285,9 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
               )}
             </AreaChart>
           </ResponsiveContainer>
+        </div>
+        <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
+          Data refreshed just now
         </div>
       </div>
     </div>

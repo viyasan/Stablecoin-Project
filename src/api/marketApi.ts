@@ -408,35 +408,35 @@ export interface StablecoinReserve {
   lastUpdated: string;
   sourceUrl: string;
   assets: ReserveAsset[];
-  usTreasuryPercentage: number; // For Treasury Holdings card
+  treasuryHoldings: number; // Static from attestation reports (in dollars)
 }
 
-// Static percentages from attestation reports - update quarterly
-const RESERVE_PERCENTAGES = {
+// Static data from attestation reports - update quarterly
+// Sources:
+// Tether Q3 2025: https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
+// Circle Oct 2025: https://www.circle.com/transparency
+// Last updated: January 2026
+const RESERVE_DATA = {
   USDT: {
     name: 'Tether',
     lastUpdated: 'Q3 2025',
     sourceUrl: 'https://tether.to/en/transparency/',
-    usTreasuryPercentage: 78, // US Treasuries only
+    treasuryHoldings: 135_000_000_000, // $135B from attestation report
     assets: [
-      { name: 'US Treasuries', percentage: 78, color: '#3B82F6' },
-      { name: 'Reverse Repos', percentage: 11, color: '#60A5FA' },
+      { name: 'US Treasuries', percentage: 75, color: '#3B82F6' },
       { name: 'Gold', percentage: 7, color: '#F59E0B' },
-      { name: 'Bitcoin', percentage: 6, color: '#F97316' },
-      { name: 'Secured Loans', percentage: 8, color: '#8B5CF6' },
-      { name: 'Cash & Other', percentage: 4, color: '#6B7280' },
+      { name: 'Bitcoin', percentage: 5, color: '#F97316' },
+      { name: 'Secured Loans & Other', percentage: 13, color: '#6B7280' },
     ],
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'Dec 2025',
+    lastUpdated: 'Oct 2025',
     sourceUrl: 'https://www.circle.com/transparency',
-    usTreasuryPercentage: 32, // US Treasuries only (not repos)
+    treasuryHoldings: 62_000_000_000, // $62B (~80% of ~$77B)
     assets: [
-      { name: 'Treasury Repos', percentage: 53, color: '#3B82F6' },
-      { name: 'US Treasuries', percentage: 32, color: '#60A5FA' },
-      { name: 'Bank Deposits', percentage: 14, color: '#10B981' },
-      { name: 'Other', percentage: 1, color: '#6B7280' },
+      { name: 'US Treasuries', percentage: 80, color: '#3B82F6' },
+      { name: 'Cash & Bank Deposits', percentage: 20, color: '#10B981' },
     ],
   },
 };
@@ -472,12 +472,12 @@ export function useStablecoinReserves(): UseApiResult<StablecoinReservesData> {
 
       setData({
         usdt: {
-          ...RESERVE_PERCENTAGES.USDT,
+          ...RESERVE_DATA.USDT,
           symbol: 'USDT',
           marketCap: usdtMarketCap,
         },
         usdc: {
-          ...RESERVE_PERCENTAGES.USDC,
+          ...RESERVE_DATA.USDC,
           symbol: 'USDC',
           marketCap: usdcMarketCap,
         },

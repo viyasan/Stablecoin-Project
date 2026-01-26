@@ -137,12 +137,12 @@ export function DisclaimerPage() {
                     </a>
                     {' and '}
                     <a
-                      href="https://visaonchainanalytics.com"
+                      href="https://www.allium.so"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary-600 hover:text-primary-700"
                     >
-                      Visa Onchain Analytics
+                      Allium
                     </a>
                   </li>
                   <li>

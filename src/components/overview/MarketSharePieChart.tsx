@@ -7,7 +7,7 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useStablecoinList } from '../../api';
-import { SkeletonPieChart, TrustBadge } from '../common';
+import { SkeletonPieChart } from '../common';
 
 // Specific colors for top stablecoins
 const STABLECOIN_COLORS: Record<string, string> = {
@@ -233,10 +233,7 @@ export function MarketSharePieChart() {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Stablecoin Market Share</h2>
-          <TrustBadge variant="defillama" />
-        </div>
+        <h2 className="text-lg font-semibold text-gray-900">Stablecoin Market Share</h2>
       </div>
       <div className="p-6">
         <div className="h-96 flex gap-6">
@@ -283,6 +280,9 @@ export function MarketSharePieChart() {
         <div className="mt-4 pt-4 border-t border-gray-100 text-center">
           <p className="text-sm text-gray-500">Total Stablecoin Market Cap</p>
           <p className="text-xl font-bold text-gray-900">{formatCurrency(totalMarketCap)}</p>
+        </div>
+        <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
+          Data refreshed just now
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-type BadgeVariant = 'defillama' | 'visa' | 'coindesk' | 'cointelegraph';
+type BadgeVariant = 'defillama' | 'allium' | 'coindesk' | 'cointelegraph';
 
 interface TrustBadgeProps {
   variant: BadgeVariant;
@@ -9,9 +9,9 @@ const badgeConfig: Record<BadgeVariant, { name: string; url: string }> = {
     name: 'DefiLlama',
     url: 'https://defillama.com/',
   },
-  visa: {
-    name: 'Visa Onchain Analytics',
-    url: 'https://visaonchainanalytics.com/',
+  allium: {
+    name: 'Allium',
+    url: 'https://www.allium.so/',
   },
   coindesk: {
     name: 'CoinDesk',

@@ -30,14 +30,14 @@ function ReservePieChart({ assets }: { assets: ReserveAssetWithAmount[] }) {
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={160}>
+    <ResponsiveContainer width="100%" height={200}>
       <PieChart>
         <Pie
           data={chartData}
           cx="50%"
           cy="50%"
-          innerRadius={40}
-          outerRadius={70}
+          innerRadius={50}
+          outerRadius={90}
           paddingAngle={2}
           dataKey="percentage"
         >
@@ -61,19 +61,19 @@ function ReservePieChart({ assets }: { assets: ReserveAssetWithAmount[] }) {
 
 function ReserveLegend({ assets }: { assets: ReserveAssetWithAmount[] }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3 flex flex-col justify-center h-full">
       {assets.map((asset) => (
-        <div key={asset.name} className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2">
+        <div key={asset.name} className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <div
-              className="w-3 h-3 rounded-full shrink-0"
+              className="w-4 h-4 rounded-full shrink-0"
               style={{ backgroundColor: asset.color }}
             />
-            <span className="text-gray-600">{asset.name}</span>
+            <span className="text-gray-700 font-medium">{asset.name}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="font-mono-numbers text-gray-500">{asset.percentage}%</span>
-            <span className="font-mono-numbers text-gray-900 font-medium w-16 text-right">
+            <span className="font-mono-numbers text-gray-900 font-semibold w-16 text-right">
               {asset.amount}
             </span>
           </div>
@@ -106,21 +106,24 @@ export function ReserveCompositionCard() {
   const reserve = selectedCoin === 'USDT' ? reservesData.usdt : reservesData.usdc;
   const marketCap = reserve.marketCap;
 
-  // Calculate dollar amounts from live market cap and percentages
-  const assetsWithAmounts: ReserveAssetWithAmount[] = reserve.assets.map((asset) => ({
-    ...asset,
-    amount: formatBillions((asset.percentage / 100) * marketCap),
-  }));
+  // Use static treasury holdings from attestation reports
+  const treasuryHoldings = reserve.treasuryHoldings;
+  const treasuryAmount = formatBillions(treasuryHoldings);
 
-  // Calculate US government exposure
-  const usdtGovExposure = 78 + 11; // Treasuries + Repos
-  const usdcGovExposure = 53 + 32; // Repos + Treasuries
-
-  // Calculate Treasury holdings amount
-  const treasuryAmount = formatBillions((reserve.usTreasuryPercentage / 100) * marketCap);
+  // Calculate dollar amounts - use static treasury value, derive others from remaining
+  const treasuryPercentage = reserve.assets.find(a => a.name === 'US Treasuries')?.percentage || 0;
+  const assetsWithAmounts: ReserveAssetWithAmount[] = reserve.assets.map((asset) => {
+    if (asset.name === 'US Treasuries') {
+      // Use static treasury holdings value
+      return { ...asset, amount: treasuryAmount };
+    }
+    // Calculate other assets based on their proportion relative to treasuries
+    const estimatedAmount = (asset.percentage / treasuryPercentage) * treasuryHoldings;
+    return { ...asset, amount: formatBillions(estimatedAmount) };
+  });
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div className="px-6 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
@@ -129,13 +132,21 @@ export function ReserveCompositionCard() {
               What Backs Your Stablecoins?
             </h2>
           </div>
+          <a
+            href={reserve.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-gray-400 hover:text-gray-600"
+          >
+            Source: {reserve.lastUpdated}
+          </a>
         </div>
         <p className="text-xs text-gray-500">
           Reserve composition breakdown by asset type
         </p>
       </div>
 
-      <div className="px-6 py-4">
+      <div className="px-6 py-4 flex-1 flex flex-col">
         {/* Toggle */}
         <div className="flex gap-2 mb-6">
           <button
@@ -163,49 +174,34 @@ export function ReserveCompositionCard() {
         </div>
 
         {/* Supply info */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-6">
           <p className="text-sm text-gray-500">Total Supply</p>
-          <p className="text-2xl font-bold font-mono-numbers text-gray-900">
+          <p className="text-3xl font-bold font-mono-numbers text-gray-900">
             {formatBillions(marketCap)}
           </p>
         </div>
 
         {/* Chart and Legend */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1 items-center">
           <ReservePieChart assets={assetsWithAmounts} />
           <ReserveLegend assets={assetsWithAmounts} />
         </div>
 
         {/* Key insight */}
-        <div className="mt-6 p-3 bg-blue-50 rounded-lg border border-blue-100">
+        <div className="mt-auto pt-6">
+          <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
           <p className="text-sm text-blue-800">
             <strong>
-              {selectedCoin === 'USDT' ? usdtGovExposure : usdcGovExposure}% US Government Backed
+              {treasuryPercentage}% in US Treasuries
             </strong>
             {' — '}
             {selectedCoin === 'USDT'
-              ? `Tether holds ${treasuryAmount} in Treasuries, ranking 17th globally among nation holders`
-              : 'Circle holds 85% in Treasury securities and repos, managed by BlackRock'}
+              ? `Tether holds ${treasuryAmount} in Treasuries, ranking #17 globally`
+              : `Circle holds ${treasuryAmount} in Treasuries, managed by BlackRock`}
           </p>
+          </div>
         </div>
 
-        {/* Source */}
-        <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-          <span className="text-xs text-gray-400 flex items-center gap-1">
-            <span className="italic">Powered by</span>
-            <a
-              href={reserve.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-150"
-            >
-              {selectedCoin === 'USDT' ? 'Tether' : 'Circle'} Attestation
-            </a>
-          </span>
-          <span className="text-xs text-gray-400">
-            {reserve.lastUpdated}
-          </span>
-        </div>
       </div>
     </div>
   );

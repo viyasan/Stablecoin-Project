@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { Layers } from "lucide-react";
 import { useChainBreakdown } from "../../api";
-import { SkeletonBarChart, TrustBadge } from "../common";
+import { SkeletonBarChart } from "../common";
 
 // Chain colors - distinct colors for each chain
 const CHAIN_COLORS: Record<string, string> = {
@@ -188,12 +188,9 @@ export function ChainBreakdownChart() {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Stablecoin Supply by Chain
-            </h2>
-            <TrustBadge variant="defillama" />
-          </div>
+          <h2 className="text-lg font-semibold text-gray-900">
+            Stablecoin Supply by Chain
+          </h2>
           <p className="text-sm text-gray-500 mt-1">
             Top 10 chains by stablecoin supply
           </p>
@@ -252,6 +249,9 @@ export function ChainBreakdownChart() {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+        </div>
+        <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
+          Data refreshed just now
         </div>
       </div>
     </div>
