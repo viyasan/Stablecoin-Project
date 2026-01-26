@@ -81,10 +81,10 @@ describe('useStablecoinReserves', () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    // USDT should have 78% treasury percentage
-    expect(result.current.data?.usdt.usTreasuryPercentage).toBe(78);
-    // USDC should have 32% treasury percentage
-    expect(result.current.data?.usdc.usTreasuryPercentage).toBe(32);
+    // USDT should have $135B treasury holdings
+    expect(result.current.data?.usdt.treasuryHoldings).toBe(135_000_000_000);
+    // USDC should have $62B treasury holdings
+    expect(result.current.data?.usdc.treasuryHoldings).toBe(62_000_000_000);
   });
 });
 
