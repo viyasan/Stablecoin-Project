@@ -36,13 +36,9 @@ export function OverviewPage() {
 
       {/* Charts Section - Market Cap and Pie Chart side by side */}
       <section className="mb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-3">
-            <MarketCapChart showBreakdown={false} />
-          </div>
-          <div className="lg:col-span-2">
-            <MarketSharePieChart />
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-8">
+          <MarketCapChart showBreakdown={false} />
+          <MarketSharePieChart />
         </div>
       </section>
 

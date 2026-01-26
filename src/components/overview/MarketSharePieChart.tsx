@@ -231,12 +231,12 @@ export function MarketSharePieChart() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div className="px-6 py-4 border-b border-gray-100">
         <h2 className="text-lg font-semibold text-gray-900">Stablecoin Market Share</h2>
       </div>
-      <div className="p-6">
-        <div className="h-96 flex gap-6">
+      <div className="p-6 flex-1 flex flex-col">
+        <div className="h-[460px] flex gap-6">
           {/* Pie Chart */}
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">
@@ -277,11 +277,11 @@ export function MarketSharePieChart() {
         </div>
 
         {/* Total Market Cap */}
-        <div className="mt-4 pt-4 border-t border-gray-100 text-center">
+        <div className="mt-auto pt-4 border-t border-gray-100 text-center">
           <p className="text-sm text-gray-500">Total Stablecoin Market Cap</p>
           <p className="text-xl font-bold text-gray-900">{formatCurrency(totalMarketCap)}</p>
         </div>
-        <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
+        <div className="pt-4 border-t border-gray-100 text-xs text-gray-400">
           Data refreshed just now
         </div>
       </div>

@@ -201,7 +201,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   const colors = ['#0ea5e9', '#8b5cf6', '#f59e0b', '#6b7280'];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900">
           Market Cap Over Time
@@ -222,7 +222,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
           ))}
         </div>
       </div>
-      <div className="p-6">
+      <div className="p-6 flex-1 flex flex-col">
         <div className="h-[460px]">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
