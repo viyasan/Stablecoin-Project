@@ -248,8 +248,8 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                 tick={{ fontSize: 12, fill: '#6b7280' }}
                 axisLine={{ stroke: '#e5e7eb' }}
                 tickLine={false}
-                interval={timeRange === '30d' ? 6 : timeRange === '1y' ? 'preserveStartEnd' : 'preserveStartEnd'}
-                minTickGap={50}
+                interval={timeRange === '30d' ? 6 : timeRange === '1y' ? 30 : 'preserveStartEnd'}
+                minTickGap={timeRange === '1y' ? 30 : 50}
               />
               <YAxis
                 tickFormatter={formatCurrencyShort}
