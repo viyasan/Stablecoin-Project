@@ -53,7 +53,7 @@ describe('ReserveCompositionCard', () => {
           marketCap: 143000000000,
           lastUpdated: 'Q3 2025',
           sourceUrl: 'https://tether.to',
-          usTreasuryPercentage: 78,
+          treasuryHoldings: 135000000000,
           assets: [
             { name: 'US Treasuries', percentage: 78, color: '#3B82F6' },
             { name: 'Reverse Repos', percentage: 11, color: '#60A5FA' },
@@ -65,7 +65,7 @@ describe('ReserveCompositionCard', () => {
           marketCap: 52000000000,
           lastUpdated: 'Dec 2025',
           sourceUrl: 'https://circle.com',
-          usTreasuryPercentage: 32,
+          treasuryHoldings: 62000000000,
           assets: [
             { name: 'US Treasuries', percentage: 32, color: '#3B82F6' },
           ],
@@ -92,7 +92,7 @@ describe('ReserveCompositionCard', () => {
           marketCap: 143000000000,
           lastUpdated: 'Q3 2025',
           sourceUrl: 'https://tether.to',
-          usTreasuryPercentage: 78,
+          treasuryHoldings: 135000000000,
           assets: [
             { name: 'US Treasuries', percentage: 78, color: '#3B82F6' },
           ],
@@ -103,9 +103,10 @@ describe('ReserveCompositionCard', () => {
           marketCap: 52000000000,
           lastUpdated: 'Dec 2025',
           sourceUrl: 'https://circle.com',
-          usTreasuryPercentage: 32,
+          treasuryHoldings: 62000000000,
           assets: [
-            { name: 'Treasury Repos', percentage: 53, color: '#3B82F6' },
+            { name: 'US Treasuries', percentage: 80, color: '#3B82F6' },
+            { name: 'Cash & Bank Deposits', percentage: 20, color: '#10B981' },
           ],
         },
       },
@@ -122,10 +123,10 @@ describe('ReserveCompositionCard', () => {
 
     // Should now show USDC data
     expect(screen.getByText('$52B')).toBeInTheDocument();
-    expect(screen.getByText('Treasury Repos')).toBeInTheDocument();
+    expect(screen.getByText('Cash & Bank Deposits')).toBeInTheDocument();
   });
 
-  it('displays government exposure percentage', () => {
+  it('displays treasury percentage insight', () => {
     mockUseStablecoinReserves.mockReturnValue({
       data: {
         usdt: {
@@ -134,8 +135,10 @@ describe('ReserveCompositionCard', () => {
           marketCap: 143000000000,
           lastUpdated: 'Q3 2025',
           sourceUrl: 'https://tether.to',
-          usTreasuryPercentage: 78,
-          assets: [],
+          treasuryHoldings: 135000000000,
+          assets: [
+            { name: 'US Treasuries', percentage: 75, color: '#3B82F6' },
+          ],
         },
         usdc: {
           name: 'Circle',
@@ -143,8 +146,10 @@ describe('ReserveCompositionCard', () => {
           marketCap: 52000000000,
           lastUpdated: 'Dec 2025',
           sourceUrl: 'https://circle.com',
-          usTreasuryPercentage: 32,
-          assets: [],
+          treasuryHoldings: 62000000000,
+          assets: [
+            { name: 'US Treasuries', percentage: 80, color: '#3B82F6' },
+          ],
         },
       },
       isLoading: false,
@@ -154,11 +159,10 @@ describe('ReserveCompositionCard', () => {
 
     render(<ReserveCompositionCard />);
 
-    // Should show 89% government backed for USDT (78 + 11)
-    expect(screen.getByText(/89% US Government Backed/)).toBeInTheDocument();
+    expect(screen.getByText(/75% in US Treasuries/)).toBeInTheDocument();
   });
 
-  it('displays attestation source link', () => {
+  it('displays source link', () => {
     mockUseStablecoinReserves.mockReturnValue({
       data: {
         usdt: {
@@ -167,8 +171,10 @@ describe('ReserveCompositionCard', () => {
           marketCap: 143000000000,
           lastUpdated: 'Q3 2025',
           sourceUrl: 'https://tether.to/en/transparency/',
-          usTreasuryPercentage: 78,
-          assets: [],
+          treasuryHoldings: 135000000000,
+          assets: [
+            { name: 'US Treasuries', percentage: 75, color: '#3B82F6' },
+          ],
         },
         usdc: {
           name: 'Circle',
@@ -176,8 +182,10 @@ describe('ReserveCompositionCard', () => {
           marketCap: 52000000000,
           lastUpdated: 'Dec 2025',
           sourceUrl: 'https://circle.com',
-          usTreasuryPercentage: 32,
-          assets: [],
+          treasuryHoldings: 62000000000,
+          assets: [
+            { name: 'US Treasuries', percentage: 80, color: '#3B82F6' },
+          ],
         },
       },
       isLoading: false,
@@ -187,7 +195,7 @@ describe('ReserveCompositionCard', () => {
 
     render(<ReserveCompositionCard />);
 
-    const attestationLink = screen.getByRole('link', { name: /view attestation/i });
-    expect(attestationLink).toHaveAttribute('href', 'https://tether.to/en/transparency/');
+    const sourceLink = screen.getByRole('link', { name: /source: q3 2025/i });
+    expect(sourceLink).toHaveAttribute('href', 'https://tether.to/en/transparency/');
   });
 });

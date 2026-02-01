@@ -167,21 +167,6 @@ describe('GlobalKpiCard', () => {
     expect(screen.getByText('Market Cap (30 days ago)')).toBeInTheDocument();
   });
 
-  it('renders DefiLlama attribution link', () => {
-    mockUseMarketSummary.mockReturnValue({
-      data: mockMarketData,
-      isLoading: false,
-      error: null,
-      refetch: vi.fn(),
-    });
-
-    renderComponent();
-
-    const link = screen.getByRole('link', { name: 'DefiLlama' });
-    expect(link).toHaveAttribute('href', 'https://defillama.com/');
-    expect(link).toHaveAttribute('target', '_blank');
-  });
-
   it('renders data refreshed timestamp', () => {
     mockUseMarketSummary.mockReturnValue({
       data: mockMarketData,

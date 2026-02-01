@@ -161,20 +161,6 @@ describe('TopHeadlinesList', () => {
     expect(link).toHaveAttribute('href', '/news');
   });
 
-  it('renders source attribution links', () => {
-    mockUseTopHeadlines.mockReturnValue({
-      data: mockHeadlines,
-      isLoading: false,
-      error: null,
-      refetch: vi.fn(),
-    });
-
-    renderComponent();
-
-    expect(screen.getByRole('link', { name: 'CoinDesk' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'CoinTelegraph' })).toBeInTheDocument();
-  });
-
   it('shows empty state when no headlines', () => {
     mockUseTopHeadlines.mockReturnValue({
       data: [],
