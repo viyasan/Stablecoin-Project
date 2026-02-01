@@ -21,26 +21,10 @@ export interface NewsItem {
   imageUrl?: string;
 }
 
-export interface WeeklyBriefing {
-  id: string;
-  title: string;
-  weekOf: string;
-  summaryParagraph: string;
-  topEvents?: {
-    title: string;
-    description: string;
-  }[];
-}
-
 export interface NewsFilters {
   search?: string;
   asset?: string;
   country?: string;
   topic?: TopicTag | 'all';
   source?: string | 'all';
-}
-
-export interface NewsPagination {
-  offset: number;
-  limit: number;
 }

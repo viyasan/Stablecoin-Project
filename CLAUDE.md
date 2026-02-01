@@ -69,7 +69,6 @@ Hooks live in `src/api/` and are re-exported from `src/api/index.ts`.
 | Source | File | Type |
 |--------|------|------|
 | DefiLlama API | `src/api/marketApi.ts` | Live — market caps, charts, chain breakdown, stablecoin list |
-| Dune Analytics API | `src/api/duneApi.ts` | Live — transaction metrics (requires API key) |
 | US Treasury TIC Data | `TreasuryHoldingsCard.tsx` | Static — Nov 2025 foreign holder rankings |
 | Tether/Circle Attestations | `marketApi.ts` RESERVE_DATA | Static — treasury holdings ($135B/$62B) |
 | Transaction KPIs | `TransactionKpiCard.tsx` | Static — Visa/Allium sourced metrics |
@@ -80,10 +79,7 @@ Static data needs manual updates. Sources and dates are documented in comments a
 
 ```
 VITE_GTM_CONTAINER_ID          # Google Tag Manager
-VITE_DUNE_API_KEY              # Dune Analytics
-VITE_DUNE_TRANSFER_VOLUME_QUERY_ID
-VITE_DUNE_TRANSACTION_COUNT_QUERY_ID
-VITE_DUNE_ACTIVE_ADDRESSES_QUERY_ID
+VITE_BEEHIIV_EMBED_URL         # Beehiiv newsletter signup form URL
 ```
 
 See `.env.example` for the template.

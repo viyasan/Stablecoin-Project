@@ -2,17 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import {
   Skeleton,
-  SkeletonText,
   SkeletonKpiCard,
   SkeletonChart,
   SkeletonPieChart,
   SkeletonHeadlineList,
-  SkeletonCountryGrid,
   SkeletonBarChart,
-  SkeletonWeeklyBriefing,
   SkeletonCountryDetail,
   SkeletonCanadaPage,
-  SkeletonRegulationMiniMap,
 } from './Skeleton';
 
 describe('Skeleton', () => {
@@ -77,29 +73,6 @@ describe('Skeleton', () => {
 
     const skeleton = container.firstChild as HTMLElement;
     expect(skeleton).toHaveClass('rounded-full');
-  });
-});
-
-describe('SkeletonText', () => {
-  it('renders single line by default', () => {
-    const { container } = render(<SkeletonText />);
-
-    const skeletons = container.querySelectorAll('.animate-pulse');
-    expect(skeletons).toHaveLength(1);
-  });
-
-  it('renders multiple lines', () => {
-    const { container } = render(<SkeletonText lines={3} />);
-
-    const skeletons = container.querySelectorAll('.animate-pulse');
-    expect(skeletons).toHaveLength(3);
-  });
-
-  it('applies custom className', () => {
-    const { container } = render(<SkeletonText className="custom-class" />);
-
-    const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper).toHaveClass('custom-class');
   });
 });
 
@@ -180,21 +153,6 @@ describe('SkeletonHeadlineList', () => {
   });
 });
 
-describe('SkeletonCountryGrid', () => {
-  it('renders country grid skeleton', () => {
-    const { container } = render(<SkeletonCountryGrid />);
-
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it('renders 10 country card placeholders', () => {
-    const { container } = render(<SkeletonCountryGrid />);
-
-    const countryCards = container.querySelectorAll('.grid-cols-2 > div');
-    expect(countryCards).toHaveLength(10);
-  });
-});
-
 describe('SkeletonBarChart', () => {
   it('renders bar chart skeleton', () => {
     const { container } = render(<SkeletonBarChart />);
@@ -207,22 +165,6 @@ describe('SkeletonBarChart', () => {
 
     const barRows = container.querySelectorAll('.space-y-4 > div');
     expect(barRows).toHaveLength(8);
-  });
-});
-
-describe('SkeletonWeeklyBriefing', () => {
-  it('renders with gradient background', () => {
-    const { container } = render(<SkeletonWeeklyBriefing />);
-
-    const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper).toHaveClass('bg-gradient-to-br');
-  });
-
-  it('renders 3 briefing items', () => {
-    const { container } = render(<SkeletonWeeklyBriefing />);
-
-    const items = container.querySelectorAll('.space-y-3 > div');
-    expect(items).toHaveLength(3);
   });
 });
 
@@ -258,24 +200,3 @@ describe('SkeletonCanadaPage', () => {
   });
 });
 
-describe('SkeletonRegulationMiniMap', () => {
-  it('renders regulation mini map skeleton', () => {
-    const { container } = render(<SkeletonRegulationMiniMap />);
-
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it('renders 4 status summary items', () => {
-    const { container } = render(<SkeletonRegulationMiniMap />);
-
-    const statusItems = container.querySelectorAll('.grid-cols-2.sm\\:grid-cols-4 > div');
-    expect(statusItems).toHaveLength(4);
-  });
-
-  it('renders 6 featured country placeholders', () => {
-    const { container } = render(<SkeletonRegulationMiniMap />);
-
-    const countryItems = container.querySelectorAll('.grid-cols-1.sm\\:grid-cols-2 > div');
-    expect(countryItems).toHaveLength(6);
-  });
-});

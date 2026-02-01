@@ -36,30 +36,6 @@ export function Skeleton({
 }
 
 /**
- * Skeleton for text lines
- */
-export function SkeletonText({
-  lines = 1,
-  className = '',
-}: {
-  lines?: number;
-  className?: string;
-}) {
-  return (
-    <div className={`space-y-2 ${className}`}>
-      {Array.from({ length: lines }).map((_, i) => (
-        <Skeleton
-          key={i}
-          height={12}
-          width={i === lines - 1 && lines > 1 ? '75%' : '100%'}
-          rounded="sm"
-        />
-      ))}
-    </div>
-  );
-}
-
-/**
  * Skeleton for KPI card content
  */
 export function SkeletonKpiCard({ showSparkline = true }: { showSparkline?: boolean }) {
@@ -222,42 +198,6 @@ export function SkeletonHeadlineList({ count = 4 }: { count?: number }) {
 }
 
 /**
- * Skeleton for country bento grid
- */
-export function SkeletonCountryGrid() {
-  return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100">
-        <Skeleton width={200} height={20} className="mb-2" />
-        <Skeleton width={240} height={14} />
-      </div>
-      {/* Content */}
-      <div className="p-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Country grid */}
-          <div className="lg:w-1/3">
-            <div className="grid grid-cols-2 gap-3">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <Skeleton key={i} height={80} rounded="lg" />
-              ))}
-            </div>
-          </div>
-          {/* Details panel */}
-          <div className="lg:w-2/3">
-            <div className="bg-gray-50 rounded-xl border border-gray-200 p-6 h-full min-h-[400px] flex flex-col items-center justify-center">
-              <Skeleton width={48} height={48} rounded="full" className="mb-4" />
-              <Skeleton width={200} height={16} className="mb-2" />
-              <Skeleton width={280} height={12} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
  * Skeleton for horizontal bar chart
  */
 export function SkeletonBarChart() {
@@ -286,44 +226,6 @@ export function SkeletonBarChart() {
             <Skeleton width={60} height={14} className="flex-shrink-0" />
           </div>
         ))}
-      </div>
-    </div>
-  );
-}
-
-/**
- * Skeleton for weekly briefing card (gradient background)
- */
-export function SkeletonWeeklyBriefing() {
-  return (
-    <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg shadow-lg overflow-hidden">
-      <div className="p-6">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <div className="w-24 h-6 bg-white/20 rounded-full mb-2 animate-pulse" />
-            <div className="w-48 h-6 bg-white/20 rounded animate-pulse mb-2" />
-            <div className="w-32 h-4 bg-white/10 rounded animate-pulse" />
-          </div>
-        </div>
-        <div className="space-y-2 mb-6">
-          <div className="w-full h-4 bg-white/15 rounded animate-pulse" />
-          <div className="w-full h-4 bg-white/15 rounded animate-pulse" />
-          <div className="w-3/4 h-4 bg-white/15 rounded animate-pulse" />
-        </div>
-        <div>
-          <div className="w-36 h-4 bg-white/10 rounded animate-pulse mb-3" />
-          <div className="space-y-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="flex items-start gap-3 bg-white/10 rounded-lg p-3">
-                <div className="w-6 h-6 bg-white/20 rounded-full animate-pulse" />
-                <div className="flex-1">
-                  <div className="w-3/4 h-4 bg-white/15 rounded animate-pulse mb-2" />
-                  <div className="w-full h-3 bg-white/10 rounded animate-pulse" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -476,46 +378,3 @@ export function SkeletonCanadaPage() {
   );
 }
 
-/**
- * Skeleton for regulation mini map
- */
-export function SkeletonRegulationMiniMap() {
-  return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <Skeleton width={160} height={20} />
-        <Skeleton width={120} height={14} />
-      </div>
-      <div className="p-6">
-        {/* Status Summary */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="text-center p-3 rounded-lg bg-gray-50">
-              <Skeleton width={40} height={28} className="mx-auto mb-2" />
-              <Skeleton width={60} height={10} className="mx-auto" />
-            </div>
-          ))}
-        </div>
-        {/* Legend */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <Skeleton width={12} height={12} rounded="full" />
-              <Skeleton width={70} height={12} />
-            </div>
-          ))}
-        </div>
-        {/* Featured Countries */}
-        <div>
-          <Skeleton width={100} height={14} className="mb-3" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton key={i} height={60} rounded="lg" />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}

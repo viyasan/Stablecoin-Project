@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Country, CountryDetail, CountryFilters, RegulatoryStatus } from '../types';
+import type { Country, CountryDetail, CountryFilters } from '../types';
 
 // Mock data for development
 const mockCountries: Country[] = [
@@ -268,36 +268,3 @@ export function useCountryDetail(isoCode: string): UseApiResult<CountryDetail> {
   return { data, isLoading, error, refetch: fetchDetail };
 }
 
-export function useCountryMapData(): UseApiResult<
-  { isoCode: string; status: RegulatoryStatus }[]
-> {
-  const [data, setData] = useState<
-    { isoCode: string; status: RegulatoryStatus }[] | null
-  >(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchMapData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 200));
-      setData(
-        mockCountries.map((c) => ({
-          isoCode: c.isoCode,
-          status: c.regulatoryStatus,
-        }))
-      );
-      setError(null);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchMapData();
-  }, [fetchMapData]);
-
-  return { data, isLoading, error, refetch: fetchMapData };
-}

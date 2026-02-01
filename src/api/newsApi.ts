@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { NewsItem, WeeklyBriefing, NewsFilters, TopicTag } from '../types';
+import type { NewsItem, NewsFilters, TopicTag } from '../types';
 
 // CORS proxy for RSS feeds that don't support CORS
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
@@ -385,28 +385,6 @@ const mockNews: NewsItem[] = [
   },
 ];
 
-const mockWeeklyBriefing: WeeklyBriefing = {
-  id: '1',
-  title: 'Weekly Stablecoin Briefing',
-  weekOf: '2024-12-23',
-  summaryParagraph:
-    'This week saw continued growth in the stablecoin market, with total market cap approaching $180B. Regulatory clarity in the EU under MiCA is driving institutional adoption, while emerging markets continue to embrace stablecoins for cross-border payments. Key developments include Tether\'s market cap milestone and Japan\'s approval of foreign stablecoins.',
-  topEvents: [
-    {
-      title: 'Tether hits $120B',
-      description: 'USDT market cap reaches new all-time high amid growing demand.',
-    },
-    {
-      title: 'MiCA impact visible',
-      description: 'European stablecoin market adapts to new regulatory framework.',
-    },
-    {
-      title: 'Japan opens doors',
-      description: 'First foreign stablecoin approved under Payment Services Act.',
-    },
-  ],
-};
-
 interface UseApiResult<T> {
   data: T | null;
   isLoading: boolean;
@@ -450,44 +428,6 @@ function applyNewsFilters(newsData: NewsItem[], filters?: NewsFilters): NewsItem
   }
 
   return filtered;
-}
-
-export function useNews(filters?: NewsFilters): UseApiResult<NewsItem[]> {
-  const [data, setData] = useState<NewsItem[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchNews = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      // Try to fetch from RSS feeds first
-      let newsData = await fetchRSSNews(50);
-
-      // Fall back to mock data if no stablecoin articles found
-      if (newsData.length === 0) {
-        newsData = [...mockNews];
-      }
-
-      // Apply filters
-      newsData = applyNewsFilters(newsData, filters);
-
-      setData(newsData);
-      setError(null);
-    } catch (err) {
-      console.error('Failed to fetch news:', err);
-      // Fall back to mock data on error
-      setData(mockNews);
-      setError(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [filters?.search, filters?.asset, filters?.country, filters?.topic, filters?.source]);
-
-  useEffect(() => {
-    fetchNews();
-  }, [fetchNews]);
-
-  return { data, isLoading, error, refetch: fetchNews };
 }
 
 // Paginated news hook for News page with "Load More" functionality
@@ -607,29 +547,3 @@ export function useTopHeadlines(limit: number = 5): UseApiResult<NewsItem[]> {
   return { data, isLoading, error, refetch: fetchHeadlines };
 }
 
-export function useWeeklyBriefing(): UseApiResult<WeeklyBriefing> {
-  const [data, setData] = useState<WeeklyBriefing | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchBriefing = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      // Weekly briefing is still mock data for now
-      // This would need a separate summarization service
-      await new Promise((resolve) => setTimeout(resolve, 200));
-      setData(mockWeeklyBriefing);
-      setError(null);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchBriefing();
-  }, [fetchBriefing]);
-
-  return { data, isLoading, error, refetch: fetchBriefing };
-}

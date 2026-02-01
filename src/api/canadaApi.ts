@@ -2,17 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import {
   canadianStablecoins,
   exchanges,
-  timelineEvents,
   type CanadianStablecoin,
   type Exchange,
-  type TimelineEvent,
 } from '../data/canadianStablecoins';
 
 // Re-export types for convenience
 export type {
   CanadianStablecoin,
   Exchange,
-  TimelineEvent,
   RegulatoryStep,
   StablecoinStatus,
   ParentCompany,
@@ -62,35 +59,6 @@ export function useCanadianStablecoins(): UseApiResult<CanadianStablecoin[]> {
 }
 
 /**
- * Hook to fetch a single Canadian stablecoin by ID
- */
-export function useCanadianStablecoin(id: string): UseApiResult<CanadianStablecoin | undefined> {
-  const [data, setData] = useState<CanadianStablecoin | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      const stablecoin = canadianStablecoins.find((s) => s.id === id);
-      setData(stablecoin);
-      setError(null);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  return { data, isLoading, error, refetch: fetchData };
-}
-
-/**
  * Hook to fetch exchanges that support Canadian stablecoins
  */
 export function useCanadianExchanges(stablecoinId?: string): UseApiResult<Exchange[]> {
@@ -124,38 +92,3 @@ export function useCanadianExchanges(stablecoinId?: string): UseApiResult<Exchan
   return { data, isLoading, error, refetch: fetchData };
 }
 
-/**
- * Hook to fetch Canadian stablecoin regulatory timeline
- */
-export function useCanadianTimeline(stablecoinId?: string): UseApiResult<TimelineEvent[]> {
-  const [data, setData] = useState<TimelineEvent[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      let filteredEvents = timelineEvents;
-      if (stablecoinId) {
-        filteredEvents = timelineEvents.filter(
-          (e) => !e.stablecoinId || e.stablecoinId === stablecoinId
-        );
-      }
-
-      setData(filteredEvents);
-      setError(null);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [stablecoinId]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  return { data, isLoading, error, refetch: fetchData };
-}
