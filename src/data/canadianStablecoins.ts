@@ -93,7 +93,7 @@ export interface TimelineEvent {
   date: string;
   title: string;
   description: string;
-  type: "milestone" | "regulatory" | "funding" | "launch";
+  type: "milestone" | "regulatory" | "funding" | "launch" | "partnership";
   stablecoinId?: string;
 }
 
@@ -115,7 +115,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     headquarters: "Toronto, ON",
     website: "https://stablecorp.ca",
     backing: "1:1 CAD reserves at regulated financial institutions",
-    custodian: "Tetra Trust Company",
+    custodian: "VersaBank & Tetra Trust",
     blockchains: ["Ethereum", "Algorand", "Base"],
     backers: [
       "Coinbase Ventures",
@@ -170,6 +170,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       headquarters: "Toronto, ON",
       website: "https://stablecorp.ca",
       leadership: [
+        { name: "Kesem Frank", title: "CEO" },
         { name: "Fred Pye", title: "Director & Co-Founder" },
         { name: "Alex McDougall", title: "Co-Founder" },
       ],
@@ -177,7 +178,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         "Joint venture between 3iQ and Mavennet Systems",
         "First to mint a Canadian dollar token in 2020",
         "Backed by Coinbase Ventures and Circle Ventures",
-        "FINTRAC registered Money Service Business",
+        "VersaBank custody agreement (Feb 2026) - first stablecoin at a Schedule I bank",
         "22 ecosystem partners including exchanges and DEXs",
       ],
     },
@@ -224,6 +225,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         title: "QCAD Goes Live",
         description: "Becomes Canada's first fully compliant CAD stablecoin",
         type: "milestone",
+      },
+      {
+        date: "Feb 3, 2026",
+        title: "VersaBank Custody Agreement",
+        description: "VersaBank becomes custodian for QCAD reserves using VersaVault - first stablecoin customer for the federally regulated Schedule I bank",
+        type: "partnership",
       },
     ],
   },
@@ -611,6 +618,13 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Stablecoin Act Introduced",
     description: "Federal government introduces proposed Stablecoin Act",
     type: "regulatory",
+  },
+  {
+    date: "Feb 3, 2026",
+    title: "QCAD Custodied at VersaBank",
+    description: "Stablecorp signs custody agreement with VersaBank, making QCAD the first stablecoin held at a Canadian Schedule I bank",
+    type: "partnership",
+    stablecoinId: "qcad",
   },
   {
     date: "Q1 2026",
