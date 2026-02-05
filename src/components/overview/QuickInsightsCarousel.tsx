@@ -2,35 +2,35 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
-// Last updated: January 2026
+// Last updated: February 2026
 const INSIGHTS = [
   {
     id: 1,
-    text: "USDT and USDC together control 87% of the entire stablecoin market, valued at over $270 billion.",
+    text: "USDT and USDC together control 83% of the $314 billion stablecoin market.",
   },
   {
     id: 2,
-    text: "Ethereum and Tron host 75% of all stablecoin value, with Ethereum leading at $126B and Tron at $66B.",
+    text: "Ethereum and Tron host over 80% of all stablecoin value, with Tron alone holding $80B+ in USDT.",
   },
   {
     id: 3,
-    text: "The stablecoin market has processed over $29 trillion in adjusted transaction volume since 2019.",
+    text: "Stablecoin transaction volume hit a record $33 trillion in 2025, up 72% from the prior year.",
   },
   {
     id: 4,
-    text: "Over 722 million unique addresses have interacted with stablecoins across all chains.",
+    text: "Ethereum processed $18.6 trillion in stablecoin transactions in 2025—a 125% increase from 2024.",
   },
   {
     id: 5,
-    text: "There are currently 327 stablecoins being tracked, but only 10 have market caps over $1 billion.",
+    text: "There are over 250 stablecoins being tracked, but only about 10 have market caps exceeding $1 billion.",
   },
   {
     id: 6,
-    text: "Fiat-backed stablecoins dominate the market, representing over 95% of total stablecoin value.",
+    text: "Fiat-backed stablecoins dominate, representing over 90% of total market value—95%+ of which are USD-pegged.",
   },
   {
     id: 7,
-    text: "The stablecoin market has grown 15% in the last 12 months, adding over $40 billion in market cap.",
+    text: "The stablecoin market grew 46% in 2025, adding nearly $100 billion to reach $300B+ in total market cap.",
   },
 ];
 
@@ -69,11 +69,16 @@ export function QuickInsightsCarousel() {
     >
       <div className="px-6 py-5">
         {/* Header */}
-        <div className="flex items-center gap-2 mb-4">
-          <Lightbulb className="w-5 h-5 text-primary-200" />
-          <h3 className="text-sm font-semibold text-primary-100 uppercase tracking-wide">
-            Quick Market Insights
-          </h3>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Lightbulb className="w-5 h-5 text-primary-200" />
+            <h3 className="text-sm font-semibold text-primary-100 uppercase tracking-wide">
+              Quick Market Insights
+            </h3>
+          </div>
+          <span className="text-xs text-primary-200">
+            Last updated: February 2026
+          </span>
         </div>
 
         {/* Insight Content */}
