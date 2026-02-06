@@ -76,10 +76,10 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
     return (
       <article
         onClick={handleClick}
-        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
+        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out"
       >
-        {/* Hero Image - grows to fill available space */}
-        <div className="relative flex-1 min-h-[200px] overflow-hidden">
+        {/* Hero Image - fixed aspect ratio */}
+        <div className="relative aspect-[16/9] overflow-hidden">
           {hasImage ? (
             <img
               src={item.imageUrl}

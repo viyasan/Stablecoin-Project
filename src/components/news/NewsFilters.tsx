@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, X, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import type { NewsFilters as NewsFiltersType, TopicTag } from '../../types';
 
 interface NewsFiltersProps {
@@ -26,22 +26,7 @@ const SOURCE_FILTERS = [
 ];
 
 export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
-  const [searchValue, setSearchValue] = useState(filters.search || '');
   const [showMoreFilters, setShowMoreFilters] = useState(false);
-
-  const handleSearchChange = (value: string) => {
-    setSearchValue(value);
-    // Debounce search
-    const timeoutId = setTimeout(() => {
-      onFilterChange({ ...filters, search: value || undefined });
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  };
-
-  const handleSearchClear = () => {
-    setSearchValue('');
-    onFilterChange({ ...filters, search: undefined });
-  };
 
   const handleTopicChange = (topic: TopicTag | 'all') => {
     onFilterChange({
@@ -58,35 +43,13 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
   };
 
   const clearAllFilters = () => {
-    setSearchValue('');
     onFilterChange({});
   };
 
-  const hasActiveFilters =
-    filters.search || filters.topic || filters.source;
+  const hasActiveFilters = filters.topic || filters.source;
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6 sticky top-0 z-10">
-      {/* Search Bar */}
-      <div className="relative mb-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-        <input
-          type="text"
-          value={searchValue}
-          onChange={(e) => handleSearchChange(e.target.value)}
-          placeholder="Search news..."
-          className="w-full pl-10 pr-10 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-        />
-        {searchValue && (
-          <button
-            onClick={handleSearchClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-150 active:scale-90"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        )}
-      </div>
-
       {/* Filter Pills Row */}
       <div className="flex flex-wrap items-center gap-2">
         {/* Topic Pills (first few visible) */}

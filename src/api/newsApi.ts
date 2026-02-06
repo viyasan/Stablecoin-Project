@@ -203,53 +203,24 @@ function mapRSSToNewsItem(article: RSSArticle): NewsItem {
   };
 }
 
-// Source distribution percentages and priority order
-const SOURCE_PRIORITY = ['CoinDesk', 'CoinTelegraph'];
-const SOURCE_DISTRIBUTION: Record<string, number> = {
-  CoinDesk: 0.6,      // 60%
-  CoinTelegraph: 0.4, // 40%
-};
-
-// Distribute articles according to source preferences, prioritizing by source order
+// Distribute articles: ALL CoinDesk first, then fill with CoinTelegraph
 function distributeArticles(
   articlesBySource: Record<string, RSSArticle[]>,
   totalLimit: number
 ): RSSArticle[] {
   const result: RSSArticle[] = [];
 
-  // Calculate how many articles we want from each source
-  const targetCounts: Record<string, number> = {};
-  for (const source of SOURCE_PRIORITY) {
-    targetCounts[source] = Math.floor(totalLimit * SOURCE_DISTRIBUTION[source]);
-  }
+  // Add ALL CoinDesk articles first (up to limit)
+  const coinDeskArticles = articlesBySource['CoinDesk'] || [];
+  result.push(...coinDeskArticles.slice(0, totalLimit));
 
-  // Take articles from each source up to their target count, in priority order
-  // CoinDesk first, then CoinTelegraph
-  for (const source of SOURCE_PRIORITY) {
-    const sourceArticles = articlesBySource[source] || [];
-    const count = Math.min(targetCounts[source], sourceArticles.length);
-    // Articles within each source are already sorted by date
-    result.push(...sourceArticles.slice(0, count));
-  }
-
-  // If we don't have enough, fill from sources in priority order
+  // Fill remaining slots with CoinTelegraph
   if (result.length < totalLimit) {
     const remaining = totalLimit - result.length;
-    const usedIds = new Set(result.map(a => a.link));
-
-    // Collect unused articles, maintaining source priority
-    const allUnused: RSSArticle[] = [];
-    for (const source of SOURCE_PRIORITY) {
-      const sourceArticles = articlesBySource[source] || [];
-      const unused = sourceArticles.filter(a => !usedIds.has(a.link));
-      allUnused.push(...unused);
-    }
-
-    result.push(...allUnused.slice(0, remaining));
+    const coinTelegraphArticles = articlesBySource['CoinTelegraph'] || [];
+    result.push(...coinTelegraphArticles.slice(0, remaining));
   }
 
-  // Keep source priority order (CoinDesk -> CoinTelegraph)
-  // Within each source group, articles are sorted by date (newest first)
   return result;
 }
 

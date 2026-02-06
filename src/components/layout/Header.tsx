@@ -20,7 +20,7 @@ const navItems = [
   { to: '/', label: 'Overview' },
   { to: '/canada', label: 'Canada', icon: MapleLeafIcon },
   { to: '/countries', label: 'Regulatory Landscape' },
-  { to: '/news', label: 'News' },
+  { to: '/news', label: 'News & Insights' },
 ];
 
 export function Header() {

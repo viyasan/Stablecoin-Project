@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Newspaper } from 'lucide-react';
+import { Newspaper, BookOpen } from 'lucide-react';
 import { PageContainer } from '../components/layout';
-import { NewsFilters, NewsHero, NewsGrid } from '../components/news';
+import { NewsHero, NewsGrid, InsightsSection } from '../components/news';
 import { usePaginatedNews } from '../api';
-import type { NewsFilters as NewsFiltersType } from '../types';
+
+type TabType = 'news' | 'insights';
 
 // Skeleton loader for the hero section
 function HeroSkeleton() {
@@ -71,7 +72,7 @@ function GridSkeleton() {
 }
 
 export function NewsPage() {
-  const [filters, setFilters] = useState<NewsFiltersType>({});
+  const [activeTab, setActiveTab] = useState<TabType>('news');
   const {
     data: news,
     isLoading,
@@ -80,7 +81,7 @@ export function NewsPage() {
     loadMore,
     error,
     refetch,
-  } = usePaginatedNews(filters, 12);
+  } = usePaginatedNews({}, 12);
 
   // Split news into hero (first 3) and grid (rest)
   const heroItems = news?.slice(0, 3) || [];
@@ -94,93 +95,118 @@ export function NewsPage() {
           <div className="p-2 bg-primary-100 rounded-lg">
             <Newspaper className="w-6 h-6 text-primary-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Stablecoin News</h1>
+          <h1 className="text-3xl font-bold text-gray-900">News & Insights</h1>
         </div>
         <p className="text-gray-600">
-          Stay updated on the latest stablecoin developments, regulations, and market insights.
+          Stay updated on the latest stablecoin developments and explore curated research from industry experts.
         </p>
       </div>
 
-      {/* Filters */}
-      <NewsFilters filters={filters} onFilterChange={setFilters} />
-
-      {/* Error State */}
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6 text-center">
-          <p className="text-red-600 mb-4">Failed to load news articles</p>
-          <button
-            onClick={refetch}
-            className="text-red-700 hover:text-red-800 font-medium"
-          >
-            Try again
-          </button>
-        </div>
-      )}
-
-      {/* Loading State */}
-      {isLoading && (
-        <>
-          <HeroSkeleton />
-          <GridSkeleton />
-        </>
-      )}
-
-      {/* Content */}
-      {!isLoading && news && (
-        <>
-          {/* Hero Section - Featured Articles */}
-          {heroItems.length > 0 && <NewsHero items={heroItems} />}
-
-          {/* Grid Section - Remaining Articles */}
-          <NewsGrid
-            items={gridItems}
-            isLoadingMore={isLoadingMore}
-            hasMore={hasMore}
-            onLoadMore={loadMore}
-          />
-        </>
-      )}
-
-      {/* Empty State */}
-      {!isLoading && news?.length === 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-          <Newspaper className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No articles found</h3>
-          <p className="text-gray-500 mb-4">
-            Try adjusting your filters or check back later for new content.
-          </p>
-          <button
-            onClick={() => setFilters({})}
-            className="text-primary-600 hover:text-primary-700 font-medium"
-          >
-            Clear all filters
-          </button>
-        </div>
-      )}
-
-      {/* Attribution */}
-      <div className="mt-12 pt-6 border-t border-gray-200 text-center">
-        <p className="text-sm text-gray-400">
-          Powered by{' '}
-          <a
-            href="https://www.coindesk.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700"
-          >
-            CoinDesk
-          </a>
-          {' · '}
-          <a
-            href="https://cointelegraph.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700"
-          >
-            CoinTelegraph
-          </a>
-        </p>
+      {/* Tabs */}
+      <div className="flex gap-2 mb-6">
+        <button
+          onClick={() => setActiveTab('news')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
+            activeTab === 'news'
+              ? 'bg-primary-600 text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          <Newspaper className="w-4 h-4" />
+          Latest News
+        </button>
+        <button
+          onClick={() => setActiveTab('insights')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
+            activeTab === 'insights'
+              ? 'bg-primary-600 text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          <BookOpen className="w-4 h-4" />
+          Research & Insights
+        </button>
       </div>
+
+      {/* News Tab Content */}
+      {activeTab === 'news' && (
+        <>
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6 text-center">
+              <p className="text-red-600 mb-4">Failed to load news articles</p>
+              <button
+                onClick={refetch}
+                className="text-red-700 hover:text-red-800 font-medium"
+              >
+                Try again
+              </button>
+            </div>
+          )}
+
+          {/* Loading State */}
+          {isLoading && (
+            <>
+              <HeroSkeleton />
+              <GridSkeleton />
+            </>
+          )}
+
+          {/* Content */}
+          {!isLoading && news && (
+            <>
+              {/* Hero Section - Featured Articles */}
+              {heroItems.length > 0 && <NewsHero items={heroItems} />}
+
+              {/* Grid Section - Remaining Articles */}
+              <NewsGrid
+                items={gridItems}
+                isLoadingMore={isLoadingMore}
+                hasMore={hasMore}
+                onLoadMore={loadMore}
+              />
+            </>
+          )}
+
+          {/* Empty State */}
+          {!isLoading && news?.length === 0 && (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+              <Newspaper className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No articles found</h3>
+              <p className="text-gray-500">
+                Check back later for new content.
+              </p>
+            </div>
+          )}
+
+          {/* Attribution */}
+          <div className="mt-12 pt-6 border-t border-gray-200 text-center">
+            <p className="text-sm text-gray-400">
+              Powered by{' '}
+              <a
+                href="https://www.coindesk.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-600 hover:text-primary-700"
+              >
+                CoinDesk
+              </a>
+              {' · '}
+              <a
+                href="https://cointelegraph.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-600 hover:text-primary-700"
+              >
+                CoinTelegraph
+              </a>
+            </p>
+          </div>
+        </>
+      )}
+
+      {/* Insights Tab Content */}
+      {activeTab === 'insights' && <InsightsSection />}
     </PageContainer>
   );
 }

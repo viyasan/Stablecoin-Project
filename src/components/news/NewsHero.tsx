@@ -11,19 +11,13 @@ export function NewsHero({ items }: NewsHeroProps) {
   const [featured, ...secondary] = items.slice(0, 3);
 
   return (
-    <section className="mb-8">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Featured Article - Takes 3 columns, full height */}
-        <div className="lg:col-span-3 h-full">
-          <NewsCard item={featured} variant="hero" />
-        </div>
-
-        {/* Secondary Articles - Takes 2 columns, stacked */}
-        <div className="lg:col-span-2 grid grid-cols-1 gap-6">
-          {secondary.map((item) => (
-            <NewsCard key={item.id} item={item} variant="secondary" />
-          ))}
-        </div>
+    <section className="mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* All 3 articles in a uniform row */}
+        <NewsCard item={featured} variant="secondary" />
+        {secondary.map((item) => (
+          <NewsCard key={item.id} item={item} variant="secondary" />
+        ))}
       </div>
     </section>
   );
