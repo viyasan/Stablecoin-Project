@@ -423,10 +423,10 @@ const RESERVE_DATA = {
     sourceUrl: 'https://tether.to/en/transparency/',
     treasuryHoldings: 135_000_000_000, // $135B from attestation report
     assets: [
-      { name: 'US Treasuries', percentage: 75, color: '#3B82F6' },
-      { name: 'Gold', percentage: 7, color: '#F59E0B' },
-      { name: 'Bitcoin', percentage: 5, color: '#F97316' },
-      { name: 'Secured Loans & Other', percentage: 13, color: '#6B7280' },
+      { name: 'US Treasuries', percentage: 75, color: '#E2B050' },
+      { name: 'Gold', percentage: 7, color: '#D4A437' },
+      { name: 'Bitcoin', percentage: 5, color: '#CD7F32' },
+      { name: 'Secured Loans & Other', percentage: 13, color: '#ADB5BD' },
     ],
   },
   USDC: {
@@ -435,8 +435,8 @@ const RESERVE_DATA = {
     sourceUrl: 'https://www.circle.com/transparency',
     treasuryHoldings: 62_000_000_000, // $62B (~80% of ~$77B)
     assets: [
-      { name: 'US Treasuries', percentage: 80, color: '#3B82F6' },
-      { name: 'Cash & Bank Deposits', percentage: 20, color: '#10B981' },
+      { name: 'US Treasuries', percentage: 80, color: '#C0C0C0' },
+      { name: 'Cash & Bank Deposits', percentage: 20, color: '#6C757D' },
     ],
   },
 };

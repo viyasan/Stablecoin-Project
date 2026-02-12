@@ -19,11 +19,11 @@ function Tooltip({ content, children }: TooltipProps) {
       {children}
       {isVisible && (
         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-10">
-          <div className="bg-gray-900 text-white text-xs rounded-lg py-2 px-3 max-w-xs whitespace-normal text-center shadow-lg">
+          <div className="bg-chrome-900 text-white text-xs rounded-lg py-2 px-3 max-w-xs whitespace-normal text-center shadow-lg">
             {content}
           </div>
           <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1">
-            <div className="border-4 border-transparent border-t-gray-900" />
+            <div className="border-4 border-transparent border-t-chrome-900" />
           </div>
         </div>
       )}
@@ -40,22 +40,22 @@ function ProgressStep({ step, isLast }: ProgressStepProps) {
   const getStepStyles = () => {
     if (step.completed) {
       return {
-        circle: 'bg-red-600 border-red-600 text-white',
-        line: 'bg-red-600',
-        label: 'text-gray-900 font-medium',
+        circle: 'bg-status-positive border-status-positive text-white',
+        line: 'bg-status-positive',
+        label: 'text-chrome-900 font-medium',
       };
     }
     if (step.current) {
       return {
-        circle: 'bg-white border-red-600',
-        line: 'bg-gray-200',
-        label: 'text-red-600 font-medium',
+        circle: 'bg-white border-gold-400',
+        line: 'bg-chrome-200',
+        label: 'text-gold-600 font-medium',
       };
     }
     return {
-      circle: 'bg-white border-gray-300',
-      line: 'bg-gray-200',
-      label: 'text-gray-400',
+      circle: 'bg-white border-chrome-300',
+      line: 'bg-chrome-200',
+      label: 'text-chrome-400',
     };
   };
 
@@ -80,9 +80,9 @@ function ProgressStep({ step, isLast }: ProgressStepProps) {
             {step.completed ? (
               <Check className="w-4 h-4 text-white" strokeWidth={3} />
             ) : step.current ? (
-              <div className="w-2.5 h-2.5 rounded-full bg-red-600" />
+              <div className="w-2.5 h-2.5 rounded-full bg-gold-400" />
             ) : (
-              <div className="w-2.5 h-2.5 rounded-full bg-gray-300" />
+              <div className="w-2.5 h-2.5 rounded-full bg-chrome-300" />
             )}
           </div>
           {/* Label */}
@@ -101,23 +101,23 @@ interface StablecoinTrackerProps {
 
 function StablecoinTracker({ stablecoin }: StablecoinTrackerProps) {
   const statusColors = {
-    live: 'bg-green-100 text-green-800 border-green-200',
-    coming_soon: 'bg-amber-100 text-amber-800 border-amber-200',
-    pending_approval: 'bg-amber-100 text-amber-800 border-amber-200',
+    live: 'bg-status-positive/10 text-status-positive border-status-positive/20',
+    coming_soon: 'bg-gold-50 text-gold-600 border-gold-100',
+    pending_approval: 'bg-gold-50 text-gold-600 border-gold-100',
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-5">
+    <div className="bg-white rounded-lg border border-chrome-200 p-5">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <h3 className="text-lg font-semibold text-gray-900">{stablecoin.name}</h3>
-          <span className="text-sm text-gray-500">({stablecoin.issuer})</span>
+          <h3 className="text-lg font-semibold text-chrome-900">{stablecoin.name}</h3>
+          <span className="text-sm text-chrome-500">({stablecoin.issuer})</span>
         </div>
         <span
           className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full border ${statusColors[stablecoin.status]}`}
         >
-          <span className={`w-1.5 h-1.5 rounded-full ${stablecoin.status === 'live' ? 'bg-green-500' : 'bg-amber-500'}`} />
+          <span className={`w-1.5 h-1.5 rounded-full ${stablecoin.status === 'live' ? 'bg-status-positive' : 'bg-gold-400'}`} />
           {stablecoin.statusLabel}
         </span>
       </div>
@@ -142,10 +142,10 @@ interface RegulatoryStatusTrackerProps {
 
 export function RegulatoryStatusTracker({ stablecoins }: RegulatoryStatusTrackerProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">Regulatory Status</h2>
-        <p className="text-sm text-gray-500 mt-1">Hover over each step for details</p>
+    <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+      <div className="px-6 py-4 border-b border-chrome-100">
+        <h2 className="text-lg font-semibold text-chrome-900">Regulatory Status</h2>
+        <p className="text-sm text-chrome-500 mt-1">Hover over each step for details</p>
       </div>
       <div className="p-6 space-y-4">
         {stablecoins.map((stablecoin) => (

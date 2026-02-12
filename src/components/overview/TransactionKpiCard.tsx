@@ -51,15 +51,15 @@ interface KpiItemProps {
 function KpiItem({ label, value, subtext, tooltip }: KpiItemProps) {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-4 group relative">
-      <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2 text-center">{label}</p>
-      <p className="text-3xl lg:text-4xl font-bold font-mono-numbers text-gray-900 text-center">{value}</p>
+      <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">{label}</p>
+      <p className="text-3xl lg:text-4xl font-bold font-mono-numbers text-chrome-900 text-center">{value}</p>
       {subtext && (
-        <p className="text-sm text-gray-400 mt-3 text-center">
+        <p className="text-sm text-chrome-400 mt-3 text-center">
           {subtext}
           {tooltip && (
-            <span className="ml-1 text-xs text-gray-300 cursor-help opacity-0 group-hover:opacity-100 transition-opacity relative inline-block">
+            <span className="ml-1 text-xs text-chrome-300 cursor-help opacity-0 group-hover:opacity-100 transition-opacity relative inline-block">
               <span className="peer">ⓘ</span>
-              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded whitespace-nowrap opacity-0 peer-hover:opacity-100 transition-opacity pointer-events-none z-10">
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-chrome-800 rounded whitespace-nowrap opacity-0 peer-hover:opacity-100 transition-opacity pointer-events-none z-10">
                 {tooltip}
               </span>
             </span>
@@ -75,9 +75,9 @@ export function TransactionKpiCard() {
   const metrics = VISA_METRICS[timePeriod];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900 mb-3">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
+      <div className="px-6 py-4 border-b border-chrome-100">
+        <h2 className="text-lg font-semibold text-chrome-900 mb-3">
           Stablecoin Transaction Activity
         </h2>
 
@@ -87,8 +87,8 @@ export function TransactionKpiCard() {
             onClick={() => setTimePeriod('3M')}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
               timePeriod === '3M'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gold-500 text-white'
+                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
             3 Months
@@ -97,8 +97,8 @@ export function TransactionKpiCard() {
             onClick={() => setTimePeriod('12M')}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
               timePeriod === '12M'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gold-500 text-white'
+                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
             12 Months
@@ -107,8 +107,8 @@ export function TransactionKpiCard() {
             onClick={() => setTimePeriod('All')}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
               timePeriod === 'All'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gold-500 text-white'
+                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
             All-time

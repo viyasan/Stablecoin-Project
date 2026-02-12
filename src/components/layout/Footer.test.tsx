@@ -81,7 +81,7 @@ describe('Footer', () => {
     const { container } = renderFooter();
 
     const footer = container.querySelector('footer');
-    expect(footer).toHaveClass('bg-gray-900');
+    expect(footer).toHaveClass('bg-chrome-800');
   });
 
   it('external links open in new tab', () => {

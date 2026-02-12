@@ -87,42 +87,42 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   const change30d = data.change30d;
 
   const getTrendIcon = (change: number) => {
-    if (change > 0.5) return <TrendingUp className="w-3.5 h-3.5 text-green-500" />;
-    if (change < -0.5) return <TrendingDown className="w-3.5 h-3.5 text-red-500" />;
-    return <Minus className="w-3.5 h-3.5 text-gray-400" />;
+    if (change > 0.5) return <TrendingUp className="w-3.5 h-3.5 text-status-positive" />;
+    if (change < -0.5) return <TrendingDown className="w-3.5 h-3.5 text-status-negative" />;
+    return <Minus className="w-3.5 h-3.5 text-chrome-400" />;
   };
 
   const getChangeColor = (change: number) => {
-    if (change > 0.5) return 'text-green-600';
-    if (change < -0.5) return 'text-red-600';
-    return 'text-gray-500';
+    if (change > 0.5) return 'text-status-positive';
+    if (change < -0.5) return 'text-status-negative';
+    return 'text-chrome-500';
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3 min-w-[180px]">
+    <div className="bg-white border border-chrome-200 rounded-lg shadow-lg p-3 min-w-[180px]">
       {/* Header */}
-      <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-100">
-        <span className="text-sm font-semibold text-gray-900">{data.symbol}</span>
-        <span className="text-xs text-gray-500">{data.name}</span>
+      <div className="flex items-center gap-2 mb-2 pb-2 border-b border-chrome-100">
+        <span className="text-sm font-semibold text-chrome-900">{data.symbol}</span>
+        <span className="text-xs text-chrome-500">{data.name}</span>
       </div>
 
       {/* Market Cap */}
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-gray-500">Market Cap</span>
-        <span className="text-sm font-semibold text-gray-900">{formatCurrency(data.value)}</span>
+        <span className="text-xs text-chrome-500">Market Cap</span>
+        <span className="text-sm font-semibold text-chrome-900">{formatCurrency(data.value)}</span>
       </div>
 
       {/* Market Share */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs text-gray-500">Share</span>
-        <span className="text-sm font-medium text-gray-700">{formatPercent(data.percentage)}</span>
+        <span className="text-xs text-chrome-500">Share</span>
+        <span className="text-sm font-medium text-chrome-700">{formatPercent(data.percentage)}</span>
       </div>
 
       {/* Changes */}
       {data.symbol !== 'Others' && (
-        <div className="pt-2 border-t border-gray-100 space-y-1.5">
+        <div className="pt-2 border-t border-chrome-100 space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500">7d Change</span>
+            <span className="text-xs text-chrome-500">7d Change</span>
             <div className="flex items-center gap-1">
               {getTrendIcon(change7d)}
               <span className={`text-xs font-medium ${getChangeColor(change7d)}`}>
@@ -131,7 +131,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500">30d Change</span>
+            <span className="text-xs text-chrome-500">30d Change</span>
             <div className="flex items-center gap-1">
               {getTrendIcon(change30d)}
               <span className={`text-xs font-medium ${getChangeColor(change30d)}`}>
@@ -165,9 +165,9 @@ function CustomLegend({ payload }: CustomLegendProps) {
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-gray-700 font-medium">{entry.payload.symbol}</span>
+            <span className="text-chrome-700 font-medium">{entry.payload.symbol}</span>
           </div>
-          <span className="text-gray-500">{formatPercent(entry.payload.percentage)}</span>
+          <span className="text-chrome-500">{formatPercent(entry.payload.percentage)}</span>
         </div>
       ))}
     </div>
@@ -183,13 +183,13 @@ export function MarketSharePieChart() {
 
   if (error || !stablecoins) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-8">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
-            <p className="text-gray-500 mb-4">Failed to load market data</p>
+            <p className="text-chrome-500 mb-4">Failed to load market data</p>
             <button
               onClick={refetch}
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-gold-500 hover:text-gold-600 font-medium"
             >
               Try again
             </button>
@@ -231,14 +231,14 @@ export function MarketSharePieChart() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
-      <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">Stablecoin Market Share</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
+      <div className="px-6 py-4 border-b border-chrome-100">
+        <h2 className="text-lg font-semibold text-chrome-900">Stablecoin Market Share</h2>
       </div>
       <div className="p-6 flex-1 flex flex-col">
-        <div className="pb-4 border-b border-gray-100 text-center">
-          <p className="text-sm text-gray-500">Total Stablecoin Market Cap</p>
-          <p className="text-xl font-bold text-gray-900">{formatCurrency(totalMarketCap)}</p>
+        <div className="pb-4 border-b border-chrome-100 text-center">
+          <p className="text-sm text-chrome-500">Total Stablecoin Market Cap</p>
+          <p className="text-xl font-bold text-chrome-900">{formatCurrency(totalMarketCap)}</p>
         </div>
         <div className="h-[460px] flex gap-6">
           {/* Pie Chart */}
@@ -269,7 +269,7 @@ export function MarketSharePieChart() {
           </div>
 
           {/* Legend */}
-          <div className="w-32 flex items-center pl-2 border-l border-gray-100">
+          <div className="w-32 flex items-center pl-2 border-l border-chrome-100">
             <CustomLegend
               payload={chartData.map((item, index) => ({
                 value: item.symbol,
@@ -280,7 +280,7 @@ export function MarketSharePieChart() {
           </div>
         </div>
 
-        <div className="mt-auto pt-4 border-t border-gray-100 text-xs text-gray-400">
+        <div className="mt-auto pt-4 border-t border-chrome-100 text-xs text-chrome-400">
           Data refreshed just now
         </div>
       </div>

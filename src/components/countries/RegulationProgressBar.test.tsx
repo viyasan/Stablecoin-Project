@@ -63,7 +63,7 @@ describe('RegulationProgressBar', () => {
     const { container } = render(<RegulationProgressBar stage="proposed" />);
 
     // Find the uncompleted stage circles (should have gray background)
-    const grayCircles = container.querySelectorAll('.bg-gray-200');
+    const grayCircles = container.querySelectorAll('.bg-chrome-200');
     expect(grayCircles.length).toBeGreaterThan(0);
   });
 });

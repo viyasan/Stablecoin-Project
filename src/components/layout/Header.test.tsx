@@ -114,6 +114,6 @@ describe('Header', () => {
     // The Canada link should have active styling when on /canada route
     const canadaLinks = screen.getAllByRole('link', { name: /canada/i });
     const desktopCanadaLink = canadaLinks[0];
-    expect(desktopCanadaLink).toHaveClass('bg-primary-50', 'text-primary-700');
+    expect(desktopCanadaLink).toHaveClass('bg-gold-50', 'text-gold-600');
   });
 });

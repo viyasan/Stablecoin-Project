@@ -24,7 +24,7 @@ export function RegulationProgressBar({ stage }: RegulationProgressBarProps) {
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${
                   isCompleted
                     ? 'text-white'
-                    : 'bg-gray-200 text-gray-500'
+                    : 'bg-chrome-200 text-chrome-500'
                 }`}
                 style={{
                   backgroundColor: isCompleted ? STAGE_COLORS[s] : undefined,
@@ -43,7 +43,7 @@ export function RegulationProgressBar({ stage }: RegulationProgressBarProps) {
               </div>
               <span
                 className={`mt-2 text-xs font-medium transition-colors duration-300 ${
-                  isCompleted ? 'text-gray-900' : 'text-gray-400'
+                  isCompleted ? 'text-chrome-900' : 'text-chrome-400'
                 }`}
               >
                 {STAGE_LABELS[s]}
@@ -55,7 +55,7 @@ export function RegulationProgressBar({ stage }: RegulationProgressBarProps) {
 
       {/* Progress line */}
       <div className="relative mt-1">
-        <div className="absolute top-0 left-[16.67%] right-[16.67%] h-1 bg-gray-200 rounded-full" />
+        <div className="absolute top-0 left-[16.67%] right-[16.67%] h-1 bg-chrome-200 rounded-full" />
         <div
           className="absolute top-0 left-[16.67%] h-1 rounded-full transition-all duration-500"
           style={{

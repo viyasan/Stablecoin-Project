@@ -49,7 +49,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
   const hasActiveFilters = filters.topic || filters.source;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6 sticky top-0 z-10">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-4 mb-6 sticky top-0 z-10">
       {/* Filter Pills Row */}
       <div className="flex flex-wrap items-center gap-2">
         {/* Topic Pills (first few visible) */}
@@ -65,8 +65,8 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
                 onClick={() => handleTopicChange(topic.value)}
                 className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-150 ease-out active:scale-95 ${
                   isActive
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-gold-500 text-white'
+                    : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
                 }`}
               >
                 {topic.label}
@@ -79,8 +79,8 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
             onClick={() => setShowMoreFilters(!showMoreFilters)}
             className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors flex items-center gap-1 ${
               showMoreFilters
-                ? 'bg-gray-200 text-gray-700'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-chrome-200 text-chrome-700'
+                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
             More
@@ -96,7 +96,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
         {hasActiveFilters && (
           <button
             onClick={clearAllFilters}
-            className="ml-auto px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition-all duration-150 ease-out active:scale-95"
+            className="ml-auto px-3 py-1.5 text-sm font-medium text-chrome-500 hover:text-chrome-700 transition-all duration-150 ease-out active:scale-95"
           >
             Clear all
           </button>
@@ -105,11 +105,11 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
 
       {/* Expanded filters */}
       {showMoreFilters && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="mt-4 pt-4 border-t border-chrome-100">
           <div className="flex flex-wrap gap-4">
             {/* More Topics */}
             <div>
-              <p className="text-xs font-medium text-gray-500 mb-2">More Topics</p>
+              <p className="text-xs font-medium text-chrome-500 mb-2">More Topics</p>
               <div className="flex flex-wrap gap-1">
                 {TOPIC_FILTERS.slice(4).map((topic) => {
                   const isActive = filters.topic === topic.value;
@@ -119,8 +119,8 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
                       onClick={() => handleTopicChange(topic.value)}
                       className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-150 ease-out active:scale-95 ${
                         isActive
-                          ? 'bg-primary-600 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          ? 'bg-gold-500 text-white'
+                          : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
                       }`}
                     >
                       {topic.label}
@@ -132,7 +132,7 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
 
             {/* Sources */}
             <div>
-              <p className="text-xs font-medium text-gray-500 mb-2">Sources</p>
+              <p className="text-xs font-medium text-chrome-500 mb-2">Sources</p>
               <div className="flex flex-wrap gap-1">
                 {SOURCE_FILTERS.map((source) => {
                   const isActive =
@@ -145,8 +145,8 @@ export function NewsFilters({ filters, onFilterChange }: NewsFiltersProps) {
                       onClick={() => handleSourceChange(source.value)}
                       className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-150 ease-out active:scale-95 ${
                         isActive
-                          ? 'bg-primary-600 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          ? 'bg-gold-500 text-white'
+                          : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
                       }`}
                     >
                       {source.label}

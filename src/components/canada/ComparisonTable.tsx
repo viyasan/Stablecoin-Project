@@ -8,23 +8,23 @@ interface ComparisonTableProps {
 function StatusCell({ status }: { status: CanadianStablecoin['status'] }) {
   if (status === 'live') {
     return (
-      <span className="inline-flex items-center gap-1.5 text-green-700 font-medium">
-        <span className="w-2 h-2 rounded-full bg-green-500" />
+      <span className="inline-flex items-center gap-1.5 text-status-positive font-medium">
+        <span className="w-2 h-2 rounded-full bg-status-positive" />
         Live
       </span>
     );
   }
   if (status === 'coming_soon') {
     return (
-      <span className="inline-flex items-center gap-1.5 text-amber-700 font-medium">
-        <span className="w-2 h-2 rounded-full bg-amber-500" />
+      <span className="inline-flex items-center gap-1.5 text-gold-600 font-medium">
+        <span className="w-2 h-2 rounded-full bg-gold-400" />
         Coming 2026
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 text-amber-700 font-medium">
-      <span className="w-2 h-2 rounded-full bg-amber-500" />
+    <span className="inline-flex items-center gap-1.5 text-gold-600 font-medium">
+      <span className="w-2 h-2 rounded-full bg-gold-400" />
       Pending
     </span>
   );
@@ -36,31 +36,31 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
     return exchanges.filter((e) => e.stablecoins.includes(stablecoinId));
   };
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">Canadian Stablecoins - Across the Board</h2>
+    <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+      <div className="px-6 py-4 border-b border-chrome-100">
+        <h2 className="text-lg font-semibold text-chrome-900">Canadian Stablecoins - Across the Board</h2>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-gray-50">
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <tr className="bg-chrome-50">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-chrome-500 uppercase tracking-wider">
                 Feature
               </th>
               {stablecoins.map((s) => (
                 <th
                   key={s.id}
-                  className="px-6 py-3 text-center text-sm font-bold text-gray-900 uppercase tracking-wider"
+                  className="px-6 py-3 text-center text-sm font-bold text-chrome-900 uppercase tracking-wider"
                 >
                   {s.name}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-chrome-100">
             {/* Status */}
             <tr>
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Status</td>
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Status</td>
               {stablecoins.map((s) => (
                 <td key={s.id} className="px-6 py-4 text-center">
                   <StatusCell status={s.status} />
@@ -69,10 +69,10 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
             </tr>
 
             {/* Issuer */}
-            <tr className="bg-gray-50/50">
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Issuer</td>
+            <tr className="bg-chrome-50/50">
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Issuer</td>
               {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-900">
+                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-900">
                   {s.issuer}
                 </td>
               ))}
@@ -80,19 +80,19 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
 
             {/* Custodian */}
             <tr>
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Custodian</td>
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Custodian</td>
               {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-900">
+                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-900">
                   {s.custodian}
                 </td>
               ))}
             </tr>
 
             {/* Backing */}
-            <tr className="bg-gray-50/50">
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Backing</td>
+            <tr className="bg-chrome-50/50">
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Backing</td>
               {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-600">
+                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-600">
                   {s.backing}
                 </td>
               ))}
@@ -100,9 +100,9 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
 
             {/* Blockchains */}
             <tr>
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Blockchains</td>
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Blockchains</td>
               {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-900">
+                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-900">
                   {s.blockchains.join(', ')}
                 </td>
               ))}
@@ -110,19 +110,19 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
 
             {/* Audits */}
             <tr>
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Audits</td>
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Audits</td>
               {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-600">
+                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-600">
                   {s.audits}
                 </td>
               ))}
             </tr>
 
             {/* Volume */}
-            <tr className="bg-gray-50/50">
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Historical Volume</td>
+            <tr className="bg-chrome-50/50">
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Historical Volume</td>
               {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-gray-900">
+                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-900">
                   {s.volume || 'N/A'}
                 </td>
               ))}
@@ -130,7 +130,7 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
 
             {/* Where to Buy */}
             <tr>
-              <td className="px-6 py-4 text-sm font-medium text-gray-700">Where to Buy</td>
+              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Where to Buy</td>
               {stablecoins.map((s) => {
                 const availableExchanges = getExchangesForStablecoin(s.id);
                 return (
@@ -143,14 +143,14 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
                             href={e.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-50 text-red-700 rounded hover:bg-red-100 hover:scale-105 active:scale-100 transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                            className="inline-flex items-center px-2 py-1 text-xs font-medium bg-status-negative/10 text-status-negative rounded hover:bg-status-negative/20 hover:scale-105 active:scale-100 transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-status-negative"
                           >
                             {e.name}
                           </a>
                         ))}
                       </div>
                     ) : (
-                      <span className="text-gray-400">Coming soon</span>
+                      <span className="text-chrome-400">Coming soon</span>
                     )}
                   </td>
                 );

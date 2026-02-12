@@ -16,7 +16,7 @@ describe('Skeleton', () => {
     const { container } = render(<Skeleton />);
 
     const skeleton = container.firstChild as HTMLElement;
-    expect(skeleton).toHaveClass('bg-gray-200', 'animate-pulse', 'rounded-md');
+    expect(skeleton).toHaveClass('bg-chrome-200', 'animate-pulse', 'rounded-md');
   });
 
   it('applies custom className', () => {
@@ -113,7 +113,7 @@ describe('SkeletonChart', () => {
     const { container } = render(<SkeletonChart />);
 
     // Should have 12 bar placeholders
-    const bars = container.querySelectorAll('.flex-1.bg-gray-200');
+    const bars = container.querySelectorAll('.flex-1.bg-chrome-200');
     expect(bars).toHaveLength(12);
   });
 });
@@ -179,7 +179,7 @@ describe('SkeletonCountryDetail', () => {
     const { container } = render(<SkeletonCountryDetail />);
 
     // Should have timeline items
-    const timelineItems = container.querySelectorAll('.border-b.border-gray-100');
+    const timelineItems = container.querySelectorAll('.border-b.border-chrome-100');
     expect(timelineItems.length).toBeGreaterThan(0);
   });
 });

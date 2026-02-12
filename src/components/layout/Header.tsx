@@ -27,15 +27,15 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-chrome-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center group-hover:bg-primary-700 transition-colors duration-150">
-              <span className="text-white font-bold text-lg">S</span>
+            <div className="w-8 h-8 bg-chrome-900 rounded-lg flex items-center justify-center group-hover:bg-chrome-800 transition-colors duration-150">
+              <span className="text-gold-400 font-bold text-lg">S</span>
             </div>
-            <span className="text-xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-150">StablecoinStats.ca</span>
+            <span className="text-xl font-bold text-chrome-800 group-hover:text-gold-500 transition-colors duration-150">StablecoinStats.ca</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -47,8 +47,8 @@ export function Header() {
                 className={({ isActive }) =>
                   `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 ease-out flex items-center gap-1.5 ${
                     isActive
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 hover:scale-[1.02] active:scale-[0.98]'
+                      ? 'bg-gold-50 text-gold-600'
+                      : 'text-chrome-500 hover:bg-chrome-100 hover:text-chrome-800 hover:scale-[1.02] active:scale-[0.98]'
                   }`
                 }
               >
@@ -60,7 +60,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-150 ease-out active:scale-95"
+            className="md:hidden p-2 text-chrome-500 hover:text-chrome-800 hover:bg-chrome-100 rounded-lg transition-all duration-150 ease-out active:scale-95"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -75,7 +75,7 @@ export function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
+        <div className="md:hidden border-t border-chrome-200 bg-white">
           <div className="px-4 py-3 space-y-1">
             {navItems.map((item) => (
               <NavLink
@@ -85,8 +85,8 @@ export function Header() {
                 className={({ isActive }) =>
                   `flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 ease-out ${
                     isActive
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-600 hover:bg-gray-100 active:bg-gray-200'
+                      ? 'bg-gold-50 text-gold-600'
+                      : 'text-chrome-500 hover:bg-chrome-100 active:bg-chrome-200'
                   }`
                 }
               >

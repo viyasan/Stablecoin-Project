@@ -9,28 +9,28 @@ const SOURCE_COLORS: Record<string, string> = {
 
 // Topic tag colors
 const TOPIC_COLORS: Record<TopicTag, { bg: string; text: string }> = {
-  regulation: { bg: 'bg-purple-100', text: 'text-purple-700' },
-  depeg: { bg: 'bg-red-100', text: 'text-red-700' },
-  integration: { bg: 'bg-blue-100', text: 'text-blue-700' },
-  infrastructure: { bg: 'bg-gray-100', text: 'text-gray-700' },
-  payments: { bg: 'bg-green-100', text: 'text-green-700' },
-  reserve: { bg: 'bg-amber-100', text: 'text-amber-700' },
-  launch: { bg: 'bg-cyan-100', text: 'text-cyan-700' },
-  partnership: { bg: 'bg-pink-100', text: 'text-pink-700' },
+  regulation: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  depeg: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  integration: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  infrastructure: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  payments: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  reserve: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  launch: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  partnership: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
 };
 
 // Asset/stablecoin colors
 const ASSET_COLORS: Record<string, { bg: string; text: string }> = {
-  USDT: { bg: 'bg-green-100', text: 'text-green-700' },
-  USDC: { bg: 'bg-blue-100', text: 'text-blue-700' },
-  DAI: { bg: 'bg-amber-100', text: 'text-amber-700' },
-  PYUSD: { bg: 'bg-sky-100', text: 'text-sky-700' },
-  BUSD: { bg: 'bg-yellow-100', text: 'text-yellow-700' },
-  FRAX: { bg: 'bg-gray-100', text: 'text-gray-700' },
+  USDT: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  USDC: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  DAI: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  PYUSD: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  BUSD: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  FRAX: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
 };
 
 function getAssetColor(asset: string) {
-  return ASSET_COLORS[asset] || { bg: 'bg-gray-100', text: 'text-gray-600' };
+  return ASSET_COLORS[asset] || { bg: 'bg-chrome-100', text: 'text-chrome-600' };
 }
 
 function formatTimeAgo(dateString: string): string {
@@ -54,7 +54,7 @@ function getFallbackImage(source: string): string {
     CoinDesk: 'linear-gradient(135deg, #0052FF 0%, #00D4FF 100%)',
     CoinTelegraph: 'linear-gradient(135deg, #F7931A 0%, #FFD700 100%)',
   };
-  return gradients[source] || 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)';
+  return gradients[source] || 'linear-gradient(135deg, #343A40 0%, #1A1D21 100%)';
 }
 
 export type NewsCardVariant = 'hero' | 'secondary' | 'standard';
@@ -76,7 +76,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
     return (
       <article
         onClick={handleClick}
-        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out"
+        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden hover:shadow-lg hover:border-chrome-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out"
       >
         {/* Hero Image - fixed aspect ratio */}
         <div className="relative aspect-[16/9] overflow-hidden">
@@ -138,15 +138,15 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
           </div>
 
           {/* Title */}
-          <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150">
+          <h2 className="text-xl font-bold text-chrome-900 mb-2 line-clamp-2 group-hover:text-gold-500 transition-colors duration-150">
             {item.title}
           </h2>
 
           {/* Summary */}
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{item.summary}</p>
+          <p className="text-chrome-600 text-sm mb-4 line-clamp-2">{item.summary}</p>
 
           {/* Footer */}
-          <div className="flex items-center justify-between text-xs text-gray-500">
+          <div className="flex items-center justify-between text-xs text-chrome-500">
             <span>{formatTimeAgo(item.publishedAt)}</span>
             <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
           </div>
@@ -159,7 +159,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
     return (
       <article
         onClick={handleClick}
-        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
+        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden hover:shadow-lg hover:border-chrome-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
       >
         {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
@@ -200,12 +200,12 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150 flex-1">
+          <h3 className="text-base font-semibold text-chrome-900 mb-2 line-clamp-2 group-hover:text-gold-500 transition-colors duration-150 flex-1">
             {item.title}
           </h3>
 
           {/* Footer */}
-          <div className="flex items-center gap-2 text-xs text-gray-500">
+          <div className="flex items-center gap-2 text-xs text-chrome-500">
             <span style={{ color: sourceColor }} className="font-medium">
               {item.source}
             </span>
@@ -221,7 +221,7 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
   return (
     <article
       onClick={handleClick}
-      className="group cursor-pointer bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
+      className="group cursor-pointer bg-white rounded-lg shadow-sm border border-chrome-200 overflow-hidden hover:shadow-lg hover:border-chrome-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out h-full flex flex-col"
     >
       {/* Thumbnail */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -247,12 +247,12 @@ export function NewsCard({ item, variant = 'standard' }: NewsCardProps) {
       {/* Content */}
       <div className="p-3 flex-1 flex flex-col">
         {/* Title */}
-        <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150 flex-1">
+        <h3 className="text-sm font-semibold text-chrome-900 mb-2 line-clamp-2 group-hover:text-gold-500 transition-colors duration-150 flex-1">
           {item.title}
         </h3>
 
         {/* Footer */}
-        <div className="flex items-center gap-1.5 text-xs text-gray-500">
+        <div className="flex items-center gap-1.5 text-xs text-chrome-500">
           <span style={{ color: sourceColor }} className="font-medium">
             {item.source}
           </span>

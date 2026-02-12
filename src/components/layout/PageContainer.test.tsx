@@ -30,7 +30,7 @@ describe('PageContainer', () => {
     render(<PageContainer title="Styled Title">Content</PageContainer>);
 
     const title = screen.getByText('Styled Title');
-    expect(title).toHaveClass('text-3xl', 'font-bold', 'text-gray-900');
+    expect(title).toHaveClass('text-3xl', 'font-bold', 'text-chrome-800');
   });
 
   it('renders subtitle with correct styling', () => {
@@ -41,7 +41,7 @@ describe('PageContainer', () => {
     );
 
     const subtitle = screen.getByText('Styled Subtitle');
-    expect(subtitle).toHaveClass('text-lg', 'text-gray-600');
+    expect(subtitle).toHaveClass('text-lg', 'text-chrome-500');
   });
 
   it('does not render header section when no title or subtitle', () => {

@@ -12,7 +12,7 @@ export function Sparkline({
   data,
   width = 80,
   height = 24,
-  color = '#0ea5e9',
+  color = '#E2B050',
   fillOpacity = 0.1,
   strokeWidth = 1.5,
   className = '',
@@ -42,7 +42,7 @@ export function Sparkline({
 
   // Determine if trend is positive (last value > first value)
   const isPositive = data[data.length - 1] >= data[0];
-  const trendColor = isPositive ? '#22c55e' : '#ef4444';
+  const trendColor = isPositive ? '#4A9D6E' : '#C0524E';
   const finalColor = color === 'auto' ? trendColor : color;
 
   return (

@@ -30,14 +30,14 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-gray-400">
+    <footer className="bg-chrome-800 text-chrome-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
+              <div className="w-8 h-8 bg-chrome-900 rounded-lg flex items-center justify-center">
+                <span className="text-gold-400 font-bold text-lg">S</span>
               </div>
               <span className="text-xl font-bold text-white">StablecoinStats.ca</span>
             </div>
@@ -52,17 +52,17 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Explore</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/canada" className="hover:text-white transition-colors duration-150">
+                <Link to="/canada" className="hover:text-gold-400 transition-colors duration-150">
                   Canada
                 </Link>
               </li>
               <li>
-                <Link to="/countries" className="hover:text-white transition-colors duration-150">
+                <Link to="/countries" className="hover:text-gold-400 transition-colors duration-150">
                   Regulatory Landscape
                 </Link>
               </li>
               <li>
-                <Link to="/news" className="hover:text-white transition-colors duration-150">
+                <Link to="/news" className="hover:text-gold-400 transition-colors duration-150">
                   News
                 </Link>
               </li>
@@ -74,7 +74,7 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/disclaimer" className="hover:text-white transition-colors duration-150">
+                <Link to="/disclaimer" className="hover:text-gold-400 transition-colors duration-150">
                   Disclaimer & Disclosures
                 </Link>
               </li>
@@ -84,16 +84,16 @@ export function Footer() {
 
         {/* Newsletter CTA */}
         {BEEHIIV_URL && (
-          <div className="mt-12 pt-8 border-t border-gray-800">
-            <div className="bg-gray-800 rounded-lg p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="mt-12 pt-8 border-t border-chrome-700">
+            <div className="bg-chrome-700 rounded-lg p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
                 <h4 className="text-white font-semibold text-lg mb-1">Stay Informed</h4>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-chrome-400">
                   Weekly stablecoin insights, regulation updates, and analysis.
                 </p>
               </div>
               {subscribed ? (
-                <p className="text-sm text-green-400 font-medium">You're subscribed!</p>
+                <p className="text-sm text-status-positive font-medium">You're subscribed!</p>
               ) : (
                 <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                   <input
@@ -102,12 +102,12 @@ export function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="email@example.com"
-                    className="px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 text-sm border border-gray-600 focus:outline-none focus:border-primary-500 w-full md:w-64"
+                    className="px-4 py-2 rounded-lg bg-chrome-600 text-white placeholder-chrome-400 text-sm border border-chrome-500 focus:outline-none focus:border-gold-400 w-full md:w-64"
                   />
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-5 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-500 transition-colors duration-150 disabled:opacity-50 whitespace-nowrap"
+                    className="px-5 py-2 rounded-lg bg-gold-400 text-chrome-900 text-sm font-medium hover:bg-gold-500 transition-colors duration-150 disabled:opacity-50 whitespace-nowrap"
                   >
                     {submitting ? 'Subscribing...' : 'Subscribe'}
                   </button>
@@ -119,14 +119,14 @@ export function Footer() {
 
         {/* Data Sources - Only show on overview page */}
         {isOverviewPage && (
-          <div className="mt-12 pt-8 border-t border-gray-800">
-          <p className="text-xs text-gray-500 mb-4">
+          <div className="mt-12 pt-8 border-t border-chrome-700">
+          <p className="text-xs text-chrome-500 mb-4">
             Data Sources:{' '}
             <a
               href="https://defillama.com/stablecoins"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-150"
+              className="text-chrome-400 hover:text-gold-400 transition-colors duration-150"
             >
               DefiLlama
             </a>
@@ -135,7 +135,7 @@ export function Footer() {
               href="https://www.allium.so"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-150"
+              className="text-chrome-400 hover:text-gold-400 transition-colors duration-150"
             >
               Allium
             </a>
@@ -144,7 +144,7 @@ export function Footer() {
               href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/mfh.txt"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-150"
+              className="text-chrome-400 hover:text-gold-400 transition-colors duration-150"
             >
               US Treasury
             </a>
@@ -153,7 +153,7 @@ export function Footer() {
               href="https://www.coindesk.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-150"
+              className="text-chrome-400 hover:text-gold-400 transition-colors duration-150"
             >
               CoinDesk
             </a>
@@ -162,7 +162,7 @@ export function Footer() {
               href="https://cointelegraph.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-150"
+              className="text-chrome-400 hover:text-gold-400 transition-colors duration-150"
             >
               CoinTelegraph
             </a>
@@ -172,15 +172,15 @@ export function Footer() {
 
         {/* Disclaimer & Copyright */}
         <div className="mt-6">
-          <p className="text-xs text-gray-500 mb-4">
+          <p className="text-xs text-chrome-500 mb-4">
             <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
             is for informational purposes only and does not constitute
             investment, legal, or financial advice.{' '}
-            <Link to="/disclaimer" className="text-gray-400 hover:text-white transition-colors duration-150">
+            <Link to="/disclaimer" className="text-chrome-400 hover:text-gold-400 transition-colors duration-150">
               Read full disclaimer
             </Link>
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-chrome-500">
             &copy; {new Date().getFullYear()} StablecoinStats.ca. All rights reserved.
           </p>
         </div>

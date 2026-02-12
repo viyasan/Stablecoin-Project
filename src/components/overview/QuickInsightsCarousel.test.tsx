@@ -33,7 +33,7 @@ describe('QuickInsightsCarousel', () => {
     fireEvent.click(nextButton);
 
     // Second insight should now be visible
-    expect(screen.getByText(/Ethereum and Tron host 75%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron host over 80%/i)).toBeInTheDocument();
   });
 
   it('navigates to previous insight when clicking previous button', () => {
@@ -77,7 +77,7 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Should now show second insight
-    expect(screen.getByText(/Ethereum and Tron host 75%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron host over 80%/i)).toBeInTheDocument();
   });
 
   it('pauses auto-rotation on hover', () => {
@@ -112,7 +112,7 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Should now show second insight
-    expect(screen.getByText(/Ethereum and Tron host 75%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron host over 80%/i)).toBeInTheDocument();
   });
 
   it('shows dot indicators for each insight', () => {
@@ -131,6 +131,6 @@ describe('QuickInsightsCarousel', () => {
     fireEvent.click(dots[2]); // 0-indexed, so index 2 is third insight
 
     // Third insight should be visible
-    expect(screen.getByText(/\$29 trillion/i)).toBeInTheDocument();
+    expect(screen.getByText(/\$33 trillion/i)).toBeInTheDocument();
   });
 });

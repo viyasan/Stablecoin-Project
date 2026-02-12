@@ -38,8 +38,8 @@ export function CanadaPage() {
   if (!stablecoins) {
     return (
       <PageContainer>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-          <p className="text-gray-500 text-center">Failed to load data</p>
+        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-8">
+          <p className="text-chrome-500 text-center">Failed to load data</p>
         </div>
       </PageContainer>
     );
@@ -50,17 +50,17 @@ export function CanadaPage() {
       {/* Hero Section */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-3xl font-bold text-gray-900">Canada</h1>
+          <h1 className="text-3xl font-bold text-chrome-800">Canada</h1>
           <MapleLeafIcon className="w-8 h-8 text-red-600" />
         </div>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-chrome-500">
           The Canadian Stablecoin Landscape: Issuer Progress
         </p>
       </div>
 
       {/* Company Profile Cards */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <h2 className="text-xl font-semibold text-chrome-800 mb-4">
           Canadian Stablecoin Issuers
         </h2>
         <CompanyProfileCards stablecoins={stablecoins} />
@@ -68,13 +68,13 @@ export function CanadaPage() {
 
       {/* Reserve & Transparency */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <h2 className="text-xl font-semibold text-chrome-800 mb-4">
           Reserve & Transparency
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* QCAD Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-red-600 to-red-700 px-6 py-3 flex items-center gap-3">
+          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+            <div className="bg-gradient-to-r from-chrome-800 to-chrome-900 px-6 py-3 flex items-center gap-3">
               <img
                 src={stablecoins[0].logo}
                 alt="Stablecorp logo"
@@ -82,43 +82,43 @@ export function CanadaPage() {
               />
               <div>
                 <h3 className="text-lg font-bold text-white">QCAD</h3>
-                <p className="text-red-100 text-sm">Stablecorp</p>
+                <p className="text-chrome-400 text-sm">Stablecorp</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="w-5 h-5 text-red-600" />
+                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <ShieldCheck className="w-5 h-5 text-chrome-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">QCAD Digital Trust</h4>
-                  <p className="text-xs text-gray-600">Ontario trust structure with independent trustee</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">QCAD Digital Trust</h4>
+                  <p className="text-xs text-chrome-500">Ontario trust structure with independent trustee</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CircleDollarSign className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CircleDollarSign className="w-5 h-5 text-status-positive" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">1:1 CAD Backed</h4>
-                  <p className="text-xs text-gray-600">Reserves held at regulated financial institutions</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">1:1 CAD Backed</h4>
+                  <p className="text-xs text-chrome-500">Reserves held at regulated financial institutions</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <FileBarChart className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <FileBarChart className="w-5 h-5 text-chrome-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">Daily Transparency</h4>
-                  <p className="text-xs text-gray-600">Daily reports & monthly attestations on SEDAR+</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Daily Transparency</h4>
+                  <p className="text-xs text-chrome-500">Daily reports & monthly attestations on SEDAR+</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* CADD Card (Tetra) */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-rose-600 to-rose-700 px-6 py-3 flex items-center gap-3">
+          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+            <div className="bg-gradient-to-r from-chrome-800 to-chrome-900 px-6 py-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white p-1.5 flex-shrink-0 flex items-center justify-center">
                 <img
                   src={stablecoins[1].logo}
@@ -128,77 +128,77 @@ export function CanadaPage() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">CADD</h3>
-                <p className="text-rose-100 text-sm">Tetra Trust</p>
+                <p className="text-chrome-400 text-sm">Tetra Trust</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CheckCircle className="w-5 h-5 text-status-positive" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">Bank-to-Bank Tested</h4>
-                  <p className="text-xs text-gray-600">First CAD stablecoin transferred between FIs</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Bank-to-Bank Tested</h4>
+                  <p className="text-xs text-chrome-500">First CAD stablecoin transferred between FIs</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Building className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Building className="w-5 h-5 text-chrome-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">Institutional Grade</h4>
-                  <p className="text-xs text-gray-600">Issued by licensed trust company</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Institutional Grade</h4>
+                  <p className="text-xs text-chrome-500">Issued by licensed trust company</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-5 h-5 text-purple-600" />
+                <div className="w-10 h-10 bg-gold-50 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-5 h-5 text-gold-500" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">Q1 2026 Launch</h4>
-                  <p className="text-xs text-gray-600">Pending regulatory approval</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Q1 2026 Launch</h4>
+                  <p className="text-xs text-chrome-500">Pending regulatory approval</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* CADC Card (Loon) */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-red-500 to-red-600 px-6 py-3 flex items-center gap-3">
+          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+            <div className="bg-gradient-to-r from-chrome-800 to-chrome-900 px-6 py-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
-                <span className="text-gray-900 font-bold text-xs">LOON</span>
+                <span className="text-chrome-800 font-bold text-xs">LOON</span>
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">CADC</h3>
-                <p className="text-red-100 text-sm">Loon</p>
+                <p className="text-chrome-400 text-sm">Loon</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CheckCircle className="w-5 h-5 text-status-positive" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">101% Over-Collateralized</h4>
-                  <p className="text-xs text-gray-600">Monthly reserve verification</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">101% Over-Collateralized</h4>
+                  <p className="text-xs text-chrome-500">Monthly reserve verification</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-5 h-5 text-chrome-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">3-Second Settlement</h4>
-                  <p className="text-xs text-gray-600">$200M+ volume on Base network</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">3-Second Settlement</h4>
+                  <p className="text-xs text-chrome-500">$200M+ volume on Base network</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-status-positive" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm">Live</h4>
-                  <p className="text-xs text-gray-600">Operational since 2021, acquired by Loon Oct 2025</p>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Live</h4>
+                  <p className="text-xs text-chrome-500">Operational since 2021, acquired by Loon Oct 2025</p>
                 </div>
               </div>
             </div>

@@ -49,7 +49,7 @@ function ReservePieChart({ assets }: { assets: ReserveAssetWithAmount[] }) {
           formatter={(value) => [`${value}%`]}
           contentStyle={{
             backgroundColor: 'white',
-            border: '1px solid #E5E7EB',
+            border: '1px solid #DEE2E6',
             borderRadius: '8px',
             fontSize: '12px',
           }}
@@ -69,11 +69,11 @@ function ReserveLegend({ assets }: { assets: ReserveAssetWithAmount[] }) {
               className="w-4 h-4 rounded-full shrink-0"
               style={{ backgroundColor: asset.color }}
             />
-            <span className="text-gray-700 font-medium">{asset.name}</span>
+            <span className="text-chrome-700 font-medium">{asset.name}</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="font-mono-numbers text-gray-500">{asset.percentage}%</span>
-            <span className="font-mono-numbers text-gray-900 font-semibold w-16 text-right">
+            <span className="font-mono-numbers text-chrome-500">{asset.percentage}%</span>
+            <span className="font-mono-numbers text-chrome-900 font-semibold w-16 text-right">
               {asset.amount}
             </span>
           </div>
@@ -89,16 +89,16 @@ export function ReserveCompositionCard() {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-gold-500" />
       </div>
     );
   }
 
   if (error || !reservesData) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex items-center justify-center min-h-[400px]">
-        <p className="text-gray-500">Failed to load reserve data</p>
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex items-center justify-center min-h-[400px]">
+        <p className="text-chrome-500">Failed to load reserve data</p>
       </div>
     );
   }
@@ -123,12 +123,12 @@ export function ReserveCompositionCard() {
   });
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
-      <div className="px-6 py-4 border-b border-gray-100">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
+      <div className="px-6 py-4 border-b border-chrome-100">
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <Shield className="w-5 h-5 text-gold-500" />
+            <h2 className="text-lg font-semibold text-chrome-900">
               What Backs Your Stablecoins?
             </h2>
           </div>
@@ -136,12 +136,12 @@ export function ReserveCompositionCard() {
             href={reserve.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-gray-400 hover:text-gray-600"
+            className="text-xs text-chrome-400 hover:text-chrome-600"
           >
             Source: {reserve.lastUpdated}
           </a>
         </div>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-chrome-500">
           Reserve composition breakdown by asset type
         </p>
       </div>
@@ -153,8 +153,8 @@ export function ReserveCompositionCard() {
             onClick={() => setSelectedCoin('USDT')}
             className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
               selectedCoin === 'USDT'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gold-500 text-white'
+                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
             <span className="block text-xs opacity-75">Tether</span>
@@ -164,8 +164,8 @@ export function ReserveCompositionCard() {
             onClick={() => setSelectedCoin('USDC')}
             className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
               selectedCoin === 'USDC'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gold-500 text-white'
+                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
             <span className="block text-xs opacity-75">Circle</span>
@@ -175,8 +175,8 @@ export function ReserveCompositionCard() {
 
         {/* Supply info */}
         <div className="text-center mb-6">
-          <p className="text-sm text-gray-500">Total Supply</p>
-          <p className="text-3xl font-bold font-mono-numbers text-gray-900">
+          <p className="text-sm text-chrome-500">Total Supply</p>
+          <p className="text-3xl font-bold font-mono-numbers text-chrome-900">
             {formatBillions(marketCap)}
           </p>
         </div>
@@ -189,8 +189,8 @@ export function ReserveCompositionCard() {
 
         {/* Key insight */}
         <div className="mt-auto pt-6">
-          <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-          <p className="text-sm text-blue-800">
+          <div className="p-3 bg-gold-50 rounded-lg border border-gold-100">
+          <p className="text-sm text-chrome-800">
             <strong>
               {treasuryPercentage}% in US Treasuries
             </strong>

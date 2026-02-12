@@ -81,8 +81,8 @@ export function InsightsSection() {
             onClick={() => setSelectedCategory(filter.value)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
               selectedCategory === filter.value
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-gold-500 text-white'
+                : 'bg-chrome-100 text-chrome-700 hover:bg-chrome-200'
             }`}
           >
             {filter.label}
@@ -99,14 +99,14 @@ export function InsightsSection() {
 
       {/* Empty state */}
       {filteredInsights.length === 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-          <p className="text-gray-500">No insights found in this category.</p>
+        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-12 text-center">
+          <p className="text-chrome-500">No insights found in this category.</p>
         </div>
       )}
 
       {/* Attribution */}
       <div className="mt-8 text-center">
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-chrome-400">
           Curated by StablecoinStats · Updated February 2026
         </p>
       </div>

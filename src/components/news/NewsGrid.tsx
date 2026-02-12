@@ -39,8 +39,8 @@ export function NewsGrid({
 
   if (displayItems.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-        <p className="text-gray-500">No articles found matching your filters.</p>
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-12 text-center">
+        <p className="text-chrome-500">No articles found matching your filters.</p>
       </div>
     );
   }
@@ -74,7 +74,7 @@ export function NewsGrid({
           <button
             onClick={onLoadMore}
             disabled={isLoadingMore}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-chrome-200 rounded-lg text-sm font-medium text-chrome-700 hover:bg-chrome-50 hover:border-chrome-300 hover:shadow-sm hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2"
           >
             {isLoadingMore ? (
               <>
@@ -91,7 +91,7 @@ export function NewsGrid({
       {/* End of list indicator */}
       {!hasMore && displayItems.length > 0 && (
         <div className="mt-8 text-center">
-          <p className="text-sm text-gray-400">You've reached the end</p>
+          <p className="text-sm text-chrome-400">You've reached the end</p>
         </div>
       )}
     </section>

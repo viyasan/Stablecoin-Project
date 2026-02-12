@@ -13,17 +13,17 @@ function HeroSkeleton() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* Featured skeleton */}
         <div className="lg:col-span-3">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-pulse">
-            <div className="aspect-[16/9] bg-gray-200" />
+          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden animate-pulse">
+            <div className="aspect-[16/9] bg-chrome-200" />
             <div className="p-5">
               <div className="flex gap-2 mb-3">
-                <div className="h-5 w-12 bg-gray-200 rounded" />
-                <div className="h-5 w-16 bg-gray-200 rounded" />
+                <div className="h-5 w-12 bg-chrome-200 rounded" />
+                <div className="h-5 w-16 bg-chrome-200 rounded" />
               </div>
-              <div className="h-7 bg-gray-200 rounded w-3/4 mb-2" />
-              <div className="h-7 bg-gray-200 rounded w-1/2 mb-4" />
-              <div className="h-4 bg-gray-200 rounded w-full mb-2" />
-              <div className="h-4 bg-gray-200 rounded w-2/3" />
+              <div className="h-7 bg-chrome-200 rounded w-3/4 mb-2" />
+              <div className="h-7 bg-chrome-200 rounded w-1/2 mb-4" />
+              <div className="h-4 bg-chrome-200 rounded w-full mb-2" />
+              <div className="h-4 bg-chrome-200 rounded w-2/3" />
             </div>
           </div>
         </div>
@@ -32,13 +32,13 @@ function HeroSkeleton() {
           {[1, 2].map((i) => (
             <div
               key={i}
-              className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-pulse"
+              className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden animate-pulse"
             >
-              <div className="aspect-[16/9] bg-gray-200" />
+              <div className="aspect-[16/9] bg-chrome-200" />
               <div className="p-4">
-                <div className="h-4 w-12 bg-gray-200 rounded mb-2" />
-                <div className="h-5 bg-gray-200 rounded w-full mb-2" />
-                <div className="h-5 bg-gray-200 rounded w-2/3" />
+                <div className="h-4 w-12 bg-chrome-200 rounded mb-2" />
+                <div className="h-5 bg-chrome-200 rounded w-full mb-2" />
+                <div className="h-5 bg-chrome-200 rounded w-2/3" />
               </div>
             </div>
           ))}
@@ -55,15 +55,15 @@ function GridSkeleton() {
       {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}
-          className={`bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden animate-pulse ${
+          className={`bg-white rounded-lg shadow-sm border border-chrome-200 overflow-hidden animate-pulse ${
             i === 5 ? 'sm:col-span-2' : ''
           }`}
         >
-          <div className="aspect-[4/3] bg-gray-200" />
+          <div className="aspect-[4/3] bg-chrome-200" />
           <div className="p-3">
-            <div className="h-4 bg-gray-200 rounded w-full mb-2" />
-            <div className="h-4 bg-gray-200 rounded w-2/3 mb-2" />
-            <div className="h-3 bg-gray-200 rounded w-1/2" />
+            <div className="h-4 bg-chrome-200 rounded w-full mb-2" />
+            <div className="h-4 bg-chrome-200 rounded w-2/3 mb-2" />
+            <div className="h-3 bg-chrome-200 rounded w-1/2" />
           </div>
         </div>
       ))}
@@ -92,12 +92,12 @@ export function NewsPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-primary-100 rounded-lg">
-            <Newspaper className="w-6 h-6 text-primary-600" />
+          <div className="p-2 bg-chrome-100 rounded-lg">
+            <Newspaper className="w-6 h-6 text-chrome-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">News & Insights</h1>
+          <h1 className="text-3xl font-bold text-chrome-800">News & Insights</h1>
         </div>
-        <p className="text-gray-600">
+        <p className="text-chrome-600">
           Stay updated on the latest stablecoin developments and explore curated research from industry experts.
         </p>
       </div>
@@ -108,8 +108,8 @@ export function NewsPage() {
           onClick={() => setActiveTab('news')}
           className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
             activeTab === 'news'
-              ? 'bg-primary-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-chrome-800 text-white'
+              : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
           }`}
         >
           <Newspaper className="w-4 h-4" />
@@ -119,8 +119,8 @@ export function NewsPage() {
           onClick={() => setActiveTab('insights')}
           className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
             activeTab === 'insights'
-              ? 'bg-primary-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-chrome-800 text-white'
+              : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -133,11 +133,11 @@ export function NewsPage() {
         <>
           {/* Error State */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6 text-center">
-              <p className="text-red-600 mb-4">Failed to load news articles</p>
+            <div className="bg-status-negative/5 border border-status-negative/20 rounded-lg p-6 mb-6 text-center">
+              <p className="text-status-negative mb-4">Failed to load news articles</p>
               <button
                 onClick={refetch}
-                className="text-red-700 hover:text-red-800 font-medium"
+                className="text-status-negative hover:text-status-negative/80 font-medium"
               >
                 Try again
               </button>
@@ -170,24 +170,24 @@ export function NewsPage() {
 
           {/* Empty State */}
           {!isLoading && news?.length === 0 && (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-              <Newspaper className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No articles found</h3>
-              <p className="text-gray-500">
+            <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-12 text-center">
+              <Newspaper className="w-12 h-12 text-chrome-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-chrome-800 mb-2">No articles found</h3>
+              <p className="text-chrome-500">
                 Check back later for new content.
               </p>
             </div>
           )}
 
           {/* Attribution */}
-          <div className="mt-12 pt-6 border-t border-gray-200 text-center">
-            <p className="text-sm text-gray-400">
+          <div className="mt-12 pt-6 border-t border-chrome-200 text-center">
+            <p className="text-sm text-chrome-400">
               Powered by{' '}
               <a
                 href="https://www.coindesk.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-600 hover:text-primary-700"
+                className="text-gold-500 hover:text-gold-600"
               >
                 CoinDesk
               </a>
@@ -196,7 +196,7 @@ export function NewsPage() {
                 href="https://cointelegraph.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-600 hover:text-primary-700"
+                className="text-gold-500 hover:text-gold-600"
               >
                 CoinTelegraph
               </a>

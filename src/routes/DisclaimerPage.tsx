@@ -7,31 +7,31 @@ export function DisclaimerPage() {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-primary-100 rounded-lg">
-            <Shield className="w-6 h-6 text-primary-600" />
+          <div className="p-2 bg-chrome-100 rounded-lg">
+            <Shield className="w-6 h-6 text-chrome-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Disclaimer & Disclosures</h1>
+          <h1 className="text-3xl font-bold text-chrome-800">Disclaimer & Disclosures</h1>
         </div>
-        <p className="text-gray-600">
+        <p className="text-chrome-600">
           Important information about using StablecoinStats.ca
         </p>
-        <p className="text-sm text-gray-400 mt-2">
+        <p className="text-sm text-chrome-400 mt-2">
           Last updated: {new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
       </div>
 
       <div className="space-y-8">
         {/* No Investment Advice */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
           <div className="flex items-start gap-4">
-            <div className="p-2 bg-amber-100 rounded-lg shrink-0">
-              <AlertTriangle className="w-5 h-5 text-amber-600" />
+            <div className="p-2 bg-gold-50 rounded-lg shrink-0">
+              <AlertTriangle className="w-5 h-5 text-gold-500" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              <h2 className="text-xl font-semibold text-chrome-800 mb-3">
                 Not Financial or Legal Advice
               </h2>
-              <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+              <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
                   The information on StablecoinStats.ca is for <strong>informational purposes
                   only</strong>. We provide data and news to help you stay informed about the
@@ -52,22 +52,22 @@ export function DisclaimerPage() {
         </section>
 
         {/* Risk Warning */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
           <div className="flex items-start gap-4">
-            <div className="p-2 bg-red-100 rounded-lg shrink-0">
-              <AlertTriangle className="w-5 h-5 text-red-600" />
+            <div className="p-2 bg-status-negative/10 rounded-lg shrink-0">
+              <AlertTriangle className="w-5 h-5 text-status-negative" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              <h2 className="text-xl font-semibold text-chrome-800 mb-3">
                 Cryptocurrency Risk Warning
               </h2>
-              <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+              <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
                   Cryptocurrencies and stablecoins are <strong>volatile and speculative</strong> by
                   nature. Even assets designed to maintain stable values can experience significant
                   price movements. You could lose some or all of your investment.
                 </p>
-                <p className="font-medium text-gray-700">
+                <p className="font-medium text-chrome-700">
                   Key risks to be aware of:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
@@ -106,22 +106,22 @@ export function DisclaimerPage() {
         </section>
 
         {/* Data Accuracy */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
           <div className="flex items-start gap-4">
-            <div className="p-2 bg-blue-100 rounded-lg shrink-0">
-              <Database className="w-5 h-5 text-blue-600" />
+            <div className="p-2 bg-chrome-100 rounded-lg shrink-0">
+              <Database className="w-5 h-5 text-chrome-600" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              <h2 className="text-xl font-semibold text-chrome-800 mb-3">
                 Data Accuracy & Sources
               </h2>
-              <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+              <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
                   All information on StablecoinStats.ca is provided <strong>"as is"</strong> without
                   warranties of any kind. While we strive for accuracy, we cannot guarantee that
                   data is complete, current, or error-free.
                 </p>
-                <p className="font-medium text-gray-700">
+                <p className="font-medium text-chrome-700">
                   Our data comes from trusted third-party sources:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
@@ -131,7 +131,7 @@ export function DisclaimerPage() {
                       href="https://defillama.com/stablecoins"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary-600 hover:text-primary-700"
+                      className="text-gold-500 hover:text-gold-600"
                     >
                       DefiLlama
                     </a>
@@ -140,7 +140,7 @@ export function DisclaimerPage() {
                       href="https://www.allium.so"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary-600 hover:text-primary-700"
+                      className="text-gold-500 hover:text-gold-600"
                     >
                       Allium
                     </a>
@@ -151,7 +151,7 @@ export function DisclaimerPage() {
                       href="https://www.coindesk.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary-600 hover:text-primary-700"
+                      className="text-gold-500 hover:text-gold-600"
                     >
                       CoinDesk
                     </a>
@@ -160,7 +160,7 @@ export function DisclaimerPage() {
                       href="https://cointelegraph.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary-600 hover:text-primary-700"
+                      className="text-gold-500 hover:text-gold-600"
                     >
                       CoinTelegraph
                     </a>
@@ -177,16 +177,16 @@ export function DisclaimerPage() {
         </section>
 
         {/* Non-Endorsement */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
           <div className="flex items-start gap-4">
-            <div className="p-2 bg-gray-100 rounded-lg shrink-0">
-              <ExternalLink className="w-5 h-5 text-gray-600" />
+            <div className="p-2 bg-chrome-100 rounded-lg shrink-0">
+              <ExternalLink className="w-5 h-5 text-chrome-600" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              <h2 className="text-xl font-semibold text-chrome-800 mb-3">
                 No Endorsement
               </h2>
-              <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+              <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
                   The inclusion of any stablecoin, project, or news article on StablecoinStats.ca
                   does not constitute an endorsement or recommendation. We display data and
@@ -203,16 +203,16 @@ export function DisclaimerPage() {
         </section>
 
         {/* Limitation of Liability */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
           <div className="flex items-start gap-4">
-            <div className="p-2 bg-purple-100 rounded-lg shrink-0">
-              <Scale className="w-5 h-5 text-purple-600" />
+            <div className="p-2 bg-chrome-100 rounded-lg shrink-0">
+              <Scale className="w-5 h-5 text-chrome-600" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              <h2 className="text-xl font-semibold text-chrome-800 mb-3">
                 Limitation of Liability
               </h2>
-              <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+              <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
                   To the extent permitted by law, StablecoinStats.ca and its operators are not
                   liable for any damages arising from:
@@ -234,11 +234,11 @@ export function DisclaimerPage() {
         </section>
 
         {/* Jurisdiction */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
+          <h2 className="text-xl font-semibold text-chrome-800 mb-3">
             Jurisdiction
           </h2>
-          <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+          <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
             <p>
               StablecoinStats.ca is operated from Canada. Cryptocurrency regulations vary
               significantly by country and are constantly evolving. If you're accessing this
@@ -249,11 +249,11 @@ export function DisclaimerPage() {
         </section>
 
         {/* Changes to Disclaimer */}
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
+          <h2 className="text-xl font-semibold text-chrome-800 mb-3">
             Updates to This Disclaimer
           </h2>
-          <div className="prose prose-gray max-w-none text-gray-600 space-y-3">
+          <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
             <p>
               We may update this disclaimer from time to time. Changes take effect immediately
               upon posting. Continued use of the website constitutes acceptance of any updates.
@@ -263,16 +263,16 @@ export function DisclaimerPage() {
         </section>
 
         {/* Contact */}
-        <section className="bg-gray-50 rounded-lg border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+        <section className="bg-chrome-50 rounded-lg border border-chrome-200 p-6">
+          <h2 className="text-xl font-semibold text-chrome-800 mb-3">
             Questions?
           </h2>
-          <p className="text-gray-600">
+          <p className="text-chrome-600">
             If you have questions about this disclaimer or anything on StablecoinStats.ca,
             feel free to reach out to{' '}
             <a
               href="mailto:viyasan.ari@gmail.com"
-              className="text-primary-600 hover:text-primary-700"
+              className="text-gold-500 hover:text-gold-600"
             >
               viyasan.ari@gmail.com
             </a>

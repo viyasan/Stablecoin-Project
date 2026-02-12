@@ -31,15 +31,15 @@ function HeadlineItem({ item }: HeadlineItemProps) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-4 px-4 transition-colors"
+      className="block py-4 border-b border-chrome-100 last:border-0 hover:bg-chrome-50 -mx-4 px-4 transition-colors"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
-          <h4 className="font-medium text-gray-900 line-clamp-2 leading-snug">
+          <h4 className="font-medium text-chrome-900 line-clamp-2 leading-snug">
             {item.title}
           </h4>
           <div className="flex items-center gap-2 mt-2">
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-chrome-500">
               {formatTimeAgo(item.publishedAt)}
             </span>
           </div>
@@ -68,13 +68,13 @@ export function TopHeadlinesList() {
 
   if (error || !headlines) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-8">
         <div className="flex items-center justify-center h-48">
           <div className="text-center">
-            <p className="text-gray-500 mb-4">Failed to load headlines</p>
+            <p className="text-chrome-500 mb-4">Failed to load headlines</p>
             <button
               onClick={refetch}
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-gold-500 hover:text-gold-600 font-medium"
             >
               Try again
             </button>
@@ -85,19 +85,19 @@ export function TopHeadlinesList() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Today's Top Headlines</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
+      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-chrome-900">Today's Top Headlines</h2>
         <Link
           to="/news"
-          className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+          className="text-sm text-gold-500 hover:text-gold-600 font-medium"
         >
           View all news →
         </Link>
       </div>
       <div className="px-6 py-2">
         {headlines.length === 0 ? (
-          <p className="py-8 text-center text-gray-500">
+          <p className="py-8 text-center text-chrome-500">
             No headlines available
           </p>
         ) : (

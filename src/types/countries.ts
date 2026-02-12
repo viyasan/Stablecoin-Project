@@ -47,8 +47,8 @@ export const REGULATORY_STATUS_LABELS: Record<RegulatoryStatus, string> = {
 };
 
 export const REGULATORY_STATUS_COLORS: Record<RegulatoryStatus, string> = {
-  CLEAR_FRAMEWORK: '#22c55e',
-  PARTIAL_GUIDANCE: '#f59e0b',
-  RESTRICTIVE: '#ef4444',
-  UNKNOWN: '#6b7280',
+  CLEAR_FRAMEWORK: '#4A9D6E',
+  PARTIAL_GUIDANCE: '#D4A437',
+  RESTRICTIVE: '#C0524E',
+  UNKNOWN: '#6C757D',
 };

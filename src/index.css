@@ -1,21 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-200: #bae6fd;
-  --color-primary-300: #7dd3fc;
-  --color-primary-400: #38bdf8;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-primary-800: #075985;
-  --color-primary-900: #0c4a6e;
+  /* Chrome foundation scale */
+  --color-chrome-50: #F8F9FA;
+  --color-chrome-100: #E9ECEF;
+  --color-chrome-200: #DEE2E6;
+  --color-chrome-300: #CED4DA;
+  --color-chrome-400: #ADB5BD;
+  --color-chrome-500: #6C757D;
+  --color-chrome-600: #495057;
+  --color-chrome-700: #343A40;
+  --color-chrome-800: #212529;
+  --color-chrome-900: #1A1D21;
 
-  --color-regulatory-clear: #22c55e;
-  --color-regulatory-partial: #f59e0b;
-  --color-regulatory-restrictive: #ef4444;
-  --color-regulatory-unknown: #6b7280;
+  /* Gold accent scale */
+  --color-gold-50: #FBF7EE;
+  --color-gold-100: #F5EBCF;
+  --color-gold-400: #E2B050;
+  --color-gold-500: #D4A437;
+  --color-gold-600: #B8922E;
+
+  /* Silver accent */
+  --color-silver-400: #C0C0C0;
+  --color-silver-500: #A8A8A8;
+
+  /* Bronze accent */
+  --color-bronze-400: #CD7F32;
+  --color-bronze-500: #B8702D;
+
+  /* Semantic status colors */
+  --color-status-positive: #4A9D6E;
+  --color-status-negative: #C0524E;
+  --color-status-warning: #D4A437;
+  --color-status-neutral: #6C757D;
 
   /* Font families */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -27,7 +44,7 @@
 }
 
 body {
-  @apply bg-gray-50 text-gray-900 antialiased;
+  @apply bg-chrome-50 text-chrome-700 antialiased;
 }
 
 /* =====================================================
@@ -38,14 +55,14 @@ body {
 }
 
 #nprogress .bar {
-  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+  background: linear-gradient(90deg, #E2B050, #D4A437);
   position: fixed;
   z-index: 9999;
   top: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5), 0 0 5px rgba(14, 165, 233, 0.3);
+  box-shadow: 0 0 10px rgba(226, 176, 80, 0.5), 0 0 5px rgba(226, 176, 80, 0.3);
 }
 
 #nprogress .peg {
@@ -54,7 +71,7 @@ body {
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px #0ea5e9, 0 0 5px #0ea5e9;
+  box-shadow: 0 0 10px #E2B050, 0 0 5px #E2B050;
   opacity: 1;
   transform: rotate(3deg) translate(0px, -4px);
 }
@@ -68,24 +85,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F8F9FA;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #DEE2E6;
   border-radius: 8px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #ADB5BD;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 #f1f5f9;
+  scrollbar-color: #DEE2E6 #F8F9FA;
 }
 
 /* =====================================================

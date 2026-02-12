@@ -45,10 +45,10 @@ function CountryCard({ country, flag, isSelected, onClick }: CountryCardProps) {
       className={`
         relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-150 ease-out
         hover:scale-[1.03] hover:shadow-lg hover:-translate-y-0.5 cursor-pointer active:scale-[0.98]
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2
         ${isSelected
-          ? 'border-primary-500 bg-primary-50 shadow-md'
-          : 'border-gray-200 bg-white hover:border-gray-300'
+          ? 'border-gold-400 bg-gold-50 shadow-md'
+          : 'border-chrome-200 bg-white hover:border-chrome-300'
         }
       `}
     >
@@ -63,7 +63,7 @@ function CountryCard({ country, flag, isSelected, onClick }: CountryCardProps) {
       <span className="text-4xl mb-2">{flag}</span>
 
       {/* Country name */}
-      <span className={`text-sm font-medium text-center ${isSelected ? 'text-primary-700' : 'text-gray-700'}`}>
+      <span className={`text-sm font-medium text-center ${isSelected ? 'text-gold-600' : 'text-chrome-700'}`}>
         {country.name}
       </span>
     </button>
@@ -89,12 +89,12 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
   };
 
   return (
-    <div className={`bg-white rounded-xl shadow-sm border border-gray-200 ${className}`}>
-      <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">
+    <div className={`bg-white rounded-xl shadow-sm border border-chrome-200 ${className}`}>
+      <div className="px-6 py-4 border-b border-chrome-100">
+        <h2 className="text-lg font-semibold text-chrome-900">
           Global Stablecoin Regulation
         </h2>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-chrome-500 mt-1">
           Select a country to view regulatory details
         </p>
       </div>
@@ -122,20 +122,20 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
             </div>
 
             {/* Legend */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <p className="text-xs font-medium text-gray-500 mb-2">Regulation Status</p>
+            <div className="mt-4 pt-4 border-t border-chrome-100">
+              <p className="text-xs font-medium text-chrome-500 mb-2">Regulation Status</p>
               <div className="flex flex-wrap gap-3">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.proposed }} />
-                  <span className="text-xs text-gray-600">Proposed</span>
+                  <span className="text-xs text-chrome-600">Proposed</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.approved }} />
-                  <span className="text-xs text-gray-600">Approved</span>
+                  <span className="text-xs text-chrome-600">Approved</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.implemented }} />
-                  <span className="text-xs text-gray-600">Implemented</span>
+                  <span className="text-xs text-chrome-600">Implemented</span>
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
           {/* Details Panel - Right side */}
           <div className="lg:w-2/3">
             {selectedCountry ? (
-              <div className="bg-white rounded-xl border border-gray-200 p-6 h-full max-h-[600px] overflow-y-auto">
+              <div className="bg-white rounded-xl border border-chrome-200 p-6 h-full max-h-[600px] overflow-y-auto">
                 <CountryDetailsContent country={selectedCountry} onClose={handleCloseDetails} />
               </div>
             ) : (
@@ -183,17 +183,17 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
           <div className="flex items-center gap-3">
             <span className="text-3xl">{COUNTRY_FLAGS[country.id]}</span>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">{country.name}</h3>
-              <p className="text-sm text-gray-500"><span className="font-medium">Regulators:</span> {country.regulatorName}</p>
+              <h3 className="text-xl font-bold text-chrome-900">{country.name}</h3>
+              <p className="text-sm text-chrome-500"><span className="font-medium">Regulators:</span> {country.regulatorName}</p>
             </div>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-all duration-150 ease-out active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+          className="p-2 hover:bg-chrome-100 rounded-lg transition-all duration-150 ease-out active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
           aria-label="Close details"
         >
-          <X className="w-5 h-5 text-gray-500" />
+          <X className="w-5 h-5 text-chrome-500" />
         </button>
       </div>
 
@@ -209,8 +209,8 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
 
       {/* Summary */}
       <div className="mb-6">
-        <h4 className="text-sm font-semibold text-gray-700 mb-2">Overview</h4>
-        <div className="text-sm text-gray-600 leading-relaxed space-y-3">
+        <h4 className="text-sm font-semibold text-chrome-700 mb-2">Overview</h4>
+        <div className="text-sm text-chrome-600 leading-relaxed space-y-3">
           {country.summary.split('\n\n').map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
@@ -219,11 +219,11 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
 
       {/* Key Points */}
       <div className="mb-6">
-        <h4 className="text-sm font-semibold text-gray-700 mb-3">Key Points</h4>
+        <h4 className="text-sm font-semibold text-chrome-700 mb-3">Key Points</h4>
         <ul className="space-y-2">
           {country.keyPoints.map((point, index) => (
-            <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-1.5 flex-shrink-0" />
+            <li key={index} className="flex items-start gap-2 text-sm text-chrome-600">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 mt-1.5 flex-shrink-0" />
               <span>{point}</span>
             </li>
           ))}
@@ -236,20 +236,20 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
           {/* Regulatory Bodies */}
           {country.regulatoryBodies && country.regulatoryBodies.length > 0 && (
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-700 mb-3">Regulatory Bodies</h4>
+              <h4 className="text-sm font-semibold text-chrome-700 mb-3">Regulatory Bodies</h4>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-50">
-                      <th className="text-left px-3 py-2 font-medium text-gray-700 rounded-tl-lg">Regulator</th>
-                      <th className="text-left px-3 py-2 font-medium text-gray-700 rounded-tr-lg">Role</th>
+                    <tr className="bg-chrome-50">
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700 rounded-tl-lg">Regulator</th>
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700 rounded-tr-lg">Role</th>
                     </tr>
                   </thead>
                   <tbody>
                     {country.regulatoryBodies.map((body, index) => (
-                      <tr key={index} className="border-b border-gray-100">
-                        <td className="px-3 py-2 font-medium text-gray-800">{body.name}</td>
-                        <td className="px-3 py-2 text-gray-600">{body.role}</td>
+                      <tr key={index} className="border-b border-chrome-100">
+                        <td className="px-3 py-2 font-medium text-chrome-800">{body.name}</td>
+                        <td className="px-3 py-2 text-chrome-600">{body.role}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -261,20 +261,20 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
           {/* Reserve Requirements */}
           {country.reserveRequirements && country.reserveRequirements.length > 0 && (
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-700 mb-3">Reserve Requirements</h4>
+              <h4 className="text-sm font-semibold text-chrome-700 mb-3">Reserve Requirements</h4>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-50">
-                      <th className="text-left px-3 py-2 font-medium text-gray-700 rounded-tl-lg">Requirement</th>
-                      <th className="text-left px-3 py-2 font-medium text-gray-700 rounded-tr-lg">Details</th>
+                    <tr className="bg-chrome-50">
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700 rounded-tl-lg">Requirement</th>
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700 rounded-tr-lg">Details</th>
                     </tr>
                   </thead>
                   <tbody>
                     {country.reserveRequirements.map((req, index) => (
-                      <tr key={index} className="border-b border-gray-100">
-                        <td className="px-3 py-2 font-medium text-gray-800">{req.requirement}</td>
-                        <td className="px-3 py-2 text-gray-600">{req.details}</td>
+                      <tr key={index} className="border-b border-chrome-100">
+                        <td className="px-3 py-2 font-medium text-chrome-800">{req.requirement}</td>
+                        <td className="px-3 py-2 text-chrome-600">{req.details}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -286,22 +286,22 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
           {/* Stablecoin Issuers */}
           {country.stablecoinIssuers && country.stablecoinIssuers.length > 0 && (
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-700 mb-3">Stablecoin Issuers</h4>
+              <h4 className="text-sm font-semibold text-chrome-700 mb-3">Stablecoin Issuers</h4>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-50">
-                      <th className="text-left px-3 py-2 font-medium text-gray-700 rounded-tl-lg">Company</th>
-                      <th className="text-left px-3 py-2 font-medium text-gray-700">Stablecoin</th>
-                      <th className="text-left px-3 py-2 font-medium text-gray-700 rounded-tr-lg">Status</th>
+                    <tr className="bg-chrome-50">
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700 rounded-tl-lg">Company</th>
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700">Stablecoin</th>
+                      <th className="text-left px-3 py-2 font-medium text-chrome-700 rounded-tr-lg">Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {country.stablecoinIssuers.map((issuer, index) => (
-                      <tr key={index} className="border-b border-gray-100">
-                        <td className="px-3 py-2 font-medium text-gray-800">{issuer.company}</td>
-                        <td className="px-3 py-2 text-gray-600">{issuer.stablecoin}</td>
-                        <td className="px-3 py-2 text-gray-600">{issuer.status}</td>
+                      <tr key={index} className="border-b border-chrome-100">
+                        <td className="px-3 py-2 font-medium text-chrome-800">{issuer.company}</td>
+                        <td className="px-3 py-2 text-chrome-600">{issuer.stablecoin}</td>
+                        <td className="px-3 py-2 text-chrome-600">{issuer.status}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -313,16 +313,16 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
           {/* Timeline */}
           {country.timeline && country.timeline.length > 0 && (
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-700 mb-3">Timeline</h4>
+              <h4 className="text-sm font-semibold text-chrome-700 mb-3">Timeline</h4>
               <div className="space-y-3">
                 {country.timeline.map((item, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <span className="text-xs font-medium text-gray-500 w-28 flex-shrink-0 pt-0.5">
+                    <span className="text-xs font-medium text-chrome-500 w-28 flex-shrink-0 pt-0.5">
                       {item.date}
                     </span>
-                    <div className="flex-1 relative pl-4 border-l-2 border-gray-200">
-                      <div className="absolute -left-1.5 top-1.5 w-2.5 h-2.5 rounded-full bg-primary-500" />
-                      <p className="text-sm text-gray-600">{item.event}</p>
+                    <div className="flex-1 relative pl-4 border-l-2 border-chrome-200">
+                      <div className="absolute -left-1.5 top-1.5 w-2.5 h-2.5 rounded-full bg-gold-400" />
+                      <p className="text-sm text-chrome-600">{item.event}</p>
                     </div>
                   </div>
                 ))}
@@ -333,7 +333,7 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
       )}
 
       {/* Last Updated */}
-      <p className="text-xs text-gray-400 mt-4 pt-4 border-t border-gray-100">
+      <p className="text-xs text-chrome-400 mt-4 pt-4 border-t border-chrome-100">
         Last updated: {country.lastUpdated}
       </p>
     </>

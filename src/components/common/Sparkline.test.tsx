@@ -86,14 +86,14 @@ describe('Sparkline', () => {
     const { container } = render(<Sparkline data={[1, 2, 3, 4, 5]} color="auto" />);
 
     const polyline = container.querySelector('polyline');
-    expect(polyline).toHaveAttribute('stroke', '#22c55e'); // green
+    expect(polyline).toHaveAttribute('stroke', '#4A9D6E'); // green
   });
 
   it('shows red color for negative trend with auto color', () => {
     const { container } = render(<Sparkline data={[5, 4, 3, 2, 1]} color="auto" />);
 
     const polyline = container.querySelector('polyline');
-    expect(polyline).toHaveAttribute('stroke', '#ef4444'); // red
+    expect(polyline).toHaveAttribute('stroke', '#C0524E'); // red
   });
 
   it('renders gradient definition', () => {

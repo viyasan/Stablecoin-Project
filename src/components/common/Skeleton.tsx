@@ -29,7 +29,7 @@ export function Skeleton({
 
   return (
     <div
-      className={`bg-gray-200 animate-pulse ${roundedClass} ${className}`}
+      className={`bg-chrome-200 animate-pulse ${roundedClass} ${className}`}
       style={style}
     />
   );
@@ -40,9 +40,9 @@ export function Skeleton({
  */
 export function SkeletonKpiCard({ showSparkline = true }: { showSparkline?: boolean }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100">
+      <div className="px-6 py-4 border-b border-chrome-100">
         <div className="flex items-center justify-between mb-3">
           <Skeleton width={180} height={20} />
           <Skeleton width={100} height={14} />
@@ -71,7 +71,7 @@ export function SkeletonKpiCard({ showSparkline = true }: { showSparkline?: bool
             <Skeleton width={60} height={32} />
           </div>
         </div>
-        <div className="mt-6 pt-4 border-t border-gray-100">
+        <div className="mt-6 pt-4 border-t border-chrome-100">
           <Skeleton width={200} height={12} />
         </div>
       </div>
@@ -84,9 +84,9 @@ export function SkeletonKpiCard({ showSparkline = true }: { showSparkline?: bool
  */
 export function SkeletonChart({ height = 300 }: { height?: number }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
         <div>
           <Skeleton width={160} height={20} className="mb-2" />
           <Skeleton width={200} height={12} />
@@ -113,7 +113,7 @@ export function SkeletonChart({ height = 300 }: { height?: number }) {
             {Array.from({ length: 12 }).map((_, i) => (
               <div
                 key={i}
-                className="flex-1 bg-gray-200 animate-pulse rounded-t-sm"
+                className="flex-1 bg-chrome-200 animate-pulse rounded-t-sm"
                 style={{ height: `${30 + Math.random() * 60}%` }}
               />
             ))}
@@ -135,9 +135,9 @@ export function SkeletonChart({ height = 300 }: { height?: number }) {
  */
 export function SkeletonPieChart() {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100">
+      <div className="px-6 py-4 border-b border-chrome-100">
         <Skeleton width={140} height={20} className="mb-1" />
         <Skeleton width={100} height={12} />
       </div>
@@ -166,9 +166,9 @@ export function SkeletonPieChart() {
  */
 export function SkeletonHeadlineList({ count = 4 }: { count?: number }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
         <div>
           <Skeleton width={160} height={20} className="mb-1" />
           <Skeleton width={200} height={12} />
@@ -176,7 +176,7 @@ export function SkeletonHeadlineList({ count = 4 }: { count?: number }) {
         <Skeleton width={100} height={14} />
       </div>
       {/* List items */}
-      <div className="divide-y divide-gray-100">
+      <div className="divide-y divide-chrome-100">
         {Array.from({ length: count }).map((_, i) => (
           <div key={i} className="px-6 py-4 flex gap-4">
             {/* Thumbnail */}
@@ -202,9 +202,9 @@ export function SkeletonHeadlineList({ count = 4 }: { count?: number }) {
  */
 export function SkeletonBarChart() {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
         <div>
           <Skeleton width={180} height={20} className="mb-2" />
           <Skeleton width={160} height={12} />
@@ -216,7 +216,7 @@ export function SkeletonBarChart() {
         {Array.from({ length: 8 }).map((_, i) => (
           <div key={i} className="flex items-center gap-4">
             <Skeleton width={80} height={14} className="flex-shrink-0" />
-            <div className="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
+            <div className="flex-1 h-6 bg-chrome-100 rounded-full overflow-hidden">
               <Skeleton
                 height={24}
                 width={`${90 - i * 10}%`}
@@ -252,7 +252,7 @@ export function SkeletonCountryDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           {/* Regulatory Summary */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
             <Skeleton width={160} height={20} className="mb-4" />
             <div className="space-y-2">
               <Skeleton height={16} width="100%" />
@@ -269,11 +269,11 @@ export function SkeletonCountryDetail() {
           </div>
 
           {/* Timeline */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
             <Skeleton width={100} height={20} className="mb-4" />
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0">
+                <div key={i} className="flex gap-4 pb-4 border-b border-chrome-100 last:border-0">
                   <Skeleton width={80} height={14} className="flex-shrink-0" />
                   <div className="flex-1">
                     <Skeleton width="70%" height={16} className="mb-2" />
@@ -287,7 +287,7 @@ export function SkeletonCountryDetail() {
 
         <div className="space-y-8">
           {/* Key Frameworks */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
             <Skeleton width={120} height={20} className="mb-4" />
             <div className="space-y-3">
               {Array.from({ length: 3 }).map((_, i) => (
@@ -321,7 +321,7 @@ export function SkeletonCanadaPage() {
         <Skeleton width={200} height={24} className="mb-4" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div key={i} className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
               <Skeleton height={80} rounded="none" />
               <div className="p-6 space-y-4">
                 <Skeleton height={16} width="80%" />
@@ -338,7 +338,7 @@ export function SkeletonCanadaPage() {
         <Skeleton width={180} height={24} className="mb-4" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div key={i} className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
               <Skeleton height={56} rounded="none" />
               <div className="p-5 space-y-4">
                 {Array.from({ length: 3 }).map((_, j) => (
@@ -358,13 +358,13 @@ export function SkeletonCanadaPage() {
 
       {/* Comparison Table */}
       <section className="mb-8">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-100">
+        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 overflow-hidden">
+          <div className="px-6 py-4 border-b border-chrome-100">
             <Skeleton width={160} height={20} />
           </div>
           <div className="p-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-4 py-3 border-b border-gray-50">
+              <div key={i} className="flex items-center gap-4 py-3 border-b border-chrome-50">
                 <Skeleton width={100} height={16} />
                 <Skeleton width="30%" height={14} />
                 <Skeleton width="20%" height={14} />

@@ -46,12 +46,12 @@ export function TreasuryHoldingsCard() {
   const stablecoinTotal = stablecoins.reduce((sum, s) => sum + s.holdings, 0);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full">
-      <div className="px-6 py-4 border-b border-gray-100">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full">
+      <div className="px-6 py-4 border-b border-chrome-100">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Landmark className="w-5 h-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <Landmark className="w-5 h-5 text-gold-500" />
+            <h2 className="text-lg font-semibold text-chrome-900">
               US Treasury Holdings
             </h2>
           </div>
@@ -59,26 +59,26 @@ export function TreasuryHoldingsCard() {
             href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-gray-400 hover:text-gray-600"
+            className="text-xs text-chrome-400 hover:text-chrome-600"
           >
             Source: Nov 2025 TIC
           </a>
         </div>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-chrome-500 mt-1">
           Global rankings of foreign holders
         </p>
       </div>
 
       <div className="px-6 py-4">
         {/* Stablecoin highlight */}
-        <div className="mb-4 p-3 bg-primary-50 rounded-lg border border-primary-100">
-          <p className="text-xs font-medium text-primary-600 uppercase tracking-wide mb-1">
+        <div className="mb-4 p-3 bg-gold-50 rounded-lg border border-gold-100">
+          <p className="text-xs font-medium text-gold-500 uppercase tracking-wide mb-1">
             Combined Stablecoin Holdings
           </p>
-          <p className="text-2xl font-bold font-mono-numbers text-primary-700">
+          <p className="text-2xl font-bold font-mono-numbers text-gold-600">
             {formatBillions(stablecoinTotal)}
           </p>
-          <p className="text-xs text-primary-600 mt-1">
+          <p className="text-xs text-gold-500 mt-1">
             Stablecoin issuers are emerging as major Treasury holders
           </p>
         </div>
@@ -89,7 +89,7 @@ export function TreasuryHoldingsCard() {
             <div key={holder.name} className="flex items-center gap-3">
               {/* Global Rank */}
               <div className="w-7 text-center shrink-0">
-                <span className="text-xs font-semibold text-gray-400">
+                <span className="text-xs font-semibold text-chrome-400">
                   #{holder.globalRank}
                 </span>
               </div>
@@ -102,16 +102,16 @@ export function TreasuryHoldingsCard() {
               {/* Name and bar */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-gray-700 truncate">
+                  <span className="text-sm font-medium text-chrome-700 truncate">
                     {holder.name}
                   </span>
-                  <span className="text-sm font-mono-numbers text-gray-600 ml-2">
+                  <span className="text-sm font-mono-numbers text-chrome-600 ml-2">
                     {formatBillions(holder.holdings)}
                   </span>
                 </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-chrome-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gray-300"
+                    className="h-full rounded-full bg-chrome-300"
                     style={{ width: `${(holder.holdings / maxHoldings) * 100}%` }}
                   />
                 </div>
@@ -126,7 +126,7 @@ export function TreasuryHoldingsCard() {
             <div key={holder.name} className="flex items-center gap-3">
               {/* Global Rank */}
               <div className="w-7 text-center shrink-0">
-                <span className="text-xs font-semibold text-primary-600">
+                <span className="text-xs font-semibold text-gold-500">
                   #{holder.globalRank}
                 </span>
               </div>
@@ -143,16 +143,16 @@ export function TreasuryHoldingsCard() {
               {/* Name and bar */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-primary-700 truncate">
+                  <span className="text-sm font-medium text-gold-600 truncate">
                     {holder.name}
                   </span>
-                  <span className="text-sm font-mono-numbers text-gray-600 ml-2">
+                  <span className="text-sm font-mono-numbers text-chrome-600 ml-2">
                     {formatBillions(holder.holdings)}
                   </span>
                 </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-chrome-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-primary-500"
+                    className="h-full rounded-full bg-gold-400"
                     style={{ width: `${(holder.holdings / maxHoldings) * 100}%` }}
                   />
                 </div>

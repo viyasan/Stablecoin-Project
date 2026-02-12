@@ -94,42 +94,42 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   const chainColor = getColorForChain(data.name, data.rank - 1);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3 min-w-[180px]">
+    <div className="bg-white border border-chrome-200 rounded-lg shadow-lg p-3 min-w-[180px]">
       {/* Header with chain name and rank badge */}
-      <div className="flex items-center justify-between gap-3 mb-3 pb-2 border-b border-gray-100">
+      <div className="flex items-center justify-between gap-3 mb-3 pb-2 border-b border-chrome-100">
         <div className="flex items-center gap-2">
           <div
             className="w-2.5 h-2.5 rounded-full"
             style={{ backgroundColor: chainColor }}
           />
-          <span className="text-sm font-semibold text-gray-900">{data.name}</span>
+          <span className="text-sm font-semibold text-chrome-900">{data.name}</span>
         </div>
-        <span className="text-xs font-medium text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+        <span className="text-xs font-medium text-chrome-400 bg-chrome-100 px-1.5 py-0.5 rounded">
           #{data.rank}
         </span>
       </div>
 
       {/* Supply */}
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-gray-500">Total Supply</span>
-        <span className="text-sm font-semibold text-gray-900">
+        <span className="text-xs text-chrome-500">Total Supply</span>
+        <span className="text-sm font-semibold text-chrome-900">
           {formatCurrency(data.totalCirculating)}
         </span>
       </div>
 
       {/* Market Share */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs text-gray-500">Share</span>
-        <span className="text-sm font-medium text-gray-700">
+        <span className="text-xs text-chrome-500">Share</span>
+        <span className="text-sm font-medium text-chrome-700">
           {data.percentage.toFixed(2)}%
         </span>
       </div>
 
       {/* Visual share bar */}
-      <div className="pt-2 border-t border-gray-100">
+      <div className="pt-2 border-t border-chrome-100">
         <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-gray-400" />
-          <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+          <Layers className="w-3.5 h-3.5 text-chrome-400" />
+          <div className="flex-1 bg-chrome-100 rounded-full h-1.5 overflow-hidden">
             <div
               className="h-full rounded-full transition-all"
               style={{
@@ -153,13 +153,13 @@ export function ChainBreakdownChart() {
 
   if (error || !chains) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-8">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
-            <p className="text-gray-500 mb-4">Failed to load chain data</p>
+            <p className="text-chrome-500 mb-4">Failed to load chain data</p>
             <button
               onClick={refetch}
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-gold-500 hover:text-gold-600 font-medium"
             >
               Try again
             </button>
@@ -185,19 +185,19 @@ export function ChainBreakdownChart() {
   }));
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
+      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-chrome-900">
             Stablecoin Supply by Chain
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-chrome-500 mt-1">
             Top 10 chains by stablecoin supply
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm text-gray-500">Total Supply</p>
-          <p className="text-lg font-bold text-gray-900">
+          <p className="text-sm text-chrome-500">Total Supply</p>
+          <p className="text-lg font-bold text-chrome-900">
             {formatCurrency(totalCirculating)}
           </p>
         </div>
@@ -212,28 +212,28 @@ export function ChainBreakdownChart() {
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="#e5e7eb"
+                stroke="#DEE2E6"
                 horizontal={true}
                 vertical={false}
               />
               <XAxis
                 type="number"
                 tickFormatter={formatCurrencyShort}
-                tick={{ fontSize: 12, fill: "#6b7280" }}
-                axisLine={{ stroke: "#e5e7eb" }}
+                tick={{ fontSize: 12, fill: "#6C757D" }}
+                axisLine={{ stroke: "#DEE2E6" }}
                 tickLine={false}
               />
               <YAxis
                 type="category"
                 dataKey="name"
-                tick={{ fontSize: 12, fill: "#374151", fontWeight: 500 }}
+                tick={{ fontSize: 12, fill: "#343A40", fontWeight: 500 }}
                 axisLine={false}
                 tickLine={false}
                 width={75}
               />
               <Tooltip
                 content={<CustomTooltip />}
-                cursor={{ fill: "#f3f4f6" }}
+                cursor={{ fill: "#E9ECEF" }}
               />
               <Bar
                 dataKey="totalCirculating"
@@ -250,7 +250,7 @@ export function ChainBreakdownChart() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
+        <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400">
           Data refreshed just now
         </div>
       </div>

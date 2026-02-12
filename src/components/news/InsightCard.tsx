@@ -17,16 +17,16 @@ const SOURCE_COLORS: Record<string, string> = {
 
 // Category styling
 const CATEGORY_STYLES: Record<InsightCategory, { bg: string; text: string; label: string }> = {
-  'infrastructure': { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Infrastructure' },
-  'market-data': { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Market Data' },
-  'emerging-markets': { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Emerging Markets' },
-  'regulation': { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Regulation' },
+  'infrastructure': { bg: 'bg-chrome-100', text: 'text-chrome-600', label: 'Infrastructure' },
+  'market-data': { bg: 'bg-chrome-100', text: 'text-chrome-600', label: 'Market Data' },
+  'emerging-markets': { bg: 'bg-chrome-100', text: 'text-chrome-600', label: 'Emerging Markets' },
+  'regulation': { bg: 'bg-chrome-100', text: 'text-chrome-600', label: 'Regulation' },
 };
 
 // Fallback gradient for cards without images
 function getFallbackGradient(source: string): string {
   const color = SOURCE_COLORS[source] || '#6366F1';
-  return `linear-gradient(135deg, ${color}20 0%, ${color}40 100%)`;
+  return `linear-gradient(135deg, ${color}22 0%, #1A1D2111 100%)`;
 }
 
 interface InsightCardProps {
@@ -44,7 +44,7 @@ export function InsightCard({ item }: InsightCardProps) {
   return (
     <article
       onClick={handleClick}
-      className="group cursor-pointer bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out"
+      className="group cursor-pointer bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden hover:shadow-lg hover:border-chrome-300 hover:-translate-y-1 active:scale-[0.99] transition-all duration-150 ease-out"
     >
       <div className="flex">
         {/* Thumbnail */}
@@ -93,18 +93,18 @@ export function InsightCard({ item }: InsightCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-1 line-clamp-2 group-hover:text-primary-600 transition-colors duration-150">
+          <h3 className="text-sm sm:text-base font-semibold text-chrome-900 mb-1 line-clamp-2 group-hover:text-gold-500 transition-colors duration-150">
             {item.title}
           </h3>
 
           {/* Summary */}
-          <p className="text-xs sm:text-sm text-gray-600 line-clamp-2 flex-1">
+          <p className="text-xs sm:text-sm text-chrome-600 line-clamp-2 flex-1">
             {item.summary}
           </p>
 
           {/* External link indicator */}
           <div className="flex items-center justify-end mt-2">
-            <ExternalLink className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+            <ExternalLink className="w-4 h-4 text-chrome-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
           </div>
         </div>
       </div>

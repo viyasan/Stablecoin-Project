@@ -539,7 +539,7 @@ export const STAGE_LABELS: Record<RegulationStage, string> = {
 };
 
 export const STAGE_COLORS: Record<RegulationStage, string> = {
-  proposed: '#f59e0b',
-  approved: '#3b82f6',
-  implemented: '#22c55e',
+  proposed: '#D4A437',
+  approved: '#6C757D',
+  implemented: '#4A9D6E',
 };

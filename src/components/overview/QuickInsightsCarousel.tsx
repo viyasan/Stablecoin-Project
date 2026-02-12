@@ -63,7 +63,7 @@ export function QuickInsightsCarousel() {
 
   return (
     <div
-      className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-lg shadow-sm overflow-hidden"
+      className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-lg shadow-sm overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -71,12 +71,12 @@ export function QuickInsightsCarousel() {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Lightbulb className="w-5 h-5 text-primary-200" />
-            <h3 className="text-sm font-semibold text-primary-100 uppercase tracking-wide">
+            <Lightbulb className="w-5 h-5 text-gold-200" />
+            <h3 className="text-sm font-semibold text-gold-100 uppercase tracking-wide">
               Quick Market Insights
             </h3>
           </div>
-          <span className="text-xs text-primary-200">
+          <span className="text-xs text-gold-200">
             Last updated: February 2026
           </span>
         </div>
@@ -85,7 +85,7 @@ export function QuickInsightsCarousel() {
         <div className="relative min-h-[60px] flex items-center">
           <button
             onClick={goToPrevious}
-            className="absolute left-0 -ml-2 p-1 text-primary-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
+            className="absolute left-0 -ml-2 p-1 text-gold-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
             aria-label="Previous insight"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -99,7 +99,7 @@ export function QuickInsightsCarousel() {
 
           <button
             onClick={goToNext}
-            className="absolute right-0 -mr-2 p-1 text-primary-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
+            className="absolute right-0 -mr-2 p-1 text-gold-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
             aria-label="Next insight"
           >
             <ChevronRight className="w-5 h-5" />
@@ -115,7 +115,7 @@ export function QuickInsightsCarousel() {
               className={`w-2 h-2 rounded-full transition-all duration-150 ease-out hover:scale-125 active:scale-100 ${
                 index === currentIndex
                   ? 'bg-white w-4'
-                  : 'bg-primary-300 hover:bg-primary-200'
+                  : 'bg-gold-300 hover:bg-gold-200'
               }`}
               aria-label={`Go to insight ${index + 1}`}
             />

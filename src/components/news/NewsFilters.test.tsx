@@ -11,12 +11,6 @@ describe('NewsFilters', () => {
     vi.clearAllMocks();
   });
 
-  it('renders search input', () => {
-    render(<NewsFilters filters={defaultFilters} onFilterChange={mockOnFilterChange} />);
-
-    expect(screen.getByPlaceholderText('Search news...')).toBeInTheDocument();
-  });
-
   it('renders topic filter pills', () => {
     render(<NewsFilters filters={defaultFilters} onFilterChange={mockOnFilterChange} />);
 
@@ -97,45 +91,14 @@ describe('NewsFilters', () => {
     );
 
     const regulationButton = screen.getByRole('button', { name: 'Regulation' });
-    expect(regulationButton).toHaveClass('bg-primary-600', 'text-white');
+    expect(regulationButton).toHaveClass('bg-gold-500', 'text-white');
   });
 
   it('shows active state for All Topics when no topic is selected', () => {
     render(<NewsFilters filters={defaultFilters} onFilterChange={mockOnFilterChange} />);
 
     const allTopicsButton = screen.getByRole('button', { name: 'All Topics' });
-    expect(allTopicsButton).toHaveClass('bg-primary-600', 'text-white');
-  });
-
-  it('calls onFilterChange with search value after debounce', async () => {
-    vi.useFakeTimers();
-    render(<NewsFilters filters={defaultFilters} onFilterChange={mockOnFilterChange} />);
-
-    const searchInput = screen.getByPlaceholderText('Search news...');
-    fireEvent.change(searchInput, { target: { value: 'USDT' } });
-
-    // Fast forward debounce timer
-    vi.advanceTimersByTime(300);
-
-    expect(mockOnFilterChange).toHaveBeenCalledWith({ search: 'USDT' });
-    vi.useRealTimers();
-  });
-
-  it('shows clear button when search has value', () => {
-    render(
-      <NewsFilters
-        filters={{ search: 'test' }}
-        onFilterChange={mockOnFilterChange}
-      />
-    );
-
-    // The component uses internal state for search, so we need to type in the input
-    const searchInput = screen.getByPlaceholderText('Search news...');
-    fireEvent.change(searchInput, { target: { value: 'test' } });
-
-    // Clear button should appear
-    const clearButton = screen.getByRole('button', { name: '' }); // X icon button
-    expect(clearButton).toBeInTheDocument();
+    expect(allTopicsButton).toHaveClass('bg-gold-500', 'text-white');
   });
 
   it('shows Clear all button when filters are active', () => {
