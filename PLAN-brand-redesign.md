@@ -137,18 +137,13 @@ Charts need multiple distinguishable colors. You can't make a pie chart monochro
 - Gradient fills with 0.15 opacity at bottom
 
 **Market Share Pie Chart (11 stablecoin colors)**
-- This is the hardest one. Each stablecoin currently has a brand-specific color.
-- Proposal: Use a **sequential metallic scale** ranked by market cap:
-  - #1 (USDT): `#D4A437` (Gold)
-  - #2 (USDC): `#C0C0C0` (Silver)
-  - #3 (USDe): `#CD7F32` (Bronze)
-  - #4-#11: Progressively lighter/darker chromes: `#495057`, `#6C757D`, `#ADB5BD`, `#CED4DA`, `#DEE2E6`, etc.
-- This creates a clear visual hierarchy (gold = biggest, silver = second) while maintaining brand consistency
-- Trade-off: Loses the instant "USDC is always blue" recognition. But gains a cohesive look. Consider keeping tiny brand-color dots next to stablecoin names in legends as a compromise.
+- **KEEP existing stablecoin brand colors.** USDT green, USDC blue, USDe purple, etc. are industry-standard recognition. Users expect "USDC = blue" everywhere they look. Forcing these into a metals palette would confuse more than it helps.
+- These are an earned exception to the brand palette (same logic as the red maple leaf — external brand identities we don't own).
+- The chromium redesign will still improve this chart: neutral `chrome-*` grid lines, tooltip styling, legend text, and card frame will all align with the brand. The pie slices just keep their recognized colors.
 
 **Chain Breakdown Bar Chart (15 chain colors)**
-- Same approach: Top chains get gold/silver/bronze, the rest get chrome shades
-- Alternative: Keep chain brand colors BUT desaturate them ~30% so they feel muted and cohesive. This is the more pragmatic choice since chain colors are industry-standard recognition.
+- Same rationale: **keep chain brand colors** (Ethereum blue, Solana purple, etc.) as-is. Chain colors are industry-standard recognition.
+- The chromium redesign improves surrounding UI: grid lines (`chrome-200`), tick labels (`chrome-500`/`chrome-700`), tooltip styling, cursor fill, and card frame all align.
 
 **Reserve Composition**
 - USDT reserves: `gold-400`, `gold-500`, `bronze-400`, `chrome-400`
@@ -159,13 +154,34 @@ Charts need multiple distinguishable colors. You can't make a pie chart monochro
 - Negative: `status-negative` (`#C0524E`)
 - Neutral: `chrome-400`
 
-### 9. Regulation Map + Progress Bars
+### 9. Regulation Map (Countries Page)
 - "Implemented": `status-positive` (muted green)
 - "Approved/Proposed": `gold-400`
 - "Unknown": `chrome-300`
-- Progress bar track: `chrome-200`
-- Active step: `gold-400` with subtle gold glow
-- Completed step: `chrome-800` with checkmark
+
+### 9b. Canada Page — Regulatory Status Progress Tracker
+The current progress stepper uses `red-600` for completed steps, current step indicators, and connector lines. Red is semantically backwards for a progress bar — it signals "stop/danger," not "done/moving forward."
+
+**New mapping — green (done) > gold (in progress) > chrome (not yet):**
+
+| Element | Current | New |
+|---------|---------|-----|
+| Completed step circle | `bg-red-600 border-red-600 text-white` | `bg-status-positive border-status-positive text-white` |
+| Completed connector line | `bg-red-600` | `bg-status-positive` |
+| Completed step label | `text-gray-900 font-medium` | `text-chrome-800 font-medium` |
+| Current step circle border | `border-red-600` | `border-gold-400` |
+| Current step inner dot | `bg-red-600` | `bg-gold-400` |
+| Current step label | `text-red-600 font-medium` | `text-gold-600 font-medium` |
+| Incomplete step circle | `bg-white border-gray-300` | `bg-white border-chrome-300` |
+| Incomplete inner dot | `bg-gray-300` | `bg-chrome-300` |
+| Incomplete connector | `bg-gray-200` | `bg-chrome-200` |
+| Incomplete step label | `text-gray-400` | `text-chrome-400` |
+
+This creates a clear visual narrative: green checkmarks for what's done, a gold pulse for "you are here," and muted chrome for what's ahead. Three states, three distinct colors from the brand palette, zero ambiguity.
+
+The status badges at the top of each stablecoin tracker card also update:
+- `live`: `bg-status-positive/10 text-status-positive border-status-positive/20` (green — consistent with "completed" progress)
+- `coming_soon` / `pending_approval`: `bg-gold-50 text-gold-600 border-gold-100` (gold — consistent with "in progress")
 
 ### 10. KPI Cards (Overview page)
 - Active toggle: `bg-chrome-800 text-white` (replaces blue)
@@ -246,9 +262,16 @@ Each phase is independently deployable:
 | Decision | Upside | Downside |
 |----------|--------|----------|
 | Monochrome news tags | Clean, cohesive look | Slightly less scannable by topic |
-| Metals-ranked pie chart | Strong brand consistency | Loses stablecoin brand color recognition |
 | Muted status colors | Premium, editorial feel | Less immediate "red = bad" visibility |
 | Removing source-specific colors | Less visual noise | News sources lose brand identity on your site |
-| Desaturated chain colors | More cohesive charts | Slightly harder to match to chain brand |
+| Green progress bar (Canada) | Semantically correct (green = done) | Breaks from current red — returning users may notice shift |
 
-Each of these is a deliberate choice of **brand over convention**. Wealthsimple makes the same bet and it works because consistency builds trust.
+### Decisions Locked In
+| Decision | Rationale |
+|----------|-----------|
+| **Keep stablecoin brand colors** in pie chart | Industry-standard recognition (USDT=green, USDC=blue). We don't own these identities. |
+| **Keep chain brand colors** in bar chart | Same rationale — Ethereum blue, Solana purple, etc. are universal. |
+| **Keep red maple leaf** on Canada nav | Canadian flag reference, not a brand color. |
+| **Progress bar: red → green** | Red for "completed" is semantically backwards. Green = done, gold = in progress, chrome = ahead. |
+
+Brand consistency applies to what we control. External brand identities (stablecoins, chains, national flags) are earned exceptions.
