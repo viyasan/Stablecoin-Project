@@ -56,29 +56,35 @@ interface CompanyTimelineColumnProps {
 }
 
 function CompanyTimelineColumn({ stablecoin }: CompanyTimelineColumnProps) {
-  const statusColors = {
-    live: 'border-chrome-300',
-    coming_soon: 'border-chrome-300',
-    pending_approval: 'border-chrome-300',
+  // Get header colors based on stablecoin ID (match company profile cards)
+  const getHeaderColors = () => {
+    switch (stablecoin.id) {
+      case 'qcad':
+        return 'from-[#dc2626] to-[#b91c1c]'; // red-600 to red-700
+      case 'tetra':
+        return 'from-[#d52424] to-[#b21a1a]'; // slightly darker
+      case 'cadc':
+        return 'from-[#d92525] to-[#b61b1b]'; // between
+      default:
+        return 'from-red-600 to-red-700';
+    }
   };
 
   return (
-    <div className={`bg-white rounded-xl shadow-sm border-t-4 ${statusColors[stablecoin.status]} overflow-hidden`}>
+    <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-chrome-100">
-        <div className="flex items-center justify-between mb-1">
-          <h3 className="text-lg font-bold text-chrome-900">{stablecoin.name}</h3>
-          <span
-            className={`text-xs font-medium px-2 py-1 rounded-full ${
-              stablecoin.status === 'live'
-                ? 'bg-chrome-100 text-chrome-600'
-                : 'bg-chrome-100 text-chrome-600'
-            }`}
-          >
-            {stablecoin.statusLabel}
-          </span>
+      <div className={`bg-gradient-to-r ${getHeaderColors()} px-5 py-3 flex items-center gap-3`}>
+        {stablecoin.logo && (
+          <img
+            src={stablecoin.logo}
+            alt={`${stablecoin.issuer} logo`}
+            className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain flex-shrink-0"
+          />
+        )}
+        <div>
+          <h3 className="text-lg font-bold text-white">{stablecoin.name}</h3>
+          <p className="text-white text-sm opacity-90">{stablecoin.parentCompany.name}</p>
         </div>
-        <p className="text-sm text-chrome-500">{stablecoin.parentCompany.name}</p>
       </div>
 
       {/* Timeline Events */}
