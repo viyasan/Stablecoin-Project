@@ -4,6 +4,7 @@ import {
   CompanyProfileCards,
   ComparisonTable,
   RegulatoryStatusTracker,
+  CompanyTimelines,
 } from '../components/canada';
 import { useCanadianStablecoins, useCanadianExchanges } from '../api';
 import { ShieldCheck, CircleDollarSign, FileBarChart, CheckCircle, Building, Clock, Zap, Check } from 'lucide-react';
@@ -213,6 +214,11 @@ export function CanadaPage() {
       {/* Regulatory Status Tracker */}
       <section className="mb-8">
         <RegulatoryStatusTracker stablecoins={stablecoins} />
+      </section>
+
+      {/* Company Timelines */}
+      <section>
+        <CompanyTimelines stablecoins={stablecoins} />
       </section>
     </PageContainer>
   );
