@@ -4,7 +4,6 @@ import {
   CompanyProfileCards,
   ComparisonTable,
   RegulatoryStatusTracker,
-  CompanyTimelines,
 } from '../components/canada';
 import { useCanadianStablecoins, useCanadianExchanges } from '../api';
 import { ShieldCheck, CircleDollarSign, FileBarChart, CheckCircle, Building, Clock, Zap, Check } from 'lucide-react';
@@ -74,7 +73,7 @@ export function CanadaPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* QCAD Card */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-chrome-800 to-chrome-900 px-6 py-3 flex items-center gap-3">
+            <div className="bg-gradient-to-r from-[#dc2626] to-[#b91c1c] px-6 py-3 flex items-center gap-3">
               <img
                 src={stablecoins[0].logo}
                 alt="Stablecorp logo"
@@ -118,7 +117,7 @@ export function CanadaPage() {
 
           {/* CADD Card (Tetra) */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-chrome-800 to-chrome-900 px-6 py-3 flex items-center gap-3">
+            <div className="bg-gradient-to-r from-[#d52424] to-[#b21a1a] px-6 py-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white p-1.5 flex-shrink-0 flex items-center justify-center">
                 <img
                   src={stablecoins[1].logo}
@@ -164,7 +163,7 @@ export function CanadaPage() {
 
           {/* CADC Card (Loon) */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-chrome-800 to-chrome-900 px-6 py-3 flex items-center gap-3">
+            <div className="bg-gradient-to-r from-[#d92525] to-[#b61b1b] px-6 py-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
                 <span className="text-chrome-800 font-bold text-xs">LOON</span>
               </div>
@@ -214,11 +213,6 @@ export function CanadaPage() {
       {/* Regulatory Status Tracker */}
       <section className="mb-8">
         <RegulatoryStatusTracker stablecoins={stablecoins} />
-      </section>
-
-      {/* Company Timelines */}
-      <section>
-        <CompanyTimelines stablecoins={stablecoins} />
       </section>
     </PageContainer>
   );

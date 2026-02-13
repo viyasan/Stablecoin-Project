@@ -8,14 +8,14 @@ interface TagProps {
 }
 
 const topicColors: Record<TopicTag, { bg: string; text: string }> = {
-  regulation: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  depeg: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  integration: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  infrastructure: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  payments: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  reserve: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  launch: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
-  partnership: { bg: 'bg-chrome-100', text: 'text-chrome-600' },
+  regulation: { bg: 'bg-gold-100', text: 'text-gold-600' },
+  depeg: { bg: 'bg-status-negative/10', text: 'text-status-negative' },
+  integration: { bg: 'bg-status-positive/10', text: 'text-status-positive' },
+  infrastructure: { bg: 'bg-chrome-200', text: 'text-chrome-700' },
+  payments: { bg: 'bg-gold-100', text: 'text-gold-600' },
+  reserve: { bg: 'bg-bronze-400/10', text: 'text-bronze-500' },
+  launch: { bg: 'bg-status-positive/10', text: 'text-status-positive' },
+  partnership: { bg: 'bg-status-positive/10', text: 'text-status-positive' },
 };
 
 export function Tag({ label, onClick, active, className = '' }: TagProps) {

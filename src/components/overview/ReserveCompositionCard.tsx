@@ -153,7 +153,7 @@ export function ReserveCompositionCard() {
             onClick={() => setSelectedCoin('USDT')}
             className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
               selectedCoin === 'USDT'
-                ? 'bg-gold-500 text-white'
+                ? 'bg-green-600 text-white'
                 : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >
@@ -164,7 +164,7 @@ export function ReserveCompositionCard() {
             onClick={() => setSelectedCoin('USDC')}
             className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
               selectedCoin === 'USDC'
-                ? 'bg-gold-500 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
             }`}
           >

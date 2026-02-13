@@ -41,17 +41,34 @@ interface CompanyCardProps {
 function CompanyCard({ stablecoin }: CompanyCardProps) {
   const { parentCompany } = stablecoin;
 
-  // Determine header color based on stablecoin ID
+  // Get blockchain-specific colors
+  const getBlockchainColors = (chain: string) => {
+    const chainLower = chain.toLowerCase();
+    switch (chainLower) {
+      case 'ethereum':
+        return { bg: 'bg-green-100', text: 'text-green-700', border: 'border-green-200' };
+      case 'base':
+        return { bg: 'bg-blue-100', text: 'text-blue-700', border: 'border-blue-200' };
+      case 'polygon':
+        return { bg: 'bg-purple-100', text: 'text-purple-700', border: 'border-purple-200' };
+      case 'algorand':
+        return { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-200' };
+      default:
+        return { bg: 'bg-chrome-100', text: 'text-chrome-600', border: 'border-chrome-200' };
+    }
+  };
+
+  // Determine header color based on stablecoin ID - custom hex for subtle variations
   const getHeaderColors = () => {
     switch (stablecoin.id) {
       case 'qcad':
-        return { gradient: 'from-chrome-800 to-chrome-900', text: 'text-chrome-400' };
+        return { gradient: 'from-[#dc2626] to-[#b91c1c]', text: 'text-red-200' }; // red-600 to red-700
       case 'tetra':
-        return { gradient: 'from-chrome-800 to-chrome-900', text: 'text-chrome-400' };
+        return { gradient: 'from-[#d52424] to-[#b21a1a]', text: 'text-red-200' }; // slightly darker
       case 'cadc':
-        return { gradient: 'from-chrome-800 to-chrome-900', text: 'text-chrome-400' };
+        return { gradient: 'from-[#d92525] to-[#b61b1b]', text: 'text-red-200' }; // between
       default:
-        return { gradient: 'from-chrome-800 to-chrome-900', text: 'text-chrome-400' };
+        return { gradient: 'from-red-600 to-red-700', text: 'text-red-200' };
     }
   };
 
@@ -75,26 +92,23 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden flex flex-col h-full transition-all duration-150 ease-out hover:shadow-lg hover:border-chrome-300 hover:-translate-y-1">
       {/* Header */}
-      <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4 min-h-[88px]`}>
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            {stablecoin.logo ? (
-              <img
-                src={stablecoin.logo}
-                alt={`${stablecoin.issuer} logo`}
-                className="w-12 h-12 rounded-lg bg-white p-2 object-contain flex-shrink-0"
-              />
-            ) : (
-              <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
-                <span className="text-chrome-900 font-bold text-xs">LOON</span>
-              </div>
-            )}
-            <div className="min-w-0">
-              <h3 className="text-xl font-bold text-white truncate">{stablecoin.issuer}</h3>
-              <p className={`${headerColors.text} text-sm`}>Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
+      <div className={`bg-gradient-to-r ${headerColors.gradient} px-6 py-4`}>
+        <div className="flex items-center gap-3">
+          {stablecoin.logo ? (
+            <img
+              src={stablecoin.logo}
+              alt={`${stablecoin.issuer} logo`}
+              className="w-12 h-12 rounded-lg bg-white p-2 object-contain flex-shrink-0"
+            />
+          ) : (
+            <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
+              <span className="text-chrome-900 font-bold text-xs">LOON</span>
             </div>
+          )}
+          <div className="min-w-0">
+            <h3 className="text-xl font-bold text-white truncate">{stablecoin.issuer}</h3>
+            <p className={`${headerColors.text} text-sm`}>Stablecoin: <span className="font-bold text-white">{stablecoin.name}</span></p>
           </div>
-          <StatusBadge status={stablecoin.status} label={stablecoin.statusLabel} />
         </div>
       </div>
 
@@ -146,14 +160,17 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
             Blockchains
           </h4>
           <div className="flex flex-wrap gap-1.5">
-            {stablecoin.blockchains.map((chain) => (
-              <span
-                key={chain}
-                className="inline-block px-2.5 py-1 text-xs bg-status-negative/10 text-status-negative rounded-full border border-status-negative/20"
-              >
-                {chain}
-              </span>
-            ))}
+            {stablecoin.blockchains.map((chain) => {
+              const colors = getBlockchainColors(chain);
+              return (
+                <span
+                  key={chain}
+                  className={`inline-block px-2.5 py-1 text-xs ${colors.bg} ${colors.text} rounded-full border ${colors.border}`}
+                >
+                  {chain}
+                </span>
+              );
+            })}
           </div>
         </div>
 

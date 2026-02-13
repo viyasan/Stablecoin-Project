@@ -435,8 +435,8 @@ const RESERVE_DATA = {
     sourceUrl: 'https://www.circle.com/transparency',
     treasuryHoldings: 62_000_000_000, // $62B (~80% of ~$77B)
     assets: [
-      { name: 'US Treasuries', percentage: 80, color: '#C0C0C0' },
-      { name: 'Cash & Bank Deposits', percentage: 20, color: '#6C757D' },
+      { name: 'US Treasuries', percentage: 80, color: '#D4A437' },
+      { name: 'Cash & Bank Deposits', percentage: 20, color: '#CD7F32' },
     ],
   },
 };

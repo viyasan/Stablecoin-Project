@@ -11,3 +11,4 @@ export {
 } from './Skeleton';
 export { Sparkline } from './Sparkline';
 export { Tag } from './Tag';
+export { NewsletterBanner } from './NewsletterBanner';
