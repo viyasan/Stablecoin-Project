@@ -1,39 +1,5 @@
 import type { CanadianStablecoin } from '../../api';
 
-interface StatusBadgeProps {
-  status: CanadianStablecoin['status'];
-  label: string;
-}
-
-function StatusBadge({ status, label }: StatusBadgeProps) {
-  const styles = {
-    live: 'bg-status-positive/10 text-status-positive border-status-positive/20',
-    coming_soon: 'bg-gold-50 text-gold-600 border-gold-100',
-    pending_approval: 'bg-gold-50 text-gold-600 border-gold-100',
-  };
-
-  const icons = {
-    live: (
-      <span className="w-2 h-2 rounded-full bg-status-positive animate-pulse" />
-    ),
-    coming_soon: (
-      <span className="w-2 h-2 rounded-full bg-gold-400" />
-    ),
-    pending_approval: (
-      <span className="w-2 h-2 rounded-full bg-gold-400" />
-    ),
-  };
-
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full border ${styles[status]}`}
-    >
-      {icons[status]}
-      {label}
-    </span>
-  );
-}
-
 interface CompanyCardProps {
   stablecoin: CanadianStablecoin;
 }
