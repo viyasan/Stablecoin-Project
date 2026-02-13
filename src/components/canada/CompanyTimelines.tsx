@@ -8,10 +8,10 @@ interface TimelineEventItemProps {
 function TimelineEventItem({ event, isLast }: TimelineEventItemProps) {
   const typeStyles = {
     milestone: 'bg-status-positive',
-    regulatory: 'bg-chrome-600',
-    funding: 'bg-chrome-600',
-    launch: 'bg-chrome-600',
-    partnership: 'bg-chrome-600',
+    regulatory: 'bg-gold-500',
+    funding: 'bg-bronze-400',
+    launch: 'bg-gold-600',
+    partnership: 'bg-status-positive',
   };
 
   const typeLabels = {
@@ -112,7 +112,7 @@ export function CompanyTimelines({ stablecoins }: CompanyTimelinesProps) {
       {/* Legend */}
       <div className="flex flex-wrap gap-3 mb-6">
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-full bg-chrome-600" />
+          <span className="w-3 h-3 rounded-full bg-gold-600" />
           <span className="text-xs text-chrome-600">Launch</span>
         </div>
         <div className="flex items-center gap-1.5">
@@ -120,15 +120,15 @@ export function CompanyTimelines({ stablecoins }: CompanyTimelinesProps) {
           <span className="text-xs text-chrome-600">Milestone</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-full bg-chrome-600" />
+          <span className="w-3 h-3 rounded-full bg-gold-500" />
           <span className="text-xs text-chrome-600">Regulatory</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-full bg-chrome-600" />
+          <span className="w-3 h-3 rounded-full bg-bronze-400" />
           <span className="text-xs text-chrome-600">Funding</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-full bg-chrome-600" />
+          <span className="w-3 h-3 rounded-full bg-status-positive" />
           <span className="text-xs text-chrome-600">Partnership</span>
         </div>
       </div>
