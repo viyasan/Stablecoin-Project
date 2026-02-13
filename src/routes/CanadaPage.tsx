@@ -82,7 +82,7 @@ export function CanadaPage() {
               />
               <div>
                 <h3 className="text-lg font-bold text-white">QCAD</h3>
-                <p className="text-chrome-400 text-sm">Stablecorp</p>
+                <p className="text-white text-sm opacity-90">Stablecorp</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
@@ -128,7 +128,7 @@ export function CanadaPage() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">CADD</h3>
-                <p className="text-chrome-400 text-sm">Tetra Trust</p>
+                <p className="text-white text-sm opacity-90">Tetra Trust</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
@@ -170,7 +170,7 @@ export function CanadaPage() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">CADC</h3>
-                <p className="text-chrome-400 text-sm">Loon</p>
+                <p className="text-white text-sm opacity-90">Loon</p>
               </div>
             </div>
             <div className="p-5 space-y-4">
