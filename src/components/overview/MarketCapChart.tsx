@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useMarketCapChart } from '../../api';
-import { SkeletonChart, FadeInSlide } from '../common';
+import { SkeletonChart } from '../common';
 
 type TimeRange = '30d' | '1y' | 'max';
 
@@ -201,7 +201,6 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   const colors = ['#E2B050', '#ADB5BD', '#CD7F32', '#495057'];
 
   return (
-    <FadeInSlide>
       <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
         <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-chrome-900">
@@ -295,11 +294,11 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400">
-          Data refreshed just now
+        <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
+          <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
+          <span>Data refreshed just now</span>
         </div>
       </div>
     </div>
-    </FadeInSlide>
   );
 }

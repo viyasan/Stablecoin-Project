@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { Layers } from "lucide-react";
 import { useChainBreakdown } from "../../api";
-import { SkeletonBarChart, FadeInSlide } from "../common";
+import { SkeletonBarChart } from "../common";
 
 // Chain colors - distinct colors for each chain
 const CHAIN_COLORS: Record<string, string> = {
@@ -185,7 +185,6 @@ export function ChainBreakdownChart() {
   }));
 
   return (
-    <FadeInSlide>
       <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
         <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
           <div>
@@ -255,11 +254,11 @@ export function ChainBreakdownChart() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400">
-          Data refreshed just now
+        <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
+          <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
+          <span>Data refreshed just now</span>
         </div>
       </div>
     </div>
-    </FadeInSlide>
   );
 }

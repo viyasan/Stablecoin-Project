@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout';
+import { FadeInSlide } from '../components/common';
 import {
   AboutOurData,
   ChainBreakdownChart,
@@ -16,58 +17,79 @@ export function OverviewPage() {
   return (
     <PageContainer>
       {/* Hero Section */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-chrome-800 mb-2">
-          Stablecoin Market Overview
-        </h1>
-        <p className="text-lg text-chrome-500">
-          Your single destination for stablecoin market data, regulation
-          tracking, and insights.
-        </p>
-      </div>
+      <FadeInSlide>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-chrome-800 mb-2">
+            Stablecoin Market Overview
+          </h1>
+          <p className="text-lg text-chrome-500">
+            Your single destination for stablecoin market data, regulation
+            tracking, and insights.
+          </p>
+        </div>
+      </FadeInSlide>
 
       {/* KPI Cards - Side by side */}
+      {/* GlobalKpiCard manages its own FadeInSlide (delay=0) */}
       <section className="mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <GlobalKpiCard />
-          <TransactionKpiCard />
+          <FadeInSlide delay={100}>
+            <TransactionKpiCard />
+          </FadeInSlide>
         </div>
       </section>
 
       {/* Charts Section - Market Cap and Pie Chart side by side */}
       <section className="mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-8">
-          <MarketCapChart showBreakdown={false} />
-          <MarketSharePieChart />
+          <FadeInSlide delay={0}>
+            <MarketCapChart showBreakdown={false} />
+          </FadeInSlide>
+          <FadeInSlide delay={150}>
+            <MarketSharePieChart />
+          </FadeInSlide>
         </div>
       </section>
 
       {/* Chain Breakdown Section */}
       <section className="mb-8">
-        <ChainBreakdownChart />
+        <FadeInSlide delay={0}>
+          <ChainBreakdownChart />
+        </FadeInSlide>
       </section>
 
       {/* Treasury & Reserve Section */}
       <section className="mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <TreasuryHoldingsCard />
-          <ReserveCompositionCard />
+          <FadeInSlide delay={0}>
+            <TreasuryHoldingsCard />
+          </FadeInSlide>
+          <FadeInSlide delay={150}>
+            <ReserveCompositionCard />
+          </FadeInSlide>
         </div>
       </section>
 
       {/* Top Headlines Section */}
       <section className="mb-8">
-        <TopHeadlinesList />
+        <FadeInSlide delay={0}>
+          <TopHeadlinesList />
+        </FadeInSlide>
       </section>
 
       {/* Quick Market Insights Carousel */}
       <section className="mb-8">
-        <QuickInsightsCarousel />
+        <FadeInSlide delay={0}>
+          <QuickInsightsCarousel />
+        </FadeInSlide>
       </section>
 
       {/* About Our Data - Methodology Explainer */}
       <section>
-        <AboutOurData />
+        <FadeInSlide delay={0}>
+          <AboutOurData />
+        </FadeInSlide>
       </section>
     </PageContainer>
   );

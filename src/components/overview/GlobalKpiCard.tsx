@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useMarketSummary, useStablecoinList, useMarketCapChart } from '../../api';
-import { SkeletonKpiCard, Sparkline } from '../common';
+import { SkeletonKpiCard, Sparkline, TiltCard } from '../common';
 import { useCountUp } from '../../hooks/useCountUp';
 import { FadeInSlide } from '../common/FadeInSlide';
 
@@ -191,13 +191,35 @@ export function GlobalKpiCard() {
   const isFirstLoad = !hasFirstLoaded.current;
   if (!isLoading && data) hasFirstLoaded.current = true;
 
+  const animDelay = isFirstLoad ? 350 : 0;
+
   const { displayValue: marketCapDisplay } = useCountUp({
     end: currentMarketCap,
     duration: 1400,
     easing: 'easeOut',
     formatter: formatCurrency,
     shouldAnimate: !isLoading,
-    delay: isFirstLoad ? 350 : 0,
+    delay: animDelay,
+  });
+
+  const { displayValue: change7dDisplay } = useCountUp({
+    end: data?.change7d ?? 0,
+    duration: 1200,
+    decimals: 2,
+    easing: 'easeOut',
+    formatter: formatPercent,
+    shouldAnimate: !isLoading,
+    delay: animDelay,
+  });
+
+  const { displayValue: change30dDisplay } = useCountUp({
+    end: data?.change30d ?? 0,
+    duration: 1200,
+    decimals: 2,
+    easing: 'easeOut',
+    formatter: formatPercent,
+    shouldAnimate: !isLoading,
+    delay: animDelay,
   });
 
   if (isLoading) {
@@ -222,101 +244,104 @@ export function GlobalKpiCard() {
 
   return (
     <FadeInSlide>
-      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md">
-      <div className="px-6 py-4 border-b border-chrome-100">
-        <h2 className="text-lg font-semibold text-chrome-900 mb-3">
-          Global Stablecoin Market
-        </h2>
+      <TiltCard>
+        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md">
+          <div className="px-6 py-4 border-b border-chrome-100">
+            <h2 className="text-lg font-semibold text-chrome-900 mb-3">
+              Global Stablecoin Market
+            </h2>
 
-        {/* View Mode Toggle */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => setViewMode('total')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-              viewMode === 'total'
-                ? 'bg-gold-500 text-white'
-                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
-            }`}
-          >
-            Today
-          </button>
-          <button
-            onClick={() => setViewMode('7d')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-              viewMode === '7d'
-                ? 'bg-gold-500 text-white'
-                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
-            }`}
-          >
-            7D Change
-          </button>
-          <button
-            onClick={() => setViewMode('30d')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-              viewMode === '30d'
-                ? 'bg-gold-500 text-white'
-                : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
-            }`}
-          >
-            30D Change
-          </button>
-        </div>
-      </div>
-      <div className="px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-          <div className="flex flex-col items-center justify-center px-4 py-4">
-            {viewMode === 'total' && (
-              <>
-                <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Total Market Cap</p>
-                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">
-                  {marketCapDisplay}
-                </p>
-                {sparklineData.length > 0 && (
-                  <div className="mt-3 flex items-center gap-3">
-                    <Sparkline data={sparklineData} width={100} height={28} color="auto" />
-                    <span className={`text-sm font-semibold ${data.change30d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
-                      {formatPercent(data.change30d)} (30d)
-                    </span>
-                  </div>
-                )}
-              </>
-            )}
-            {viewMode === '7d' && (
-              <>
-                <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Market Cap (7 days ago)</p>
-                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{marketCapDisplay}</p>
-                {sparklineData.length > 0 && (
-                  <div className="mt-3 flex items-center gap-3">
-                    <Sparkline data={sparklineData.slice(-7)} width={100} height={28} color="auto" />
-                    <span className={`text-sm font-semibold ${data.change7d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
-                      {formatPercent(data.change7d)}
-                    </span>
-                  </div>
-                )}
-              </>
-            )}
-            {viewMode === '30d' && (
-              <>
-                <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Market Cap (30 days ago)</p>
-                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{marketCapDisplay}</p>
-                {sparklineData.length > 0 && (
-                  <div className="mt-3 flex items-center gap-3">
-                    <Sparkline data={sparklineData} width={100} height={28} color="auto" />
-                    <span className={`text-sm font-semibold ${data.change30d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
-                      {formatPercent(data.change30d)}
-                    </span>
-                  </div>
-                )}
-              </>
-            )}
+            {/* View Mode Toggle */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setViewMode('total')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                  viewMode === 'total'
+                    ? 'bg-gold-500 text-white'
+                    : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
+                }`}
+              >
+                Today
+              </button>
+              <button
+                onClick={() => setViewMode('7d')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                  viewMode === '7d'
+                    ? 'bg-gold-500 text-white'
+                    : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
+                }`}
+              >
+                7D Change
+              </button>
+              <button
+                onClick={() => setViewMode('30d')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                  viewMode === '30d'
+                    ? 'bg-gold-500 text-white'
+                    : 'bg-chrome-100 text-chrome-600 hover:bg-chrome-200'
+                }`}
+              >
+                30D Change
+              </button>
+            </div>
           </div>
-          <TrackedAssetsKpi count={data.trackedStablecoins} />
+          <div className="px-6 py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+              <div className="flex flex-col items-center justify-center px-4 py-4">
+                {viewMode === 'total' && (
+                  <>
+                    <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Total Market Cap</p>
+                    <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">
+                      {marketCapDisplay}
+                    </p>
+                    {sparklineData.length > 0 && (
+                      <div className="mt-3 flex items-center gap-3">
+                        <Sparkline data={sparklineData} width={100} height={28} color="auto" />
+                        <span className={`text-sm font-semibold ${data.change30d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
+                          {change30dDisplay} (30d)
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
+                {viewMode === '7d' && (
+                  <>
+                    <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Market Cap (7 days ago)</p>
+                    <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{marketCapDisplay}</p>
+                    {sparklineData.length > 0 && (
+                      <div className="mt-3 flex items-center gap-3">
+                        <Sparkline data={sparklineData.slice(-7)} width={100} height={28} color="auto" />
+                        <span className={`text-sm font-semibold ${data.change7d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
+                          {change7dDisplay}
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
+                {viewMode === '30d' && (
+                  <>
+                    <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Market Cap (30 days ago)</p>
+                    <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{marketCapDisplay}</p>
+                    {sparklineData.length > 0 && (
+                      <div className="mt-3 flex items-center gap-3">
+                        <Sparkline data={sparklineData} width={100} height={28} color="auto" />
+                        <span className={`text-sm font-semibold ${data.change30d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
+                          {change30dDisplay}
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+              <TrackedAssetsKpi count={data.trackedStablecoins} />
+            </div>
+            <div className="mt-6 pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
+              <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
+              <span>Data refreshed {formatTimeAgo(data.lastUpdated)}</span>
+            </div>
+          </div>
         </div>
-        <div className="mt-6 pt-4 border-t border-chrome-100 text-xs text-chrome-400">
-          <span>Data refreshed {formatTimeAgo(data.lastUpdated)}</span>
-        </div>
-      </div>
-    </div>
+      </TiltCard>
     </FadeInSlide>
   );
 }

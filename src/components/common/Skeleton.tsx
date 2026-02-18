@@ -29,7 +29,7 @@ export function Skeleton({
 
   return (
     <div
-      className={`bg-chrome-200 animate-pulse ${roundedClass} ${className}`}
+      className={`bg-gradient-to-r from-chrome-200 via-chrome-100 to-chrome-200 bg-[length:200%_100%] animate-skeleton-shimmer ${roundedClass} ${className}`}
       style={style}
     />
   );
@@ -113,7 +113,7 @@ export function SkeletonChart({ height = 300 }: { height?: number }) {
             {Array.from({ length: 12 }).map((_, i) => (
               <div
                 key={i}
-                className="flex-1 bg-chrome-200 animate-pulse rounded-t-sm"
+                className="flex-1 bg-gradient-to-r from-chrome-200 via-chrome-100 to-chrome-200 bg-[length:200%_100%] animate-skeleton-shimmer rounded-t-sm"
                 style={{ height: `${30 + Math.random() * 60}%` }}
               />
             ))}

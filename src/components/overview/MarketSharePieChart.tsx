@@ -7,7 +7,7 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useStablecoinList } from '../../api';
-import { SkeletonPieChart, FadeInSlide } from '../common';
+import { SkeletonPieChart } from '../common';
 
 // Specific colors for top stablecoins
 const STABLECOIN_COLORS: Record<string, string> = {
@@ -231,7 +231,6 @@ export function MarketSharePieChart() {
   }
 
   return (
-    <FadeInSlide>
       <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
         <div className="px-6 py-4 border-b border-chrome-100">
           <h2 className="text-lg font-semibold text-chrome-900">Stablecoin Market Share</h2>
@@ -285,11 +284,11 @@ export function MarketSharePieChart() {
           </div>
         </div>
 
-        <div className="mt-auto pt-4 border-t border-chrome-100 text-xs text-chrome-400">
-          Data refreshed just now
+        <div className="mt-auto pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
+          <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
+          <span>Data refreshed just now</span>
         </div>
       </div>
     </div>
-    </FadeInSlide>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { TiltCard } from '../common';
 
 // Static data from Visa Onchain Analytics Dashboard
 // Source: https://visaonchainanalytics.com/
@@ -75,6 +76,7 @@ export function TransactionKpiCard() {
   const metrics = VISA_METRICS[timePeriod];
 
   return (
+    <TiltCard>
     <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       <div className="px-6 py-4 border-b border-chrome-100">
         <h2 className="text-lg font-semibold text-chrome-900 mb-3">
@@ -138,5 +140,6 @@ export function TransactionKpiCard() {
         </div>
       </div>
     </div>
+    </TiltCard>
   );
 }
