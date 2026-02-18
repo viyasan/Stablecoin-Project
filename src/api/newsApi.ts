@@ -224,8 +224,49 @@ function distributeArticles(
   return result;
 }
 
+// --- Module-level cache ---
+interface NewsCache {
+  data: NewsItem[];
+  fetchedAt: number;
+}
+
+const NEWS_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+let newsCache: NewsCache | null = null;
+let pendingFetch: Promise<NewsItem[]> | null = null;
+
+/** Fire-and-forget prefetch — call at page mount to pre-warm the cache */
+export function prefetchNews(): void {
+  fetchRSSNewsCached(100);
+}
+
+async function fetchRSSNewsCached(limit: number): Promise<NewsItem[]> {
+  const now = Date.now();
+
+  // Return cached data if still fresh
+  if (newsCache && now - newsCache.fetchedAt < NEWS_CACHE_TTL_MS) {
+    return newsCache.data.slice(0, limit);
+  }
+
+  // Reuse the in-flight request rather than firing a duplicate fetch
+  if (!pendingFetch) {
+    pendingFetch = fetchRSSNews()
+      .then((data) => {
+        newsCache = { data, fetchedAt: Date.now() };
+        pendingFetch = null;
+        return data;
+      })
+      .catch((err) => {
+        pendingFetch = null;
+        throw err;
+      });
+  }
+
+  const data = await pendingFetch;
+  return data.slice(0, limit);
+}
+
 // Fetch and parse RSS feeds from multiple sources
-async function fetchRSSNews(limit: number = 20): Promise<NewsItem[]> {
+async function fetchRSSNews(): Promise<NewsItem[]> {
   // Fetch all RSS feeds in parallel
   const feedPromises = RSS_FEEDS.map(async (feed) => {
     try {
@@ -261,8 +302,8 @@ async function fetchRSSNews(limit: number = 20): Promise<NewsItem[]> {
     articlesBySource[source] = stablecoinArticles;
   }
 
-  // Distribute articles according to source preferences
-  const distributedArticles = distributeArticles(articlesBySource, limit);
+  // Distribute articles according to source preferences (fetch up to 100 for cache)
+  const distributedArticles = distributeArticles(articlesBySource, 100);
 
   // Map to NewsItem
   return distributedArticles.map(mapRSSToNewsItem);
@@ -428,7 +469,7 @@ export function usePaginatedNews(
     setCurrentPage(1);
     try {
       // Fetch more articles for pagination
-      let newsData = await fetchRSSNews(100);
+      let newsData = await fetchRSSNewsCached(100);
 
       // Fall back to mock data if no stablecoin articles found
       if (newsData.length === 0) {
@@ -491,8 +532,8 @@ export function useTopHeadlines(limit: number = 5): UseApiResult<NewsItem[]> {
   const fetchHeadlines = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Try to fetch from RSS feeds first
-      let newsData = await fetchRSSNews(limit);
+      // Try to fetch from RSS feeds first (uses cache if available)
+      let newsData = await fetchRSSNewsCached(limit);
 
       // Fall back to mock data if no stablecoin articles found
       if (newsData.length === 0) {
