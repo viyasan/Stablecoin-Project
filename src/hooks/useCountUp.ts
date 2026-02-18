@@ -8,6 +8,7 @@ interface UseCountUpOptions {
   easing?: 'easeOut' | 'easeInOut' | 'linear';
   formatter?: (value: number) => string;
   shouldAnimate?: boolean;
+  delay?: number;
 }
 
 export function useCountUp({
@@ -18,26 +19,33 @@ export function useCountUp({
   easing = 'easeOut',
   formatter,
   shouldAnimate = true,
+  delay = 0,
 }: UseCountUpOptions) {
   const [count, setCount] = useState<number>(start);
   const frameRef = useRef<number | undefined>(undefined);
   const startTimeRef = useRef<number | undefined>(undefined);
-  const prevEndRef = useRef<number>(start);
+  // Tracks the live displayed value each frame so tab switches animate from
+  // the current position. StrictMode cleanup fires before any frames run,
+  // so it naturally resets to the initial value (0) on remount.
+  const currentValueRef = useRef<number>(start);
 
   useEffect(() => {
     if (!shouldAnimate) {
       setCount(end);
+      currentValueRef.current = end;
       return;
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       setCount(end);
+      currentValueRef.current = end;
       return;
     }
 
-    const actualStart = prevEndRef.current;
-    prevEndRef.current = end;
+    const actualStart = currentValueRef.current;
+
+    let delayTimer: ReturnType<typeof setTimeout> | undefined;
 
     const ease = (t: number): number => {
       if (easing === 'easeOut') {
@@ -60,6 +68,7 @@ export function useCountUp({
 
       const currentCount = actualStart + (end - actualStart) * easedProgress;
       setCount(currentCount);
+      currentValueRef.current = currentCount;
 
       if (progress < 1) {
         frameRef.current = requestAnimationFrame(animate);
@@ -68,14 +77,22 @@ export function useCountUp({
       }
     };
 
-    frameRef.current = requestAnimationFrame(animate);
+    if (delay > 0) {
+      delayTimer = setTimeout(() => {
+        frameRef.current = requestAnimationFrame(animate);
+      }, delay);
+    } else {
+      frameRef.current = requestAnimationFrame(animate);
+    }
 
     return () => {
+      clearTimeout(delayTimer);
       if (frameRef.current) {
         cancelAnimationFrame(frameRef.current);
       }
+      startTimeRef.current = undefined;
     };
-  }, [end, duration, easing, shouldAnimate]);
+  }, [end, duration, easing, shouldAnimate, delay]);
 
   const displayValue = formatter ? formatter(count) : count.toFixed(decimals);
 
