@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useMarketCapChart } from '../../api';
-import { SkeletonChart } from '../common';
+import { SkeletonChart, FadeInSlide } from '../common';
 
 type TimeRange = '30d' | '1y' | 'max';
 
@@ -201,11 +201,12 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   const colors = ['#E2B050', '#ADB5BD', '#CD7F32', '#495057'];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
-      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-chrome-900">
-          Market Cap Over Time
-        </h2>
+    <FadeInSlide>
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
+        <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-chrome-900">
+            Market Cap Over Time
+          </h2>
         <div className="flex items-center gap-1 bg-chrome-100 rounded-lg p-1">
           {(Object.keys(timeRangeLabels) as TimeRange[]).map((range) => (
             <button
@@ -271,6 +272,10 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                       stroke={colors[index]}
                       fill={`url(#gradient-${index})`}
                       strokeWidth={2}
+                      animationDuration={800}
+                      animationBegin={index * 50}
+                      animationEasing="ease-out"
+                      isAnimationActive={true}
                     />
                   ))}
                 </>
@@ -281,6 +286,10 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                   stroke="#E2B050"
                   fill="url(#gradient-0)"
                   strokeWidth={2}
+                  animationDuration={800}
+                  animationBegin={0}
+                  animationEasing="ease-out"
+                  isAnimationActive={true}
                 />
               )}
             </AreaChart>
@@ -291,5 +300,6 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
         </div>
       </div>
     </div>
+    </FadeInSlide>
   );
 }

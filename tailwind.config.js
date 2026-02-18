@@ -41,6 +41,31 @@ export default {
           neutral: '#6C757D',
         },
       },
+      keyframes: {
+        'fade-in-slide': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(8px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        'slide-in-right': {
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'slide-in-left': {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        'fade-in-slide': 'fade-in-slide 300ms ease-out forwards',
+        'slide-in-right': 'slide-in-right 400ms ease-out forwards',
+        'slide-in-left': 'slide-in-left 400ms ease-out forwards',
+      },
     },
   },
   plugins: [],

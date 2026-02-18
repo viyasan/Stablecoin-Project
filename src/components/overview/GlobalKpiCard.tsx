@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useMarketSummary, useStablecoinList, useMarketCapChart } from '../../api';
 import { SkeletonKpiCard, Sparkline } from '../common';
+import { useCountUp } from '../../hooks/useCountUp';
+import { FadeInSlide } from '../common/FadeInSlide';
 
 function formatCurrency(value: number): string {
   if (value >= 1_000_000_000_000) {
@@ -47,6 +49,15 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { data: stablecoins } = useStablecoinList();
 
+  // Animated counter for tracked assets
+  const { displayValue: countDisplay } = useCountUp({
+    end: count,
+    duration: 1400,
+    decimals: 0,
+    easing: 'easeOut',
+    shouldAnimate: true,
+  });
+
   // Calculate breakdowns
   const pegBreakdown = { USD: 0, EUR: 0, JPY: 0, GBP: 0, SGD: 0, OTHER: 0 };
   const issuerBreakdown = { 'fiat-backed': 0, 'crypto-collateralized': 0, algorithmic: 0 };
@@ -66,7 +77,7 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
     >
       <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Tracked Assets</p>
       <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 cursor-pointer hover:text-gold-500 transition-colors text-center">
-        {count}
+        {countDisplay}
       </p>
       {/* Spacer to match height of sparkline section */}
       <div className="mt-3 h-7" />
@@ -165,6 +176,25 @@ export function GlobalKpiCard() {
   // Extract sparkline data (last 30 days of market cap values)
   const sparklineData = chartData?.map((point) => point.totalMarketCap) || [];
 
+  // Calculate values (with safe defaults for loading state)
+  const marketCap7dAgo = data ? data.totalMarketCap / (1 + data.change7d / 100) : 0;
+  const marketCap30dAgo = data ? data.totalMarketCap / (1 + data.change30d / 100) : 0;
+
+  // Animated counter for market cap - must be called before any returns
+  const currentMarketCap = data
+    ? (viewMode === 'total' ? data.totalMarketCap :
+       viewMode === '7d' ? marketCap7dAgo :
+       marketCap30dAgo)
+    : 0;
+
+  const { displayValue: marketCapDisplay } = useCountUp({
+    end: currentMarketCap,
+    duration: 1400,
+    easing: 'easeOut',
+    formatter: formatCurrency,
+    shouldAnimate: !isLoading,
+  });
+
   if (isLoading) {
     return <SkeletonKpiCard showSparkline={true} />;
   }
@@ -185,12 +215,9 @@ export function GlobalKpiCard() {
     );
   }
 
-  // Calculate historical market cap values
-  const marketCap7dAgo = data.totalMarketCap / (1 + data.change7d / 100);
-  const marketCap30dAgo = data.totalMarketCap / (1 + data.change30d / 100);
-
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md">
+    <FadeInSlide>
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md">
       <div className="px-6 py-4 border-b border-chrome-100">
         <h2 className="text-lg font-semibold text-chrome-900 mb-3">
           Global Stablecoin Market
@@ -237,7 +264,7 @@ export function GlobalKpiCard() {
               <div className="flex flex-col items-center justify-center px-4 py-4">
                 <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Total Market Cap</p>
                 <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">
-                  {formatCurrency(data.totalMarketCap)}
+                  {marketCapDisplay}
                 </p>
                 {sparklineData.length > 0 && (
                   <div className="mt-3 flex items-center gap-3">
@@ -261,7 +288,7 @@ export function GlobalKpiCard() {
             <>
               <div className="flex flex-col items-center justify-center px-4 py-4">
                 <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Market Cap (7 days ago)</p>
-                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{formatCurrency(marketCap7dAgo)}</p>
+                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{marketCapDisplay}</p>
                 {sparklineData.length > 0 && (
                   <div className="mt-3 flex items-center gap-3">
                     <Sparkline
@@ -284,7 +311,7 @@ export function GlobalKpiCard() {
             <>
               <div className="flex flex-col items-center justify-center px-4 py-4">
                 <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Market Cap (30 days ago)</p>
-                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{formatCurrency(marketCap30dAgo)}</p>
+                <p className="text-4xl lg:text-5xl font-bold font-mono-numbers text-chrome-900 text-center">{marketCapDisplay}</p>
                 {sparklineData.length > 0 && (
                   <div className="mt-3 flex items-center gap-3">
                     <Sparkline
@@ -308,5 +335,6 @@ export function GlobalKpiCard() {
         </div>
       </div>
     </div>
+    </FadeInSlide>
   );
 }

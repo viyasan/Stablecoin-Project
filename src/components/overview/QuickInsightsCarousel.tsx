@@ -37,27 +37,32 @@ const INSIGHTS = [
 export function QuickInsightsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
 
-  // Auto-rotate every 10 seconds
+  // Auto-rotate every 6 seconds
   useEffect(() => {
     if (isPaused) return;
 
     const interval = setInterval(() => {
+      setDirection('right');
       setCurrentIndex((prev) => (prev + 1) % INSIGHTS.length);
-    }, 10000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [isPaused]);
 
   const goToPrevious = () => {
+    setDirection('left');
     setCurrentIndex((prev) => (prev - 1 + INSIGHTS.length) % INSIGHTS.length);
   };
 
   const goToNext = () => {
+    setDirection('right');
     setCurrentIndex((prev) => (prev + 1) % INSIGHTS.length);
   };
 
   const goToSlide = (index: number) => {
+    setDirection(index > currentIndex ? 'right' : 'left');
     setCurrentIndex(index);
   };
 
@@ -91,8 +96,13 @@ export function QuickInsightsCarousel() {
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <div className="flex-1 px-6">
-            <p className="text-white text-lg font-medium text-center leading-relaxed">
+          <div className="flex-1 px-6 relative overflow-hidden">
+            <p
+              key={INSIGHTS[currentIndex].id}
+              className={`text-white text-lg font-medium text-center leading-relaxed ${
+                direction === 'right' ? 'animate-slide-in-right' : 'animate-slide-in-left'
+              }`}
+            >
               {INSIGHTS[currentIndex].text}
             </p>
           </div>

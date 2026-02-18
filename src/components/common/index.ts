@@ -12,3 +12,4 @@ export {
 export { Sparkline } from './Sparkline';
 export { Tag } from './Tag';
 export { NewsletterBanner } from './NewsletterBanner';
+export { FadeInSlide } from './FadeInSlide';

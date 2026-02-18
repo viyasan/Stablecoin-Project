@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { Layers } from "lucide-react";
 import { useChainBreakdown } from "../../api";
-import { SkeletonBarChart } from "../common";
+import { SkeletonBarChart, FadeInSlide } from "../common";
 
 // Chain colors - distinct colors for each chain
 const CHAIN_COLORS: Record<string, string> = {
@@ -185,12 +185,13 @@ export function ChainBreakdownChart() {
   }));
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
-      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-semibold text-chrome-900">
-            Stablecoin Supply by Chain
-          </h2>
+    <FadeInSlide>
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
+        <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-chrome-900">
+              Stablecoin Supply by Chain
+            </h2>
           <p className="text-sm text-chrome-500 mt-1">
             Top 10 chains by stablecoin supply
           </p>
@@ -239,6 +240,10 @@ export function ChainBreakdownChart() {
                 dataKey="totalCirculating"
                 radius={[0, 4, 4, 0]}
                 barSize={28}
+                animationDuration={600}
+                animationBegin={0}
+                animationEasing="ease-out"
+                isAnimationActive={true}
               >
                 {chartData.map((entry, index) => (
                   <Cell
@@ -255,5 +260,6 @@ export function ChainBreakdownChart() {
         </div>
       </div>
     </div>
+    </FadeInSlide>
   );
 }
