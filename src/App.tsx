@@ -10,6 +10,7 @@ import {
   CountryDetailPage,
   NewsPage,
   DisclaimerPage,
+  YieldPoolDetailPage,
 } from './routes';
 
 // Configure NProgress
@@ -77,6 +78,7 @@ function App() {
             <Route path="/countries/:code" element={<CountryDetailPage />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
+            <Route path="/yields/:poolId" element={<YieldPoolDetailPage />} />
           </Routes>
         </div>
         <Footer />

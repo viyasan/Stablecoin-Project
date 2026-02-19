@@ -7,5 +7,5 @@ export { MarketSharePieChart } from './MarketSharePieChart';
 export { QuickInsightsCarousel } from './QuickInsightsCarousel';
 export { ReserveCompositionCard } from './ReserveCompositionCard';
 export { TopHeadlinesList } from './TopHeadlinesList';
-export { TransactionKpiCard } from './TransactionKpiCard';
+export { YieldCard } from './YieldCard';
 export { TreasuryHoldingsCard } from './TreasuryHoldingsCard';

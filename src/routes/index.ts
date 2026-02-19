@@ -4,3 +4,4 @@ export { CountriesPage } from "./CountriesPage";
 export { CountryDetailPage } from "./CountryDetailPage";
 export { NewsPage } from "./NewsPage";
 export { DisclaimerPage } from "./DisclaimerPage";
+export { YieldPoolDetailPage } from "./YieldPoolDetailPage";

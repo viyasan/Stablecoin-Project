@@ -71,7 +71,7 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
 
   return (
     <div
-      className="flex flex-col items-center justify-center px-4 py-4 relative"
+      className="flex flex-col items-center justify-center px-4 py-8 relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -285,9 +285,9 @@ export function GlobalKpiCard() {
               </button>
             </div>
           </div>
-          <div className="px-6 py-6">
+          <div className="px-6 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-              <div className="flex flex-col items-center justify-center px-4 py-4">
+              <div className="flex flex-col items-center justify-center px-4 py-8">
                 {viewMode === 'total' && (
                   <>
                     <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Total Market Cap</p>
