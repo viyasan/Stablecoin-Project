@@ -1,4 +1,5 @@
 export { AboutOurData } from './AboutOurData';
+export { CoinCarousel } from './CoinCarousel';
 export { ChainBreakdownChart } from './ChainBreakdownChart';
 export { GlobalKpiCard } from './GlobalKpiCard';
 export { MarketCapChart } from './MarketCapChart';

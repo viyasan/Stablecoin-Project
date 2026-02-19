@@ -13,6 +13,7 @@ import {
   TopHeadlinesList,
   TransactionKpiCard,
   TreasuryHoldingsCard,
+  CoinCarousel,
 } from '../components/overview';
 
 export function OverviewPage() {
@@ -26,14 +27,21 @@ export function OverviewPage() {
     <PageContainer>
       {/* Hero Section */}
       <FadeInSlide>
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-chrome-800 mb-2">
-            Stablecoin Market Overview
-          </h1>
-          <p className="text-lg text-chrome-500">
-            Your single destination for stablecoin market data, regulation
-            tracking, and insights.
-          </p>
+        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-12">
+          {/* Left: text */}
+          <div className="lg:max-w-lg">
+            <h1 className="text-3xl font-bold text-chrome-800 mb-2">
+              Stablecoin Market Overview
+            </h1>
+            <p className="text-lg text-chrome-500">
+              Your single destination for stablecoin market data, regulation
+              tracking, and insights.
+            </p>
+          </div>
+          {/* Right: coin carousel */}
+          <div className="flex-shrink-0 flex justify-center">
+            <CoinCarousel />
+          </div>
         </div>
       </FadeInSlide>
 
