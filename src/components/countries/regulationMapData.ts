@@ -26,6 +26,13 @@ export interface LegislativeDevelopment {
   points: string[];
 }
 
+export interface OfficialSource {
+  name: string;
+  url: string;
+  date?: string;
+  type: 'legislation' | 'guidance' | 'regulator' | 'news';
+}
+
 export interface RegulationCountry {
   id: string;
   name: string;
@@ -35,7 +42,9 @@ export interface RegulationCountry {
   summary: string;
   keyPoints: string[];
   lastUpdated: string;
+  lastVerified: string; // NEW - YYYY-MM-DD format
   regulatorName: string;
+  sources?: OfficialSource[]; // NEW - Citation links
   // Extended fields for detailed country data
   regulatoryBodies?: RegulatoryBody[];
   legislativeDevelopments?: LegislativeDevelopment[];
@@ -54,15 +63,61 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'United States',
     isoCodes: ['US'],
     stage: 'implemented',
-    summary: 'The United States enacted the GENIUS Act (Guiding and Establishing National Innovation for US Stablecoins Act) in July 2025, establishing the first comprehensive federal regulatory framework for payment stablecoins. The legislation passed with strong bipartisan support (68-30 in the Senate, 308-122 in the House) and was signed into law by President Trump on July 18, 2025.\n\nThe GENIUS Act clarifies that payment stablecoins are neither securities nor commodities, removing SEC and CFTC oversight. Instead, bank issuers are regulated by their primary federal banking regulator, while nonbank issuers are overseen by the OCC. Issuers must maintain 100% reserve backing with highly liquid assets, publish monthly reserve compositions, and honor redemptions at par within one day. Full implementation is expected by November 2026.',
+    summary: 'The United States enacted the GENIUS Act (Guiding and Establishing National Innovation for US Stablecoins Act) on July 18, 2025, establishing the first comprehensive federal regulatory framework for payment stablecoins. The legislation passed with strong bipartisan support (68-30 in the Senate, 308-122 in the House).\n\nThe GENIUS Act clarifies that payment stablecoins are neither securities nor commodities, removing SEC and CFTC oversight. Instead, bank issuers are regulated by their primary federal banking regulator, while nonbank issuers are overseen by the OCC. Issuers must maintain 100% reserve backing with highly liquid assets, publish monthly reserve compositions, and honor redemptions at par within one day. Federal agencies must finalize implementing regulations by July 18, 2026, with full compliance required by January 18, 2027 (or 120 days after regulations issued). Existing issuers have until July 18, 2028 to comply.',
     keyPoints: [
-      'GENIUS Act signed into law July 2025, full implementation expected November 2026',
+      'GENIUS Act signed into law July 18, 2025; regulations due July 2026, effective January 2027',
+      'OCC granted conditional federal charters to Circle, Ripple, Paxos, BitGo, Fidelity (December 2025)',
       '100% reserve backing required with liquid assets (USD, T-bills, government money market funds)',
-      'Payment stablecoins explicitly excluded from SEC and CFTC jurisdiction',
-      'State regulatory option available for nonbank issuers under $10 billion market cap',
+      'Payment stablecoins explicitly excluded from SEC and CFTC securities/commodities jurisdiction',
+      'SEC April 2025 guidance exempts "Covered Stablecoins" from securities registration',
+      'CBDC development effectively halted via Executive Order and Congressional opposition',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-07',
+    lastVerified: '2026-02-20',
     regulatorName: 'Office of the Comptroller of the Currency (OCC), Federal Reserve, FDIC & State Regulators',
+    sources: [
+      {
+        name: 'S.1582 - GENIUS Act (Full Text)',
+        url: 'https://www.congress.gov/bill/119th-congress/senate-bill/1582',
+        date: '2025-07-18',
+        type: 'legislation',
+      },
+      {
+        name: 'White House - GENIUS Act Signing Fact Sheet',
+        url: 'https://www.whitehouse.gov/fact-sheets/2025/07/fact-sheet-president-donald-j-trump-signs-genius-act-into-law/',
+        date: '2025-07-18',
+        type: 'regulator',
+      },
+      {
+        name: 'Federal Register - GENIUS Act Implementation',
+        url: 'https://www.federalregister.gov/documents/2025/09/19/2025-18226/genius-act-implementation',
+        date: '2025-09-19',
+        type: 'guidance',
+      },
+      {
+        name: 'SEC Statement on Stablecoins (Covered Stablecoins)',
+        url: 'https://www.sec.gov/newsroom/speeches-statements/statement-stablecoins-040425',
+        date: '2025-04-04',
+        type: 'guidance',
+      },
+      {
+        name: 'OCC Conditional Approval - Circle & Others',
+        url: 'https://www.occ.gov/news-issuances/news-releases/2025/nr-occ-2025-125a.pdf',
+        date: '2025-12-12',
+        type: 'regulator',
+      },
+      {
+        name: 'Federal Reserve - Central Bank Digital Currency',
+        url: 'https://www.federalreserve.gov/central-bank-digital-currency.htm',
+        type: 'regulator',
+      },
+      {
+        name: 'FDIC - Payment Stablecoin Approval Requirements',
+        url: 'https://www.fdic.gov/news/press-releases/2025/fdic-approves-proposal-establish-genius-act-application-procedures-fdic',
+        date: '2025-12-19',
+        type: 'guidance',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Office of the Comptroller of the Currency (OCC)', role: 'Primary regulator for federally licensed nonbank stablecoin issuers' },
       { name: 'Federal Reserve', role: 'Oversight for Fed-member bank stablecoin issuers' },
@@ -102,11 +157,20 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Payment stablecoins are not commodities under the Commodity Exchange Act',
       'State-regulated option available for nonbank issuers under $10 billion market cap',
     ],
+    cbdcStatus: [
+      'Executive Order 14178 (2025) prohibits U.S. government from creating or promoting CBDC',
+      'Federal Reserve Chair Powell committed to never issuing CBDC during tenure',
+      'House passed Anti-CBDC Surveillance State Act; Senate S.464 pending',
+      'CBDC development effectively halted in favor of private-sector stablecoin solutions',
+      'Federal Reserve maintains pilot research programs but no active retail CBDC development',
+    ],
     stablecoinIssuers: [
-      { company: 'Tether', stablecoin: 'USDT', status: 'Largest by market cap; seeking GENIUS Act compliance' },
-      { company: 'Circle', stablecoin: 'USDC', status: 'Provisional national bank charter approved; $78B market cap' },
-      { company: 'Paxos Trust Company', stablecoin: 'PYUSD / USDP', status: 'NYDFS-regulated trust company; issues PayPal USD' },
-      { company: 'Gemini Trust Company', stablecoin: 'GUSD', status: 'NYDFS-regulated trust company' },
+      { company: 'Circle', stablecoin: 'USDC', status: 'Conditional OCC national trust bank charter (Dec 2025); world\'s largest regulated stablecoin' },
+      { company: 'Tether', stablecoin: 'USDT', status: 'Largest by market cap; must comply with GENIUS Act by July 2028 or cease U.S. operations' },
+      { company: 'Paxos Trust Company', stablecoin: 'PYUSD / USDP', status: 'Conditional OCC approval for national trust bank conversion (Dec 2025); NYDFS-regulated' },
+      { company: 'Gemini Trust Company', stablecoin: 'GUSD', status: 'NYDFS-regulated trust company; well-positioned for GENIUS Act compliance' },
+      { company: 'PayPal', stablecoin: 'PYUSD', status: 'Issued by Paxos; 200% growth in H1 2025; expanding in 2026' },
+      { company: 'Ripple', stablecoin: 'RLUSD', status: 'Conditional OCC national trust bank charter (Dec 2025)' },
     ],
   },
   {
@@ -118,15 +182,51 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
     ],
     stage: 'implemented',
-    summary: 'The European Union implemented the Markets in Crypto-Assets (MiCA) Regulation, the world\'s first comprehensive crypto regulatory framework. Stablecoin provisions (for ARTs and EMTs) became effective June 30, 2024, with full CASP authorization required by December 30, 2024.\n\nMiCA distinguishes between Asset-Referenced Tokens (ARTs) backed by multiple assets and Electronic Money Tokens (EMTs) backed by a single fiat currency. Issuers must be authorized credit or electronic money institutions, maintain full reserve backing, and ensure redemption at par value. The European Banking Authority (EBA) directly supervises "significant" stablecoins that pose systemic risks. Non-compliant stablecoins like USDT have been delisted from major EU exchanges.',
+    summary: 'The European Union implemented the Markets in Crypto-Assets (MiCA) Regulation, the world\'s first comprehensive crypto regulatory framework. Stablecoin provisions (for ARTs and EMTs) became effective June 30, 2024, with full CASP authorization required by December 30, 2024.\n\nMiCA distinguishes between Asset-Referenced Tokens (ARTs) backed by multiple assets and Electronic Money Tokens (EMTs) backed by a single fiat currency. Issuers must be authorized credit or electronic money institutions, maintain full reserve backing, and ensure redemption at par value. The European Banking Authority (EBA) directly supervises "significant" stablecoins that pose systemic risks. As of January 2026, 17 EMT issuers are authorized across 10 EU member states. The final CASP authorization deadline is July 1, 2026, with no grace period—operating without authorization will result in penalties up to €15 million or 12.5% of annual turnover.',
     keyPoints: [
-      'MiCA fully implemented December 2024; first comprehensive crypto regulation globally',
-      'EMTs (single-currency) and ARTs (multi-asset) require authorization as credit/e-money institutions',
-      'Non-EU currency stablecoins limited to 1M daily transactions or €200M payment value',
-      'USDT delisted from EU exchanges due to non-compliance; USDC and EURC are compliant',
+      'MiCA fully implemented December 30, 2024; final CASP authorization deadline July 1, 2026',
+      'ESMA/EC guidance (Jan 2025): Non-compliant ARTs/EMTs must cease by March 31, 2025',
+      'USDT delisted from all major EU exchanges by March 2025 due to non-compliance',
+      'Circle USDC/EURC first major global stablecoin to achieve full MiCA compliance',
+      '17 authorized EMT issuers as of January 2026; 102 CASPs operating in EU',
+      'CARF/DAC8 tax reporting became effective January 1, 2026 for crypto transactions',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2024-12',
+    lastVerified: '2026-02-20',
     regulatorName: 'European Banking Authority (EBA) & National Competent Authorities (NCAs)',
+    sources: [
+      {
+        name: 'MiCA Regulation (EUR-Lex Official Text)',
+        url: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R1114',
+        type: 'legislation',
+      },
+      {
+        name: 'EBA - Asset-Referenced and E-Money Tokens Page',
+        url: 'https://www.eba.europa.eu/regulation-and-policy/asset-referenced-and-e-money-tokens-mica',
+        type: 'regulator',
+      },
+      {
+        name: 'ESMA - Markets in Crypto-Assets Regulation (MiCA)',
+        url: 'https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica',
+        type: 'regulator',
+      },
+      {
+        name: 'ESMA/EC Guidance on Non-Compliant Stablecoins',
+        url: 'https://www.esma.europa.eu/press-news/esma-news/esma-and-european-commission-publish-guidance-non-mica-compliant-arts-and-emts',
+        date: '2025-01-17',
+        type: 'guidance',
+      },
+      {
+        name: 'ECB - Digital Euro Progress',
+        url: 'https://www.ecb.europa.eu/euro/digital_euro/html/index.en.html',
+        type: 'regulator',
+      },
+      {
+        name: 'European Commission - Crypto-Assets Main Page',
+        url: 'https://finance.ec.europa.eu/digital-finance/crypto-assets_en',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'European Banking Authority (EBA)', role: 'Direct supervision of significant ARTs and EMTs; issues binding technical standards' },
       { name: 'European Securities and Markets Authority (ESMA)', role: 'Oversight of CASPs; guidance on non-compliant stablecoins' },
@@ -154,11 +254,20 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Tokens usable only within limited networks',
       'Tokens with total value below €5 million over 12 months',
     ],
+    cbdcStatus: [
+      'ECB Governing Council advanced digital euro to next project phase (October 2025)',
+      'EU co-legislators expected to adopt enabling legislation in 2026',
+      'European Parliament vote scheduled for June 2026',
+      'Pilot exercise and initial transactions targeted for mid-2027',
+      'First potential issuance targeted for 2029 (pending regulatory approval)',
+      'Implementation cost: €4-5.8 billion for banks (lower than previous estimates)',
+    ],
     stablecoinIssuers: [
-      { company: 'Circle', stablecoin: 'USDC / EURC', status: 'MiCA-compliant; EURC holds >50% of Euro stablecoin market' },
-      { company: 'Société Générale-Forge', stablecoin: 'EURCV', status: 'MiCA-compliant; regulated subsidiary of Société Générale' },
-      { company: 'Tether', stablecoin: 'USDT / EURT', status: 'Non-compliant; delisted from major EU exchanges March 2025' },
-      { company: 'Banking Circle', stablecoin: 'EURI', status: 'MiCA-compliant EMT' },
+      { company: 'Circle', stablecoin: 'USDC / EURC', status: 'First major global stablecoin MiCA-compliant; French ACPR EMI license (July 2024)' },
+      { company: 'Société Générale-Forge', stablecoin: 'EURCV', status: 'MiCA-compliant; multi-chain (Ethereum, Solana, XRP, Stellar); deployed on XRP Feb 2026' },
+      { company: 'Banking Circle', stablecoin: 'EURI', status: 'First bank-backed MiCA-compliant stablecoin; operational on Ethereum and BNB Chain' },
+      { company: 'Paxos', stablecoin: 'USDG', status: 'First U.S.-based issuer with full MiCA compliance; Finnish FIN-FSA regulated' },
+      { company: 'Tether', stablecoin: 'USDT / EURT', status: 'Non-compliant; delisted from all major EU exchanges by March 31, 2025' },
     ],
   },
   {
@@ -166,15 +275,54 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'United Kingdom',
     isoCodes: ['GB'],
     stage: 'approved',
-    summary: 'The United Kingdom is developing a comprehensive regulatory framework for stablecoins through the Financial Services and Markets Act (FSMA) 2023. The FCA published Consultation Paper 25/14 in May 2025, proposing rules for "qualifying stablecoins" referencing a single fiat currency.\n\nThe Bank of England published its consultation on systemic stablecoin regulation in November 2025, establishing a dual-regulator model. Systemic stablecoins (those posing financial stability risks) will be jointly regulated by the Bank of England (prudential oversight) and FCA (conduct and consumer protection). Non-systemic issuers will be FCA-regulated only. Full implementation is expected by October 2027.',
+    summary: 'The United Kingdom is developing a comprehensive regulatory framework for stablecoins through the Financial Services and Markets Act (FSMA) 2023. HM Treasury laid the Financial Services and Markets Act 2000 (Cryptoassets) Regulations 2026 (SI 2026/102) before Parliament on December 15, 2025, creating six new regulated activities including stablecoin issuance and cryptoasset custody.\n\nThe FCA published Consultation Paper CP25/14 in May 2025 (closed July 2025), proposing rules for "qualifying stablecoins" referencing a single fiat currency. The Bank of England published its consultation on systemic stablecoin regulation in November 2025 (closing February 10, 2026), establishing a dual-regulator model. The comprehensive regime comes into force October 25, 2027, with application windows opening September 30, 2026. The FCA launched a Stablecoins Regulatory Sandbox cohort (applications closed January 18, 2026) to enable testing and policy development.',
     keyPoints: [
-      'FCA authorization required for qualifying stablecoin issuers; final rules expected 2026',
-      'Systemic stablecoins jointly regulated by Bank of England and FCA',
-      'Full backing required: 40% BoE deposits, 60% short-term UK government debt for systemic issuers',
-      'Per-coin holding limits proposed: £20,000 for individuals, £10M for businesses',
+      'Full regime comes into force October 25, 2027; application window opens September 30, 2026',
+      'FCA CP25/14 consultation closed July 2025; BoE systemic stablecoin consultation closes Feb 10, 2026',
+      'Dual regulation: BoE (systemic/prudential) and FCA (conduct/consumer protection)',
+      'Reserve requirements: 40% BoE deposits, 60% UK government debt (standard); 95% debt allowed initially',
+      'Holding limits: £20,000 for individuals, £10M for businesses (exemptions available)',
+      'FCA Stablecoins Sandbox launched November 2025; testing begins Q1 2026',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-12',
+    lastVerified: '2026-02-20',
     regulatorName: 'Financial Conduct Authority (FCA) & Bank of England',
+    sources: [
+      {
+        name: 'FCA CP25/14: Stablecoin Issuance and Cryptoasset Custody',
+        url: 'https://www.fca.org.uk/publications/consultation-papers/cp25-14-stablecoin-issuance-cryptoasset-custody',
+        date: '2025-05-28',
+        type: 'guidance',
+      },
+      {
+        name: 'Bank of England - Systemic Stablecoins Consultation',
+        url: 'https://www.bankofengland.co.uk/paper/2025/cp/proposed-regulatory-regime-for-sterling-denominated-systemic-stablecoins',
+        date: '2025-11-10',
+        type: 'guidance',
+      },
+      {
+        name: 'SI 2026/102 - Cryptoassets Regulations 2026',
+        url: 'https://www.legislation.gov.uk/uksi/2026/102/contents/made',
+        date: '2025-12-15',
+        type: 'legislation',
+      },
+      {
+        name: 'FCA - New Regime for Cryptoasset Regulation',
+        url: 'https://www.fca.org.uk/firms/new-regime-cryptoasset-regulation',
+        type: 'regulator',
+      },
+      {
+        name: 'FCA - Regulatory Sandbox: Stablecoins Cohort',
+        url: 'https://www.fca.org.uk/firms/innovation/regulatory-sandbox/stablecoins-cohort',
+        date: '2025-11-26',
+        type: 'regulator',
+      },
+      {
+        name: 'HM Treasury - Future Regulatory Regime for Cryptoassets',
+        url: 'https://www.gov.uk/government/publications/regulatory-regime-for-cryptoassets-regulated-activities-draft-si-and-policy-note',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Financial Conduct Authority (FCA)', role: 'Authorization and supervision of stablecoin issuers; conduct and consumer protection' },
       { name: 'Bank of England', role: 'Prudential oversight and financial stability for systemic stablecoins' },
@@ -199,9 +347,15 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Retail businesses and intermediaries may be exempted from £10M business limits',
       'Non-systemic stablecoins regulated by FCA only (not Bank of England)',
     ],
+    cbdcStatus: [
+      'Bank of England exploring digital pound (retail CBDC)',
+      'Consultation papers published; no implementation timeline announced',
+      'Stablecoin framework designed to mirror potential digital pound features (e.g., no interest payments)',
+      'Focus on compatibility between private stablecoins and future digital pound',
+    ],
     stablecoinIssuers: [
-      { company: 'FCA Regulatory Sandbox', stablecoin: 'Various GBP stablecoins', status: 'Sandbox cohort launched November 2025 for testing' },
-      { company: 'Circle', stablecoin: 'USDC', status: 'Available in UK; seeking UK-specific authorization' },
+      { company: 'FCA Regulatory Sandbox', stablecoin: 'Various GBP stablecoins', status: 'Applications closed Jan 18, 2026; testing begins Q1 2026' },
+      { company: 'Circle', stablecoin: 'USDC', status: 'Available in UK; expected to seek authorization once regime operational (Oct 2027)' },
     ],
   },
   {
@@ -209,15 +363,43 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'Singapore',
     isoCodes: ['SG'],
     stage: 'implemented',
-    summary: 'The Monetary Authority of Singapore (MAS) finalized its stablecoin regulatory framework in August 2023, with full implementation expected by mid-2026. The framework applies to Single-Currency Stablecoins (SCS) pegged to the Singapore Dollar or any G10 currency, issued from Singapore.\n\nTo obtain the "MAS-regulated" label, issuers must maintain 100% reserves in the peg currency, publish monthly independent attestations, undergo annual audits, and redeem at par within five business days. MAS does not allow multijurisdictional issuance—SCS issuers must issue solely from Singapore. In November 2025, MAS announced trials for tokenized MAS bills in 2026.',
+    summary: 'The Monetary Authority of Singapore (MAS) finalized its Single-Currency Stablecoin (SCS) regulatory framework on August 15, 2023, with full implementation expected by mid-2026 through forthcoming legislation. The framework applies to stablecoins pegged to the Singapore Dollar or any G10 currency (USD, EUR, JPY, GBP, AUD, NZD, CAD, CHF, NOK, SEK), issued from Singapore.\n\nTo obtain the "MAS-regulated" label, issuers must maintain 100% reserves in the peg currency, publish monthly independent attestations, undergo annual audits, and redeem at par within five business days. MAS requires stablecoins to be issued solely from Singapore (no multi-jurisdictional issuance initially). In November 2025, MAS announced Project BLOOM (Borderless, Liquid, Open, Online, Multi-currency) to extend settlement capabilities using tokenized assets and well-regulated stablecoins, with Q2 2026 cross-border QR payment trials between Thailand and Singapore. MAS will also trial tokenized MAS bills settlement using wholesale CBDC in 2026.',
     keyPoints: [
-      'MAS framework finalized August 2023; full implementation expected mid-2026',
-      'Applies to single-currency stablecoins pegged to SGD or G10 currencies only',
-      '100% reserve backing required; monthly attestations and annual audits mandatory',
-      'Issuers must be Singapore-based; no multijurisdictional issuance allowed',
+      'MAS framework finalized August 15, 2023; legislation in development for mid-2026 implementation',
+      'Project BLOOM launched October 2025 for multi-currency tokenized settlement (domestic & cross-border)',
+      'MAS to trial tokenized bills with wholesale CBDC settlement in 2026',
+      'StraitsX XSGD acknowledged as substantially compliant with SCS framework',
+      '100% reserve backing required; monthly attestations, annual audits, 5-day redemption',
+      'Circle USDC holds Major Payment Institution license (June 2023)',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-11',
+    lastVerified: '2026-02-20',
     regulatorName: 'Monetary Authority of Singapore (MAS)',
+    sources: [
+      {
+        name: 'MAS - Stablecoin Regulatory Framework',
+        url: 'https://www.mas.gov.sg/news/media-releases/2023/mas-finalises-stablecoin-regulatory-framework',
+        date: '2023-08-15',
+        type: 'regulator',
+      },
+      {
+        name: 'MAS - BLOOM Initiative Launch',
+        url: 'https://www.mas.gov.sg/news/media-releases/2025/mas-launches-bloom-initiative-to-extend-settlement-capabilities',
+        date: '2025-10-16',
+        type: 'regulator',
+      },
+      {
+        name: 'MAS Speech - Creating the Future of Finance (Tokenized Bills)',
+        url: 'https://www.mas.gov.sg/news/speeches/2025/creating-the-future-of-finance',
+        date: '2025-11-13',
+        type: 'regulator',
+      },
+      {
+        name: 'MAS - BLOOM Initiative Page',
+        url: 'https://www.mas.gov.sg/schemes-and-initiatives/bloom',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Monetary Authority of Singapore (MAS)', role: 'Primary regulator for stablecoins; grants "MAS-regulated" stablecoin label' },
     ],
@@ -241,9 +423,15 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Stablecoins pegged to non-G10 currencies remain under general DPT rules',
       'Stablecoins issued outside Singapore not eligible for MAS-regulated label',
     ],
+    cbdcStatus: [
+      'Project Orchid (established 2021) explores digital Singapore dollar with 10+ successful trials',
+      'MAS to trial tokenized MAS bills settlement using wholesale CBDC in 2026',
+      'Focus on wholesale CBDC for institutional settlement rather than retail CBDC',
+      'Preference for well-regulated private stablecoins for retail payments (via BLOOM initiative)',
+    ],
     stablecoinIssuers: [
-      { company: 'StraitsX', stablecoin: 'XSGD', status: 'SGD-backed; launched on Coinbase October 2025; reserves with DBS and Standard Chartered' },
-      { company: 'Circle', stablecoin: 'USDC', status: 'Available in Singapore' },
+      { company: 'StraitsX', stablecoin: 'XSGD / XUSD', status: 'Only SGD stablecoin acknowledged by MAS as SCS-compliant; expanding to Solana early 2026' },
+      { company: 'Circle', stablecoin: 'USDC', status: 'Holds Major Payment Institution license (June 2023); Circle Mint Singapore serves APAC' },
     ],
   },
   {
@@ -258,8 +446,21 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Stablecoins classified as Electronic Payment Instruments (EPI), not securities',
       'Bank-issued stablecoins protected by deposit insurance up to JPY 10 million',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-05',
+    lastVerified: '2026-02-20',
     regulatorName: 'Financial Services Agency (FSA)',
+    sources: [
+      {
+        name: 'FSA - Payment Services Act Overview',
+        url: 'https://www.fsa.go.jp/en/',
+        type: 'regulator',
+      },
+      {
+        name: 'Bank of Japan - Digital Currency Research',
+        url: 'https://www.boj.or.jp/en/',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Financial Services Agency (FSA)', role: 'Primary regulator for stablecoin issuers and intermediaries' },
       { name: 'Bank of Japan', role: 'Central bank oversight; deposit insurance for bank-issued stablecoins' },
@@ -298,8 +499,26 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Bank of Canada maintains public issuer registry and oversight',
       'Three CAD stablecoins: QCAD (live), CADD (Q1 2026), CADC (live)',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-11',
+    lastVerified: '2026-02-20',
     regulatorName: 'Bank of Canada, Canadian Securities Administrators (CSA) & Office of the Superintendent of Financial Institutions (OSFI)',
+    sources: [
+      {
+        name: 'Bank of Canada - Digital Currency Research',
+        url: 'https://www.bankofcanada.ca/',
+        type: 'regulator',
+      },
+      {
+        name: 'Canadian Securities Administrators - Crypto Asset Platform Framework',
+        url: 'https://www.securities-administrators.ca/',
+        type: 'regulator',
+      },
+      {
+        name: 'OSFI - Prudential Regulation',
+        url: 'https://www.osfi-bsif.gc.ca/',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Bank of Canada', role: 'Primary regulator under Stablecoin Act; maintains issuer registry' },
       { name: 'Canadian Securities Administrators (CSA)', role: 'Provincial securities regulators; crypto trading platform oversight' },
@@ -357,8 +576,27 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       '100% backing required with daily attestations; AED 10M minimum capital for VARA',
       'Algorithmic and privacy stablecoins banned; redemption at par within 1 working day',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-08',
+    lastVerified: '2026-02-20',
     regulatorName: 'Central Bank of UAE (CBUAE), Virtual Assets Regulatory Authority (VARA) & ADGM FSRA',
+    sources: [
+      {
+        name: 'Central Bank of UAE - Payment Token Services Regulation',
+        url: 'https://www.centralbank.ae/',
+        date: '2024-08',
+        type: 'regulator',
+      },
+      {
+        name: 'VARA - Virtual Assets Regulatory Framework',
+        url: 'https://www.vara.ae/',
+        type: 'regulator',
+      },
+      {
+        name: 'ADGM FSRA - Digital Assets Framework',
+        url: 'https://www.adgm.com/operating-in-adgm/fsra',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Central Bank of UAE (CBUAE)', role: 'Exclusive authority over AED stablecoins; federal oversight under 2025 Decree Law' },
       { name: 'Virtual Assets Regulatory Authority (VARA)', role: 'Dubai regulator for non-AED stablecoins and crypto assets' },
@@ -392,15 +630,49 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'Hong Kong',
     isoCodes: ['HK'],
     stage: 'implemented',
-    summary: 'Hong Kong enacted the Stablecoins Ordinance on May 21, 2025, which came into effect on August 1, 2025. The framework requires HKMA licensing for issuers of Fiat-Referenced Stablecoins (FRS) in Hong Kong and for HKD-linked FRS issuers anywhere.\n\nLicensed issuers can offer FRS to both retail and professional investors, while unlicensed foreign issuers are restricted to professional investors only. Issuers must maintain 100% backing with high-quality liquid assets, ensure par redemption within one business day, and meet capital requirements of HK$25 million. HKMA received 77 expressions of interest by August 2025, with first licenses expected early 2026.',
+    summary: 'Hong Kong enacted the Stablecoins Ordinance (Cap. 656) on May 21, 2025, which came into effect on August 1, 2025. The framework requires HKMA licensing for issuers of Fiat-Referenced Stablecoins (FRS) in Hong Kong and for HKD-linked FRS issuers anywhere globally.\n\nLicensed issuers can offer FRS to both retail and professional investors, while unlicensed foreign issuers are restricted to professional investors only. Issuers must maintain 100% backing with high-quality liquid assets, ensure par redemption within one business day, and meet capital requirements of HK$25 million paid-up capital, HK$3 million liquid capital, plus 12 months of operating expenses. HKMA received 77 expressions of interest by August 31, 2025, with 36 formal applications submitted by September 30, 2025. HKMA Chief Executive Eddie Yue announced on February 2, 2026 that first licenses will be issued in March 2026 to a "very small number" of qualified applicants.',
     keyPoints: [
-      'Stablecoins Ordinance effective August 1, 2025; first licenses expected early 2026',
-      'HKMA license required for HK-based issuers and HKD-linked stablecoins globally',
-      '100% backing required; par redemption within one business day mandatory',
-      'HK$25M paid-up capital, HK$3M liquid capital, plus 12 months operating expenses',
+      'Stablecoins Ordinance effective August 1, 2025; first licenses to be issued March 2026',
+      'HKMA received 77 expressions of interest, 36 formal applications by September 2025',
+      'Only "very few" licenses will be granted initially from 36 applications',
+      '100% backing with high-quality liquid assets; par redemption within one business day',
+      'HK$25M paid-up capital, HK$3M liquid capital, plus 12-month operating expense buffer',
+      'Transitional period for pre-existing issuers ended January 31, 2026',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-08',
+    lastVerified: '2026-02-20',
     regulatorName: 'Hong Kong Monetary Authority (HKMA)',
+    sources: [
+      {
+        name: 'HKMA - Regulatory Regime for Stablecoin Issuers',
+        url: 'https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/stablecoin-issuers/',
+        type: 'regulator',
+      },
+      {
+        name: 'HKMA - Implementation Guidelines and Key Documents',
+        url: 'https://www.hkma.gov.hk/eng/news-and-media/press-releases/2025/07/20250729-4/',
+        date: '2025-07-29',
+        type: 'guidance',
+      },
+      {
+        name: 'Stablecoins Ordinance (Cap. 656)',
+        url: 'https://www.elegislation.gov.hk/hk/cap656',
+        date: '2025-05-21',
+        type: 'legislation',
+      },
+      {
+        name: 'HKMA/SFC Joint Statement on Market Movements',
+        url: 'https://www.hkma.gov.hk/eng/news-and-media/press-releases/2025/08/20250814-8/',
+        date: '2025-08-14',
+        type: 'regulator',
+      },
+      {
+        name: 'SFC - ASPIRe Roadmap for Virtual Assets',
+        url: 'https://www.sfc.hk/en/News-and-announcements/Policy-statements-and-announcements/A-S-P-I-Re-for-a-brighter-future-SFCs-regulatory-roadmap-for-Hong-Kongs-virtual-asset-market',
+        date: '2025-02-19',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Hong Kong Monetary Authority (HKMA)', role: 'Primary regulator for stablecoin issuers; licensing and supervision' },
       { name: 'Securities and Futures Commission (SFC)', role: 'Oversight of crypto exchanges and trading platforms' },
@@ -425,9 +697,15 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Unlicensed foreign issuers of non-HKD stablecoins may offer to professional investors only',
       'Three-month transitional window for pre-existing issuers (until January 31, 2026)',
     ],
+    cbdcStatus: [
+      'HKMA exploring e-HKD (retail CBDC) through Project Aurum pilot studies',
+      'Multiple rounds of pilot testing with banks and fintech firms',
+      'No announced timeline for retail CBDC issuance',
+      'Focus on interoperability between e-HKD pilots and stablecoin framework',
+    ],
     stablecoinIssuers: [
-      { company: 'Various Applicants', stablecoin: 'HKD and USD stablecoins', status: '77 expressions of interest received; licenses pending early 2026' },
-      { company: 'Circle', stablecoin: 'USDC', status: 'Available in Hong Kong; considering local license' },
+      { company: 'HKMA Applicants', stablecoin: 'Various FRS tokens', status: '36 formal applications under review; first licenses to be issued March 2026' },
+      { company: 'Circle', stablecoin: 'USDC', status: 'Available in Hong Kong for professional investors; may seek HKMA license for retail offering' },
     ],
   },
   {
@@ -442,8 +720,22 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Stablecoins classified as deposits require banking license or bank guarantee',
       'Full backing, segregation, and par redemption required; CHF 100M limit abolished',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-10',
+    lastVerified: '2026-02-20',
     regulatorName: 'Swiss Financial Market Supervisory Authority (FINMA)',
+    sources: [
+      {
+        name: 'FINMA - Stablecoin Guidance',
+        url: 'https://www.finma.ch/',
+        date: '2024-07',
+        type: 'guidance',
+      },
+      {
+        name: 'Swiss Federal Council - DLT Act',
+        url: 'https://www.admin.ch/',
+        type: 'legislation',
+      },
+    ],
     regulatoryBodies: [
       { name: 'FINMA', role: 'Primary regulator for financial market supervision; issues stablecoin guidance' },
       { name: 'Swiss Federal Council', role: 'Legislative authority; proposed FINIA amendments for crypto institutions' },
@@ -486,8 +778,27 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Major issuers (>A$100M) to be authorized by APRA; 1:1 collateralization required',
       'Single legislation package expected to be introduced to Parliament in 2026',
     ],
-    lastUpdated: '2026-01',
+    lastUpdated: '2025-10',
+    lastVerified: '2026-02-20',
     regulatorName: 'Australian Treasury, ASIC & Australian Prudential Regulation Authority (APRA)',
+    sources: [
+      {
+        name: 'Australian Treasury - Digital Asset Industry Statement',
+        url: 'https://treasury.gov.au/',
+        date: '2025-03',
+        type: 'regulator',
+      },
+      {
+        name: 'ASIC - Crypto-Assets and Financial Products',
+        url: 'https://asic.gov.au/',
+        type: 'regulator',
+      },
+      {
+        name: 'APRA - Prudential Framework',
+        url: 'https://www.apra.gov.au/',
+        type: 'regulator',
+      },
+    ],
     regulatoryBodies: [
       { name: 'Australian Treasury', role: 'Policy development; exposure draft legislation for digital assets' },
       { name: 'Australian Securities and Investments Commission (ASIC)', role: 'Classifies stablecoins as financial products; AFS licensing' },

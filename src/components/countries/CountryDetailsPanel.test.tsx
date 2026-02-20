@@ -11,6 +11,7 @@ const mockCountry: RegulationCountry = {
   summary: 'Test summary paragraph 1.\n\nTest summary paragraph 2.',
   keyPoints: ['Key point 1', 'Key point 2', 'Key point 3'],
   lastUpdated: 'January 2026',
+  lastVerified: '2026-02-20',
   regulatorName: 'Office of the Comptroller of the Currency',
 };
 

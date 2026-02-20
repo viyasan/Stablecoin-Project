@@ -1,11 +1,18 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 import { CountryPromptPanel } from './CountryDetailsPanel';
 import {
   REGULATION_COUNTRIES,
   STAGE_COLORS,
   type RegulationCountry,
 } from './regulationMapData';
+
+// Helper function to format lastVerified date
+function formatLastVerified(dateStr: string): string {
+  // '2026-02-20' → 'Feb 2026'
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
 
 // Country flags as emoji - reliable cross-platform display
 const COUNTRY_FLAGS: Record<string, string> = {
@@ -332,9 +339,40 @@ function CountryDetailsContent({ country, onClose }: CountryDetailsContentProps)
         </>
       )}
 
+      {/* Official Sources */}
+      {country.sources && country.sources.length > 0 && (
+        <div className="border-t border-chrome-100 pt-4 mt-4">
+          <h4 className="text-sm font-semibold text-chrome-700 mb-3">
+            Official Sources
+          </h4>
+          <div className="space-y-2">
+            {country.sources.map((source, idx) => (
+              <a
+                key={idx}
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 text-xs text-gold-600 hover:text-gold-700 group"
+              >
+                <ExternalLink className="w-3 h-3 mt-0.5 flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                <div>
+                  <div className="font-medium">{source.name}</div>
+                  {source.date && (
+                    <div className="text-chrome-400">Published: {source.date}</div>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Last Updated */}
       <p className="text-xs text-chrome-400 mt-4 pt-4 border-t border-chrome-100">
         Last updated: {country.lastUpdated}
+        {country.lastVerified && (
+          <span className="ml-2">• Last verified: {formatLastVerified(country.lastVerified)}</span>
+        )}
       </p>
     </>
   );
