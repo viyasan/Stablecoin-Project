@@ -105,6 +105,79 @@ export function DisclaimerPage() {
           </div>
         </section>
 
+        {/* DeFi Yield Specific Risks */}
+        <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
+          <div className="flex items-start gap-4">
+            <div className="p-2 bg-gold-100 rounded-lg shrink-0">
+              <AlertTriangle className="w-5 h-5 text-gold-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-chrome-800 mb-3">
+                DeFi Yield Products & Risks
+              </h2>
+              <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
+                <p>
+                  Our "Best Stablecoin Yields Today" section displays yield opportunities from
+                  third-party decentralized finance (DeFi) protocols. This information is provided
+                  for <strong>educational and informational purposes only</strong>.
+                </p>
+                <p className="font-medium text-chrome-700">
+                  Important disclaimers about yield products:
+                </p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    <strong>No Guarantee of Returns:</strong> Displayed APY rates are current
+                    snapshots and change continuously based on market conditions. Past or current
+                    yields do not guarantee future performance.
+                  </li>
+                  <li>
+                    <strong>Smart Contract Risk:</strong> DeFi protocols rely on smart contracts
+                    which may contain bugs, vulnerabilities, or exploits that could result in
+                    total loss of deposited funds.
+                  </li>
+                  <li>
+                    <strong>Protocol Risk:</strong> Third-party protocols (e.g., Aave) may face
+                    insolvency, governance attacks, oracle failures, or other operational issues
+                    beyond our control.
+                  </li>
+                  <li>
+                    <strong>Liquidity Risk:</strong> Withdrawals depend on available pool liquidity.
+                    In high utilization scenarios, you may experience delays accessing your funds.
+                  </li>
+                  <li>
+                    <strong>No Facilitation of Transactions:</strong> We do NOT facilitate deposits,
+                    withdrawals, or any transactions. We only display information. Any interactions
+                    with DeFi protocols are between you and that protocol directly.
+                  </li>
+                  <li>
+                    <strong>Gas Fees & Costs:</strong> Blockchain transactions incur network fees
+                    which can be substantial and are not reflected in displayed APY rates.
+                  </li>
+                  <li>
+                    <strong>Regulatory Uncertainty:</strong> DeFi regulations are evolving globally.
+                    Future regulatory actions may affect protocol availability or your ability to
+                    access funds.
+                  </li>
+                  <li>
+                    <strong>Data Timeliness:</strong> Yield data may be delayed or cached. Always
+                    verify current rates directly on the protocol before depositing.
+                  </li>
+                </ul>
+                <p className="font-semibold text-chrome-800">
+                  StablecoinStats.ca does not operate, control, or endorse any DeFi protocol.
+                  We are not affiliated with Aave or any yield protocol displayed on this site.
+                  You interact with these protocols at your own risk.
+                </p>
+                <p>
+                  <strong>Only deposit capital you can afford to lose entirely.</strong> DeFi
+                  products are experimental technology with significant risks. Do your own research
+                  and consider consulting qualified financial advisors before participating.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Data Accuracy */}
         <section className="bg-white rounded-lg shadow-sm border border-chrome-200 p-6">
           <div className="flex items-start gap-4">
@@ -143,6 +216,17 @@ export function DisclaimerPage() {
                       className="text-gold-500 hover:text-gold-600"
                     >
                       Allium
+                    </a>
+                  </li>
+                  <li>
+                    <strong>Yield Data:</strong>{' '}
+                    <a
+                      href="https://defillama.com/yields"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gold-500 hover:text-gold-600"
+                    >
+                      DefiLlama Yields API
                     </a>
                   </li>
                   <li>

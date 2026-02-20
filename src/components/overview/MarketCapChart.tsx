@@ -198,6 +198,25 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
       : {}),
   }));
 
+  // Calculate dynamic Y-axis domain for better data visualization
+  // Only apply baseline offset for 30D and 1Y views (not Max - shows full growth story)
+  const allValues = chartData.map((d) => d['Total Market Cap']);
+  const minValue = Math.min(...allValues);
+  const maxValue = Math.max(...allValues);
+  const range = maxValue - minValue;
+
+  // Set baseline at 5% below minimum for breathing room
+  const baseline = minValue - range * 0.05;
+  // Set ceiling at 5% above maximum
+  const ceiling = maxValue + range * 0.05;
+
+  // Round baseline to nearest billion for cleaner presentation
+  const roundedBaseline = Math.floor(baseline / 1_000_000_000) * 1_000_000_000;
+
+  // Use baseline offset for 30D and 1Y, start at 0 for Max view
+  const yAxisDomain: [number, number] | undefined =
+    timeRange === 'max' ? undefined : [roundedBaseline, ceiling];
+
   const colors = ['#E2B050', '#ADB5BD', '#CD7F32', '#495057'];
 
   return (
@@ -257,6 +276,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                 axisLine={false}
                 tickLine={false}
                 width={60}
+                domain={yAxisDomain}
               />
               <Tooltip content={<ChartTooltip chartData={chartData} timeRange={timeRange} />} />
               {showBreakdown && data[0]?.breakdown ? (
@@ -294,9 +314,32 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
-          <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
-          <span>Data refreshed just now</span>
+        {/* Axis Break Indicator - Only show for 30D and 1Y (not Max) */}
+        <div className="mt-4 pt-3 border-t border-chrome-100">
+          <div className="flex items-center justify-between mb-2">
+            {timeRange !== 'max' ? (
+              <div className="flex items-center gap-2">
+                {/* Zigzag break indicator */}
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none" className="text-chrome-400">
+                  <path
+                    d="M0 6 L4 2 L8 10 L12 2 L16 10 L20 2 L24 6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    fill="none"
+                  />
+                </svg>
+                <span className="text-xs text-chrome-500">
+                  Y-axis baseline: {formatCurrencyShort(roundedBaseline)} (not zero)
+                </span>
+              </div>
+            ) : (
+              <div />
+            )}
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
+              <span className="text-xs text-chrome-400">Data refreshed just now</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

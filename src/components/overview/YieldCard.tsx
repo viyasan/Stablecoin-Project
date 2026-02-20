@@ -101,7 +101,7 @@ function YieldPoolColumn({ pool }: { pool: YieldPool }) {
 
       {/* Pool Name */}
       <div className="text-xs text-chrome-500 uppercase tracking-wide mb-1">
-        Aave V3 {pool.symbol}
+        {pool.symbol} Yield
       </div>
 
       {/* APY (most prominent) */}
@@ -161,7 +161,7 @@ function CadcPlaceholderColumn() {
 
       {/* TVL Placeholder */}
       <div className="text-sm text-chrome-600 mb-4">
-        Coming Q1 2026
+        TVL TBA
       </div>
 
       {/* Coming Soon Button (disabled) */}
