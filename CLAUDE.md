@@ -80,6 +80,8 @@ Static data needs manual updates. Sources and dates are documented in comments a
 ```
 VITE_GTM_CONTAINER_ID          # Google Tag Manager
 VITE_BEEHIIV_EMBED_URL         # Beehiiv newsletter signup form URL
+VITE_SUPABASE_URL              # Supabase project URL (email signup; card hidden when missing)
+VITE_SUPABASE_ANON_KEY         # Supabase anon/public key (email signup; card hidden when missing)
 ```
 
 See `.env.example` for the template.

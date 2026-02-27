@@ -9,3 +9,4 @@ export { ReserveCompositionCard } from './ReserveCompositionCard';
 export { TopHeadlinesList } from './TopHeadlinesList';
 export { YieldCard } from './YieldCard';
 export { TreasuryHoldingsCard } from './TreasuryHoldingsCard';
+export { EmailOptInCard } from './EmailOptInCard';

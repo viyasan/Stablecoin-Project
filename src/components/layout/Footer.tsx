@@ -1,33 +1,8 @@
-import { useState } from 'react';
-import type { FormEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
-const BEEHIIV_URL = import.meta.env.VITE_BEEHIIV_EMBED_URL || '';
 
 export function Footer() {
   const location = useLocation();
   const isOverviewPage = location.pathname === '/';
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubscribe = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!email || !BEEHIIV_URL) return;
-    setSubmitting(true);
-    try {
-      await fetch(BEEHIIV_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ email }).toString(),
-        mode: 'no-cors',
-      });
-      setSubscribed(true);
-      setEmail('');
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <footer className="bg-chrome-800 text-chrome-400">
@@ -82,40 +57,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Newsletter CTA */}
-        {BEEHIIV_URL && (
-          <div className="mt-12 pt-8 border-t border-chrome-700">
-            <div className="bg-chrome-700 rounded-lg p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div>
-                <h4 className="text-white font-semibold text-lg mb-1">Stay Informed</h4>
-                <p className="text-sm text-chrome-400">
-                  Weekly stablecoin insights, regulation updates, and analysis.
-                </p>
-              </div>
-              {subscribed ? (
-                <p className="text-sm text-status-positive font-medium">You're subscribed!</p>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="email@example.com"
-                    className="px-4 py-2 rounded-lg bg-chrome-600 text-white placeholder-chrome-400 text-sm border border-chrome-500 focus:outline-none focus:border-gold-400 w-full md:w-64"
-                  />
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="px-5 py-2 rounded-lg bg-gold-400 text-chrome-900 text-sm font-medium hover:bg-gold-500 transition-colors duration-150 disabled:opacity-50 whitespace-nowrap"
-                  >
-                    {submitting ? 'Subscribing...' : 'Subscribe'}
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* Data Sources - Only show on overview page */}
         {isOverviewPage && (

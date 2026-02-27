@@ -4,11 +4,12 @@ import { useRef } from 'react';
 interface TiltCardProps {
   children: ReactNode;
   className?: string;
+  maxTilt?: number;
 }
 
 const MAX_TILT = 6;
 
-export function TiltCard({ children, className = '' }: TiltCardProps) {
+export function TiltCard({ children, className = '', maxTilt = MAX_TILT }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
@@ -22,8 +23,8 @@ export function TiltCard({ children, className = '' }: TiltCardProps) {
     const offsetX = (e.clientX - centerX) / (rect.width / 2);
     const offsetY = (e.clientY - centerY) / (rect.height / 2);
 
-    const rotateY = offsetX * MAX_TILT;
-    const rotateX = -offsetY * MAX_TILT;
+    const rotateY = offsetX * maxTilt;
+    const rotateX = -offsetY * maxTilt;
 
     card.style.transition = 'transform 80ms linear';
     card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;

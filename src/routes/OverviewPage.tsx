@@ -13,6 +13,7 @@ import {
   TopHeadlinesList,
   YieldCard,
   TreasuryHoldingsCard,
+  EmailOptInCard,
 } from '../components/overview';
 
 export function OverviewPage() {
@@ -46,6 +47,13 @@ export function OverviewPage() {
             <YieldCard />
           </FadeInSlide>
         </div>
+      </section>
+
+      {/* Email Opt-In Card */}
+      <section className="mb-8">
+        <FadeInSlide delay={200}>
+          <EmailOptInCard />
+        </FadeInSlide>
       </section>
 
       {/* Charts Section - Market Cap and Pie Chart side by side */}
