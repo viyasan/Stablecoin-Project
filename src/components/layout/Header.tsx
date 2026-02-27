@@ -18,8 +18,9 @@ function MapleLeafIcon({ className }: { className?: string }) {
 
 const navItems = [
   { to: '/', label: 'Overview' },
+  { to: '/yields', label: 'Yield' },
+  { to: '/countries', label: 'Global Regulations' },
   { to: '/canada', label: 'Canada', icon: MapleLeafIcon },
-  { to: '/countries', label: 'Regulatory Landscape' },
   { to: '/news', label: 'News & Insights' },
 ];
 

@@ -43,7 +43,7 @@ export function YieldCard() {
         {/* Header */}
         <div className="px-6 py-4 border-b border-chrome-100">
           <h2 className="text-lg font-semibold text-chrome-900">
-            Best Stablecoin Yields Today
+            Stablecoin Yields
           </h2>
         </div>
 

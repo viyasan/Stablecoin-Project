@@ -10,6 +10,7 @@ import {
   CountryDetailPage,
   NewsPage,
   DisclaimerPage,
+  YieldsPage,
   YieldPoolDetailPage,
 } from './routes';
 
@@ -78,6 +79,7 @@ function App() {
             <Route path="/countries/:code" element={<CountryDetailPage />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
+            <Route path="/yields" element={<YieldsPage />} />
             <Route path="/yields/:poolId" element={<YieldPoolDetailPage />} />
           </Routes>
         </div>

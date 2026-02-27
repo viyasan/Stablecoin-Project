@@ -80,7 +80,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
 
       <div className="p-6 flex flex-col flex-grow">
         {/* Parent Company Section */}
-        <div className="mb-5">
+        <div className="mb-5 min-h-[12.5rem]">
           <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
             Parent Company
           </h4>
@@ -174,11 +174,11 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
           </div>
         )}
 
-        {/* Design Partners */}
+        {/* Key Design Partners */}
         {stablecoin.designPartners && stablecoin.designPartners.length > 0 && (
           <div className="mb-5">
             <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
-              Design Partners
+              Key Design Partners
             </h4>
             <div className="flex flex-wrap gap-1.5">
               {stablecoin.designPartners.map((partner) => (

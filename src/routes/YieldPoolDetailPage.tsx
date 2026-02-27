@@ -35,11 +35,11 @@ export function YieldPoolDetailPage() {
       {/* Breadcrumb Navigation */}
       <div className="mb-6">
         <Link
-          to="/"
+          to="/yields"
           className="inline-flex items-center gap-2 text-sm text-chrome-500 hover:text-gold-500 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
-          Back to Overview
+          Back to Yields
         </Link>
       </div>
 
