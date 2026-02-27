@@ -39,11 +39,10 @@ export function EmailOptInCard() {
         <div className="bg-white rounded-lg shadow-sm border border-chrome-200 px-6 py-10 flex flex-col items-center justify-center text-center">
           <CheckCircle className="w-12 h-12 text-status-positive mb-4" />
           <h3 className="text-xl font-semibold text-chrome-900 mb-2">
-            You're on the list!
+            Thanks for joining! 🚀
           </h3>
           <p className="text-chrome-500 text-sm">
-            We'll send you curated stablecoin insights tailored to your
-            industry.
+            Get ready for stablecoin growth and insights!
           </p>
           <button
             type="button"
