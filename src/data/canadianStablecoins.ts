@@ -122,6 +122,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       { name: "Aerodrome", role: "DeFi/Liquidity" },
       { name: "PancakeSwap", role: "DeFi/Liquidity" },
       { name: "CoW Swap", role: "DeFi/Liquidity" },
+      { name: "Paytrie", role: "Minting/Redemption" },
+      { name: "Stand With Crypto Canada", role: "Advocacy" },
     ],
     regulatorySteps: [
       {
@@ -155,18 +157,18 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     ],
     fintracRegistered: true,
     audits: "Monthly attestations",
-    volume: "$250M+",
+    volume: "$325M+",
     exchangePartners: 5,
     parentCompany: {
       name: "Loon Technology Inc.",
       description:
-        "Loon Technology is on a mission to build Canada's sovereign digital dollar infrastructure. After acquiring CADC, the country's most widely used CAD stablecoin with over $250M in on-chain volume, Loon is pioneering a regulated, made-in-Canada alternative to US-dominated stablecoins.",
+        "Loon Technology is on a mission to build Canada's sovereign digital dollar infrastructure. After acquiring CADC, the country's most widely used CAD stablecoin with over $325M in on-chain volume, Loon is pioneering a regulated, made-in-Canada alternative to US-dominated stablecoins.",
       founded: "2025",
       headquarters: "Calgary, AB",
       website: "https://loon.finance",
       leadership: [{ name: "Kevin Zhang", title: "CEO & Co-Founder" }],
       keyFacts: [
-        "$250M+ on-chain volume processed",
+        "$325M+ on-chain volume processed",
         "5 institutional partners (FIs and DApps)",
         "3-second average settlement time",
       ],
@@ -187,8 +189,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
       {
         date: "2021-2025",
-        title: "$250M+ Volume",
-        description: "CADC transacts over $250M in volume",
+        title: "$325M+ Volume",
+        description: "CADC transacts over $325M in volume",
         type: "milestone",
       },
       {
@@ -208,6 +210,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         title: "ASC Pre-filing",
         description: "Pre-files prospectus with Alberta Securities Commission",
         type: "regulatory",
+      },
+      {
+        date: "Feb 2026",
+        title: "Paytrie Partnership",
+        description: "Paytrie enables 1:1 CAD-to-CADC minting and redemption",
+        type: "partnership",
       },
       {
         date: "TBD",

@@ -99,7 +99,7 @@ export function CanadaPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-chrome-800 text-sm">3-Second Settlement</h4>
-                  <p className="text-xs text-chrome-500">$200M+ volume on Base network</p>
+                  <p className="text-xs text-chrome-500">$325M+ total on-chain volume</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
