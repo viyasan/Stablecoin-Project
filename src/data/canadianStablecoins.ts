@@ -107,6 +107,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     name: "CADC",
     symbol: "CADC",
     issuer: "Loon",
+    logo: "/loon-logo.png",
     status: "live",
     statusLabel: "Live",
     tagline: "Canada's leading CAD stablecoin by usage",
@@ -121,9 +122,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       { name: "MetaMask", role: "Wallet" },
       { name: "Aerodrome", role: "DeFi/Liquidity" },
       { name: "PancakeSwap", role: "DeFi/Liquidity" },
-      { name: "CoW Swap", role: "DeFi/Liquidity" },
       { name: "Paytrie", role: "Minting/Redemption" },
-      { name: "Stand With Crypto Canada", role: "Advocacy" },
     ],
     regulatorySteps: [
       {

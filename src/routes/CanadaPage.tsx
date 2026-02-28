@@ -75,9 +75,11 @@ export function CanadaPage() {
           {/* CADC Card (Loon) */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
             <div className="bg-gradient-to-r from-[#d92525] to-[#b61b1b] px-6 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
-                <span className="text-chrome-800 font-bold text-xs">LOON</span>
-              </div>
+              <img
+                src="/cadc-logo.jpg"
+                alt="CADC logo"
+                className="w-10 h-10 rounded-lg object-contain"
+              />
               <div>
                 <h3 className="text-lg font-bold text-white">CADC</h3>
                 <p className="text-white text-sm opacity-90">Loon</p>
