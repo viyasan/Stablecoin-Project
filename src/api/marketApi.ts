@@ -394,7 +394,7 @@ export function useChainBreakdown(): UseApiResult<ChainData[]> {
 
 // Reserve composition data for USDT and USDC
 // Percentages from quarterly attestation reports (update when new reports are published)
-// Sources: Tether Attestation Q3 2025, Circle Reserve Report Dec 2025
+// Sources: Tether Attestation Q4 2025, Circle Reserve Report Feb 2026
 export interface ReserveAsset {
   name: string;
   percentage: number;
@@ -413,27 +413,27 @@ export interface StablecoinReserve {
 
 // Static data from attestation reports - update quarterly
 // Sources:
-// Tether Q3 2025: https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
-// Circle Oct 2025: https://www.circle.com/transparency
-// Last updated: January 2026
+// Tether Q4 2025: https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
+// Circle Feb 2026: https://www.circle.com/transparency
+// Last updated: March 2026
 const RESERVE_DATA = {
   USDT: {
     name: 'Tether',
-    lastUpdated: 'Q3 2025',
+    lastUpdated: 'Q4 2025',
     sourceUrl: 'https://tether.to/en/transparency/',
-    treasuryHoldings: 135_000_000_000, // $135B from attestation report
+    treasuryHoldings: 141_000_000_000, // $141B from attestation report
     assets: [
-      { name: 'US Treasuries', percentage: 75, color: '#E2B050' },
-      { name: 'Gold', percentage: 7, color: '#D4A437' },
-      { name: 'Bitcoin', percentage: 5, color: '#CD7F32' },
-      { name: 'Secured Loans & Other', percentage: 13, color: '#ADB5BD' },
+      { name: 'US Treasuries', percentage: 73, color: '#E2B050' },
+      { name: 'Gold', percentage: 9, color: '#D4A437' },
+      { name: 'Bitcoin', percentage: 4, color: '#CD7F32' },
+      { name: 'Secured Loans & Other', percentage: 14, color: '#ADB5BD' },
     ],
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'Oct 2025',
+    lastUpdated: 'Feb 2026',
     sourceUrl: 'https://www.circle.com/transparency',
-    treasuryHoldings: 62_000_000_000, // $62B (~80% of ~$77B)
+    treasuryHoldings: 55_000_000_000, // $55B ($44.5B T-bills + $10.9B reverse repos)
     assets: [
       { name: 'US Treasuries', percentage: 80, color: '#D4A437' },
       { name: 'Cash & Bank Deposits', percentage: 20, color: '#CD7F32' },

@@ -69,8 +69,8 @@ Hooks live in `src/api/` and are re-exported from `src/api/index.ts`.
 | Source | File | Type |
 |--------|------|------|
 | DefiLlama API | `src/api/marketApi.ts` | Live — market caps, charts, chain breakdown, stablecoin list |
-| US Treasury TIC Data | `TreasuryHoldingsCard.tsx` | Static — Nov 2025 foreign holder rankings |
-| Tether/Circle Attestations | `marketApi.ts` RESERVE_DATA | Static — treasury holdings ($135B/$62B) |
+| US Treasury TIC Data | `TreasuryHoldingsCard.tsx` | Static — Dec 2025 foreign holder rankings |
+| Tether/Circle Attestations | `marketApi.ts` RESERVE_DATA | Static — treasury holdings ($141B/$55B) |
 | Transaction KPIs | `TransactionKpiCard.tsx` | Static — Visa/Allium sourced metrics |
 
 Static data needs manual updates. Sources and dates are documented in comments and card attribution links.
