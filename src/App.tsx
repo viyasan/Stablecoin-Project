@@ -69,7 +69,7 @@ function App() {
   return (
     <BrowserRouter>
       <PageViewTracker />
-      <div className="min-h-screen flex flex-col bg-chrome-50">
+      <div className="min-h-screen flex flex-col bg-chrome-50 bg-hero-grid">
         <Header />
         <div className="flex-1">
           <Routes>

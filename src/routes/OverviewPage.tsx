@@ -5,13 +5,12 @@ import { prefetchNews } from '../api';
 import {
   AboutOurData,
   ChainBreakdownChart,
-  GlobalKpiCard,
+  HeroSection,
   MarketCapChart,
   MarketSharePieChart,
   QuickInsightsCarousel,
   ReserveCompositionCard,
   TopHeadlinesList,
-  YieldCard,
   TreasuryHoldingsCard,
   EmailOptInCard,
 } from '../components/overview';
@@ -27,27 +26,8 @@ export function OverviewPage() {
     <PageContainer>
       {/* Hero Section */}
       <FadeInSlide>
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-chrome-800 mb-2">
-            Stablecoin Market Overview
-          </h1>
-          <p className="text-lg text-chrome-500">
-            Your single destination for stablecoin market data, regulation
-            tracking, and insights.
-          </p>
-        </div>
+        <HeroSection />
       </FadeInSlide>
-
-      {/* KPI Cards - Side by side */}
-      {/* GlobalKpiCard manages its own FadeInSlide (delay=0) */}
-      <section className="mb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <GlobalKpiCard />
-          <FadeInSlide delay={100}>
-            <YieldCard />
-          </FadeInSlide>
-        </div>
-      </section>
 
       {/* Email Opt-In Card */}
       <section className="mb-8">

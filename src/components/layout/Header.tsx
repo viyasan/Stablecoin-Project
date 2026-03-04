@@ -2,7 +2,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-// Maple Leaf icon component (Font Awesome Canadian maple leaf) - custom icon not in Lucide
 function MapleLeafIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -17,11 +16,11 @@ function MapleLeafIcon({ className }: { className?: string }) {
 }
 
 const navItems = [
-  { to: '/', label: 'Overview' },
-  { to: '/yields', label: 'Yield' },
-  { to: '/countries', label: 'Global Regulations' },
-  { to: '/canada', label: 'Canada', icon: MapleLeafIcon },
-  { to: '/news', label: 'News & Insights' },
+  { to: '/', label: 'MARKETS' },
+  { to: '/yields', label: 'YIELD' },
+  { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
+  { to: '/countries', label: 'REGULATION' },
+  { to: '/news', label: 'NEWS' },
 ];
 
 export function Header() {
@@ -32,11 +31,14 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
-            <div className="w-8 h-8 bg-chrome-900 rounded-lg flex items-center justify-center group-hover:bg-chrome-800 transition-colors duration-150">
-              <span className="text-gold-400 font-bold text-lg">S</span>
+          <Link to="/" className="flex items-center space-x-2.5 group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
+            <div className="w-7 h-7 relative">
+              <div className="absolute inset-0 border-[1.5px] border-gold-500 rounded-full opacity-50" />
+              <div className="absolute inset-[6px] bg-gold-500 rounded-full" />
             </div>
-            <span className="text-xl font-bold text-chrome-800 group-hover:text-gold-500 transition-colors duration-150">StablecoinStats.ca</span>
+            <span className="text-xl text-chrome-800" style={{ fontFamily: "'DM Serif Display', serif" }}>
+              StablecoinStats<span className="text-gold-500">.ca</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -45,16 +47,17 @@ export function Header() {
               <NavLink
                 key={item.to}
                 to={item.to}
+                end={item.to === '/'}
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 ease-out flex items-center gap-1.5 ${
+                  `px-3 py-2 font-mono text-sm font-medium tracking-[0.04em] uppercase transition-all duration-150 ease-out flex items-center gap-1.5 ${
                     isActive
-                      ? 'bg-gold-50 text-gold-600'
-                      : 'text-chrome-500 hover:bg-chrome-100 hover:text-chrome-800 hover:scale-[1.02] active:scale-[0.98]'
+                      ? 'text-gold-600'
+                      : 'text-chrome-500 hover:text-gold-500'
                   }`
                 }
               >
                 {item.label}
-                {item.icon && <item.icon className="w-4 h-4 text-red-600" />}
+                {item.icon && <item.icon className="w-3.5 h-3.5 text-red-600" />}
               </NavLink>
             ))}
           </nav>
@@ -82,17 +85,18 @@ export function Header() {
               <NavLink
                 key={item.to}
                 to={item.to}
+                end={item.to === '/'}
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 ease-out ${
+                  `flex items-center gap-1.5 px-4 py-2 font-mono text-sm font-medium tracking-[0.04em] uppercase transition-all duration-150 ease-out ${
                     isActive
-                      ? 'bg-gold-50 text-gold-600'
-                      : 'text-chrome-500 hover:bg-chrome-100 active:bg-chrome-200'
+                      ? 'text-gold-600'
+                      : 'text-chrome-500 hover:text-gold-500'
                   }`
                 }
               >
                 {item.label}
-                {item.icon && <item.icon className="w-4 h-4 text-red-600" />}
+                {item.icon && <item.icon className="w-3.5 h-3.5 text-red-600" />}
               </NavLink>
             ))}
           </div>

@@ -6,8 +6,8 @@ import { useAaveYields } from '../api/yieldApi';
 import type { YieldPool } from '../types/yield';
 
 const TOKEN_LOGOS = {
-  USDC: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png',
-  USDT: 'https://cryptologos.cc/logos/tether-usdt-logo.png',
+  USDC: '/usdc-logo.png',
+  USDT: '/usdt-logo.png',
   CADC: '/cadc-logo.jpg',
 } as const;
 

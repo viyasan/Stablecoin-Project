@@ -128,3 +128,11 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out forwards;
 }
+
+/* Hero grid background */
+.bg-hero-grid {
+  background-image:
+    linear-gradient(rgba(212,164,55,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,164,55,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}

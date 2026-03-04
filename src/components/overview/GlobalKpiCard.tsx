@@ -243,11 +243,12 @@ export function GlobalKpiCard() {
   }
 
   return (
-    <FadeInSlide>
-      <TiltCard>
-        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md">
+    <FadeInSlide className="h-full">
+      <TiltCard className="h-full">
+        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md h-full flex flex-col">
           <div className="px-6 py-4 border-b border-chrome-100">
-            <h2 className="text-lg font-semibold text-chrome-900 mb-3">
+            <div className="flex items-center justify-between gap-4">
+            <h2 className="text-lg font-semibold text-chrome-900 whitespace-nowrap">
               Global Stablecoin Market
             </h2>
 
@@ -284,8 +285,9 @@ export function GlobalKpiCard() {
                 30D Change
               </button>
             </div>
+            </div>
           </div>
-          <div className="px-6 py-8">
+          <div className="px-6 py-8 flex-1 flex flex-col">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
               <div className="flex flex-col items-center justify-center px-4 py-8">
                 {viewMode === 'total' && (
@@ -335,7 +337,7 @@ export function GlobalKpiCard() {
               </div>
               <TrackedAssetsKpi count={data.trackedStablecoins} />
             </div>
-            <div className="mt-6 pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
+            <div className="mt-auto pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
               <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
               <span>Data refreshed {formatTimeAgo(data.lastUpdated)}</span>
             </div>

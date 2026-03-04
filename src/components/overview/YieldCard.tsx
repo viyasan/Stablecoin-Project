@@ -5,8 +5,8 @@ import type { YieldPool } from '../../types/yield';
 
 // Token logo URLs
 const TOKEN_LOGOS = {
-  USDC: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png',
-  USDT: 'https://cryptologos.cc/logos/tether-usdt-logo.png',
+  USDC: '/usdc-logo.png',
+  USDT: '/usdt-logo.png',
   CADC: '/cadc-logo.jpg',
 } as const;
 
@@ -38,8 +38,8 @@ export function YieldCard() {
   const displayPools = [usdcPool, usdtPool].filter(Boolean) as YieldPool[];
 
   return (
-    <TiltCard>
-      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md">
+    <TiltCard className="h-full">
+      <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md h-full flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b border-chrome-100">
           <h2 className="text-lg font-semibold text-chrome-900">
@@ -48,7 +48,7 @@ export function YieldCard() {
         </div>
 
         {/* Pool Grid - 3 columns (USDC, USDT, CADC) */}
-        <div className="px-6 py-6">
+        <div className="px-6 py-6 flex-1 flex flex-col">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
             {/* USDC and USDT pools */}
             {displayPools.map(pool => (

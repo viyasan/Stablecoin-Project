@@ -75,7 +75,7 @@ export function EmailOptInCard() {
                 Stay Informed
               </h3>
               <p className="text-sm text-chrome-500 mt-0.5">
-                Canadian Stablecoin Report and more.
+                Stablecoin Reports and Updates.
               </p>
             </div>
           </div>
@@ -98,7 +98,7 @@ export function EmailOptInCard() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Wayne Gretzky"
+                placeholder="Vitalik Buterin"
                 className="w-full px-3 py-2 text-sm bg-chrome-50 border border-chrome-200 rounded-md text-chrome-900 placeholder:text-chrome-400 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-gold-400 transition-colors"
               />
             </div>
@@ -116,7 +116,7 @@ export function EmailOptInCard() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="wayne@greatone.ca"
+                placeholder="vitalik@eth.ca"
                 className="w-full px-3 py-2 text-sm bg-chrome-50 border border-chrome-200 rounded-md text-chrome-900 placeholder:text-chrome-400 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-gold-400 transition-colors"
               />
             </div>
