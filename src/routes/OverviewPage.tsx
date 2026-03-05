@@ -49,6 +49,13 @@ export function OverviewPage() {
         </div>
       </section>
 
+      {/* Top Headlines Section */}
+      <section className="mb-8">
+        <FadeInSlide delay={0}>
+          <TopHeadlinesList />
+        </FadeInSlide>
+      </section>
+
       {/* Charts Section - Market Cap and Pie Chart side by side */}
       <section className="mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-8">
@@ -78,13 +85,6 @@ export function OverviewPage() {
             <ReserveCompositionCard />
           </FadeInSlide>
         </div>
-      </section>
-
-      {/* Top Headlines Section */}
-      <section className="mb-8">
-        <FadeInSlide delay={0}>
-          <TopHeadlinesList />
-        </FadeInSlide>
       </section>
 
       {/* About Our Data - Methodology Explainer */}
