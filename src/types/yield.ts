@@ -1,15 +1,13 @@
-export interface YieldPool {
-  id: string;
-  name: string;        // "Aave V3 USDC"
-  symbol: string;      // "USDC", "USDT", "DAI"
-  apy: number;         // Annual percentage yield
-  apyBase: number;     // Base APY from lending (borrower interest)
-  apyReward: number;   // Reward APY from token incentives
-  tvl: number;         // Total value locked (USD)
-  chain: string;       // "Ethereum"
-  protocol: string;    // "aave-v3"
-  tokenAddress: string; // ERC20 contract address
-  decimals: number;    // 6 for USDC/USDT, 18 for DAI
+export interface StablecoinYieldPool {
+  pool: string;              // DeFiLlama UUID
+  chain: string;             // "Ethereum", "Arbitrum", etc.
+  project: string;           // "aave-v3", "compound-v3", etc.
+  symbol: string;            // "USDC", "USDT", etc.
+  tvlUsd: number;            // TVL in USD
+  apy: number;               // Total APY
+  apyBase: number | null;    // Base lending APY
+  apyReward: number | null;  // Reward incentive APY
+  poolMeta: string | null;   // e.g. "v3"
 }
 
 export interface UseApiResult<T> {

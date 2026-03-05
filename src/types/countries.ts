@@ -45,10 +45,3 @@ export const REGULATORY_STATUS_LABELS: Record<RegulatoryStatus, string> = {
   RESTRICTIVE: 'Restrictive',
   UNKNOWN: 'Unknown',
 };
-
-export const REGULATORY_STATUS_COLORS: Record<RegulatoryStatus, string> = {
-  CLEAR_FRAMEWORK: '#4A9D6E',
-  PARTIAL_GUIDANCE: '#D4A437',
-  RESTRICTIVE: '#C0524E',
-  UNKNOWN: '#6C757D',
-};

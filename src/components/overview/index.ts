@@ -1,5 +1,4 @@
 export { AboutOurData } from './AboutOurData';
-export { CoinCarousel } from './CoinCarousel';
 export { ChainBreakdownChart } from './ChainBreakdownChart';
 export { GlobalKpiCard } from './GlobalKpiCard';
 export { MarketCapChart } from './MarketCapChart';
@@ -7,7 +6,6 @@ export { MarketSharePieChart } from './MarketSharePieChart';
 export { QuickInsightsCarousel } from './QuickInsightsCarousel';
 export { ReserveCompositionCard } from './ReserveCompositionCard';
 export { TopHeadlinesList } from './TopHeadlinesList';
-export { YieldCard } from './YieldCard';
 export { TreasuryHoldingsCard } from './TreasuryHoldingsCard';
 export { EmailOptInCard } from './EmailOptInCard';
 export { HeroSection } from './HeroSection';

@@ -16,10 +16,10 @@ function MapleLeafIcon({ className }: { className?: string }) {
 }
 
 const navItems = [
-  { to: '/', label: 'MARKETS' },
+  { to: '/', label: 'OVERVIEW' },
   { to: '/yields', label: 'YIELD' },
-  { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
   { to: '/countries', label: 'REGULATION' },
+  { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
   { to: '/news', label: 'NEWS' },
 ];
 

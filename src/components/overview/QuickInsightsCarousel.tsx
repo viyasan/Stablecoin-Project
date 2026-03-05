@@ -18,7 +18,7 @@ const INSIGHTS = [
   },
   {
     id: 4,
-    text: "Ethereum processed $18.6 trillion in stablecoin transactions in 2025—a 125% increase from 2024.",
+    text: "Ethereum processed $18.6 trillion in stablecoin transactions in 2025, a 125% increase from 2024.",
   },
   {
     id: 5,
@@ -26,7 +26,7 @@ const INSIGHTS = [
   },
   {
     id: 6,
-    text: "Fiat-backed stablecoins dominate, representing over 90% of total market value—95%+ of which are USD-pegged.",
+    text: "Fiat-backed stablecoins dominate, representing over 90% of total market value. 95%+ of which are USD-pegged.",
   },
   {
     id: 7,

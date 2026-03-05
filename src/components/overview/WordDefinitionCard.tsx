@@ -10,7 +10,7 @@ export function WordDefinitionCard() {
       <div className="px-10 py-10">
         {/* Word */}
         <h2
-          className="text-4xl md:text-5xl font-bold text-chrome-900 mb-2.5 leading-none tracking-wide"
+          className="text-4xl md:text-5xl font-bold text-chrome-900 mb-2.5 leading-none tracking-widest"
           style={{ fontFamily: "'DM Serif Display', serif" }}
         >
           Stablecoin
@@ -34,9 +34,9 @@ export function WordDefinitionCard() {
         <p
           className="text-lg leading-relaxed text-chrome-700"
         >
-          A digital asset designed to maintain a stable value, typically pegged
-          1:1 to a fiat currency (ex. US Dollar). Stablecoins offer price
-          stability for payments, trading, and remittances using blockchain
+          A digital asset designed to <strong>maintain a stable value</strong>, typically pegged
+          1:1 to a fiat currency (ex. US Dollar). Stablecoins offer{' '}
+          <strong>price stability for payments, trading, and remittances</strong> using blockchain
           technology.
         </p>
       </div>
