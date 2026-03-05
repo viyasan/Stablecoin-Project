@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
-// Last updated: February 2026
+// Last updated: March 2026
 const INSIGHTS = [
   {
     id: 1,
-    text: "USDT and USDC together control 83% of the $314 billion stablecoin market.",
+    text: "USDT and USDC together control over 83% of the $313 billion stablecoin market.",
   },
   {
     id: 2,
-    text: "Ethereum and Tron host over 80% of all stablecoin value, with Tron alone holding $80B+ in USDT.",
+    text: "Ethereum and Tron blockchains host over 80% of all stablecoin value, with Tron alone holding $84B in stablecoins.",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const INSIGHTS = [
   },
   {
     id: 7,
-    text: "The stablecoin market grew 46% in 2025, adding nearly $100 billion to reach $300B+ in total market cap.",
+    text: "The stablecoin market grew 49% in 2025, adding over $100 billion to reach $306B in total market cap.",
   },
 ];
 
@@ -68,11 +68,11 @@ export function QuickInsightsCarousel() {
 
   return (
     <div
-      className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-lg shadow-sm overflow-hidden"
+      className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-lg shadow-sm overflow-hidden h-full"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="px-6 py-5">
+      <div className="px-6 py-5 h-full flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -81,13 +81,13 @@ export function QuickInsightsCarousel() {
               Quick Market Insights
             </h3>
           </div>
-          <span className="text-xs text-gold-200">
-            Last updated: February 2026
+          <span className="text-xs text-white">
+            Last updated: March 2026
           </span>
         </div>
 
         {/* Insight Content */}
-        <div className="relative min-h-[60px] flex items-center">
+        <div className="relative flex-1 flex items-center">
           <button
             onClick={goToPrevious}
             className="absolute left-0 -ml-2 p-1 text-gold-200 hover:text-white hover:scale-110 active:scale-95 transition-all duration-150 ease-out"
@@ -99,7 +99,7 @@ export function QuickInsightsCarousel() {
           <div className="flex-1 px-6 relative overflow-hidden">
             <p
               key={INSIGHTS[currentIndex].id}
-              className={`text-white text-lg font-medium text-center leading-relaxed ${
+              className={`text-white text-2xl font-medium text-center leading-relaxed ${
                 direction === 'right' ? 'animate-slide-in-right' : 'animate-slide-in-left'
               }`}
             >

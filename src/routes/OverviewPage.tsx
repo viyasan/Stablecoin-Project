@@ -13,6 +13,7 @@ import {
   TopHeadlinesList,
   TreasuryHoldingsCard,
   EmailOptInCard,
+  WordDefinitionCard,
 } from '../components/overview';
 
 export function OverviewPage() {
@@ -34,6 +35,18 @@ export function OverviewPage() {
         <FadeInSlide delay={200}>
           <EmailOptInCard />
         </FadeInSlide>
+      </section>
+
+      {/* Word Definition + Quick Insights */}
+      <section className="mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <FadeInSlide delay={0}>
+            <WordDefinitionCard />
+          </FadeInSlide>
+          <FadeInSlide delay={150} className="h-full">
+            <QuickInsightsCarousel />
+          </FadeInSlide>
+        </div>
       </section>
 
       {/* Charts Section - Market Cap and Pie Chart side by side */}
@@ -71,13 +84,6 @@ export function OverviewPage() {
       <section className="mb-8">
         <FadeInSlide delay={0}>
           <TopHeadlinesList />
-        </FadeInSlide>
-      </section>
-
-      {/* Quick Market Insights Carousel */}
-      <section className="mb-8">
-        <FadeInSlide delay={0}>
-          <QuickInsightsCarousel />
         </FadeInSlide>
       </section>
 
