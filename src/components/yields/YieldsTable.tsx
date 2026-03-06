@@ -56,14 +56,14 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full text-sm table-fixed">
           <thead>
             <tr className="bg-chrome-50 text-chrome-600 text-xs uppercase tracking-wider">
-              <th className="text-left px-4 py-3 font-semibold">Pool</th>
-              <th className="text-left px-4 py-3 font-semibold">Project</th>
-              <th className="text-left px-4 py-3 font-semibold">Chain</th>
+              <th className="text-left px-4 py-3 font-semibold w-[25%]">Pool</th>
+              <th className="text-left px-4 py-3 font-semibold w-[20%]">Project</th>
+              <th className="text-left px-4 py-3 font-semibold w-[13%]">Chain</th>
               <th
-                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800"
+                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800 w-[12%]"
                 onClick={() => onSort('tvlUsd')}
               >
                 <span className="inline-flex items-center gap-1">
@@ -72,7 +72,7 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: 
                 </span>
               </th>
               <th
-                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800"
+                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800 w-[10%]"
                 onClick={() => onSort('apy')}
               >
                 <span className="inline-flex items-center gap-1">
@@ -81,7 +81,7 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: 
                 </span>
               </th>
               <th
-                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800 hidden md:table-cell"
+                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800 hidden md:table-cell w-[10%]"
                 onClick={() => onSort('apyBase')}
               >
                 <span className="inline-flex items-center gap-1">
@@ -90,7 +90,7 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: 
                 </span>
               </th>
               <th
-                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800 hidden md:table-cell"
+                className="text-right px-4 py-3 font-semibold cursor-pointer select-none hover:text-chrome-800 hidden md:table-cell w-[10%]"
                 onClick={() => onSort('apyReward')}
               >
                 <span className="inline-flex items-center gap-1">
@@ -109,7 +109,7 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: 
                 }`}
                 onClick={() => window.open(`${DEFILLAMA_POOL_URL}${pool.pool}`, '_blank', 'noopener')}
               >
-                <td className="px-4 py-3 font-medium text-chrome-800">
+                <td className="px-4 py-3 font-medium text-chrome-800 truncate">
                   {pool.symbol}
                   {pool.poolMeta && (
                     <span className="ml-1.5 text-xs bg-chrome-100 text-chrome-500 px-1.5 py-0.5 rounded">
@@ -117,7 +117,7 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: 
                     </span>
                   )}
                 </td>
-                <td className="px-4 py-3 text-chrome-600">
+                <td className="px-4 py-3 text-chrome-600 truncate">
                   <span className="inline-flex items-center gap-1.5">
                     {projectLogos?.get(pool.project) && (
                       <img
