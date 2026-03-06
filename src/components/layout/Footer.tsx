@@ -14,7 +14,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-chrome-900 rounded-lg flex items-center justify-center">
                 <span className="text-gold-400 font-bold text-lg">S</span>
               </div>
-              <span className="text-xl font-bold text-white">StablecoinStats.ca</span>
+              <span className="text-xl font-bold text-white">StablecoinStats.xyz</span>
             </div>
             <p className="text-sm max-w-md">
               Your destination for stablecoin market data, regulatory tracking,
@@ -114,7 +114,7 @@ export function Footer() {
         {/* Disclaimer & Copyright */}
         <div className="mt-6">
           <p className="text-xs text-chrome-500 mb-4">
-            <strong>Disclaimer:</strong> The information provided on StablecoinStats.ca
+            <strong>Disclaimer:</strong> The information provided on StablecoinStats.xyz
             is for informational purposes only and does not constitute
             investment, legal, or financial advice.{' '}
             <Link to="/disclaimer" className="text-chrome-400 hover:text-gold-400 transition-colors duration-150">
@@ -122,7 +122,7 @@ export function Footer() {
             </Link>
           </p>
           <p className="text-xs text-chrome-500">
-            &copy; {new Date().getFullYear()} StablecoinStats.ca. All rights reserved.
+            &copy; {new Date().getFullYear()} StablecoinStats.xyz. All rights reserved.
           </p>
         </div>
       </div>

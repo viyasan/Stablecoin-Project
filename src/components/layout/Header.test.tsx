@@ -15,7 +15,7 @@ describe('Header', () => {
   it('renders the logo', () => {
     renderHeader();
 
-    expect(screen.getByText('StablecoinStats.ca')).toBeInTheDocument();
+    expect(screen.getByText('StablecoinStats.xyz')).toBeInTheDocument();
     expect(screen.getByText('S')).toBeInTheDocument();
   });
 
@@ -31,7 +31,7 @@ describe('Header', () => {
   it('logo links to home page', () => {
     renderHeader();
 
-    const logoLink = screen.getByRole('link', { name: /stablecoinstats\.ca/i });
+    const logoLink = screen.getByRole('link', { name: /stablecoinstats\.xyz/i });
     expect(logoLink).toHaveAttribute('href', '/');
   });
 

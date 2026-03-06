@@ -75,7 +75,7 @@ export function EmailOptInCard() {
                 Stay Informed
               </h3>
               <p className="text-sm text-chrome-500 mt-0.5">
-                Stablecoin Reports and Updates.
+                Stablecoin News and Updates
               </p>
             </div>
           </div>

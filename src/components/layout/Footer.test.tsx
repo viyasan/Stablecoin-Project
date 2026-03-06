@@ -15,7 +15,7 @@ describe('Footer', () => {
   it('renders the brand name', () => {
     renderFooter();
 
-    expect(screen.getByText('StablecoinStats.ca')).toBeInTheDocument();
+    expect(screen.getByText('StablecoinStats.xyz')).toBeInTheDocument();
   });
 
   it('renders brand description', () => {

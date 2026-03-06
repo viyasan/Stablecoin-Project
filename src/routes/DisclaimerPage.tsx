@@ -13,7 +13,7 @@ export function DisclaimerPage() {
           <h1 className="text-3xl font-bold text-chrome-800">Disclaimer & Disclosures</h1>
         </div>
         <p className="text-chrome-600">
-          Important information about using StablecoinStats.ca
+          Important information about using StablecoinStats.xyz
         </p>
         <p className="text-sm text-chrome-400 mt-2">
           Last updated: {new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -33,7 +33,7 @@ export function DisclaimerPage() {
               </h2>
               <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
-                  The information on StablecoinStats.ca is for <strong>informational purposes
+                  The information on StablecoinStats.xyz is for <strong>informational purposes
                   only</strong>. We provide data and news to help you stay informed about the
                   stablecoin market—we don't provide investment, financial, or legal advice.
                 </p>
@@ -117,7 +117,7 @@ export function DisclaimerPage() {
               </h2>
               <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
-                  Our "Best Stablecoin Yields Today" section displays yield opportunities from
+                  Our "Stablecoin Yields" section displays yield opportunities from
                   third-party decentralized finance (DeFi) protocols. This information is provided
                   for <strong>educational and informational purposes only</strong>.
                 </p>
@@ -136,7 +136,7 @@ export function DisclaimerPage() {
                     total loss of deposited funds.
                   </li>
                   <li>
-                    <strong>Protocol Risk:</strong> Third-party protocols (e.g., Aave) may face
+                    <strong>Protocol Risk:</strong> Third-party protocols may face
                     insolvency, governance attacks, oracle failures, or other operational issues
                     beyond our control.
                   </li>
@@ -164,8 +164,8 @@ export function DisclaimerPage() {
                   </li>
                 </ul>
                 <p className="font-semibold text-chrome-800">
-                  StablecoinStats.ca does not operate, control, or endorse any DeFi protocol.
-                  We are not affiliated with Aave or any yield protocol displayed on this site.
+                  StablecoinStats.xyz does not operate, control, or endorse any DeFi protocol.
+                  We are not affiliated with any DeFi protocol or yield provider displayed on this site.
                   You interact with these protocols at your own risk.
                 </p>
                 <p>
@@ -190,7 +190,7 @@ export function DisclaimerPage() {
               </h2>
               <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
-                  All information on StablecoinStats.ca is provided <strong>"as is"</strong> without
+                  All information on StablecoinStats.xyz is provided <strong>"as is"</strong> without
                   warranties of any kind. While we strive for accuracy, we cannot guarantee that
                   data is complete, current, or error-free.
                 </p>
@@ -272,14 +272,14 @@ export function DisclaimerPage() {
               </h2>
               <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
-                  The inclusion of any stablecoin, project, or news article on StablecoinStats.ca
+                  The inclusion of any stablecoin, project, or news article on StablecoinStats.xyz
                   does not constitute an endorsement or recommendation. We display data and
                   aggregate news—we're not vouching for any particular asset or project.
                 </p>
                 <p>
                   Links to external websites are provided for convenience. We have no control over
                   third-party content and are not responsible for their accuracy or practices.
-                  Opinions in news articles belong to their original authors, not StablecoinStats.ca.
+                  Opinions in news articles belong to their original authors, not StablecoinStats.xyz.
                 </p>
               </div>
             </div>
@@ -298,7 +298,7 @@ export function DisclaimerPage() {
               </h2>
               <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
                 <p>
-                  To the extent permitted by law, StablecoinStats.ca and its operators are not
+                  To the extent permitted by law, StablecoinStats.xyz and its operators are not
                   liable for any damages arising from:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
@@ -324,7 +324,7 @@ export function DisclaimerPage() {
           </h2>
           <div className="prose prose-gray max-w-none text-chrome-600 space-y-3">
             <p>
-              StablecoinStats.ca is operated from Canada. Cryptocurrency regulations vary
+              StablecoinStats.xyz is operated from Canada. Cryptocurrency regulations vary
               significantly by country and are constantly evolving. If you're accessing this
               site from outside Canada, ensure you comply with your local laws. Certain assets
               or activities may be restricted in your jurisdiction.
@@ -352,7 +352,7 @@ export function DisclaimerPage() {
             Questions?
           </h2>
           <p className="text-chrome-600">
-            If you have questions about this disclaimer or anything on StablecoinStats.ca,
+            If you have questions about this disclaimer or anything on StablecoinStats.xyz,
             feel free to reach out to{' '}
             <a
               href="mailto:viyasan.ari@gmail.com"
