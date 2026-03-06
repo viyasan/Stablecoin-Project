@@ -29,16 +29,14 @@ export function Header() {
   return (
     <header className="bg-white border-b border-chrome-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2.5 group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
-            <div className="w-7 h-7 relative">
-              <div className="absolute inset-0 border-[1.5px] border-gold-500 rounded-full opacity-50" />
-              <div className="absolute inset-[6px] bg-gold-500 rounded-full" />
-            </div>
-            <span className="text-xl text-chrome-800" style={{ fontFamily: "'DM Serif Display', serif" }}>
-              StablecoinStats<span className="text-gold-500">.ca</span>
-            </span>
+          <Link to="/" className="group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
+            <img
+              src="/logo.png"
+              alt="StablecoinStats logo"
+              className="h-48 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
