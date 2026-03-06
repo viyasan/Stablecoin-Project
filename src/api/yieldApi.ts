@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { StablecoinYieldPool, UseApiResult } from '../types/yield';
 
 const DEFILLAMA_YIELDS_API = 'https://yields.llama.fi/pools';
+const DEFILLAMA_PROTOCOLS_API = 'https://api.llama.fi/protocols';
 const YIELD_CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 interface DefiLlamaPool {
@@ -22,6 +23,7 @@ export interface StablecoinYieldsResult {
   data: StablecoinYieldPool[];
   chains: string[];
   tokens: string[];
+  projectLogos: Map<string, string>;
 }
 
 interface StablecoinYieldCache {
@@ -32,12 +34,27 @@ let stablecoinYieldCache: StablecoinYieldCache | null = null;
 let stablecoinPendingFetch: Promise<StablecoinYieldsResult> | null = null;
 
 async function fetchAllStablecoinYields(): Promise<StablecoinYieldsResult> {
-  const response = await fetch(DEFILLAMA_YIELDS_API);
-  if (!response.ok) {
-    throw new Error(`DeFi Llama API error: ${response.status}`);
+  const [yieldsResponse, protocolsResponse] = await Promise.all([
+    fetch(DEFILLAMA_YIELDS_API),
+    fetch(DEFILLAMA_PROTOCOLS_API),
+  ]);
+
+  if (!yieldsResponse.ok) {
+    throw new Error(`DeFi Llama API error: ${yieldsResponse.status}`);
   }
 
-  const { data: rawPools } = await response.json();
+  // Build project slug → logo URL map
+  const projectLogos = new Map<string, string>();
+  if (protocolsResponse.ok) {
+    const protocols = await protocolsResponse.json();
+    for (const p of protocols as { slug: string; logo?: string }[]) {
+      if (p.slug && p.logo) {
+        projectLogos.set(p.slug, p.logo);
+      }
+    }
+  }
+
+  const { data: rawPools } = await yieldsResponse.json();
 
   const pools: StablecoinYieldPool[] = (rawPools as DefiLlamaPool[])
     .filter(p =>
@@ -80,7 +97,7 @@ async function fetchAllStablecoinYields(): Promise<StablecoinYieldsResult> {
   ];
   const tokens = TOKEN_ALLOWLIST.filter(t => tokenTvl.has(t));
 
-  return { data: pools, chains, tokens };
+  return { data: pools, chains, tokens, projectLogos };
 }
 
 async function fetchStablecoinYieldsCached(): Promise<StablecoinYieldsResult> {

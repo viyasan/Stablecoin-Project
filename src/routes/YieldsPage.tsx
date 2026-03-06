@@ -5,7 +5,7 @@ import { YieldsFilterBar, YieldsTable, YieldsPagination, SkeletonYieldsTable } f
 import { useStablecoinYields } from '../api/yieldApi';
 import type { SortField, SortOrder } from '../components/yields/YieldsTable';
 
-const ROWS_PER_PAGE = 20;
+const ROWS_PER_PAGE = 15;
 
 export function YieldsPage() {
   const { data, isLoading, error, refetch } = useStablecoinYields();
@@ -107,6 +107,7 @@ export function YieldsPage() {
             sortBy={sortBy}
             sortOrder={sortOrder}
             onSort={handleSort}
+            projectLogos={data.projectLogos}
           />
 
           <YieldsPagination

@@ -4,11 +4,22 @@ import type { StablecoinYieldPool } from '../../types/yield';
 export type SortField = 'tvlUsd' | 'apy' | 'apyBase' | 'apyReward';
 export type SortOrder = 'asc' | 'desc';
 
+const CHAIN_ICONS: Record<string, string> = {
+  Ethereum: 'https://icons.llama.fi/chains/rsz_ethereum.jpg',
+  Solana: 'https://icons.llama.fi/chains/rsz_solana.jpg',
+  Arbitrum: 'https://icons.llama.fi/chains/rsz_arbitrum.jpg',
+  Base: 'https://icons.llama.fi/chains/rsz_base.jpg',
+  BSC: 'https://icons.llama.fi/chains/rsz_binance.jpg',
+  Tron: 'https://icons.llama.fi/chains/rsz_tron.jpg',
+  Avalanche: 'https://icons.llama.fi/chains/rsz_avalanche.jpg',
+};
+
 interface YieldsTableProps {
   pools: StablecoinYieldPool[];
   sortBy: SortField;
   sortOrder: SortOrder;
   onSort: (field: SortField) => void;
+  projectLogos?: Map<string, string>;
 }
 
 function formatTvl(value: number): string {
@@ -41,7 +52,7 @@ function SortIcon({ field, sortBy, sortOrder }: { field: SortField; sortBy: Sort
 
 const DEFILLAMA_POOL_URL = 'https://defillama.com/yields/pool/';
 
-export function YieldsTable({ pools, sortBy, sortOrder, onSort }: YieldsTableProps) {
+export function YieldsTable({ pools, sortBy, sortOrder, onSort, projectLogos }: YieldsTableProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
       <div className="overflow-x-auto">
@@ -106,8 +117,34 @@ export function YieldsTable({ pools, sortBy, sortOrder, onSort }: YieldsTablePro
                     </span>
                   )}
                 </td>
-                <td className="px-4 py-3 text-chrome-600">{formatProject(pool.project)}</td>
-                <td className="px-4 py-3 text-chrome-600">{pool.chain}</td>
+                <td className="px-4 py-3 text-chrome-600">
+                  <span className="inline-flex items-center gap-1.5">
+                    {projectLogos?.get(pool.project) && (
+                      <img
+                        src={projectLogos.get(pool.project)}
+                        alt=""
+                        className="w-5 h-5 rounded-full object-cover"
+                        loading="lazy"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    )}
+                    {formatProject(pool.project)}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-chrome-600">
+                  <span className="inline-flex items-center gap-1.5">
+                    {CHAIN_ICONS[pool.chain] && (
+                      <img
+                        src={CHAIN_ICONS[pool.chain]}
+                        alt=""
+                        className="w-5 h-5 rounded-full object-cover"
+                        loading="lazy"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    )}
+                    {pool.chain}
+                  </span>
+                </td>
                 <td className="px-4 py-3 text-right font-medium text-chrome-800">{formatTvl(pool.tvlUsd)}</td>
                 <td className="px-4 py-3 text-right font-medium text-green-600">{formatApy(pool.apy)}</td>
                 <td className="px-4 py-3 text-right text-chrome-600 hidden md:table-cell">{formatApy(pool.apyBase)}</td>
