@@ -17,10 +17,12 @@ function MapleLeafIcon({ className }: { className?: string }) {
 
 const navItems = [
   { to: '/', label: 'OVERVIEW' },
+  { to: '/market', label: 'MARKET' },
   { to: '/yields', label: 'YIELD' },
   { to: '/countries', label: 'REGULATION' },
   { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
   { to: '/news', label: 'NEWS' },
+  { to: '/live', label: 'LIVE' },
 ];
 
 export function Header() {

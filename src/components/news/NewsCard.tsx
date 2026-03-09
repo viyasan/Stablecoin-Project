@@ -5,6 +5,11 @@ import type { NewsItem, TopicTag } from '../../types';
 const SOURCE_COLORS: Record<string, string> = {
   CoinDesk: '#0052FF',
   CoinTelegraph: '#F7931A',
+  'The Block': '#00C2FF',
+  'Decrypt': '#00D395',
+  'Blockworks': '#7C3AED',
+  'TechCrunch': '#0A9C1F',
+  'BetaKit': '#FF6B35',
 };
 
 // Topic tag colors
@@ -53,6 +58,11 @@ function getFallbackImage(source: string): string {
   const gradients: Record<string, string> = {
     CoinDesk: 'linear-gradient(135deg, #0052FF 0%, #00D4FF 100%)',
     CoinTelegraph: 'linear-gradient(135deg, #F7931A 0%, #FFD700 100%)',
+    'The Block': 'linear-gradient(135deg, #00C2FF 0%, #0085FF 100%)',
+    'Decrypt': 'linear-gradient(135deg, #00D395 0%, #00A870 100%)',
+    'Blockworks': 'linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%)',
+    'TechCrunch': 'linear-gradient(135deg, #0A9C1F 0%, #067A15 100%)',
+    'BetaKit': 'linear-gradient(135deg, #FF6B35 0%, #E54D1B 100%)',
   };
   return gradients[source] || 'linear-gradient(135deg, #343A40 0%, #1A1D21 100%)';
 }

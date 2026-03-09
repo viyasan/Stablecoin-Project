@@ -5,12 +5,14 @@ import NProgress from 'nprogress';
 import { Header, Footer } from './components/layout';
 import {
   OverviewPage,
+  MarketPage,
   CanadaPage,
   CountriesPage,
   CountryDetailPage,
   NewsPage,
   DisclaimerPage,
   YieldsPage,
+  LivePage,
 } from './routes';
 
 // Configure NProgress
@@ -73,12 +75,14 @@ function App() {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<OverviewPage />} />
+            <Route path="/market" element={<MarketPage />} />
             <Route path="/canada" element={<CanadaPage />} />
             <Route path="/countries" element={<CountriesPage />} />
             <Route path="/countries/:code" element={<CountryDetailPage />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
             <Route path="/yields" element={<YieldsPage />} />
+            <Route path="/live" element={<LivePage />} />
           </Routes>
         </div>
         <Footer />
