@@ -44,6 +44,11 @@ export interface MarketCapDataPoint {
   }[];
 }
 
+export interface ChainBreakdownEntry {
+  chain: string;
+  amount: number;  // circulating supply on this chain in USD
+}
+
 export interface StablecoinWithSnapshot extends Stablecoin {
   marketCap: number;
   volume24h: number;
@@ -51,6 +56,7 @@ export interface StablecoinWithSnapshot extends Stablecoin {
   priceDeviation: number;
   change7d: number;
   change30d: number;
+  chainBreakdown: ChainBreakdownEntry[];  // sorted descending by amount
 }
 
 export interface PegPricePoint {

@@ -203,6 +203,13 @@ async function fetchStablecoinList(): Promise<StablecoinWithSnapshot[]> {
         priceDeviation: coin.price ? (coin.price - 1) * 100 : 0,
         change7d: Math.round(change7d * 100) / 100,
         change30d: Math.round(change30d * 100) / 100,
+        chainBreakdown: Object.entries(coin.chainCirculating || {})
+          .map(([chain, data]) => ({
+            chain: normalizeChainName(chain),
+            amount: data?.current?.peggedUSD || 0,
+          }))
+          .filter(e => e.amount > 0)
+          .sort((a, b) => b.amount - a.amount),
       };
     })
     .sort((a, b) => b.marketCap - a.marketCap);

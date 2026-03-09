@@ -9,9 +9,10 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 import { useStablecoinList, useStablecoinPrices } from '../../api';
 import { SkeletonChart } from '../common';
-import type { PegPricePoint } from '../../types';
+import type { PegPricePoint, ChainBreakdownEntry } from '../../types';
 
 // Match colors from MarketSharePieChart
 const STABLECOIN_COLORS: Record<string, string> = {
@@ -28,6 +29,63 @@ const STABLECOIN_COLORS: Record<string, string> = {
 };
 
 const FALLBACK_COLOR = '#6B7280';
+
+const CHAIN_COLORS: Record<string, string> = {
+  Ethereum: '#627EEA',
+  Tron: '#FF0013',
+  BSC: '#F0B90B',
+  Solana: '#9945FF',
+  Arbitrum: '#28A0F0',
+  Hyperliquid: '#00D395',
+  Base: '#0052FF',
+  Polygon: '#8247E5',
+  Avalanche: '#E84142',
+  'OP Mainnet': '#FF0420',
+  Aptos: '#66CCFF',
+  Sui: '#4DA2FF',
+  TON: '#0098EA',
+  Near: '#00C08B',
+  Fantom: '#1969FF',
+};
+
+const CHAIN_FALLBACK_COLORS = ['#6366F1', '#EC4899', '#14B8A6', '#F97316', '#84CC16', '#06B6D4'];
+
+function getChainColor(chain: string, index: number): string {
+  return CHAIN_COLORS[chain] || CHAIN_FALLBACK_COLORS[index % CHAIN_FALLBACK_COLORS.length];
+}
+
+function formatCurrency(value: number): string {
+  if (value >= 1_000_000_000_000) return `$${(value / 1_000_000_000_000).toFixed(2)}T`;
+  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(2)}B`;
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(2)}M`;
+  return `$${value.toLocaleString()}`;
+}
+
+function getChainDistribution(breakdown: ChainBreakdownEntry[], topN: number = 5) {
+  const total = breakdown.reduce((sum, e) => sum + e.amount, 0);
+  if (total === 0) return [];
+
+  const top = breakdown.slice(0, topN);
+  const othersAmount = breakdown.slice(topN).reduce((sum, e) => sum + e.amount, 0);
+
+  const entries = top.map((e, i) => ({
+    chain: e.chain,
+    amount: e.amount,
+    percentage: (e.amount / total) * 100,
+    color: getChainColor(e.chain, i),
+  }));
+
+  if (othersAmount > 0) {
+    entries.push({
+      chain: 'Others',
+      amount: othersAmount,
+      percentage: (othersAmount / total) * 100,
+      color: '#9CA3AF',
+    });
+  }
+
+  return entries;
+}
 
 type TimeRange = '30d' | '1y' | 'max';
 
@@ -293,6 +351,93 @@ export function PegStabilityChart() {
               />
             </LineChart>
           </ResponsiveContainer>
+        </div>
+
+        {/* Bento Detail Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          {/* Card A — Market Overview */}
+          <div
+            className="relative overflow-hidden rounded-2xl border border-white/60 shadow-lg p-5"
+            style={{
+              background: `linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4))`,
+              backdropFilter: 'blur(24px)',
+            }}
+          >
+            {/* Accent glow */}
+            <div
+              className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl opacity-20 pointer-events-none"
+              style={{ backgroundColor: selectedColor }}
+            />
+
+            <div className="flex items-center gap-2 mb-4">
+              <span
+                className="w-3 h-3 rounded-full flex-shrink-0"
+                style={{ backgroundColor: selectedColor }}
+              />
+              <h3 className="text-sm font-semibold text-chrome-900">Market Overview</h3>
+              <span className="ml-auto text-xs font-medium text-chrome-400 bg-white/50 rounded-full px-2 py-0.5">
+                #{selectedIndex + 1}
+              </span>
+            </div>
+
+            <p className="text-2xl font-bold text-chrome-900 mb-4">
+              {formatCurrency(selected.marketCap)}
+            </p>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between bg-white/50 rounded-xl px-3 py-2">
+                <span className="text-xs text-chrome-500">7d Change</span>
+                <span className={`flex items-center gap-1 text-sm font-semibold ${selected.change7d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
+                  {selected.change7d >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                  {selected.change7d >= 0 ? '+' : ''}{selected.change7d.toFixed(2)}%
+                </span>
+              </div>
+              <div className="flex items-center justify-between bg-white/50 rounded-xl px-3 py-2">
+                <span className="text-xs text-chrome-500">30d Change</span>
+                <span className={`flex items-center gap-1 text-sm font-semibold ${selected.change30d >= 0 ? 'text-status-positive' : 'text-status-negative'}`}>
+                  {selected.change30d >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                  {selected.change30d >= 0 ? '+' : ''}{selected.change30d.toFixed(2)}%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card B — Chain Distribution */}
+          <div
+            className="relative overflow-hidden rounded-2xl border border-white/60 shadow-lg p-5"
+            style={{
+              background: `linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4))`,
+              backdropFilter: 'blur(24px)',
+            }}
+          >
+            {/* Accent glow */}
+            <div
+              className="absolute -top-12 -left-12 w-32 h-32 rounded-full blur-3xl opacity-20 pointer-events-none"
+              style={{ backgroundColor: selectedColor }}
+            />
+
+            <h3 className="text-sm font-semibold text-chrome-900 mb-4">Chain Distribution</h3>
+
+            <div className="space-y-3">
+              {getChainDistribution(selected.chainBreakdown).map((entry) => (
+                <div key={entry.chain}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium text-chrome-700">{entry.chain}</span>
+                    <span className="text-xs text-chrome-500">{entry.percentage.toFixed(1)}%</span>
+                  </div>
+                  <div className="h-2 bg-white/50 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${entry.percentage}%`,
+                        backgroundColor: entry.color,
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Footer */}
