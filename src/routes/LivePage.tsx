@@ -26,11 +26,7 @@ export function LivePage() {
         <section className="mb-12">
           <div className="flex items-center gap-2 mb-4">
             <Twitter className="w-5 h-5 text-chrome-500" />
-            <h2 className="text-xl font-bold text-chrome-800">Live from X</h2>
-            <span className="relative flex h-2.5 w-2.5 ml-1">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
-            </span>
+            <h2 className="text-xl font-bold text-chrome-800">Latest from X</h2>
           </div>
           <TwitterEmbed />
         </section>
