@@ -3,6 +3,7 @@ export { ChainBreakdownChart } from './ChainBreakdownChart';
 export { GlobalKpiCard } from './GlobalKpiCard';
 export { MarketCapChart } from './MarketCapChart';
 export { MarketSharePieChart } from './MarketSharePieChart';
+export { PegStabilityChart } from './PegStabilityChart';
 export { QuickInsightsCarousel } from './QuickInsightsCarousel';
 export { ReserveCompositionCard } from './ReserveCompositionCard';
 export { TopHeadlinesList } from './TopHeadlinesList';

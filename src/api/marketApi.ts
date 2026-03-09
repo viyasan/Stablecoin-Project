@@ -6,12 +6,14 @@ import type {
   MarketFilters,
   PegCurrency,
   IssuerType,
+  PegPricePoint,
 } from '../types';
 
 // DefiLlama API endpoints
 const DEFILLAMA_STABLECOINS_API = 'https://stablecoins.llama.fi/stablecoins?includePrices=true';
 const DEFILLAMA_CHARTS_API = 'https://stablecoins.llama.fi/stablecoincharts/all';
 const DEFILLAMA_CHAINS_API = 'https://stablecoins.llama.fi/stablecoinchains';
+const DEFILLAMA_PRICES_API = 'https://stablecoins.llama.fi/stablecoinprices';
 
 // Helper to map peg type to our PegCurrency type
 function mapPegType(pegType: string): PegCurrency {
@@ -489,6 +491,79 @@ export function useStablecoinReserves(): UseApiResult<StablecoinReservesData> {
       setIsLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, isLoading, error, refetch: fetchData };
+}
+
+// Stablecoin peg price history
+interface DefiLlamaPriceEntry {
+  date: number;
+  prices: Record<string, number>;
+}
+
+async function fetchStablecoinPrices(): Promise<Map<string, PegPricePoint[]>> {
+  const response = await fetch(DEFILLAMA_PRICES_API);
+  if (!response.ok) throw new Error('Failed to fetch stablecoin price data');
+
+  const data: DefiLlamaPriceEntry[] = await response.json();
+  const result = new Map<string, PegPricePoint[]>();
+
+  // Filter out date: 0 (current snapshot) and process historical entries
+  const historicalEntries = data.filter((entry) => entry.date !== 0);
+
+  for (const entry of historicalEntries) {
+    const isoDate = new Date(entry.date * 1000).toISOString();
+    for (const [geckoId, price] of Object.entries(entry.prices)) {
+      if (!result.has(geckoId)) {
+        result.set(geckoId, []);
+      }
+      result.get(geckoId)!.push({
+        date: isoDate,
+        price,
+        deviation: (price - 1.0) * 100,
+      });
+    }
+  }
+
+  // Sort each coin's data by date ascending
+  for (const points of result.values()) {
+    points.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }
+
+  return result;
+}
+
+export function useStablecoinPrices(
+  days: number = 0
+): UseApiResult<Map<string, PegPricePoint[]>> {
+  const [data, setData] = useState<Map<string, PegPricePoint[]> | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const priceData = await fetchStablecoinPrices();
+
+      // Slice to requested number of days if specified
+      if (days > 0) {
+        for (const [geckoId, points] of priceData.entries()) {
+          priceData.set(geckoId, points.slice(-days));
+        }
+      }
+
+      setData(priceData);
+      setError(null);
+    } catch (err) {
+      setError(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [days]);
 
   useEffect(() => {
     fetchData();

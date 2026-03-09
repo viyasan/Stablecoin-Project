@@ -53,6 +53,12 @@ export interface StablecoinWithSnapshot extends Stablecoin {
   change30d: number;
 }
 
+export interface PegPricePoint {
+  date: string;      // ISO timestamp
+  price: number;     // e.g. 0.9999
+  deviation: number; // percentage from peg, e.g. -0.01
+}
+
 export interface MarketFilters {
   search?: string;
   pegCurrency?: PegCurrency | 'all';
