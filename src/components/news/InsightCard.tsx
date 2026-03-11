@@ -9,7 +9,7 @@ const SOURCE_COLORS: Record<string, string> = {
   'Chainalysis': '#1E40AF',   // Blue
   'Brevan Howard': '#4B5563', // Gray
   'Coinbase': '#0052FF',      // Blue
-  'IMF': '#1E3A5F',           // Navy
+  'Allium': '#6366F1',         // Indigo
   'BIS': '#8B0000',           // Dark red
   'BCG': '#00A651',           // Green
   'Castle Island': '#F59E0B', // Amber
@@ -29,7 +29,7 @@ const SOURCE_LOGOS: Record<string, string> = {
   'a16z': '/a16z-logo.jpg',
   'Circle': '/circle-logo.jpeg',
   'Coinbase': '/coinbase-logo.webp',
-  'IMF': '/imf-logo.png',
+  'Allium': '/allium-logo.png',
 };
 
 // Fallback gradient for cards without images

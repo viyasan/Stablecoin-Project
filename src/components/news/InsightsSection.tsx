@@ -22,11 +22,11 @@ const INSIGHTS: InsightItem[] = [
   },
   {
     id: '3',
-    title: 'State of Crypto 2025',
+    title: 'The WhatsApp Moment for Money Is Here',
     source: 'a16z',
-    url: 'https://a16zcrypto.com/posts/article/state-of-crypto-report-2025/',
-    summary: 'Comprehensive annual report covering crypto adoption trends, stablecoin growth, and emerging use cases across DeFi and payments.',
-    category: 'market-data',
+    url: 'https://a16zcrypto.com/posts/article/stablecoins-whatsapp-moment-money/',
+    summary: 'Stablecoins are doing to money what WhatsApp did to messaging — slashing costs, speeding settlement, and going mainstream as regulatory clarity and institutional adoption accelerate.',
+    category: 'infrastructure',
   },
   {
     id: '4',
@@ -46,11 +46,11 @@ const INSIGHTS: InsightItem[] = [
   },
   {
     id: '6',
-    title: 'Understanding Stablecoins',
-    source: 'IMF',
-    url: 'https://www.imf.org/en/Publications/fintech-notes/Issues/2024/04/stablecoins',
-    summary: 'IMF analysis of stablecoin mechanics, risks, and policy considerations for monetary authorities worldwide.',
-    category: 'regulation',
+    title: 'Allium Stablecoins Report 2026',
+    source: 'Allium',
+    url: 'https://stablecoininsider.org/allium-stablecoins-report-2026/',
+    summary: 'Stablecoins have evolved from crypto trading tools into real payment infrastructure — $266B supply, $985B monthly volume, with usage growing faster than supply as adoption embeds in domestic payments and merchant activity.',
+    category: 'market-data',
   },
 ];
 
