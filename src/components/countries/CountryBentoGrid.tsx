@@ -57,12 +57,17 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
   return (
     <div className={`bg-white rounded-xl shadow-sm border border-chrome-200 ${className}`}>
       <div className="px-6 py-4 border-b border-chrome-100">
-        <h2 className="text-lg font-semibold text-chrome-900">
-          Global Stablecoin Regulation
-        </h2>
-        <p className="text-sm text-chrome-500 mt-1">
-          Select a country to view regulatory details
-        </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-chrome-900">
+              Global Stablecoin Regulation
+            </h2>
+            <p className="text-sm text-chrome-500 mt-1">
+              Select a country to view regulatory details
+            </p>
+          </div>
+          <span className="text-sm text-chrome-400 whitespace-nowrap">Last updated: March 2026</span>
+        </div>
         {/* Legend */}
         <div className="flex items-center gap-4 mt-3">
           <div className="flex items-center gap-1.5">

@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout';
-import { CountryBentoGrid } from '../components/countries';
+import { CountryBentoGrid, GASPCard } from '../components/countries';
 
 export function CountriesPage() {
   return (
@@ -8,6 +8,7 @@ export function CountriesPage() {
       subtitle="Global view of stablecoin regulation and progress by country/region"
     >
       <CountryBentoGrid />
+      <GASPCard className="mt-8" />
     </PageContainer>
   );
 }
