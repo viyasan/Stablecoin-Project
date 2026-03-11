@@ -3,7 +3,6 @@ import { SkeletonCanadaPage } from '../components/common';
 import {
   CompanyProfileCards,
   ComparisonTable,
-  RegulatoryStatusTracker,
   CompanyTimelines,
 } from '../components/canada';
 import { useCanadianStablecoins, useCanadianExchanges } from '../api';
@@ -211,11 +210,6 @@ export function CanadaPage() {
       {/* Comparison Table */}
       <section className="mb-8">
         <ComparisonTable stablecoins={stablecoins} exchanges={exchanges || []} />
-      </section>
-
-      {/* Regulatory Status Tracker */}
-      <section className="mb-8">
-        <RegulatoryStatusTracker stablecoins={stablecoins} />
       </section>
 
       {/* Company Timelines */}

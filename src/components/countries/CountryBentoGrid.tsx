@@ -28,53 +28,12 @@ const COUNTRY_FLAGS: Record<string, string> = {
   au: '🇦🇺',
 };
 
-// Ordered list of countries for the bento grid (2x5 layout)
+// Ordered list of countries for the sidebar list
 const COUNTRY_ORDER = ['ca', 'us', 'ch', 'eu', 'uk', 'ae', 'hk', 'jp', 'sg', 'au'];
 
 // Get country data by ID
 function getCountryById(id: string): RegulationCountry | undefined {
   return REGULATION_COUNTRIES.find((c) => c.id === id);
-}
-
-interface CountryCardProps {
-  country: RegulationCountry;
-  flag: string;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
-function CountryCard({ country, flag, isSelected, onClick }: CountryCardProps) {
-  const stageColor = STAGE_COLORS[country.stage];
-
-  return (
-    <button
-      onClick={onClick}
-      className={`
-        relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-150 ease-out
-        hover:scale-[1.03] hover:shadow-lg hover:-translate-y-0.5 cursor-pointer active:scale-[0.98]
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2
-        ${isSelected
-          ? 'border-gold-400 bg-gold-50 shadow-md'
-          : 'border-chrome-200 bg-white hover:border-chrome-300'
-        }
-      `}
-    >
-      {/* Stage indicator dot */}
-      <div
-        className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full"
-        style={{ backgroundColor: stageColor }}
-        title={country.stage.charAt(0).toUpperCase() + country.stage.slice(1)}
-      />
-
-      {/* Flag */}
-      <span className="text-4xl mb-2">{flag}</span>
-
-      {/* Country name */}
-      <span className={`text-sm font-medium text-center ${isSelected ? 'text-gold-600' : 'text-chrome-700'}`}>
-        {country.name}
-      </span>
-    </button>
-  );
 }
 
 interface CountryBentoGridProps {
@@ -104,52 +63,62 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
         <p className="text-sm text-chrome-500 mt-1">
           Select a country to view regulatory details
         </p>
+        {/* Legend */}
+        <div className="flex items-center gap-4 mt-3">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.proposed }} />
+            <span className="text-xs text-chrome-600">Proposed</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.approved }} />
+            <span className="text-xs text-chrome-600">Approved</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.implemented }} />
+            <span className="text-xs text-chrome-600">Implemented</span>
+          </div>
+        </div>
       </div>
 
       <div className="p-6">
         {/* Main layout: Grid on left, Details on right */}
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Country Bento Grid - Left side */}
-          <div className="lg:w-1/3">
-            <div className="grid grid-cols-2 gap-3">
+          {/* Country Sidebar List - Left side */}
+          <div className="lg:w-1/4">
+            <div className="flex flex-col">
               {COUNTRY_ORDER.map((countryId) => {
                 const country = getCountryById(countryId);
                 if (!country) return null;
+                const isSelected = selectedCountry?.id === countryId;
 
                 return (
-                  <CountryCard
+                  <button
                     key={countryId}
-                    country={country}
-                    flag={COUNTRY_FLAGS[countryId] || '🏳️'}
-                    isSelected={selectedCountry?.id === countryId}
                     onClick={() => handleCountryClick(countryId)}
-                  />
+                    className={`
+                      flex items-center gap-2 w-full px-3 py-2 rounded-lg text-left text-sm transition-all duration-150 ease-out
+                      cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400
+                      ${isSelected
+                        ? 'bg-gold-50 text-gold-700 font-medium border-l-2 border-gold-500'
+                        : 'text-chrome-700 hover:bg-chrome-50'
+                      }
+                    `}
+                  >
+                    <span>{country.name}</span>
+                    <span className="text-base">{COUNTRY_FLAGS[countryId] || '🏳️'}</span>
+                    <div
+                      className="w-2.5 h-2.5 rounded-full ml-auto flex-shrink-0"
+                      style={{ backgroundColor: STAGE_COLORS[country.stage] }}
+                      title={country.stage.charAt(0).toUpperCase() + country.stage.slice(1)}
+                    />
+                  </button>
                 );
               })}
-            </div>
-
-            {/* Legend */}
-            <div className="mt-4 pt-4 border-t border-chrome-100">
-              <p className="text-xs font-medium text-chrome-500 mb-2">Regulation Status</p>
-              <div className="flex flex-wrap gap-3">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.proposed }} />
-                  <span className="text-xs text-chrome-600">Proposed</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.approved }} />
-                  <span className="text-xs text-chrome-600">Approved</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.implemented }} />
-                  <span className="text-xs text-chrome-600">Implemented</span>
-                </div>
-              </div>
             </div>
           </div>
 
           {/* Details Panel - Right side */}
-          <div className="lg:w-2/3">
+          <div className="lg:w-3/4">
             {selectedCountry ? (
               <div className="bg-white rounded-xl border border-chrome-200 p-6 h-full max-h-[600px] overflow-y-auto">
                 <CountryDetailsContent country={selectedCountry} onClose={handleCloseDetails} />

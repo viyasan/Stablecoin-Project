@@ -1,7 +1,7 @@
-import { Radio, Users, Twitter, Newspaper } from 'lucide-react';
+import { Radio, Users, Twitter } from 'lucide-react';
 import { PageContainer } from '../components/layout';
 import { FadeInSlide } from '../components/common';
-import { KolDirectory, TwitterEmbed, LiveNewsSection } from '../components/live';
+import { KolDirectory, TwitterEmbed } from '../components/live';
 
 export function LivePage() {
   return (
@@ -43,19 +43,6 @@ export function LivePage() {
         </section>
       </FadeInSlide>
 
-      {/* Divider */}
-      <div className="border-t border-chrome-200 my-12" />
-
-      {/* Live News Section */}
-      <FadeInSlide delay={300}>
-        <section>
-          <div className="flex items-center gap-2 mb-6">
-            <Newspaper className="w-5 h-5 text-chrome-500" />
-            <h2 className="text-xl font-bold text-chrome-800">Stablecoin & Fintech News</h2>
-          </div>
-          <LiveNewsSection />
-        </section>
-      </FadeInSlide>
     </PageContainer>
   );
 }

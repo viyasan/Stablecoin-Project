@@ -5,7 +5,7 @@ export function CountriesPage() {
   return (
     <PageContainer
       title="Regulatory Landscape"
-      subtitle="Global view of stablecoin regulation and adoption by country"
+      subtitle="Global view of stablecoin regulation and progress by country/region"
     >
       <CountryBentoGrid />
     </PageContainer>

@@ -23,6 +23,15 @@ const CATEGORY_STYLES: Record<InsightCategory, { bg: string; text: string; label
   'regulation': { bg: 'bg-chrome-100', text: 'text-chrome-600', label: 'Regulation' },
 };
 
+// Source logos (served from /public)
+const SOURCE_LOGOS: Record<string, string> = {
+  'Artemis': '/artemis-logo.jpeg',
+  'a16z': '/a16z-logo.jpg',
+  'Circle': '/circle-logo.jpeg',
+  'Coinbase': '/coinbase-logo.webp',
+  'IMF': '/imf-logo.png',
+};
+
 // Fallback gradient for cards without images
 function getFallbackGradient(source: string): string {
   const color = SOURCE_COLORS[source] || '#6366F1';
@@ -60,6 +69,12 @@ export function InsightCard({ item }: InsightCardProps) {
                 target.parentElement!.style.background = getFallbackGradient(item.source);
               }}
             />
+          ) : SOURCE_LOGOS[item.source] ? (
+            <img
+              src={SOURCE_LOGOS[item.source]}
+              alt={`${item.source} logo`}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <div
               className="w-full h-full flex items-center justify-center"
@@ -93,19 +108,15 @@ export function InsightCard({ item }: InsightCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm sm:text-base font-semibold text-chrome-900 mb-1 line-clamp-2 group-hover:text-gold-500 transition-colors duration-150">
-            {item.title}
+          <h3 className="text-sm sm:text-base font-semibold text-chrome-900 mb-1 line-clamp-2 group-hover:text-gold-500 transition-colors duration-150 flex items-start gap-1.5">
+            <span>{item.title}</span>
+            <ExternalLink className="w-3.5 h-3.5 text-chrome-400 flex-shrink-0 mt-0.5" />
           </h3>
 
           {/* Summary */}
           <p className="text-xs sm:text-sm text-chrome-600 line-clamp-2 flex-1">
             {item.summary}
           </p>
-
-          {/* External link indicator */}
-          <div className="flex items-center justify-end mt-2">
-            <ExternalLink className="w-4 h-4 text-chrome-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-          </div>
         </div>
       </div>
     </article>

@@ -59,12 +59,10 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
   });
 
   // Calculate breakdowns
-  const pegBreakdown = { USD: 0, EUR: 0, JPY: 0, GBP: 0, SGD: 0, OTHER: 0 };
   const issuerBreakdown = { 'fiat-backed': 0, 'crypto-collateralized': 0, algorithmic: 0 };
 
   if (stablecoins) {
     for (const coin of stablecoins) {
-      pegBreakdown[coin.pegCurrency] = (pegBreakdown[coin.pegCurrency] || 0) + 1;
       issuerBreakdown[coin.issuerType] = (issuerBreakdown[coin.issuerType] || 0) + 1;
     }
   }
@@ -84,57 +82,12 @@ function TrackedAssetsKpi({ count }: TrackedAssetsKpiProps) {
 
       {/* Hover Popover */}
       {isHovered && stablecoins && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-64 bg-white rounded-lg shadow-lg border border-chrome-200 p-4 text-left">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-[-16px] z-50 w-56 bg-white rounded-lg shadow-lg border border-chrome-200 p-4 text-left">
           {/* Arrow */}
           <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-chrome-200 rotate-45" />
 
-          {/* Peg Type Breakdown */}
-          <div className="mb-4">
-            <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
-              By Peg Type
-            </h4>
-            <div className="space-y-1">
-              {pegBreakdown.USD > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-chrome-600">USD-pegged</span>
-                  <span className="font-medium text-chrome-900">{pegBreakdown.USD}</span>
-                </div>
-              )}
-              {pegBreakdown.EUR > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-chrome-600">EUR-pegged</span>
-                  <span className="font-medium text-chrome-900">{pegBreakdown.EUR}</span>
-                </div>
-              )}
-              {pegBreakdown.JPY > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-chrome-600">JPY-pegged</span>
-                  <span className="font-medium text-chrome-900">{pegBreakdown.JPY}</span>
-                </div>
-              )}
-              {pegBreakdown.GBP > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-chrome-600">GBP-pegged</span>
-                  <span className="font-medium text-chrome-900">{pegBreakdown.GBP}</span>
-                </div>
-              )}
-              {pegBreakdown.SGD > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-chrome-600">SGD-pegged</span>
-                  <span className="font-medium text-chrome-900">{pegBreakdown.SGD}</span>
-                </div>
-              )}
-              {pegBreakdown.OTHER > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-chrome-600">Other</span>
-                  <span className="font-medium text-chrome-900">{pegBreakdown.OTHER}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
           {/* Issuer Type Breakdown */}
-          <div className="mb-4">
+          <div>
             <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
               By Issuer Type
             </h4>

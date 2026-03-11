@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { InsightCard } from './InsightCard';
-import type { InsightItem, InsightCategory } from '../../types';
+import type { InsightItem } from '../../types';
 
 // Curated insights - update monthly
 // Last updated: February 2026
@@ -55,54 +54,15 @@ const INSIGHTS: InsightItem[] = [
   },
 ];
 
-// Category filter options
-const CATEGORY_FILTERS: { value: InsightCategory | 'all'; label: string }[] = [
-  { value: 'all', label: 'All' },
-  { value: 'infrastructure', label: 'Infrastructure' },
-  { value: 'market-data', label: 'Market Data' },
-  { value: 'emerging-markets', label: 'Emerging Markets' },
-  { value: 'regulation', label: 'Regulation' },
-];
-
 export function InsightsSection() {
-  const [selectedCategory, setSelectedCategory] = useState<InsightCategory | 'all'>('all');
-
-  const filteredInsights = selectedCategory === 'all'
-    ? INSIGHTS
-    : INSIGHTS.filter((insight) => insight.category === selectedCategory);
-
   return (
     <div>
-      {/* Category filter pills */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {CATEGORY_FILTERS.map((filter) => (
-          <button
-            key={filter.value}
-            onClick={() => setSelectedCategory(filter.value)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
-              selectedCategory === filter.value
-                ? 'bg-gold-500 text-white'
-                : 'bg-chrome-100 text-chrome-700 hover:bg-chrome-200'
-            }`}
-          >
-            {filter.label}
-          </button>
-        ))}
-      </div>
-
       {/* Insights grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {filteredInsights.map((insight) => (
+        {INSIGHTS.map((insight) => (
           <InsightCard key={insight.id} item={insight} />
         ))}
       </div>
-
-      {/* Empty state */}
-      {filteredInsights.length === 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-12 text-center">
-          <p className="text-chrome-500">No insights found in this category.</p>
-        </div>
-      )}
 
       {/* Attribution */}
       <div className="mt-8 text-center">

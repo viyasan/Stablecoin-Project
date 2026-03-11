@@ -40,16 +40,7 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
 
   // Determine button color based on stablecoin ID
   const getButtonColors = () => {
-    switch (stablecoin.id) {
-      case 'qcad':
-        return 'bg-chrome-800 hover:bg-chrome-900';
-      case 'tetra':
-        return 'bg-chrome-800 hover:bg-chrome-900';
-      case 'cadc':
-        return 'bg-chrome-800 hover:bg-chrome-900';
-      default:
-        return 'bg-chrome-800 hover:bg-chrome-900';
-    }
+    return 'bg-chrome-500 hover:bg-chrome-600';
   };
 
   const headerColors = getHeaderColors();
