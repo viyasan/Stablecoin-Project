@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
@@ -10,11 +10,11 @@ const INSIGHTS = [
   },
   {
     id: 2,
-    text: "Ethereum and Tron blockchains host over 80% of all stablecoin value, with Tron alone holding $84B in stablecoins.",
+    text: "Ethereum and Tron blockchains host over 80% of all stablecoin value.",
   },
   {
     id: 5,
-    text: "There are over 250 stablecoins being tracked, but only about 10 have market caps exceeding $1 billion.",
+    text: "There are over 340+ stablecoins tracked, but only 10 have market caps exceeding $1 billion.",
   },
   {
     id: 6,
@@ -26,37 +26,65 @@ const INSIGHTS = [
   },
 ];
 
+const FLIP_HALF_DURATION = 250; // ms — matches animation duration in tailwind config
+
 export function QuickInsightsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState<'left' | 'right'>('right');
+  const [isFlipping, setIsFlipping] = useState(false);
+  const pendingIndex = useRef<number | null>(null);
+
+  const navigate = useCallback((newIndex: number, dir: 'left' | 'right') => {
+    if (isFlipping) return;
+    setDirection(dir);
+    setIsFlipping(true);
+    pendingIndex.current = newIndex;
+
+    // After the exit animation completes, swap the content and play the enter animation
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setIsFlipping(false);
+      pendingIndex.current = null;
+    }, FLIP_HALF_DURATION);
+  }, [isFlipping]);
 
   // Auto-rotate every 6 seconds
   useEffect(() => {
     if (isPaused) return;
 
     const interval = setInterval(() => {
-      setDirection('right');
-      setCurrentIndex((prev) => (prev + 1) % INSIGHTS.length);
+      const nextIndex = (currentIndex + 1) % INSIGHTS.length;
+      navigate(nextIndex, 'right');
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, currentIndex, navigate]);
 
   const goToPrevious = () => {
-    setDirection('left');
-    setCurrentIndex((prev) => (prev - 1 + INSIGHTS.length) % INSIGHTS.length);
+    const prevIndex = (currentIndex - 1 + INSIGHTS.length) % INSIGHTS.length;
+    navigate(prevIndex, 'left');
   };
 
   const goToNext = () => {
-    setDirection('right');
-    setCurrentIndex((prev) => (prev + 1) % INSIGHTS.length);
+    const nextIndex = (currentIndex + 1) % INSIGHTS.length;
+    navigate(nextIndex, 'right');
   };
 
   const goToSlide = (index: number) => {
-    setDirection(index > currentIndex ? 'right' : 'left');
-    setCurrentIndex(index);
+    if (index === currentIndex) return;
+    navigate(index, index > currentIndex ? 'right' : 'left');
   };
+
+  // Determine animation class
+  let flipClass = '';
+  if (isFlipping) {
+    // Exit phase: current card flips out
+    flipClass = direction === 'right' ? 'animate-flip-out-left' : 'animate-flip-out-right';
+  } else {
+    // Enter phase: new card flips in (or initial render with no animation)
+    flipClass = direction === 'right' ? 'animate-flip-in-right' : 'animate-flip-in-left';
+  }
 
   return (
     <div
@@ -88,15 +116,25 @@ export function QuickInsightsCarousel() {
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <div className="flex-1 px-6 relative overflow-hidden flex items-center justify-center">
-            <p
-              key={INSIGHTS[currentIndex].id}
-              className={`text-chrome-800 text-2xl font-normal text-center leading-relaxed ${
-                direction === 'right' ? 'animate-slide-in-right' : 'animate-slide-in-left'
-              }`}
+          <div
+            className="flex-1 px-6 relative overflow-hidden flex items-center justify-center"
+            style={{ perspective: '800px' }}
+          >
+            <div
+              key={`${INSIGHTS[currentIndex].id}-${isFlipping ? 'out' : 'in'}`}
+              className={`relative bg-white rounded-lg border border-chrome-200 px-10 py-8 w-full ${flipClass}`}
+              style={{ backfaceVisibility: 'hidden', transformStyle: 'preserve-3d' }}
             >
-              {INSIGHTS[currentIndex].text}
-            </p>
+              {/* Corner ornaments — matching WordDefinitionCard */}
+              <div className="absolute top-3 left-3 w-4 h-4 border-t-[1.5px] border-l-[1.5px] border-gold-500/50" />
+              <div className="absolute top-3 right-3 w-4 h-4 border-t-[1.5px] border-r-[1.5px] border-gold-500/50" />
+              <div className="absolute bottom-3 left-3 w-4 h-4 border-b-[1.5px] border-l-[1.5px] border-gold-500/50" />
+              <div className="absolute bottom-3 right-3 w-4 h-4 border-b-[1.5px] border-r-[1.5px] border-gold-500/50" />
+
+              <p className="text-chrome-900 text-2xl font-normal text-center leading-relaxed">
+                {INSIGHTS[currentIndex].text}
+              </p>
+            </div>
           </div>
 
           <button

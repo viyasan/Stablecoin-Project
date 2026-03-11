@@ -68,6 +68,22 @@ export default {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
+        'flip-out-left': {
+          '0%': { opacity: '1', transform: 'rotateY(0deg)' },
+          '100%': { opacity: '0', transform: 'rotateY(-90deg)' },
+        },
+        'flip-in-right': {
+          '0%': { opacity: '0', transform: 'rotateY(90deg)' },
+          '100%': { opacity: '1', transform: 'rotateY(0deg)' },
+        },
+        'flip-out-right': {
+          '0%': { opacity: '1', transform: 'rotateY(0deg)' },
+          '100%': { opacity: '0', transform: 'rotateY(90deg)' },
+        },
+        'flip-in-left': {
+          '0%': { opacity: '0', transform: 'rotateY(-90deg)' },
+          '100%': { opacity: '1', transform: 'rotateY(0deg)' },
+        },
       },
       animation: {
         'fade-in-slide': 'fade-in-slide 300ms ease-out forwards',
@@ -75,6 +91,10 @@ export default {
         'slide-in-left': 'slide-in-left 400ms ease-out forwards',
         'shimmer-sweep': 'shimmer-sweep 700ms ease-in-out 100ms forwards',
         'skeleton-shimmer': 'skeleton-shimmer 1.6s ease-in-out infinite',
+        'flip-out-left': 'flip-out-left 250ms ease-in forwards',
+        'flip-in-right': 'flip-in-right 250ms ease-out forwards',
+        'flip-out-right': 'flip-out-right 250ms ease-in forwards',
+        'flip-in-left': 'flip-in-left 250ms ease-out forwards',
       },
     },
   },

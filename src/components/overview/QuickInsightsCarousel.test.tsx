@@ -2,6 +2,9 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { QuickInsightsCarousel } from './QuickInsightsCarousel';
 
+// Flip half-duration matches the component's FLIP_HALF_DURATION (250ms)
+const FLIP_DELAY = 250;
+
 describe('QuickInsightsCarousel', () => {
   beforeEach(() => {
     vi.useFakeTimers();
@@ -32,8 +35,13 @@ describe('QuickInsightsCarousel', () => {
     const nextButton = screen.getByLabelText(/next insight/i);
     fireEvent.click(nextButton);
 
+    // Advance past flip animation delay
+    act(() => {
+      vi.advanceTimersByTime(FLIP_DELAY);
+    });
+
     // Second insight should now be visible
-    expect(screen.getByText(/Ethereum and Tron host over 80%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron blockchains host over 80%/i)).toBeInTheDocument();
   });
 
   it('navigates to previous insight when clicking previous button', () => {
@@ -42,10 +50,16 @@ describe('QuickInsightsCarousel', () => {
     // Go to second insight first
     const nextButton = screen.getByLabelText(/next insight/i);
     fireEvent.click(nextButton);
+    act(() => {
+      vi.advanceTimersByTime(FLIP_DELAY);
+    });
 
     // Then go back
     const prevButton = screen.getByLabelText(/previous insight/i);
     fireEvent.click(prevButton);
+    act(() => {
+      vi.advanceTimersByTime(FLIP_DELAY);
+    });
 
     // First insight should be visible again
     expect(screen.getByText(/USDT and USDC together control/i)).toBeInTheDocument();
@@ -56,28 +70,31 @@ describe('QuickInsightsCarousel', () => {
 
     const nextButton = screen.getByLabelText(/next insight/i);
 
-    // Click through all insights (there are 7)
-    for (let i = 0; i < 7; i++) {
+    // Click through all 5 insights to wrap back to first
+    for (let i = 0; i < 5; i++) {
       fireEvent.click(nextButton);
+      act(() => {
+        vi.advanceTimersByTime(FLIP_DELAY);
+      });
     }
 
     // Should wrap back to first insight
     expect(screen.getByText(/USDT and USDC together control/i)).toBeInTheDocument();
   });
 
-  it('auto-rotates every 10 seconds', () => {
+  it('auto-rotates every 6 seconds', () => {
     render(<QuickInsightsCarousel />);
 
     // Initial insight
     expect(screen.getByText(/USDT and USDC together control/i)).toBeInTheDocument();
 
-    // Advance timer by 10 seconds
+    // Advance timer by 6 seconds (auto-rotate interval) + flip delay
     act(() => {
-      vi.advanceTimersByTime(10000);
+      vi.advanceTimersByTime(6000 + FLIP_DELAY);
     });
 
     // Should now show second insight
-    expect(screen.getByText(/Ethereum and Tron host over 80%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron blockchains host over 80%/i)).toBeInTheDocument();
   });
 
   it('pauses auto-rotation on hover', () => {
@@ -88,7 +105,7 @@ describe('QuickInsightsCarousel', () => {
     // Hover over carousel
     fireEvent.mouseEnter(carousel!);
 
-    // Advance timer by 10 seconds
+    // Advance timer well past auto-rotate interval
     act(() => {
       vi.advanceTimersByTime(10000);
     });
@@ -106,31 +123,35 @@ describe('QuickInsightsCarousel', () => {
     fireEvent.mouseEnter(carousel!);
     fireEvent.mouseLeave(carousel!);
 
-    // Advance timer by 10 seconds
+    // Advance timer by 6 seconds + flip delay
     act(() => {
-      vi.advanceTimersByTime(10000);
+      vi.advanceTimersByTime(6000 + FLIP_DELAY);
     });
 
     // Should now show second insight
-    expect(screen.getByText(/Ethereum and Tron host over 80%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron blockchains host over 80%/i)).toBeInTheDocument();
   });
 
   it('shows dot indicators for each insight', () => {
     render(<QuickInsightsCarousel />);
 
-    // Should have 7 dot buttons (one for each insight)
+    // Should have 5 dot buttons (one for each insight)
     const dots = screen.getAllByRole('button', { name: /go to insight/i });
-    expect(dots).toHaveLength(7);
+    expect(dots).toHaveLength(5);
   });
 
   it('navigates to specific insight when clicking dot', () => {
     render(<QuickInsightsCarousel />);
 
-    // Click on the third dot
+    // Click on the third dot (index 2 = third insight about 250 stablecoins)
     const dots = screen.getAllByRole('button', { name: /go to insight/i });
-    fireEvent.click(dots[2]); // 0-indexed, so index 2 is third insight
+    fireEvent.click(dots[2]);
+
+    act(() => {
+      vi.advanceTimersByTime(FLIP_DELAY);
+    });
 
     // Third insight should be visible
-    expect(screen.getByText(/\$33 trillion/i)).toBeInTheDocument();
+    expect(screen.getByText(/over 340\+ stablecoins/i)).toBeInTheDocument();
   });
 });
