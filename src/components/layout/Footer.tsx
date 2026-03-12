@@ -88,15 +88,6 @@ export function Footer() {
             </a>
             {', '}
             <a
-              href="https://www.allium.so"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-chrome-400 hover:text-gold-400 transition-colors duration-150"
-            >
-              Allium
-            </a>
-            {', '}
-            <a
               href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/mfh.txt"
               target="_blank"
               rel="noopener noreferrer"
