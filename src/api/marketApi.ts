@@ -403,7 +403,7 @@ export function useChainBreakdown(): UseApiResult<ChainData[]> {
 
 // Reserve composition data for USDT and USDC
 // Percentages from quarterly attestation reports (update when new reports are published)
-// Sources: Tether Attestation Q4 2025, Circle Reserve Report Feb 2026
+// Sources: Tether Attestation Q4 2025, Circle Reserve Report Mar 2026
 export interface ReserveAsset {
   name: string;
   percentage: number;
@@ -423,7 +423,7 @@ export interface StablecoinReserve {
 // Static data from attestation reports - update quarterly
 // Sources:
 // Tether Q4 2025: https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
-// Circle Feb 2026: https://www.circle.com/transparency
+// Circle Mar 2026: https://www.circle.com/transparency
 // Last updated: March 2026
 const RESERVE_DATA = {
   USDT: {
@@ -440,12 +440,12 @@ const RESERVE_DATA = {
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'Feb 2026',
+    lastUpdated: 'Mar 2026',
     sourceUrl: 'https://www.circle.com/transparency',
-    treasuryHoldings: 55_000_000_000, // $55B ($44.5B T-bills + $10.9B reverse repos)
+    treasuryHoldings: 45_400_000_000, // $45.4B ($44.75B T-bills + $0.65B repos)
     assets: [
-      { name: 'US Treasuries', percentage: 80, color: '#D4A437' },
-      { name: 'Cash & Bank Deposits', percentage: 20, color: '#CD7F32' },
+      { name: 'US Treasuries', percentage: 59, color: '#D4A437' },
+      { name: 'Cash & Bank Deposits', percentage: 41, color: '#CD7F32' },
     ],
   },
 };

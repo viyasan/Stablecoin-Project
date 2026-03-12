@@ -27,9 +27,9 @@ const HOLDERS: HolderData[] = [
   // Tether: ~$141B - ranks 17th globally (Source: Tether Q4 2025 attestation)
   // https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
   { name: 'Tether (USDT)', holdings: 141, globalRank: 17, type: 'stablecoin' },
-  // Circle USDC: ~$55B - ranks ~23rd globally (estimated based on TIC data)
+  // Circle USDC: ~$45B - ranks ~30th globally (estimated based on TIC data)
   // https://www.circle.com/transparency
-  { name: 'Circle (USDC)', holdings: 55, globalRank: 23, type: 'stablecoin' },
+  { name: 'Circle (USDC)', holdings: 45, globalRank: 30, type: 'stablecoin' },
 ];
 
 function formatBillions(value: number): string {

@@ -25,20 +25,35 @@ export function Footer() {
           {/* Navigation */}
           <div>
             <h4 className="text-white font-semibold mb-4">Explore</h4>
-            <ul className="space-y-2 text-sm">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+              <li>
+                <Link to="/countries" className="hover:text-gold-400 transition-colors duration-150">
+                  Regulation
+                </Link>
+              </li>
               <li>
                 <Link to="/canada" className="hover:text-gold-400 transition-colors duration-150">
                   Canada
                 </Link>
               </li>
               <li>
-                <Link to="/countries" className="hover:text-gold-400 transition-colors duration-150">
-                  Regulatory Landscape
+                <Link to="/yields" className="hover:text-gold-400 transition-colors duration-150">
+                  Yield
                 </Link>
               </li>
               <li>
                 <Link to="/news" className="hover:text-gold-400 transition-colors duration-150">
                   News
+                </Link>
+              </li>
+              <li>
+                <Link to="/market" className="hover:text-gold-400 transition-colors duration-150">
+                  Stats
+                </Link>
+              </li>
+              <li>
+                <Link to="/live" className="hover:text-gold-400 transition-colors duration-150">
+                  Live
                 </Link>
               </li>
             </ul>
@@ -50,7 +65,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/disclaimer" className="hover:text-gold-400 transition-colors duration-150">
-                  Disclaimer & Disclosures
+                  Disclaimer
                 </Link>
               </li>
             </ul>
