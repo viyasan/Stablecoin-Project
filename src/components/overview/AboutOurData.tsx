@@ -50,19 +50,6 @@ export function AboutOurData() {
               fiat-backed (USDT, USDC), crypto-backed (DAI), algorithmic, and yield-bearing
               stablecoins.
             </p>
-            <p className="text-sm text-chrome-600 leading-relaxed">
-              <span className="font-semibold text-chrome-700">Transaction activity</span> (volume, transactions, active addresses) is powered by{' '}
-              <a
-                href="https://www.allium.so/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gold-500 hover:text-gold-600 font-medium"
-              >
-                Allium
-              </a>
-              , which tracks <span className="font-semibold text-chrome-700">6 major fiat-backed stablecoins</span> across{' '}
-              <span className="font-semibold text-chrome-700">11 chains</span>. This covers the majority of the market, with adjusted filters for bot activity and wash trading.
-            </p>
           </div>
         </div>
       </div>

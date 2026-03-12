@@ -87,6 +87,7 @@ async function fetchAllStablecoinYields(): Promise<StablecoinYieldsResult> {
   const CHAIN_ALLOWLIST = [
     'Ethereum', 'Base', 'Solana', 'Arbitrum',
     'BSC', 'Tron', 'Avalanche', 'Hyperliquid L1',
+    'Polygon', 'TON', 'Optimism', 'Stellar', 'Sui', 'Aptos',
   ];
   const chains = CHAIN_ALLOWLIST.filter(c => chainTvl.has(c));
   // Only show stablecoins that appear on the Overview page top 10

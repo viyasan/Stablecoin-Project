@@ -12,6 +12,12 @@ const CHAIN_ICONS: Record<string, string> = {
   BSC: 'https://icons.llama.fi/chains/rsz_binance.jpg',
   Tron: 'https://icons.llama.fi/chains/rsz_tron.jpg',
   Avalanche: 'https://icons.llama.fi/chains/rsz_avalanche.jpg',
+  Polygon: 'https://icons.llama.fi/chains/rsz_polygon.jpg',
+  TON: 'https://icons.llama.fi/chains/rsz_ton.jpg',
+  Optimism: 'https://icons.llama.fi/chains/rsz_optimism.jpg',
+  Stellar: 'https://icons.llama.fi/chains/rsz_stellar.jpg',
+  Sui: 'https://icons.llama.fi/chains/rsz_sui.jpg',
+  Aptos: 'https://icons.llama.fi/chains/rsz_aptos.jpg',
 };
 
 interface YieldsTableProps {

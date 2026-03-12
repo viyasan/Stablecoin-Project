@@ -163,7 +163,7 @@ interface MarketCapChartProps {
 }
 
 export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
-  const [timeRange, setTimeRange] = useState<TimeRange>('1y');
+  const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const { data, isLoading, error, refetch } = useMarketCapChart(timeRange);
 
   if (isLoading) {

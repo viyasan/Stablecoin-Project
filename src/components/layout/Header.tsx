@@ -19,7 +19,7 @@ const navItems = [
   { to: '/', label: 'OVERVIEW' },
   { to: '/countries', label: 'REGULATION' },
   { to: '/yields', label: 'YIELD' },
-  { to: '/market', label: 'MARKET' },
+  { to: '/market', label: 'STATS' },
   { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
   { to: '/news', label: 'NEWS' },
   { to: '/live', label: 'LIVE' },

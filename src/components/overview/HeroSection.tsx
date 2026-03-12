@@ -24,6 +24,11 @@ const CHAINS = [
   'Polygon',
   'Avalanche',
   'BSC',
+  'TON',
+  'Optimism',
+  'Stellar',
+  'Sui',
+  'Aptos',
 ];
 
 export function HeroSection() {
@@ -94,8 +99,8 @@ export function HeroSection() {
 
           {/* Subhead */}
           <p className="font-mono text-sm text-chrome-400 leading-relaxed max-w-md mb-8 tracking-wide">
-            Market data, DeFi yields, regulation tracking, and insights
-            &mdash;&nbsp;all in one place.
+            Stablecoin growth and dominance tracker, global digital asset
+            regulatory progress, yield and insights, all in one place.
           </p>
 
           {/* CTAs */}
@@ -110,7 +115,7 @@ export function HeroSection() {
               to="/yields"
               className="inline-flex items-center px-6 py-3 border border-gold-500 text-gold-600 text-sm font-medium rounded-md hover:bg-gold-50 transition-colors"
             >
-              View DeFi Yields
+              View Yield
             </Link>
           </div>
         </div>
