@@ -31,8 +31,8 @@ async function fetchMarketData(): Promise<MarketData> {
     throw new Error('DefiLlama API error');
   }
 
-  const stablecoinsData = await stablecoinsRes.json();
-  const chartsData: { date: string; totalCirculatingUSD?: { peggedUSD: number }; totalCirculating?: { peggedUSD: number } }[] = await chartsRes.json();
+  const stablecoinsData = await stablecoinsRes.json() as { peggedAssets: { circulating?: { peggedUSD: number } }[] };
+  const chartsData = await chartsRes.json() as { date: string; totalCirculatingUSD?: { peggedUSD: number }; totalCirculating?: { peggedUSD: number } }[];
 
   // Calculate total market cap from stablecoins list
   let totalMarketCap = 0;
