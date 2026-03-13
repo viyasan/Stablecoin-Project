@@ -19,7 +19,6 @@ const navItems = [
   { to: '/', label: 'OVERVIEW' },
   { to: '/countries', label: 'REGULATION' },
   { to: '/yields', label: 'YIELD' },
-  { to: '/reserves', label: 'RESERVES' },
   { to: '/market', label: 'STATS' },
   { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
   { to: '/news', label: 'NEWS' },
