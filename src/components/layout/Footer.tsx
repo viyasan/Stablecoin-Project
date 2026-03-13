@@ -51,11 +51,6 @@ export function Footer() {
                   Stats
                 </Link>
               </li>
-              <li>
-                <Link to="/live" className="hover:text-gold-400 transition-colors duration-150">
-                  Live
-                </Link>
-              </li>
             </ul>
           </div>
 

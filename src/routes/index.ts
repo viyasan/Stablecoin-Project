@@ -6,4 +6,4 @@ export { CountryDetailPage } from "./CountryDetailPage";
 export { NewsPage } from "./NewsPage";
 export { DisclaimerPage } from "./DisclaimerPage";
 export { YieldsPage } from "./YieldsPage";
-export { LivePage } from "./LivePage";
+export { ReservesPage } from "./ReservesPage";

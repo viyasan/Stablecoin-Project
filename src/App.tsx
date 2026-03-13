@@ -12,7 +12,7 @@ import {
   NewsPage,
   DisclaimerPage,
   YieldsPage,
-  LivePage,
+  ReservesPage,
 } from './routes';
 
 // Configure NProgress
@@ -82,7 +82,7 @@ function App() {
             <Route path="/news" element={<NewsPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
             <Route path="/yields" element={<YieldsPage />} />
-            <Route path="/live" element={<LivePage />} />
+            <Route path="/reserves" element={<ReservesPage />} />
           </Routes>
         </div>
         <Footer />

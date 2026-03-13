@@ -4,4 +4,3 @@ export * from './newsApi';
 export * from './canadaApi';
 export * from './yieldApi';
 export * from './supabaseApi';
-export * from './liveNewsApi';
