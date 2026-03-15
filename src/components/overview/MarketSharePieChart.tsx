@@ -235,22 +235,52 @@ export function MarketSharePieChart() {
         <div className="px-6 py-4 border-b border-chrome-100">
           <h2 className="text-lg font-semibold text-chrome-900">Stablecoin Market Share</h2>
         </div>
-      <div className="p-6 flex-1 flex flex-col">
+      <div className="p-4 sm:p-6 flex-1 flex flex-col">
         <div className="pb-4 border-b border-chrome-100 text-center">
           <p className="text-sm text-chrome-500">Total Stablecoin Market Cap</p>
           <p className="text-xl font-bold text-chrome-900">{formatCurrency(totalMarketCap)}</p>
         </div>
-        <div className="h-[460px] flex gap-6">
-          {/* Pie Chart */}
-          <div className="flex-1">
+        {/* Mobile: percentage bar list */}
+        <div className="sm:hidden mt-4 space-y-3">
+          {chartData.map((entry, index) => (
+            <div key={entry.symbol}>
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: getColorForSymbol(entry.symbol, index) }}
+                  />
+                  <span className="text-sm font-medium text-chrome-800">{entry.symbol}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-chrome-500">{formatCurrency(entry.value)}</span>
+                  <span className="text-sm font-semibold text-chrome-900 w-14 text-right">{formatPercent(entry.percentage)}</span>
+                </div>
+              </div>
+              <div className="h-2 bg-chrome-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${Math.max(entry.percentage, 1)}%`,
+                    backgroundColor: getColorForSymbol(entry.symbol, index),
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: pie chart + legend */}
+        <div className="hidden sm:flex sm:h-[400px] lg:h-[460px] gap-6">
+          <div className="flex-1 min-h-0">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={chartData}
-                  cx="45%"
+                  cx="50%"
                   cy="50%"
-                  innerRadius={70}
-                  outerRadius={115}
+                  innerRadius="40%"
+                  outerRadius="70%"
                   paddingAngle={2}
                   dataKey="value"
                   animationDuration={1000}

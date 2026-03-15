@@ -56,20 +56,20 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
 
   return (
     <div className={`bg-white rounded-xl shadow-sm border border-chrome-200 ${className}`}>
-      <div className="px-6 py-4 border-b border-chrome-100">
-        <div className="flex items-start justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-chrome-900">
+      <div className="px-4 sm:px-6 py-4 border-b border-chrome-100">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+          <div className="text-center sm:text-left">
+            <h2 className="text-base sm:text-lg font-semibold text-chrome-900">
               Global Stablecoin Regulation
             </h2>
-            <p className="text-sm text-chrome-500 mt-1">
+            <p className="text-xs sm:text-sm text-chrome-500 mt-1">
               Select a country to view regulatory details
             </p>
           </div>
-          <span className="text-sm text-chrome-400 whitespace-nowrap">Last updated: March 2026</span>
+          <span className="text-xs sm:text-sm text-chrome-400 text-center sm:text-right sm:whitespace-nowrap">Last updated: March 2026</span>
         </div>
         {/* Legend */}
-        <div className="flex items-center gap-4 mt-3">
+        <div className="flex items-center justify-center sm:justify-start gap-4 mt-3">
           <div className="flex items-center gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STAGE_COLORS.proposed }} />
             <span className="text-xs text-chrome-600">Proposed</span>

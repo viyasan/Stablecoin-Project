@@ -1,3 +1,9 @@
+import { useState, useEffect } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+
+const MOBILE_LIMIT = 7;
+const MOBILE_BREAKPOINT = 640;
+
 interface YieldsFilterBarProps {
   chains: string[];
   tokens: string[];
@@ -18,12 +24,35 @@ export function YieldsFilterBar({
   resultCount,
 }: YieldsFilterBarProps) {
   const hasActiveFilters = selectedChain !== null || selectedToken !== null;
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT);
+  const [showAllChains, setShowAllChains] = useState(false);
+  const [showAllTokens, setShowAllTokens] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+      if (!e.matches) {
+        setShowAllChains(false);
+        setShowAllTokens(false);
+      }
+    };
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
+
+  const shouldLimitChains = isMobile && !showAllChains;
+  const shouldLimitTokens = isMobile && !showAllTokens;
+  const visibleChains = shouldLimitChains ? chains.slice(0, MOBILE_LIMIT) : chains;
+  const visibleTokens = shouldLimitTokens ? tokens.slice(0, MOBILE_LIMIT) : tokens;
+  const hiddenChainCount = chains.length - MOBILE_LIMIT;
+  const hiddenTokenCount = tokens.length - MOBILE_LIMIT;
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-chrome-200 p-4 mb-6">
       {/* Chain filter row */}
-      <div className="flex items-center gap-3 mb-3">
-        <span className="text-xs font-medium text-chrome-500 w-20 flex-shrink-0">Chain</span>
+      <div className="flex items-start gap-3 mb-3">
+        <span className="text-xs font-medium text-chrome-500 w-20 flex-shrink-0 pt-1.5">Chain</span>
         <div className="flex flex-wrap gap-1">
           <button
             onClick={() => onChainChange(null)}
@@ -35,7 +64,7 @@ export function YieldsFilterBar({
           >
             All
           </button>
-          {chains.map((chain) => (
+          {visibleChains.map((chain) => (
             <button
               key={chain}
               onClick={() => onChainChange(chain)}
@@ -48,12 +77,21 @@ export function YieldsFilterBar({
               {chain}
             </button>
           ))}
+          {isMobile && hiddenChainCount > 0 && (
+            <button
+              onClick={() => setShowAllChains(!showAllChains)}
+              className="px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap text-chrome-500 bg-chrome-50 hover:bg-chrome-100 transition-all duration-150 ease-out active:scale-95 inline-flex items-center gap-1"
+            >
+              {showAllChains ? 'Less' : `+${hiddenChainCount} more`}
+              {showAllChains ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          )}
         </div>
       </div>
 
       {/* Token filter row */}
-      <div className="flex items-center gap-3">
-        <span className="text-xs font-medium text-chrome-500 w-20 flex-shrink-0">Stablecoin</span>
+      <div className="flex items-start gap-3">
+        <span className="text-xs font-medium text-chrome-500 w-20 flex-shrink-0 pt-1.5">Stablecoin</span>
         <div className="flex flex-wrap gap-1">
           <button
             onClick={() => onTokenChange(null)}
@@ -65,7 +103,7 @@ export function YieldsFilterBar({
           >
             All
           </button>
-          {tokens.map((token) => (
+          {visibleTokens.map((token) => (
             <button
               key={token}
               onClick={() => onTokenChange(token)}
@@ -78,6 +116,15 @@ export function YieldsFilterBar({
               {token}
             </button>
           ))}
+          {isMobile && hiddenTokenCount > 0 && (
+            <button
+              onClick={() => setShowAllTokens(!showAllTokens)}
+              className="px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap text-chrome-500 bg-chrome-50 hover:bg-chrome-100 transition-all duration-150 ease-out active:scale-95 inline-flex items-center gap-1"
+            >
+              {showAllTokens ? 'Less' : `+${hiddenTokenCount} more`}
+              {showAllTokens ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          )}
         </div>
       </div>
 

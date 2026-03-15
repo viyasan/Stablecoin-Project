@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AreaChart,
   Area,
@@ -162,9 +162,19 @@ interface MarketCapChartProps {
   showBreakdown?: boolean;
 }
 
+const MOBILE_BREAKPOINT = 640;
+
 export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT);
   const { data, isLoading, error, refetch } = useMarketCapChart(timeRange);
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
 
   if (isLoading) {
     return <SkeletonChart height={300} />;
@@ -221,16 +231,16 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
 
   return (
       <div className="bg-white rounded-lg shadow-sm border border-chrome-200 h-full flex flex-col">
-        <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-chrome-900">
+        <div className="px-4 sm:px-6 py-4 border-b border-chrome-100 flex items-center justify-between gap-2">
+          <h2 className="text-base sm:text-lg font-semibold text-chrome-900">
             Market Cap Over Time
           </h2>
-        <div className="flex items-center gap-1 bg-chrome-100 rounded-lg p-1">
+        <div className="flex items-center gap-0.5 sm:gap-1 bg-chrome-100 rounded-lg p-0.5 sm:p-1 flex-shrink-0">
           {(Object.keys(timeRangeLabels) as TimeRange[]).map((range) => (
             <button
               key={range}
               onClick={() => setTimeRange(range)}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+              className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors ${
                 timeRange === range
                   ? 'bg-white text-chrome-900 shadow-sm'
                   : 'text-chrome-600 hover:text-chrome-900'
@@ -241,8 +251,8 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
           ))}
         </div>
       </div>
-      <div className="p-6 flex-1 flex flex-col">
-        <div className="h-[460px]">
+      <div className="p-4 sm:p-6 flex-1 flex flex-col">
+        <div className="h-[300px] sm:h-[400px] lg:h-[460px]">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
               <defs>
@@ -278,7 +288,7 @@ export function MarketCapChart({ showBreakdown = true }: MarketCapChartProps) {
                 width={60}
                 domain={yAxisDomain}
               />
-              <Tooltip content={<ChartTooltip chartData={chartData} timeRange={timeRange} />} />
+              {!isMobile && <Tooltip content={<ChartTooltip chartData={chartData} timeRange={timeRange} />} />}
               {showBreakdown && data[0]?.breakdown ? (
                 <>
                   <Legend />

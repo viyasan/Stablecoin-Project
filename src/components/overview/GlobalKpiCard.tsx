@@ -199,14 +199,14 @@ export function GlobalKpiCard() {
     <FadeInSlide className="h-full">
       <TiltCard className="h-full">
         <div className="bg-white rounded-lg shadow-sm border border-chrome-200 transition-all duration-200 hover:shadow-md h-full flex flex-col">
-          <div className="px-6 py-4 border-b border-chrome-100">
-            <div className="flex items-center justify-between gap-4">
-            <h2 className="text-lg font-semibold text-chrome-900 whitespace-nowrap">
+          <div className="px-4 sm:px-6 py-4 border-b border-chrome-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+            <h2 className="text-base sm:text-lg font-semibold text-chrome-900">
               Global Stablecoin Market
             </h2>
 
             {/* View Mode Toggle */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-shrink-0">
               <button
                 onClick={() => setViewMode('total')}
                 className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
@@ -240,9 +240,9 @@ export function GlobalKpiCard() {
             </div>
             </div>
           </div>
-          <div className="px-6 py-8 flex-1 flex flex-col">
+          <div className="px-4 sm:px-6 py-6 sm:py-8 flex-1 flex flex-col">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-              <div className="flex flex-col items-center justify-center px-4 py-8">
+              <div className="flex flex-col items-center justify-center px-2 sm:px-4 py-4 sm:py-8">
                 {viewMode === 'total' && (
                   <>
                     <p className="text-sm font-medium text-chrome-500 uppercase tracking-wide mb-2 text-center">Total Market Cap</p>

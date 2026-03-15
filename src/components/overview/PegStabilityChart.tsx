@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import {
   LineChart,
   Line,
@@ -174,9 +175,24 @@ function computeMetrics(points: PegPricePoint[]) {
   return { currentPrice, maxDeviation, avgDeviation, pegAdherence };
 }
 
+const MOBILE_BREAKPOINT = 640;
+const MOBILE_VISIBLE_COUNT = 3;
+
 export function PegStabilityChart() {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT);
+  const [showAllCoins, setShowAllCoins] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+      if (!e.matches) setShowAllCoins(false);
+    };
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
 
   const { data: stablecoins, isLoading: listLoading } = useStablecoinList();
   const {
@@ -231,13 +247,15 @@ export function PegStabilityChart() {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between flex-wrap gap-3">
-        <h2 className="text-lg font-semibold text-chrome-900">Peg Stability</h2>
-        <div className="flex items-center gap-4">
+      <div className="px-4 sm:px-6 py-4 border-b border-chrome-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <h2 className="text-base sm:text-lg font-semibold text-chrome-900">Peg Stability</h2>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
           {/* Stablecoin selector pills */}
           <div className="flex items-center gap-1 flex-wrap">
             {featured.map((coin, i) => {
               const color = STABLECOIN_COLORS[coin.symbol] || FALLBACK_COLOR;
+              const isHiddenOnMobile = isMobile && !showAllCoins && i >= MOBILE_VISIBLE_COUNT;
+              if (isHiddenOnMobile) return null;
               return (
                 <button
                   key={coin.id}
@@ -256,6 +274,15 @@ export function PegStabilityChart() {
                 </button>
               );
             })}
+            {isMobile && featured.length > MOBILE_VISIBLE_COUNT && (
+              <button
+                onClick={() => setShowAllCoins(!showAllCoins)}
+                className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-full text-chrome-500 bg-chrome-50 hover:bg-chrome-100 transition-colors"
+              >
+                {showAllCoins ? 'Less' : `+${featured.length - MOBILE_VISIBLE_COUNT} more`}
+                {showAllCoins ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            )}
           </div>
 
           {/* Time range toggle */}
@@ -277,7 +304,7 @@ export function PegStabilityChart() {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Summary metrics + inline bento cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
           {/* Market Overview — compact */}
@@ -338,7 +365,7 @@ export function PegStabilityChart() {
         </div>
 
         {/* Chart */}
-        <div className="h-[360px]">
+        <div className="h-[260px] sm:h-[320px] lg:h-[360px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartPoints}>
               <CartesianGrid strokeDasharray="3 3" stroke="#DEE2E6" />

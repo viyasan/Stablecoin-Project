@@ -16,12 +16,12 @@ export function MarketPage() {
     <PageContainer>
       {/* Page Header */}
       <FadeInSlide>
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <BarChart3 className="w-8 h-8 text-gold-500" />
-            <h1 className="text-3xl font-bold text-chrome-900">Market Data</h1>
+        <div className="mb-8 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
+            <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8 text-gold-500" />
+            <h1 className="text-2xl sm:text-3xl font-bold text-chrome-900">Market Data</h1>
           </div>
-          <p className="text-chrome-500 text-lg">
+          <p className="text-chrome-500 text-base sm:text-lg">
             Stablecoin market capitalization, chain distribution, treasury holdings, and reserve composition.
           </p>
         </div>

@@ -32,11 +32,11 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]">
+          <Link to="/" className="group transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98] ml-4 flex items-center">
             <img
               src="/logo.png"
               alt="StablecoinStats logo"
-              className="h-48 w-auto"
+              className="h-8 w-auto"
             />
           </Link>
 

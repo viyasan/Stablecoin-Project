@@ -75,12 +75,12 @@ export function HeroSection() {
       <div className="absolute top-[30%] right-[25%] w-px h-[40%] bg-gradient-to-b from-transparent via-gold-500/12 to-transparent pointer-events-none" />
 
       {/* ── Main content ── */}
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 p-8 sm:p-10 lg:p-12">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-6 sm:gap-8 p-5 sm:p-8 lg:p-12">
         {/* Left column */}
         <div>
           {/* Headline */}
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl leading-[1.2] tracking-tight text-chrome-800 mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.2] tracking-tight text-chrome-800 mb-6"
             style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
           >
             Tracking
@@ -127,7 +127,7 @@ export function HeroSection() {
       </div>
 
       {/* ── Bottom strip ── */}
-      <div className="relative z-10 border-t border-chrome-200 px-8 sm:px-10 lg:px-12 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div className="relative z-10 border-t border-chrome-200 px-5 sm:px-8 lg:px-12 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-3 sm:gap-4">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           {CHAINS.map((chain) => (
             <span

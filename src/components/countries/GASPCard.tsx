@@ -132,17 +132,17 @@ function JurisdictionBadge({ count, total }: { count: number; total: number }) {
 function PrincipleItem({ principle }: { principle: GASPPrinciple }) {
   const Icon = principle.icon;
   return (
-    <div className="flex gap-4 p-4 rounded-lg hover:bg-chrome-50 transition-colors">
-      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center">
-        <Icon className="w-5 h-5 text-amber-700" />
+    <div className="flex gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg hover:bg-chrome-50 transition-colors">
+      <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-50 flex items-center justify-center">
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-base font-semibold text-chrome-900">{principle.name}</span>
+          <span className="text-sm sm:text-base font-semibold text-chrome-900">{principle.name}</span>
           <JurisdictionBadge count={principle.jurisdictionCount} total={principle.totalJurisdictions} />
         </div>
-        <p className="text-base text-chrome-600 mt-1">{principle.description}</p>
-        <p className="text-sm text-chrome-400 italic mt-1.5">{principle.variationNote}</p>
+        <p className="text-sm sm:text-base text-chrome-600 mt-1">{principle.description}</p>
+        <p className="text-xs sm:text-sm text-chrome-400 italic mt-1.5">{principle.variationNote}</p>
       </div>
     </div>
   );
@@ -156,32 +156,32 @@ export function GASPCard({ className = '' }: GASPCardProps) {
   return (
     <div className={`bg-white rounded-xl shadow-sm border border-chrome-200 ${className}`}>
       {/* Header */}
-      <div className="px-6 py-4 border-b border-chrome-100">
-        <div className="flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <Scale className="w-6 h-6 text-amber-600" />
-              <h2 className="text-xl font-semibold text-chrome-900">
+      <div className="px-4 sm:px-6 py-4 border-b border-chrome-100">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+          <div className="text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <Scale className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
+              <h2 className="text-lg sm:text-xl font-semibold text-chrome-900">
                 Generally Accepted Stablecoin Principles
               </h2>
             </div>
-            <p className="text-base text-chrome-500 mt-1">
+            <p className="text-sm sm:text-base text-chrome-500 mt-1">
               Common regulatory themes synthesized across all tracked jurisdictions
             </p>
           </div>
-          <span className="text-sm text-chrome-400 whitespace-nowrap">Last updated: March 2026</span>
+          <span className="text-xs sm:text-sm text-chrome-400 text-center sm:text-right sm:whitespace-nowrap">Last updated: March 2026</span>
         </div>
       </div>
 
       {/* Summary bar */}
-      <div className="mx-6 mt-4 px-4 py-3 bg-amber-50 rounded-lg">
-        <p className="text-base font-medium text-amber-800">
+      <div className="mx-4 sm:mx-6 mt-4 px-4 py-3 bg-amber-50 rounded-lg">
+        <p className="text-sm sm:text-base font-medium text-amber-800 text-center sm:text-left">
           10 principles identified across 10 jurisdictions — reflecting global convergence in stablecoin regulation
         </p>
       </div>
 
       {/* Principles grid */}
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-2">
         {GASP_PRINCIPLES.map((principle) => (
           <PrincipleItem key={principle.id} principle={principle} />
         ))}

@@ -186,29 +186,60 @@ export function ChainBreakdownChart() {
 
   return (
       <div className="bg-white rounded-lg shadow-sm border border-chrome-200">
-        <div className="px-6 py-4 border-b border-chrome-100 flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-chrome-900">
+        <div className="px-4 sm:px-6 py-4 border-b border-chrome-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="text-center sm:text-left">
+            <h2 className="text-base sm:text-lg font-semibold text-chrome-900">
               Stablecoin Supply by Chain
             </h2>
-          <p className="text-sm text-chrome-500 mt-1">
+          <p className="text-xs sm:text-sm text-chrome-500 mt-1">
             Top 10 chains by stablecoin supply
           </p>
         </div>
-        <div className="text-right">
-          <p className="text-sm text-chrome-500">Total Supply</p>
-          <p className="text-lg font-bold text-chrome-900">
+        <div className="text-center sm:text-right">
+          <p className="text-xs sm:text-sm text-chrome-500">Total Supply</p>
+          <p className="text-base sm:text-lg font-bold text-chrome-900">
             {formatCurrency(totalCirculating)}
           </p>
         </div>
       </div>
-      <div className="p-6">
-        <div className="h-[400px]">
+      <div className="p-4 sm:p-6">
+        {/* Mobile: percentage bar list */}
+        <div className="sm:hidden space-y-3">
+          {chartData.map((entry, index) => (
+            <div key={entry.name}>
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: getColorForChain(entry.name, index) }}
+                  />
+                  <span className="text-sm font-medium text-chrome-800">{entry.name}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-chrome-500">{formatCurrency(entry.totalCirculating)}</span>
+                  <span className="text-sm font-semibold text-chrome-900 w-14 text-right">{entry.percentage.toFixed(1)}%</span>
+                </div>
+              </div>
+              <div className="h-2 bg-chrome-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${Math.max(entry.percentage, 1)}%`,
+                    backgroundColor: getColorForChain(entry.name, index),
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: bar chart */}
+        <div className="hidden sm:block h-[350px] lg:h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
               layout="vertical"
-              margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
+              margin={{ top: 5, right: 20, left: 60, bottom: 5 }}
             >
               <CartesianGrid
                 strokeDasharray="3 3"
@@ -254,6 +285,7 @@ export function ChainBreakdownChart() {
             </BarChart>
           </ResponsiveContainer>
         </div>
+
         <div className="mt-4 pt-4 border-t border-chrome-100 text-xs text-chrome-400 flex items-center gap-1.5">
           <span className="inline-block w-2 h-2 rounded-full bg-status-positive animate-pulse flex-shrink-0" />
           <span>Data refreshed just now</span>

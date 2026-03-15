@@ -122,7 +122,7 @@ export function QuickInsightsCarousel() {
           >
             <div
               key={`${INSIGHTS[currentIndex].id}-${isFlipping ? 'out' : 'in'}`}
-              className={`relative bg-white rounded-lg border border-chrome-200 px-10 py-8 w-full ${flipClass}`}
+              className={`relative bg-white rounded-lg border border-chrome-200 px-5 py-5 sm:px-10 sm:py-8 w-full ${flipClass}`}
               style={{ backfaceVisibility: 'hidden', transformStyle: 'preserve-3d' }}
             >
               {/* Corner ornaments — matching WordDefinitionCard */}
@@ -131,7 +131,7 @@ export function QuickInsightsCarousel() {
               <div className="absolute bottom-3 left-3 w-4 h-4 border-b-[1.5px] border-l-[1.5px] border-gold-500/50" />
               <div className="absolute bottom-3 right-3 w-4 h-4 border-b-[1.5px] border-r-[1.5px] border-gold-500/50" />
 
-              <p className="text-chrome-900 text-2xl font-normal text-center leading-relaxed">
+              <p className="text-chrome-900 text-lg sm:text-2xl font-normal text-center leading-relaxed">
                 {INSIGHTS[currentIndex].text}
               </p>
             </div>
