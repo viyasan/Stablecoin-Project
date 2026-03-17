@@ -1,7 +1,7 @@
 import { ImageResponse } from '@vercel/og';
 
 export const config = {
-  runtime: 'nodejs',
+  runtime: 'edge',
 };
 
 interface MarketData {
@@ -68,7 +68,7 @@ async function fetchMarketData(): Promise<MarketData> {
   return { totalMarketCap, change30d };
 }
 
-export default async function handler() {
+export default async function handler(req: Request) {
   let marketData: MarketData | null = null;
 
   try {
