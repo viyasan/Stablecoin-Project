@@ -140,7 +140,7 @@ const mockCountryDetails: Record<string, CountryDetail> = {
       { name: 'SEC Framework', url: 'https://sec.gov/crypto' },
       { name: 'FinCEN Guidance', url: 'https://fincen.gov' },
     ],
-    usageNotes: 'High institutional and retail adoption. Primary use for trading and DeFi.',
+    usageNotes: 'High institutional and retail adoption. Primary use for trading and onchain lending.',
   },
   EU: {
     ...mockCountries[2],

@@ -120,8 +120,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     backers: ["Version One Ventures", "Garage Capital"],
     platformIntegrations: [
       { name: "MetaMask", role: "Wallet" },
-      { name: "Aerodrome", role: "DeFi/Liquidity" },
-      { name: "PancakeSwap", role: "DeFi/Liquidity" },
+      { name: "Aerodrome", role: "Onchain Lending/Liquidity" },
+      { name: "PancakeSwap", role: "Onchain Lending/Liquidity" },
       { name: "Paytrie", role: "Minting/Redemption" },
     ],
     regulatorySteps: [

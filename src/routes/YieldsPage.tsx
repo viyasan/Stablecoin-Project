@@ -68,7 +68,7 @@ export function YieldsPage() {
           <h1 className="text-3xl font-bold text-chrome-800">Stablecoin Yields</h1>
         </div>
         <p className="text-chrome-600">
-          Compare live stablecoin yields across DeFi protocols and chains.
+          Compare live stablecoin yields across onchain lending protocols and chains.
         </p>
       </div>
 

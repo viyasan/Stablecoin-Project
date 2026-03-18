@@ -37,9 +37,9 @@ export function DisclaimerPage() {
             some or all of your investment.
           </p>
           <p className="text-sm text-chrome-600 leading-relaxed">
-            DeFi yield rates shown on this site are snapshots from third-party protocols
+            Onchain lending yield rates shown on this site are snapshots from third-party protocols
             and change constantly. Smart contracts can have bugs or be exploited.
-            We do not facilitate any transactions — any interaction with a DeFi protocol
+            We do not facilitate any transactions — any interaction with an onchain lending protocol
             is between you and that protocol. <strong>Only deposit what you can afford to lose.</strong>
           </p>
         </section>

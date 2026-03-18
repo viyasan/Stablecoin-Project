@@ -10,7 +10,7 @@ const INDUSTRY_OPTIONS = [
   { value: 'payment_service_provider', label: 'Payment Service Provider' },
   { value: 'legal', label: 'Legal / Law' },
   { value: 'regulatory_government', label: 'Regulatory / Government' },
-  { value: 'fintech_defi', label: 'Fintech / DeFi' },
+  { value: 'fintech_defi', label: 'Fintech / Onchain Lending' },
   { value: 'consulting', label: 'Consulting' },
   { value: 'venture_capital', label: 'Venture Capital / Investment' },
   { value: 'compliance', label: 'Compliance' },
