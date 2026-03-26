@@ -9,11 +9,13 @@ import type {
   PegPricePoint,
 } from '../types';
 
-// DefiLlama API endpoints
-const DEFILLAMA_STABLECOINS_API = 'https://stablecoins.llama.fi/stablecoins?includePrices=true';
-const DEFILLAMA_CHARTS_API = 'https://stablecoins.llama.fi/stablecoincharts/all';
-const DEFILLAMA_CHAINS_API = 'https://stablecoins.llama.fi/stablecoinchains';
-const DEFILLAMA_PRICES_API = 'https://stablecoins.llama.fi/stablecoinprices';
+// DefiLlama API endpoints — use Vite proxy in dev to avoid browser restrictions
+const isDev = import.meta.env.DEV;
+const STABLECOINS_BASE = isDev ? '/api/llama-stablecoins' : 'https://stablecoins.llama.fi';
+const DEFILLAMA_STABLECOINS_API = `${STABLECOINS_BASE}/stablecoins?includePrices=true`;
+const DEFILLAMA_CHARTS_API = `${STABLECOINS_BASE}/stablecoincharts/all`;
+const DEFILLAMA_CHAINS_API = `${STABLECOINS_BASE}/stablecoinchains`;
+const DEFILLAMA_PRICES_API = `${STABLECOINS_BASE}/stablecoinprices`;
 
 // Helper to map peg type to our PegCurrency type
 function mapPegType(pegType: string): PegCurrency {

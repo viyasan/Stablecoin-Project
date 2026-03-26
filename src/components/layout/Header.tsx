@@ -22,6 +22,7 @@ const navItems = [
   { to: '/market', label: 'STATS' },
   { to: '/canada', label: 'CANADA', icon: MapleLeafIcon },
   { to: '/news', label: 'NEWS' },
+  { to: '/pro', label: 'PRO', highlight: true },
 ];
 
 export function Header() {
@@ -57,6 +58,11 @@ export function Header() {
               >
                 {item.label}
                 {item.icon && <item.icon className="w-3.5 h-3.5 text-red-600" />}
+                {'highlight' in item && item.highlight && (
+                  <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold bg-gold-500 text-white rounded-sm leading-none">
+                    NEW
+                  </span>
+                )}
               </NavLink>
             ))}
           </nav>
@@ -96,6 +102,11 @@ export function Header() {
               >
                 {item.label}
                 {item.icon && <item.icon className="w-3.5 h-3.5 text-red-600" />}
+                {'highlight' in item && item.highlight && (
+                  <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold bg-gold-500 text-white rounded-sm leading-none">
+                    NEW
+                  </span>
+                )}
               </NavLink>
             ))}
           </div>

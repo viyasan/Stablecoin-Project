@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { StablecoinYieldPool, UseApiResult } from '../types/yield';
 
-const DEFILLAMA_YIELDS_API = 'https://yields.llama.fi/pools';
-const DEFILLAMA_PROTOCOLS_API = 'https://api.llama.fi/protocols';
+const isDev = import.meta.env.DEV;
+const DEFILLAMA_YIELDS_API = isDev ? '/api/llama-yields/pools' : 'https://yields.llama.fi/pools';
+const DEFILLAMA_PROTOCOLS_API = isDev ? '/api/llama/protocols' : 'https://api.llama.fi/protocols';
 const YIELD_CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 interface DefiLlamaPool {

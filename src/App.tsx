@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import TagManager from 'react-gtm-module';
 import NProgress from 'nprogress';
-import { Header, Footer } from './components/layout';
+import { MainLayout } from './components/layout';
+import { ProLayout } from './components/pro/ProLayout';
 import {
   OverviewPage,
   MarketPage,
@@ -12,6 +13,8 @@ import {
   NewsPage,
   DisclaimerPage,
   YieldsPage,
+  ProDashboardPage,
+  ProDetailPage,
 } from './routes';
 
 // Configure NProgress
@@ -35,13 +38,9 @@ function PageViewTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    // Scroll to top on route change
     window.scrollTo(0, 0);
-
-    // Start loading bar
     NProgress.start();
 
-    // Track page view on route change
     if (GTM_ID) {
       TagManager.dataLayer({
         dataLayer: {
@@ -51,7 +50,6 @@ function PageViewTracker() {
       });
     }
 
-    // Complete loading bar after a short delay (simulates page load)
     const timer = setTimeout(() => {
       NProgress.done();
     }, 300);
@@ -69,22 +67,25 @@ function App() {
   return (
     <BrowserRouter>
       <PageViewTracker />
-      <div className="min-h-screen flex flex-col bg-chrome-50 bg-hero-grid">
-        <Header />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<OverviewPage />} />
-            <Route path="/market" element={<MarketPage />} />
-            <Route path="/canada" element={<CanadaPage />} />
-            <Route path="/countries" element={<CountriesPage />} />
-            <Route path="/countries/:code" element={<CountryDetailPage />} />
-            <Route path="/news" element={<NewsPage />} />
-            <Route path="/disclaimer" element={<DisclaimerPage />} />
-            <Route path="/yields" element={<YieldsPage />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
+      <Routes>
+        {/* Existing light site */}
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<OverviewPage />} />
+          <Route path="/market" element={<MarketPage />} />
+          <Route path="/canada" element={<CanadaPage />} />
+          <Route path="/countries" element={<CountriesPage />} />
+          <Route path="/countries/:code" element={<CountryDetailPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/disclaimer" element={<DisclaimerPage />} />
+          <Route path="/yields" element={<YieldsPage />} />
+        </Route>
+
+        {/* Pro dashboard — dark, no Header/Footer */}
+        <Route element={<ProLayout />}>
+          <Route path="/pro" element={<ProDashboardPage />} />
+          <Route path="/pro/:symbol" element={<ProDetailPage />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
