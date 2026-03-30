@@ -74,9 +74,25 @@ interface DefiLlamaChartDataPoint {
   totalCirculatingUSD: { peggedUSD: number };
 }
 
-// Fetch and transform market summary from DefiLlama
+// Fetch market summary from Supabase (cached via /api/market-summary),
+// with fallback to DefiLlama direct if the API route returns no data.
 async function fetchMarketSummary(): Promise<MarketSummary> {
-  // Fetch both stablecoins list and historical chart data
+  // Try cached Supabase data first (fast, edge-cached)
+  try {
+    const res = await fetch('/api/market-summary');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.totalMarketCap) return data as MarketSummary;
+    }
+  } catch {
+    // Fall through to DefiLlama direct
+  }
+
+  // Fallback: fetch directly from DefiLlama (initial deploy or API route unavailable)
+  return fetchMarketSummaryFromDefiLlama();
+}
+
+async function fetchMarketSummaryFromDefiLlama(): Promise<MarketSummary> {
   const [stablecoinsResponse, chartsResponse] = await Promise.all([
     fetch(DEFILLAMA_STABLECOINS_API),
     fetch(DEFILLAMA_CHARTS_API),
@@ -90,7 +106,6 @@ async function fetchMarketSummary(): Promise<MarketSummary> {
 
   const stablecoins = stablecoinsData.peggedAssets;
 
-  // Calculate current total from stablecoins list
   let totalMarketCap = 0;
   let totalPrevDay = 0;
 
@@ -99,12 +114,10 @@ async function fetchMarketSummary(): Promise<MarketSummary> {
     totalPrevDay += coin.circulatingPrevDay?.peggedUSD || 0;
   }
 
-  // Use historical chart data for accurate 7d and 30d changes (matching DefiLlama website)
   const now = Date.now();
   const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
   const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
 
-  // Find the chart data points closest to our target dates
   const findClosestDataPoint = (targetTimestamp: number): DefiLlamaChartDataPoint | null => {
     let closest: DefiLlamaChartDataPoint | null = null;
     let minDiff = Infinity;
@@ -124,7 +137,6 @@ async function fetchMarketSummary(): Promise<MarketSummary> {
   const sevenDayPoint = findClosestDataPoint(sevenDaysAgo);
   const thirtyDayPoint = findClosestDataPoint(thirtyDaysAgo);
 
-  // Get market cap values from chart data
   const currentFromChart = latestChartPoint?.totalCirculatingUSD?.peggedUSD ||
                            latestChartPoint?.totalCirculating?.peggedUSD || totalMarketCap;
   const sevenDayValue = sevenDayPoint?.totalCirculatingUSD?.peggedUSD ||
@@ -132,12 +144,10 @@ async function fetchMarketSummary(): Promise<MarketSummary> {
   const thirtyDayValue = thirtyDayPoint?.totalCirculatingUSD?.peggedUSD ||
                          thirtyDayPoint?.totalCirculating?.peggedUSD || currentFromChart;
 
-  // Calculate absolute dollar changes
   const change24hValue = totalMarketCap - totalPrevDay;
   const change7dValue = currentFromChart - sevenDayValue;
   const change30dValue = currentFromChart - thirtyDayValue;
 
-  // Calculate percentage changes
   const change24h = totalPrevDay > 0 ? ((totalMarketCap - totalPrevDay) / totalPrevDay) * 100 : 0;
   const change7d = sevenDayValue > 0 ? ((currentFromChart - sevenDayValue) / sevenDayValue) * 100 : 0;
   const change30d = thirtyDayValue > 0 ? ((currentFromChart - thirtyDayValue) / thirtyDayValue) * 100 : 0;
