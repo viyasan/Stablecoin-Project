@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
-// Last updated: March 2026
+// Last updated: April 2026
 const INSIGHTS = [
   {
     id: 1,
-    text: "USDT and USDC together control over 83% of the $313 billion stablecoin market.",
+    text: "USDT and USDC together control over 83% of the $318 billion stablecoin market.",
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ const INSIGHTS = [
   },
   {
     id: 5,
-    text: "There are over 340+ stablecoins tracked, but only 10 have market caps exceeding $1 billion.",
+    text: "There are over 360+ stablecoins tracked, but only 14 have market caps exceeding $1 billion.",
   },
   {
     id: 6,
@@ -22,7 +22,7 @@ const INSIGHTS = [
   },
   {
     id: 7,
-    text: "The stablecoin market grew 49% in 2025, adding over $100 billion to reach $306B in total market cap.",
+    text: "The stablecoin market grew 49% in 2025, adding over $100 billion to reach $311B in total market cap.",
   },
 ];
 
@@ -101,7 +101,7 @@ export function QuickInsightsCarousel() {
           </h3>
         </div>
         <span className="text-xs text-chrome-500">
-          Last updated: March 2026
+          Last updated: April 2026
         </span>
       </div>
       <div className="px-6 py-5 flex-1 flex flex-col min-h-0">

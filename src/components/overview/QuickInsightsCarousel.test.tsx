@@ -152,6 +152,6 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Third insight should be visible
-    expect(screen.getByText(/over 340\+ stablecoins/i)).toBeInTheDocument();
+    expect(screen.getByText(/over 360\+ stablecoins/i)).toBeInTheDocument();
   });
 });

@@ -69,8 +69,8 @@ Hooks live in `src/api/` and are re-exported from `src/api/index.ts`.
 | Source | File | Type |
 |--------|------|------|
 | DefiLlama API | `src/api/marketApi.ts` | Live — market caps, charts, chain breakdown, stablecoin list |
-| US Treasury TIC Data | `TreasuryHoldingsCard.tsx` | Static — Dec 2025 foreign holder rankings |
-| Tether/Circle Attestations | `marketApi.ts` RESERVE_DATA | Static — treasury holdings ($141B/$55B) |
+| US Treasury TIC Data | `TreasuryHoldingsCard.tsx` | Static — Jan 2026 foreign holder rankings |
+| Tether/Circle Attestations | `marketApi.ts` RESERVE_DATA | Static — treasury holdings ($141B/$46B) |
 | Transaction KPIs | `TransactionKpiCard.tsx` | Static — Visa/Allium sourced metrics |
 
 Static data needs manual updates. Sources and dates are documented in comments and card attribution links.
@@ -88,7 +88,7 @@ See `.env.example` for the template.
 
 ## Workflow Rules
 
-- **Plan first**: Enter plan mode for any task with 3+ steps or architectural decisions
+- **Plan first**: Enter plan mode for any task or architectural decision
 - **Verify before done**: Run `npm run build` — TypeScript errors fail the build. Run tests when touching API hooks or utils
 - **Simplicity first**: Make every change as simple as possible. Minimal code impact
 - **No temporary fixes**: Find root causes. No workarounds that will need revisiting
