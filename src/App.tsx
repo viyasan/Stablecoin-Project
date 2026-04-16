@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import TagManager from 'react-gtm-module';
 import NProgress from 'nprogress';
 import { MainLayout } from './components/layout';
-import { ProLayout } from './components/pro/ProLayout';
 import {
   OverviewPage,
   MarketPage,
@@ -13,8 +12,6 @@ import {
   NewsPage,
   DisclaimerPage,
   YieldsPage,
-  ProDashboardPage,
-  ProDetailPage,
 } from './routes';
 
 // Configure NProgress
@@ -78,12 +75,6 @@ function App() {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
           <Route path="/yields" element={<YieldsPage />} />
-        </Route>
-
-        {/* Pro dashboard — dark, no Header/Footer */}
-        <Route element={<ProLayout />}>
-          <Route path="/pro" element={<ProDashboardPage />} />
-          <Route path="/pro/:symbol" element={<ProDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

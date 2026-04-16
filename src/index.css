@@ -34,17 +34,6 @@
   --color-status-warning: #D4A437;
   --color-status-neutral: #6C757D;
 
-  /* Pro dashboard dark theme */
-  --color-pro-bg: #0D0F12;
-  --color-pro-surface: #141720;
-  --color-pro-elevated: #1A1E2A;
-  --color-pro-hover: #1E2235;
-  --color-pro-border: #2A2E3A;
-  --color-pro-border-light: #353A48;
-  --color-pro-text: #E8EAED;
-  --color-pro-text-secondary: #9CA3AF;
-  --color-pro-text-muted: #6B7280;
-
   /* Font families */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
@@ -148,19 +137,3 @@ body {
   background-size: 60px 60px;
 }
 
-/* Pro dashboard dark scrollbar */
-.pro-scrollbar::-webkit-scrollbar-track {
-  background: #141720;
-}
-
-.pro-scrollbar::-webkit-scrollbar-thumb {
-  background: #2A2E3A;
-}
-
-.pro-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #353A48;
-}
-
-.pro-scrollbar {
-  scrollbar-color: #2A2E3A #141720;
-}
