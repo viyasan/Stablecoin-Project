@@ -354,6 +354,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         description: "VersaBank becomes custodian for QCAD reserves using VersaVault - first stablecoin customer for the federally regulated Schedule I bank",
         type: "partnership",
       },
+      {
+        date: "Apr 2026",
+        title: "Deloitte Strategic Collaboration",
+        description: "Deloitte Canada and Stablecorp announce strategic collaboration to deliver QCAD-based stablecoin infrastructure for Canadian financial institutions",
+        type: "partnership",
+      },
     ],
   },
   {
@@ -632,6 +638,19 @@ export const timelineEvents: TimelineEvent[] = [
     stablecoinId: "qcad",
   },
   {
+    date: "Mar 26, 2026",
+    title: "Stablecoin Act Receives Royal Assent",
+    description: "Bill C-15 receives Royal Assent, establishing Canada's federal stablecoin framework; implementation regulations TBD",
+    type: "regulatory",
+  },
+  {
+    date: "Apr 2026",
+    title: "Deloitte-Stablecorp Collaboration",
+    description: "Deloitte Canada and Stablecorp announce strategic collaboration on QCAD-based stablecoin infrastructure for Canadian FIs",
+    type: "partnership",
+    stablecoinId: "qcad",
+  },
+  {
     date: "Q1 2026",
     title: "CADD Launch",
     description: "CAD Digital expected to launch CADD stablecoin",
@@ -639,10 +658,10 @@ export const timelineEvents: TimelineEvent[] = [
     stablecoinId: "tetra",
   },
   {
-    date: "2026-27",
+    date: "2027",
     title: "Bank of Canada Oversight Begins",
     description:
-      "Bank of Canada begins formal stablecoin oversight under new legislation",
+      "Bank of Canada begins formal stablecoin oversight under enacted Stablecoin Act",
     type: "regulatory",
   },
 ];

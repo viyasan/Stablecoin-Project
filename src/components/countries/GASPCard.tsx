@@ -169,7 +169,7 @@ export function GASPCard({ className = '' }: GASPCardProps) {
               Common regulatory themes synthesized across all tracked jurisdictions
             </p>
           </div>
-          <span className="text-xs sm:text-sm text-chrome-400 text-center sm:text-right sm:whitespace-nowrap">Last updated: March 2026</span>
+          <span className="text-xs sm:text-sm text-chrome-400 text-center sm:text-right sm:whitespace-nowrap">Last updated: April 2026</span>
         </div>
       </div>
 

@@ -66,7 +66,7 @@ export function CountryBentoGrid({ className = '' }: CountryBentoGridProps) {
               Select a country to view regulatory details
             </p>
           </div>
-          <span className="text-xs sm:text-sm text-chrome-400 text-center sm:text-right sm:whitespace-nowrap">Last updated: March 2026</span>
+          <span className="text-xs sm:text-sm text-chrome-400 text-center sm:text-right sm:whitespace-nowrap">Last updated: April 2026</span>
         </div>
         {/* Legend */}
         <div className="flex items-center justify-center sm:justify-start gap-4 mt-3">
