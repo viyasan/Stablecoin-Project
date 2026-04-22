@@ -14,6 +14,7 @@ export type {
   StablecoinStatus,
   ParentCompany,
   CompanyTimelineEvent,
+  ReserveMetadata,
 } from '../data/canadianStablecoins';
 
 interface UseApiResult<T> {

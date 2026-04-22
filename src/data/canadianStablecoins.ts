@@ -53,6 +53,17 @@ export interface PlatformIntegration {
   role: string;
 }
 
+export interface ReserveMetadata {
+  tokenLogo?: string;
+  chainLabel?: string;
+  reserveRatio: string;
+  custodian: string;
+  lastAttested: string;
+  attestationFrequency: string;
+  attestationUrl?: string;
+  supplyNote?: string;
+}
+
 export interface CanadianStablecoin {
   id: string;
   name: string;
@@ -79,6 +90,7 @@ export interface CanadianStablecoin {
   exchangePartners: number;
   parentCompany: ParentCompany;
   companyTimeline: CompanyTimelineEvent[];
+  reserveMetadata: ReserveMetadata;
 }
 
 export interface Exchange {
@@ -190,6 +202,13 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "partnership",
       },
     ],
+    reserveMetadata: {
+      reserveRatio: "TBD",
+      custodian: "Undisclosed",
+      lastAttested: "Not disclosed",
+      attestationFrequency: "N/A",
+      supplyNote: "Reserve data not publicly disclosed",
+    },
   },
   {
     id: "cadc",
@@ -312,6 +331,14 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "regulatory",
       },
     ],
+    reserveMetadata: {
+      tokenLogo: "/cadc-logo.jpg",
+      reserveRatio: "101%",
+      custodian: "ATB Financial",
+      lastAttested: "Monthly",
+      attestationFrequency: "Monthly",
+      chainLabel: "All chains",
+    },
   },
   {
     id: "qcad",
@@ -456,6 +483,14 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "milestone",
       },
     ],
+    reserveMetadata: {
+      reserveRatio: "100% (1:1)",
+      custodian: "VersaBank",
+      lastAttested: "Apr 2026",
+      attestationFrequency: "Daily + Monthly (SEDAR+)",
+      attestationUrl: "https://www.stablecorp.ca/qcad-reporting",
+      chainLabel: "Ethereum",
+    },
   },
   {
     id: "tetra",
@@ -602,6 +637,13 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "launch",
       },
     ],
+    reserveMetadata: {
+      reserveRatio: "100% (planned)",
+      custodian: "Tetra Trust",
+      lastAttested: "N/A",
+      attestationFrequency: "Planned monthly",
+      supplyNote: "Pre-launch — Q2 2026",
+    },
   },
 ];
 

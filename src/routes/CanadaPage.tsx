@@ -5,8 +5,9 @@ import {
   ComparisonTable,
   CompanyTimelines,
 } from '../components/canada';
-import { useCanadianStablecoins, useCanadianExchanges } from '../api';
-import { ShieldCheck, CircleDollarSign, FileBarChart, CheckCircle, Building, Clock, Zap, Check } from 'lucide-react';
+import { useCanadianStablecoins, useCanadianExchanges, useCanadianReserves } from '../api';
+import type { CanadianStablecoin } from '../api';
+import { ShieldCheck, CircleDollarSign, Building, Clock, ExternalLink } from 'lucide-react';
 
 // Maple Leaf icon for the header
 function MapleLeafIcon({ className }: { className?: string }) {
@@ -22,9 +23,126 @@ function MapleLeafIcon({ className }: { className?: string }) {
   );
 }
 
+const CARD_GRADIENTS: Record<string, string> = {
+  cadx: 'from-[#dc2626] to-[#b91c1c]',
+  cadc: 'from-[#d92525] to-[#b61b1b]',
+  qcad: 'from-[#dc2626] to-[#b91c1c]',
+  tetra: 'from-[#d52424] to-[#b21a1a]',
+};
+
+interface ReserveCardProps {
+  stablecoin: CanadianStablecoin;
+  liveSupply: number | null;
+  isLoadingSupply: boolean;
+}
+
+function ReserveCard({ stablecoin, liveSupply, isLoadingSupply }: ReserveCardProps) {
+  const meta = stablecoin.reserveMetadata;
+  const gradient = CARD_GRADIENTS[stablecoin.id] ?? 'from-[#dc2626] to-[#b91c1c]';
+  const logoSrc = meta.tokenLogo ?? stablecoin.logo;
+
+  const supplyDisplay = (() => {
+    if (meta.supplyNote) return null;
+    if (isLoadingSupply) return 'loading';
+    if (liveSupply !== null) return liveSupply.toLocaleString('en-CA', { maximumFractionDigits: 0 });
+    return null;
+  })();
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+      <div className={`bg-gradient-to-r ${gradient} px-6 py-3 flex items-center gap-3`}>
+        {logoSrc && (
+          <img
+            src={logoSrc}
+            alt={`${stablecoin.symbol} logo`}
+            className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain flex-shrink-0"
+          />
+        )}
+        <div>
+          <h3 className="text-lg font-bold text-white">{stablecoin.symbol}</h3>
+          <p className="text-white text-sm opacity-90">{stablecoin.issuer}</p>
+        </div>
+      </div>
+      <div className="p-5 space-y-4">
+        {/* Outstanding Supply */}
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <CircleDollarSign className="w-5 h-5 text-chrome-600" />
+          </div>
+          <div>
+            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Outstanding Supply</h4>
+            {meta.supplyNote ? (
+              <p className="text-xs text-chrome-500">{meta.supplyNote}</p>
+            ) : supplyDisplay === 'loading' ? (
+              <div className="h-3.5 w-24 bg-chrome-100 rounded animate-pulse mt-1" />
+            ) : supplyDisplay ? (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-xs font-semibold text-chrome-900">{supplyDisplay} {stablecoin.symbol}</span>
+                <span className="flex items-center gap-1 text-[10px] text-status-positive font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
+                  Live
+                </span>
+                {meta.chainLabel && (
+                  <span className="text-[10px] text-chrome-400">({meta.chainLabel})</span>
+                )}
+              </div>
+            ) : (
+              <p className="text-xs text-chrome-400">Data unavailable</p>
+            )}
+          </div>
+        </div>
+
+        {/* Reserve Ratio */}
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <ShieldCheck className="w-5 h-5 text-chrome-600" />
+          </div>
+          <div>
+            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Reserve Ratio</h4>
+            <p className="text-xs text-chrome-500">{meta.reserveRatio}</p>
+          </div>
+        </div>
+
+        {/* Custodian */}
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <Building className="w-5 h-5 text-chrome-600" />
+          </div>
+          <div>
+            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Custodian</h4>
+            <p className="text-xs text-chrome-500">{meta.custodian}</p>
+          </div>
+        </div>
+
+        {/* Last Attested */}
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <Clock className="w-5 h-5 text-chrome-600" />
+          </div>
+          <div>
+            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Last Attested</h4>
+            <p className="text-xs text-chrome-500">{meta.lastAttested} · {meta.attestationFrequency}</p>
+            {meta.attestationUrl && (
+              <a
+                href={meta.attestationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-[11px] text-chrome-600 hover:text-chrome-800 mt-1"
+              >
+                View Reports <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function CanadaPage() {
   const { data: stablecoins, isLoading } = useCanadianStablecoins();
   const { data: exchanges } = useCanadianExchanges();
+  const { data: reserveSupply, isLoading: isLoadingSupply } = useCanadianReserves();
 
   if (isLoading) {
     return (
@@ -71,181 +189,18 @@ export function CanadaPage() {
           Reserve & Transparency
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {/* CADX Card (Transactix) */}
-          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-[#dc2626] to-[#b91c1c] px-6 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-white p-1 flex-shrink-0 flex items-center justify-center">
-                <img src="/cadx-logo.png" alt="CADX logo" className="w-full h-full object-contain" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white">CADX</h3>
-                <p className="text-white text-sm opacity-90">Transactix</p>
-              </div>
-            </div>
-            <div className="p-5 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-5 h-5 text-chrome-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Stablecoin-as-a-Service</h4>
-                  <p className="text-xs text-chrome-500">Patented OVN platform for partners</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CircleDollarSign className="w-5 h-5 text-chrome-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">$100B+ Platform Volume</h4>
-                  <p className="text-xs text-chrome-500">Digital transactions on OVN</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check className="w-5 h-5 text-status-positive" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Live since May 2025</h4>
-                  <p className="text-xs text-chrome-500">Launched at Consensus 2025</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CADC Card (Loon) */}
-          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-[#d92525] to-[#b61b1b] px-6 py-3 flex items-center gap-3">
-              <img
-                src="/cadc-logo.jpg"
-                alt="CADC logo"
-                className="w-10 h-10 rounded-lg object-contain"
-              />
-              <div>
-                <h3 className="text-lg font-bold text-white">CADC</h3>
-                <p className="text-white text-sm opacity-90">Loon</p>
-              </div>
-            </div>
-            <div className="p-5 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-5 h-5 text-status-positive" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">101% Over-Collateralized</h4>
-                  <p className="text-xs text-chrome-500">Monthly reserve verification</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-5 h-5 text-chrome-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">3-Second Settlement</h4>
-                  <p className="text-xs text-chrome-500">$325M+ total on-chain volume</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check className="w-5 h-5 text-status-positive" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Live</h4>
-                  <p className="text-xs text-chrome-500">Operational since 2021, acquired by Loon Oct 2025</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* QCAD Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-[#dc2626] to-[#b91c1c] px-6 py-3 flex items-center gap-3">
-              <img
-                src={stablecoins.find(s => s.id === 'qcad')?.logo}
-                alt="Stablecorp logo"
-                className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain"
-              />
-              <div>
-                <h3 className="text-lg font-bold text-white">QCAD</h3>
-                <p className="text-white text-sm opacity-90">Stablecorp</p>
-              </div>
-            </div>
-            <div className="p-5 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="w-5 h-5 text-chrome-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">QCAD Digital Trust</h4>
-                  <p className="text-xs text-chrome-500">Ontario trust structure with independent trustee</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CircleDollarSign className="w-5 h-5 text-status-positive" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">1:1 CAD Backed</h4>
-                  <p className="text-xs text-chrome-500">Reserves held at regulated financial institutions</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <FileBarChart className="w-5 h-5 text-chrome-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Daily Transparency</h4>
-                  <p className="text-xs text-chrome-500">Daily reports & monthly attestations on SEDAR+</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CADD Card (Tetra) */}
-          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-[#d52424] to-[#b21a1a] px-6 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-white p-1.5 flex-shrink-0 flex items-center justify-center">
-                <img
-                  src={stablecoins.find(s => s.id === 'tetra')?.logo}
-                  alt="Tetra Digital Group logo"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white">CADD</h3>
-                <p className="text-white text-sm opacity-90">Tetra Trust</p>
-              </div>
-            </div>
-            <div className="p-5 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-5 h-5 text-status-positive" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Bank-to-Bank Tested</h4>
-                  <p className="text-xs text-chrome-500">First CAD stablecoin transferred between FIs</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Building className="w-5 h-5 text-chrome-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Institutional Grade</h4>
-                  <p className="text-xs text-chrome-500">Issued by licensed trust company</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-gold-50 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-5 h-5 text-gold-500" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Q2 2026 Launch</h4>
-                  <p className="text-xs text-chrome-500">Pending regulatory approval</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {stablecoins.map((stablecoin) => (
+            <ReserveCard
+              key={stablecoin.id}
+              stablecoin={stablecoin}
+              liveSupply={
+                stablecoin.id === 'cadc' ? reserveSupply?.cadc ?? null
+                : stablecoin.id === 'qcad' ? reserveSupply?.qcad ?? null
+                : null
+              }
+              isLoadingSupply={isLoadingSupply}
+            />
+          ))}
         </div>
       </section>
 
