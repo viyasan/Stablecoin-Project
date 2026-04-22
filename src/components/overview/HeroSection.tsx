@@ -106,7 +106,7 @@ export function HeroSection() {
           {/* CTAs */}
           <div className="flex flex-wrap gap-3">
             <Link
-              to="/market"
+              to="/stats"
               className="inline-flex items-center px-6 py-3 bg-gold-500 text-white text-sm font-medium rounded-md hover:bg-gold-600 transition-colors"
             >
               Explore Stats

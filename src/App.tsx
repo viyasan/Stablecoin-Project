@@ -68,7 +68,7 @@ function App() {
         {/* Existing light site */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<OverviewPage />} />
-          <Route path="/market" element={<MarketPage />} />
+          <Route path="/stats" element={<MarketPage />} />
           <Route path="/canada" element={<CanadaPage />} />
           <Route path="/countries" element={<CountriesPage />} />
           <Route path="/countries/:code" element={<CountryDetailPage />} />

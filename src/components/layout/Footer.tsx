@@ -47,7 +47,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/market" className="hover:text-gold-400 transition-colors duration-150">
+                <Link to="/stats" className="hover:text-gold-400 transition-colors duration-150">
                   Stats
                 </Link>
               </li>

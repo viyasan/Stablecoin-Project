@@ -432,17 +432,17 @@ export interface StablecoinReserve {
   treasuryHoldings: number; // Static from attestation reports (in dollars)
 }
 
-// Static data from attestation reports - update quarterly
+// Static data from attestation reports - update quarterly/monthly
 // Sources:
-// Tether Q4 2025: https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure/
-// Circle Mar 2026: https://www.circle.com/transparency
-// Last updated: March 2026
+// Tether Q4 2025: https://tether.io/news/tether-delivers-10b-profits-in-2025-6-3b-in-excess-reserves-and-record-141-billion-exposure-in-u-s-treasury-holdings/
+// Circle Apr 2026: https://www.circle.com/transparency (weekly disclosure, Apr 11, 2026)
+// Last updated: April 2026 (Tether Q1 2026 attestation pending — expected late April 2026)
 const RESERVE_DATA = {
   USDT: {
     name: 'Tether',
     lastUpdated: 'Q4 2025',
     sourceUrl: 'https://tether.to/en/transparency/',
-    treasuryHoldings: 141_000_000_000, // $141B from attestation report
+    treasuryHoldings: 141_000_000_000, // $141B total Treasury exposure (T-bills + overnight repos)
     assets: [
       { name: 'US Treasuries', percentage: 73, color: '#E2B050' },
       { name: 'Gold', percentage: 9, color: '#D4A437' },
@@ -452,12 +452,12 @@ const RESERVE_DATA = {
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'Mar 2026',
+    lastUpdated: 'Apr 2026',
     sourceUrl: 'https://www.circle.com/transparency',
-    treasuryHoldings: 45_400_000_000, // $45.4B ($44.75B T-bills + $0.65B repos)
+    treasuryHoldings: 53_500_000_000, // $53.5B in Circle Reserve Fund (T-bills + overnight repos)
     assets: [
-      { name: 'US Treasuries', percentage: 59, color: '#D4A437' },
-      { name: 'Cash & Bank Deposits', percentage: 41, color: '#CD7F32' },
+      { name: 'US Treasuries & Repos', percentage: 68, color: '#D4A437' },
+      { name: 'Cash & Bank Deposits', percentage: 32, color: '#CD7F32' },
     ],
   },
 };
