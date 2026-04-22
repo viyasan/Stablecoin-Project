@@ -53,9 +53,9 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
         <div className="flex items-center gap-3">
           {stablecoin.logo ? (
             <img
-              src={stablecoin.logo}
+              src={stablecoin.id === 'cadx' ? '/transactix-icon.svg' : stablecoin.logo}
               alt={`${stablecoin.issuer} logo`}
-              className="w-12 h-12 rounded-lg bg-white p-2 object-contain flex-shrink-0"
+              className={`w-12 h-12 rounded-lg bg-white object-contain flex-shrink-0 ${stablecoin.id === 'cadx' ? 'p-3' : 'p-2'}`}
             />
           ) : (
             <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
