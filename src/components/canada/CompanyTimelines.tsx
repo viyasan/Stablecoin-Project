@@ -80,7 +80,7 @@ function CompanyTimelineColumn({ stablecoin }: CompanyTimelineColumnProps) {
           <img
             src={stablecoin.logo}
             alt={`${stablecoin.issuer} logo`}
-            className={`w-10 h-10 rounded-lg bg-white object-contain flex-shrink-0 ${stablecoin.id === 'cadx' ? 'p-2.5' : 'p-1.5'}`}
+            className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain flex-shrink-0"
           />
         )}
         <div>

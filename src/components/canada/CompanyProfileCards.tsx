@@ -221,7 +221,7 @@ interface CompanyProfileCardsProps {
 
 export function CompanyProfileCards({ stablecoins }: CompanyProfileCardsProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
       {stablecoins.map((stablecoin) => (
         <CompanyCard key={stablecoin.id} stablecoin={stablecoin} />
       ))}

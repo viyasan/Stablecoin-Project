@@ -107,6 +107,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     name: "CADX",
     symbol: "CADX",
     issuer: "Transactix",
+    logo: "/cadx-logo.png",
     status: "live",
     statusLabel: "Live",
     tagline: "Canada's Stablecoin-as-a-Service platform powered by patented OVN technology",

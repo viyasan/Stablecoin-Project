@@ -74,8 +74,8 @@ export function CanadaPage() {
           {/* CADX Card (Transactix) */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
             <div className="bg-gradient-to-r from-[#0e7490] to-[#0369a1] px-6 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-bold text-sm">TX</span>
+              <div className="w-10 h-10 rounded-lg bg-white p-1 flex-shrink-0 flex items-center justify-center">
+                <img src="/cadx-logo.png" alt="CADX logo" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">CADX</h3>
