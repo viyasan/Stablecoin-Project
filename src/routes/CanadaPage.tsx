@@ -73,7 +73,7 @@ export function CanadaPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* CADX Card (Transactix) */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-[#0e7490] to-[#0369a1] px-6 py-3 flex items-center gap-3">
+            <div className="bg-gradient-to-r from-[#dc2626] to-[#b91c1c] px-6 py-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white p-1 flex-shrink-0 flex items-center justify-center">
                 <img src="/cadx-logo.png" alt="CADX logo" className="w-full h-full object-contain" />
               </div>

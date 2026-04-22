@@ -60,7 +60,7 @@ function CompanyTimelineColumn({ stablecoin }: CompanyTimelineColumnProps) {
   const getHeaderColors = () => {
     switch (stablecoin.id) {
       case 'cadx':
-        return 'from-[#0e7490] to-[#0369a1]';
+        return 'from-[#dc2626] to-[#b91c1c]';
       case 'qcad':
         return 'from-[#dc2626] to-[#b91c1c]';
       case 'tetra':
