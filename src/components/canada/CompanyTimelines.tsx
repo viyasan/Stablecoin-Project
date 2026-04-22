@@ -83,9 +83,9 @@ function CompanyTimelineColumn({ stablecoin }: CompanyTimelineColumnProps) {
             className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain flex-shrink-0"
           />
         )}
-        <div>
+        <div className="min-w-0">
           <h3 className="text-lg font-bold text-white">{stablecoin.name}</h3>
-          <p className="text-white text-sm opacity-90">{stablecoin.parentCompany.name}</p>
+          <p className="text-white text-sm opacity-90 truncate">{stablecoin.parentCompany.name}</p>
         </div>
       </div>
 
