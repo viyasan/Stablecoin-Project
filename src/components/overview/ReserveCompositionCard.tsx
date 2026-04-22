@@ -111,13 +111,12 @@ export function ReserveCompositionCard() {
   const treasuryAmount = formatBillions(treasuryHoldings);
 
   // Calculate dollar amounts - use static treasury value, derive others from remaining
-  const treasuryPercentage = reserve.assets.find(a => a.name === 'US Treasuries')?.percentage || 0;
+  const treasuryAsset = reserve.assets.find(a => a.name.startsWith('US Treasuries'));
+  const treasuryPercentage = treasuryAsset?.percentage || 0;
   const assetsWithAmounts: ReserveAssetWithAmount[] = reserve.assets.map((asset) => {
-    if (asset.name === 'US Treasuries') {
-      // Use static treasury holdings value
+    if (asset === treasuryAsset) {
       return { ...asset, amount: treasuryAmount };
     }
-    // Calculate other assets based on their proportion relative to treasuries
     const estimatedAmount = (asset.percentage / treasuryPercentage) * treasuryHoldings;
     return { ...asset, amount: formatBillions(estimatedAmount) };
   });
