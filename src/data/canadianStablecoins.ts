@@ -103,6 +103,94 @@ export interface TimelineEvent {
 
 export const canadianStablecoins: CanadianStablecoin[] = [
   {
+    id: "cadx",
+    name: "CADX",
+    symbol: "CADX",
+    issuer: "Transactix",
+    status: "live",
+    statusLabel: "Live",
+    tagline: "Canada's Stablecoin-as-a-Service platform powered by patented OVN technology",
+    founded: "2024",
+    headquarters: "Calgary, AB",
+    website: "https://www.transactix.ca",
+    backing: "1:1 CAD reserves ($50M CAD in Canadian assets)",
+    custodian: "Undisclosed",
+    blockchains: ["TBD"],
+    backers: [],
+    regulatorySteps: [
+      {
+        id: "fintrac_msb",
+        label: "FINTRAC MSB",
+        description: "Compliance described as core to operations; registration status not publicly confirmed",
+        completed: false,
+        current: true,
+      },
+      {
+        id: "prospectus_filed",
+        label: "CSA Filing",
+        description: "Regulatory filing status not publicly disclosed",
+        completed: false,
+        current: false,
+      },
+      {
+        id: "prospectus_receipt",
+        label: "Prospectus Receipt",
+        description: "Pending",
+        completed: false,
+        current: false,
+      },
+      {
+        id: "live",
+        label: "Launch",
+        description: "Launched publicly at Consensus 2025 (May 14, 2025)",
+        completed: true,
+        current: false,
+      },
+    ],
+    fintracRegistered: false,
+    audits: "Not publicly disclosed",
+    volume: "$100B+ platform volume",
+    exchangePartners: 0,
+    parentCompany: {
+      name: "Transactix Financial Inc.",
+      description:
+        "Transactix is redefining the movement of value using blockchain technology via its patented Open Value Network (OVN) platform. The company enables individuals and businesses to exchange money, crypto, loyalty rewards, and credits instantly at costs often less than sending a text message.",
+      founded: "2024",
+      headquarters: "Calgary, AB",
+      website: "https://www.transactix.ca",
+      leadership: [{ name: "Ali Abou Daya", title: "CEO" }],
+      keyFacts: [
+        "$100B+ in digital transactions processed on OVN platform",
+        "Patented Open Value Network (OVN) enables Stablecoin-as-a-Service",
+        "Credit union partnerships across Ontario and BC",
+        "Member of Canada Blockchain Consortium & Web3 Canada Council",
+      ],
+    },
+    companyTimeline: [
+      {
+        date: "May 14, 2025",
+        title: "CADX Launched at Consensus",
+        description:
+          "Transactix publicly launches CADX and the Open Value Network at Consensus 2025 in Toronto; attendees purchase lattes using CADX",
+        type: "launch",
+      },
+      {
+        date: "May 2025",
+        title: "Credit Union Partnerships",
+        description:
+          "Announces partnerships with several mid-sized credit unions in Ontario and BC for cash in/out via traditional banking interfaces",
+        type: "partnership",
+      },
+      {
+        date: "May 2025",
+        title: "Retail & Interac Pipeline",
+        description:
+          "In discussions with Shopify and Lightspeed Commerce for retailer integrations and with Interac for a stablecoin-to-eTransfer bridge mechanism",
+        type: "partnership",
+      },
+    ],
+  },
+  {
     id: "cadc",
     name: "CADC",
     symbol: "CADC",
@@ -283,7 +371,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     fintracRegistered: true,
     audits: "Monthly attestations with annual audits",
     volume: "N/A (Launched Nov 2025)",
-    exchangePartners: 22,
+    exchangePartners: 23,
     parentCompany: {
       name: "Stablecorp Digital Currencies Inc.",
       description:
@@ -360,6 +448,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         description: "Deloitte Canada and Stablecorp announce strategic collaboration to deliver QCAD-based stablecoin infrastructure for Canadian financial institutions",
         type: "partnership",
       },
+      {
+        date: "Apr 2026",
+        title: "Kraken Listing",
+        description: "QCAD launches trading on Kraken — first CAD-denominated stablecoin on a major global exchange",
+        type: "milestone",
+      },
     ],
   },
   {
@@ -369,7 +463,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     issuer: "Tetra Digital",
     logo: "https://tetradg.com/wp-content/uploads/2025/11/TetraDigitalGroup-Icon.svg",
     status: "coming_soon",
-    statusLabel: "Q1 2026",
+    statusLabel: "Q2 2026",
     tagline: "First regulated CAD stablecoin issued by a financial institution",
     founded: "2019",
     headquarters: "Calgary, AB",
@@ -413,14 +507,14 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       {
         id: "live",
         label: "Launch",
-        description: "Public launch expected Q1 2026",
+        description: "Public launch expected Q2 2026",
         completed: false,
         current: true,
       },
     ],
     fintracRegistered: false,
     audits: "Planned monthly attestations",
-    volume: "N/A (Launching Q1 2026)",
+    volume: "N/A (Launching Q2 2026)",
     exchangePartners: 0,
     parentCompany: {
       name: "Tetra Digital Group",
@@ -501,7 +595,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "milestone",
       },
       {
-        date: "Q1 2026",
+        date: "Q2 2026",
         title: "CADD Launch",
         description: "Expected launch of CADD stablecoin",
         type: "launch",
@@ -545,6 +639,12 @@ export const exchanges: Exchange[] = [
     url: "https://aerodrome.finance",
     stablecoins: ["cadc"],
   },
+  {
+    name: "Kraken",
+    type: "CEX",
+    url: "https://kraken.com",
+    stablecoins: ["qcad"],
+  },
 ];
 
 // ============================================
@@ -552,6 +652,13 @@ export const exchanges: Exchange[] = [
 // ============================================
 
 export const timelineEvents: TimelineEvent[] = [
+  {
+    date: "May 14, 2025",
+    title: "CADX Launches at Consensus",
+    description: "Transactix publicly launches CADX stablecoin and Open Value Network at Consensus 2025 in Toronto; Canada's first Stablecoin-as-a-Service platform goes live",
+    type: "launch",
+    stablecoinId: "cadx",
+  },
   {
     date: "Feb 2020",
     title: "First QCAD Minted",
@@ -651,7 +758,7 @@ export const timelineEvents: TimelineEvent[] = [
     stablecoinId: "qcad",
   },
   {
-    date: "Q1 2026",
+    date: "Q2 2026",
     title: "CADD Launch",
     description: "CAD Digital expected to launch CADD stablecoin",
     type: "launch",

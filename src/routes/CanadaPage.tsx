@@ -70,7 +70,49 @@ export function CanadaPage() {
         <h2 className="text-xl font-semibold text-chrome-800 mb-4">
           Reserve & Transparency
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          {/* CADX Card (Transactix) */}
+          <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
+            <div className="bg-gradient-to-r from-[#0e7490] to-[#0369a1] px-6 py-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-bold text-sm">TX</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">CADX</h3>
+                <p className="text-white text-sm opacity-90">Transactix</p>
+              </div>
+            </div>
+            <div className="p-5 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-5 h-5 text-chrome-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Stablecoin-as-a-Service</h4>
+                  <p className="text-xs text-chrome-500">Patented OVN platform for partners</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CircleDollarSign className="w-5 h-5 text-chrome-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-chrome-800 text-sm">$100B+ Platform Volume</h4>
+                  <p className="text-xs text-chrome-500">Digital transactions on OVN</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-status-positive/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-status-positive" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Live since May 2025</h4>
+                  <p className="text-xs text-chrome-500">Launched at Consensus 2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* CADC Card (Loon) */}
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
             <div className="bg-gradient-to-r from-[#d92525] to-[#b61b1b] px-6 py-3 flex items-center gap-3">
@@ -119,7 +161,7 @@ export function CanadaPage() {
           <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
             <div className="bg-gradient-to-r from-[#dc2626] to-[#b91c1c] px-6 py-3 flex items-center gap-3">
               <img
-                src={stablecoins[1].logo}
+                src={stablecoins.find(s => s.id === 'qcad')?.logo}
                 alt="Stablecorp logo"
                 className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain"
               />
@@ -164,7 +206,7 @@ export function CanadaPage() {
             <div className="bg-gradient-to-r from-[#d52424] to-[#b21a1a] px-6 py-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white p-1.5 flex-shrink-0 flex items-center justify-center">
                 <img
-                  src={stablecoins[2].logo}
+                  src={stablecoins.find(s => s.id === 'tetra')?.logo}
                   alt="Tetra Digital Group logo"
                   className="w-full h-full object-contain"
                 />
@@ -198,7 +240,7 @@ export function CanadaPage() {
                   <Clock className="w-5 h-5 text-gold-500" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-chrome-800 text-sm">Q1 2026 Launch</h4>
+                  <h4 className="font-semibold text-chrome-800 text-sm">Q2 2026 Launch</h4>
                   <p className="text-xs text-chrome-500">Pending regulatory approval</p>
                 </div>
               </div>
