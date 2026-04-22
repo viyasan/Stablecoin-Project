@@ -148,59 +148,6 @@ function CompanyCard({ stablecoin }: CompanyCardProps) {
           </div>
         </div>
 
-        {/* Strategic Partners */}
-        {stablecoin.strategicPartners && stablecoin.strategicPartners.length > 0 && (
-          <div className="mb-5">
-            <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
-              Strategic Partners
-            </h4>
-            <div className="space-y-1.5">
-              {stablecoin.strategicPartners.map((partner) => (
-                <div key={partner.name} className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-chrome-900">{partner.name}</span>
-                  <span className="text-xs text-chrome-500">{partner.role}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Key Design Partners */}
-        {stablecoin.designPartners && stablecoin.designPartners.length > 0 && (
-          <div className="mb-5">
-            <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
-              Key Design Partners
-            </h4>
-            <div className="flex flex-wrap gap-1.5">
-              {stablecoin.designPartners.map((partner) => (
-                <span
-                  key={partner.name}
-                  className="inline-block px-2.5 py-1 text-xs bg-gold-50 text-gold-600 rounded-full border border-gold-100"
-                >
-                  {partner.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Platform Integrations */}
-        {stablecoin.platformIntegrations && stablecoin.platformIntegrations.length > 0 && (
-          <div className="mb-5">
-            <h4 className="text-xs font-semibold text-chrome-500 uppercase tracking-wide mb-2">
-              Platform Integrations
-            </h4>
-            <div className="space-y-1.5">
-              {stablecoin.platformIntegrations.map((integration) => (
-                <div key={integration.name} className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-chrome-900">{integration.name}</span>
-                  <span className="text-chrome-500">{integration.role}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* CTA Button */}
         <a
           href={stablecoin.website}
