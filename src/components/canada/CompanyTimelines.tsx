@@ -59,12 +59,14 @@ function CompanyTimelineColumn({ stablecoin }: CompanyTimelineColumnProps) {
   // Get header colors based on stablecoin ID (match company profile cards)
   const getHeaderColors = () => {
     switch (stablecoin.id) {
+      case 'cadx':
+        return 'from-[#0e7490] to-[#0369a1]';
       case 'qcad':
-        return 'from-[#dc2626] to-[#b91c1c]'; // red-600 to red-700
+        return 'from-[#dc2626] to-[#b91c1c]';
       case 'tetra':
-        return 'from-[#d52424] to-[#b21a1a]'; // slightly darker
+        return 'from-[#d52424] to-[#b21a1a]';
       case 'cadc':
-        return 'from-[#d92525] to-[#b61b1b]'; // between
+        return 'from-[#d92525] to-[#b61b1b]';
       default:
         return 'from-red-600 to-red-700';
     }
@@ -78,7 +80,7 @@ function CompanyTimelineColumn({ stablecoin }: CompanyTimelineColumnProps) {
           <img
             src={stablecoin.logo}
             alt={`${stablecoin.issuer} logo`}
-            className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain flex-shrink-0"
+            className={`w-10 h-10 rounded-lg bg-white object-contain flex-shrink-0 ${stablecoin.id === 'cadx' ? 'p-2.5' : 'p-1.5'}`}
           />
         )}
         <div>
@@ -139,8 +141,8 @@ export function CompanyTimelines({ stablecoins }: CompanyTimelinesProps) {
         </div>
       </div>
 
-      {/* Three Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Four Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {stablecoins.map((stablecoin) => (
           <CompanyTimelineColumn key={stablecoin.id} stablecoin={stablecoin} />
         ))}
