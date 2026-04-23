@@ -18,8 +18,8 @@ interface UseApiResult<T> {
 }
 
 const CADC_DEFILLAMA_ID = '145';
-const QCAD_ETH_CONTRACT = '0x4a16baf414b8e637ed12019fad5dd705735db2e0';
-const QCAD_ETH_DECIMALS = 2;
+const QCAD_ETH_CONTRACT = '0x3Fa142dD3f384414e05E71Ad0939274EdC82EC0A';
+const QCAD_ETH_DECIMALS = 6;
 const ETH_RPC = 'https://ethereum.publicnode.com';
 
 async function fetchCadcChains(): Promise<ChainSupply[]> {
