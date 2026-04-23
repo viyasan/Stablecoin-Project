@@ -72,18 +72,12 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
         ) : hasLiveData ? (
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-base font-bold text-chrome-900">
-              {displayTotal.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
+              {onChainTotal.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
             </span>
-            {meta.attestedSupply ? (
-              <span className="text-[10px] text-chrome-500 font-semibold bg-chrome-100 px-1.5 py-0.5 rounded-full">
-                {meta.attestedSupplySource}
-              </span>
-            ) : (
-              <span className="flex items-center gap-1 text-[10px] text-status-positive font-semibold bg-status-positive/10 px-1.5 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
-                Live
-              </span>
-            )}
+            <span className="flex items-center gap-1 text-[10px] text-status-positive font-semibold bg-status-positive/10 px-1.5 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
+              Live
+            </span>
           </div>
         ) : (
           <p className="text-sm text-chrome-400">Data unavailable</p>

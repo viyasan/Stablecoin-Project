@@ -493,6 +493,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       attestationFrequency: "Daily + Monthly (SEDAR+)",
       attestationUrl: "https://stablecorp.ca/transparency",
       chainLabel: "Ethereum",
+      attestedSupply: 651000,
+      attestedSupplySource: "SEDAR+ Apr 2026",
     },
   },
   {
