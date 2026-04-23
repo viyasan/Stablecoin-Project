@@ -6,8 +6,8 @@ import {
   CompanyTimelines,
 } from '../components/canada';
 import { useCanadianStablecoins, useCanadianExchanges, useCanadianReserves } from '../api';
-import type { CanadianStablecoin } from '../api';
-import { ShieldCheck, CircleDollarSign, Building, Clock, ExternalLink } from 'lucide-react';
+import type { CanadianStablecoin, ChainSupply } from '../api';
+import { ExternalLink } from 'lucide-react';
 
 // Maple Leaf icon for the header
 function MapleLeafIcon({ className }: { className?: string }) {
@@ -32,25 +32,22 @@ const CARD_GRADIENTS: Record<string, string> = {
 
 interface ReserveCardProps {
   stablecoin: CanadianStablecoin;
-  liveSupply: number | null;
+  chains: ChainSupply[] | null;
   isLoadingSupply: boolean;
 }
 
-function ReserveCard({ stablecoin, liveSupply, isLoadingSupply }: ReserveCardProps) {
+function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) {
   const meta = stablecoin.reserveMetadata;
   const gradient = CARD_GRADIENTS[stablecoin.id] ?? 'from-[#dc2626] to-[#b91c1c]';
   const logoSrc = meta.tokenLogo ?? stablecoin.logo;
 
-  const supplyDisplay = (() => {
-    if (meta.supplyNote) return null;
-    if (isLoadingSupply) return 'loading';
-    if (liveSupply !== null) return liveSupply.toLocaleString('en-CA', { maximumFractionDigits: 0 });
-    return null;
-  })();
+  const total = chains?.reduce((sum, c) => sum + c.amount, 0) ?? 0;
+  const hasLiveData = !meta.supplyNote && chains !== null && chains.length > 0;
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden">
-      <div className={`bg-gradient-to-r ${gradient} px-6 py-3 flex items-center gap-3`}>
+    <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden flex flex-col">
+      {/* Header */}
+      <div className={`bg-gradient-to-r ${gradient} px-5 py-3 flex items-center gap-3`}>
         {logoSrc && (
           <img
             src={logoSrc}
@@ -58,82 +55,98 @@ function ReserveCard({ stablecoin, liveSupply, isLoadingSupply }: ReserveCardPro
             className="w-10 h-10 rounded-lg bg-white p-1.5 object-contain flex-shrink-0"
           />
         )}
-        <div>
+        <div className="min-w-0">
           <h3 className="text-lg font-bold text-white">{stablecoin.symbol}</h3>
-          <p className="text-white text-sm opacity-90">{stablecoin.issuer}</p>
+          <p className="text-white text-sm opacity-90 truncate">{stablecoin.issuer}</p>
         </div>
       </div>
-      <div className="p-5 space-y-4">
-        {/* Outstanding Supply */}
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <CircleDollarSign className="w-5 h-5 text-chrome-600" />
+
+      {/* Total supply row */}
+      <div className="px-5 py-3 border-b border-chrome-100">
+        <p className="text-[11px] font-semibold text-chrome-400 uppercase tracking-wide mb-1">Net Circulation</p>
+        {meta.supplyNote ? (
+          <p className="text-sm text-chrome-500">{meta.supplyNote}</p>
+        ) : isLoadingSupply ? (
+          <div className="h-4 w-32 bg-chrome-100 rounded animate-pulse" />
+        ) : hasLiveData ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-base font-bold text-chrome-900">
+              {total.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
+            </span>
+            <span className="flex items-center gap-1 text-[10px] text-status-positive font-semibold bg-status-positive/10 px-1.5 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
+              Live
+            </span>
           </div>
-          <div>
-            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Outstanding Supply</h4>
-            {meta.supplyNote ? (
-              <p className="text-xs text-chrome-500">{meta.supplyNote}</p>
-            ) : supplyDisplay === 'loading' ? (
-              <div className="h-3.5 w-24 bg-chrome-100 rounded animate-pulse mt-1" />
-            ) : supplyDisplay ? (
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-xs font-semibold text-chrome-900">{supplyDisplay} {stablecoin.symbol}</span>
-                <span className="flex items-center gap-1 text-[10px] text-status-positive font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
-                  Live
-                </span>
-                {meta.chainLabel && (
-                  <span className="text-[10px] text-chrome-400">({meta.chainLabel})</span>
-                )}
+        ) : (
+          <p className="text-sm text-chrome-400">Data unavailable</p>
+        )}
+      </div>
+
+      {/* Chain breakdown */}
+      <div className="px-5 py-3 flex-grow">
+        {meta.supplyNote ? (
+          <p className="text-xs text-chrome-400 italic pt-1">No on-chain data available</p>
+        ) : isLoadingSupply ? (
+          <div className="space-y-3 pt-1">
+            {[1, 2].map((i) => (
+              <div key={i}>
+                <div className="h-3 w-16 bg-chrome-100 rounded animate-pulse mb-1.5" />
+                <div className="h-1.5 w-full bg-chrome-100 rounded-full animate-pulse" />
               </div>
-            ) : (
-              <p className="text-xs text-chrome-400">Data unavailable</p>
-            )}
+            ))}
           </div>
-        </div>
+        ) : hasLiveData ? (
+          <div className="space-y-3">
+            {chains!.map((c) => {
+              const pct = total > 0 ? (c.amount / total) * 100 : 0;
+              return (
+                <div key={c.chain}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold text-chrome-700">On {c.chain}</span>
+                    <span className="text-xs text-chrome-500">
+                      {c.amount.toLocaleString('en-CA', { maximumFractionDigits: 0 })}
+                    </span>
+                  </div>
+                  <div className="h-1.5 bg-chrome-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-red-600 rounded-full"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-xs text-chrome-400 pt-1">Data unavailable</p>
+        )}
+      </div>
 
-        {/* Reserve Ratio */}
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <ShieldCheck className="w-5 h-5 text-chrome-600" />
-          </div>
-          <div>
-            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Reserve Ratio</h4>
-            <p className="text-xs text-chrome-500">{meta.reserveRatio}</p>
-          </div>
+      {/* Metadata footer */}
+      <div className="px-5 py-3 border-t border-chrome-100 bg-chrome-50 space-y-1">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] text-chrome-400">Reserve Ratio</span>
+          <span className="text-[11px] font-semibold text-chrome-700">{meta.reserveRatio}</span>
         </div>
-
-        {/* Custodian */}
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <Building className="w-5 h-5 text-chrome-600" />
-          </div>
-          <div>
-            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Custodian</h4>
-            <p className="text-xs text-chrome-500">{meta.custodian}</p>
-          </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] text-chrome-400">Custodian</span>
+          <span className="text-[11px] font-semibold text-chrome-700">{meta.custodian}</span>
         </div>
-
-        {/* Last Attested */}
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 bg-chrome-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <Clock className="w-5 h-5 text-chrome-600" />
-          </div>
-          <div>
-            <h4 className="font-semibold text-chrome-800 text-sm mb-0.5">Last Attested</h4>
-            <p className="text-xs text-chrome-500">{meta.lastAttested} · {meta.attestationFrequency}</p>
-            {meta.attestationUrl && (
-              <a
-                href={meta.attestationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[11px] text-chrome-600 hover:text-chrome-800 mt-1"
-              >
-                View Reports <ExternalLink className="w-3 h-3" />
-              </a>
-            )}
-          </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] text-chrome-400">Last Attested</span>
+          <span className="text-[11px] font-semibold text-chrome-700">{meta.lastAttested}</span>
         </div>
+        {meta.attestationUrl && (
+          <a
+            href={meta.attestationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[11px] text-chrome-500 hover:text-chrome-800 pt-0.5"
+          >
+            View Reports <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
       </div>
     </div>
   );
@@ -193,7 +206,7 @@ export function CanadaPage() {
             <ReserveCard
               key={stablecoin.id}
               stablecoin={stablecoin}
-              liveSupply={
+              chains={
                 stablecoin.id === 'cadc' ? reserveSupply?.cadc ?? null
                 : stablecoin.id === 'qcad' ? reserveSupply?.qcad ?? null
                 : null
