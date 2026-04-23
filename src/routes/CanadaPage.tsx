@@ -41,7 +41,8 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
   const gradient = CARD_GRADIENTS[stablecoin.id] ?? 'from-[#dc2626] to-[#b91c1c]';
   const logoSrc = meta.tokenLogo ?? stablecoin.logo;
 
-  const total = chains?.reduce((sum, c) => sum + c.amount, 0) ?? 0;
+  const onChainTotal = chains?.reduce((sum, c) => sum + c.amount, 0) ?? 0;
+  const displayTotal = meta.attestedSupply ?? onChainTotal;
   const hasLiveData = !meta.supplyNote && chains !== null && chains.length > 0;
 
   return (
@@ -71,12 +72,18 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
         ) : hasLiveData ? (
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-base font-bold text-chrome-900">
-              {total.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
+              {displayTotal.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
             </span>
-            <span className="flex items-center gap-1 text-[10px] text-status-positive font-semibold bg-status-positive/10 px-1.5 py-0.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
-              Live
-            </span>
+            {meta.attestedSupply ? (
+              <span className="text-[10px] text-chrome-500 font-semibold bg-chrome-100 px-1.5 py-0.5 rounded-full">
+                {meta.attestedSupplySource}
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-[10px] text-status-positive font-semibold bg-status-positive/10 px-1.5 py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
+                Live
+              </span>
+            )}
           </div>
         ) : (
           <p className="text-sm text-chrome-400">Data unavailable</p>
@@ -99,7 +106,7 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
         ) : hasLiveData ? (
           <div className="space-y-3">
             {chains!.map((c) => {
-              const pct = total > 0 ? (c.amount / total) * 100 : 0;
+              const pct = displayTotal > 0 ? (c.amount / displayTotal) * 100 : 0;
               return (
                 <div key={c.chain}>
                   <div className="flex items-center justify-between mb-1">
@@ -117,6 +124,22 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
                 </div>
               );
             })}
+            {meta.attestedSupply && onChainTotal < meta.attestedSupply && (
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-semibold text-chrome-700">Custodial (off-chain)</span>
+                  <span className="text-xs text-chrome-500">
+                    {(meta.attestedSupply - onChainTotal).toLocaleString('en-CA', { maximumFractionDigits: 0 })}
+                  </span>
+                </div>
+                <div className="h-1.5 bg-chrome-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-chrome-300 rounded-full"
+                    style={{ width: `${((meta.attestedSupply - onChainTotal) / meta.attestedSupply) * 100}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <p className="text-xs text-chrome-400 pt-1">Data unavailable</p>

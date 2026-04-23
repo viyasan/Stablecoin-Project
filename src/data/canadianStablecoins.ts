@@ -62,6 +62,8 @@ export interface ReserveMetadata {
   attestationFrequency: string;
   attestationUrl?: string;
   supplyNote?: string;
+  attestedSupply?: number; // Total issued per latest regulatory filing (overrides live on-chain sum)
+  attestedSupplySource?: string; // e.g. "SEDAR+ Apr 2026"
 }
 
 export interface CanadianStablecoin {
@@ -491,6 +493,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       attestationFrequency: "Daily + Monthly (SEDAR+)",
       attestationUrl: "https://stablecorp.ca/transparency",
       chainLabel: "Ethereum",
+      attestedSupply: 651000,
+      attestedSupplySource: "SEDAR+ Apr 2026",
     },
   },
   {
