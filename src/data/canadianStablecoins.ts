@@ -338,6 +338,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       lastAttested: "Monthly",
       attestationFrequency: "Monthly",
       chainLabel: "All chains",
+      attestationUrl: "https://loon.finance/transparency",
     },
   },
   {
@@ -488,7 +489,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       custodian: "VersaBank",
       lastAttested: "Apr 2026",
       attestationFrequency: "Daily + Monthly (SEDAR+)",
-      attestationUrl: "https://www.stablecorp.ca/qcad-reporting",
+      attestationUrl: "https://stablecorp.ca/transparency",
       chainLabel: "Ethereum",
     },
   },
