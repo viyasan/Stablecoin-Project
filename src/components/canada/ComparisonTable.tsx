@@ -132,15 +132,7 @@ export function ComparisonTable({ stablecoins, exchanges }: ComparisonTableProps
               ))}
             </tr>
 
-            {/* Volume */}
-            <tr className="bg-chrome-50/50">
-              <td className="px-6 py-4 text-sm font-medium text-chrome-700">Historical Volume</td>
-              {stablecoins.map((s) => (
-                <td key={s.id} className="px-6 py-4 text-sm text-center text-chrome-900">
-                  {s.volume || 'N/A'}
-                </td>
-              ))}
-            </tr>
+
 
             {/* Where to Buy */}
             <tr>
