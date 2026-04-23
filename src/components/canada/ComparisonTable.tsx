@@ -14,18 +14,10 @@ function StatusCell({ status }: { status: CanadianStablecoin['status'] }) {
       </span>
     );
   }
-  if (status === 'coming_soon') {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-gold-600 font-medium">
-        <span className="w-2 h-2 rounded-full bg-gold-400" />
-        Coming 2026
-      </span>
-    );
-  }
   return (
-    <span className="inline-flex items-center gap-1.5 text-gold-600 font-medium">
-      <span className="w-2 h-2 rounded-full bg-gold-400" />
-      Pending
+    <span className="inline-flex items-center gap-1.5 text-yellow-600 font-medium">
+      <span className="w-2 h-2 rounded-full bg-yellow-400" />
+      Not Live Yet
     </span>
   );
 }
