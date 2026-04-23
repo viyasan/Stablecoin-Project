@@ -337,7 +337,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       tokenLogo: "/cadc-logo.jpg",
       reserveRatio: "101%",
       custodian: "ATB Financial",
-      lastAttested: "Monthly",
+      lastAttested: "Mar 2026",
       attestationFrequency: "Monthly",
       chainLabel: "All chains",
       attestationUrl: "https://loon.finance/transparency",
