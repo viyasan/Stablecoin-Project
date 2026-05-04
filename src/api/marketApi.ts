@@ -415,7 +415,7 @@ export function useChainBreakdown(): UseApiResult<ChainData[]> {
 
 // Reserve composition data for USDT and USDC
 // Percentages from quarterly attestation reports (update when new reports are published)
-// Sources: Tether Attestation Q4 2025, Circle Reserve Report Mar 2026
+// Sources: Tether Q1 2026 attestation (BDO), Circle weekly transparency disclosure
 export interface ReserveAsset {
   name: string;
   percentage: number;
@@ -434,30 +434,30 @@ export interface StablecoinReserve {
 
 // Static data from attestation reports - update quarterly/monthly
 // Sources:
-// Tether Q4 2025: https://tether.io/news/tether-delivers-10b-profits-in-2025-6-3b-in-excess-reserves-and-record-141-billion-exposure-in-u-s-treasury-holdings/
-// Circle Apr 2026: https://www.circle.com/transparency (weekly disclosure, Apr 11, 2026)
-// Last updated: April 2026 (Tether Q1 2026 attestation pending — expected late April 2026)
+// Tether Q1 2026 (BDO, snapshot 2026-03-31): $191.8B total assets, $141B Treasuries, $20B gold, $7B BTC, $8.23B excess reserves
+// Circle: https://www.circle.com/transparency (weekly disclosure)
+// Last updated: May 2026
 const RESERVE_DATA = {
   USDT: {
     name: 'Tether',
-    lastUpdated: 'Q4 2025',
+    lastUpdated: 'Q1 2026',
     sourceUrl: 'https://tether.to/en/transparency/',
-    treasuryHoldings: 141_000_000_000, // $141B total Treasury exposure (T-bills + overnight repos)
+    treasuryHoldings: 141_000_000_000, // $141B Treasury exposure per Q1 2026 attestation (BDO)
     assets: [
       { name: 'US Treasuries', percentage: 73, color: '#E2B050' },
-      { name: 'Gold', percentage: 9, color: '#D4A437' },
+      { name: 'Gold', percentage: 10, color: '#D4A437' },
       { name: 'Bitcoin', percentage: 4, color: '#CD7F32' },
-      { name: 'Secured Loans & Other', percentage: 14, color: '#ADB5BD' },
+      { name: 'Secured Loans & Other', percentage: 13, color: '#ADB5BD' },
     ],
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'Apr 2026',
+    lastUpdated: 'May 1, 2026',
     sourceUrl: 'https://www.circle.com/transparency',
-    treasuryHoldings: 53_500_000_000, // $53.5B in Circle Reserve Fund (T-bills + overnight repos)
+    treasuryHoldings: 66_370_000_000, // $66.37B AUM in Circle Reserve Fund (USDXX) per BlackRock as of May 1, 2026
     assets: [
-      { name: 'US Treasuries & Repos', percentage: 68, color: '#D4A437' },
-      { name: 'Cash & Bank Deposits', percentage: 32, color: '#CD7F32' },
+      { name: 'US Treasuries & Repos', percentage: 80, color: '#D4A437' },
+      { name: 'Cash & Bank Deposits', percentage: 20, color: '#CD7F32' },
     ],
   },
 };
