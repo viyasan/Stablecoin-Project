@@ -546,10 +546,10 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       '1:1 reserve backing required with qualified Canadian custodians',
       'Bank of Canada maintains public issuer registry and oversight',
       'OSFI crypto-asset capital/liquidity guidelines effective Q1 2026 (Basel Committee standards)',
-      'QCAD live (VersaBank custody Feb 2026; Deloitte strategic collaboration April 2026); CADD partner testing complete; CADC live since 2021',
+      'QCAD live (VersaBank custody Feb 2026; Deloitte strategic collaboration April 2026); CADD live May 4, 2026 on Base, Ethereum, and Tempo (Tetra Trust, regulated by Alberta TBF); CADC live since 2021',
     ],
-    lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-05',
+    lastVerified: '2026-05-04',
     regulatorName: 'Bank of Canada, Canadian Securities Administrators (CSA) & Office of the Superintendent of Financial Institutions (OSFI)',
     sources: [
       {
@@ -616,7 +616,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     ],
     stablecoinIssuers: [
       { company: 'Stablecorp', stablecoin: 'QCAD', status: 'Live; VersaBank custody (Feb 2026); Deloitte strategic collaboration (April 2026)' },
-      { company: 'Tetra Digital Group', stablecoin: 'CADD', status: 'Partner testing complete; launch pending (Q1 2026 target)' },
+      { company: 'Tetra Digital Group', stablecoin: 'CADD', status: 'Live (May 4, 2026) on Base, Ethereum, and Tempo; backed by Tetra Trust + National Bank of Canada + Shopify + Wealthsimple + Shakepay + ATB Financial + Purpose Unlimited + Urbana Corporation; first regulated CAD stablecoin from a financial institution (Alberta TBF approval)' },
       { company: 'Loon', stablecoin: 'CADC', status: 'Live (2021, acquired by Loon October 2025)' },
     ],
   },
