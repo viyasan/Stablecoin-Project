@@ -452,13 +452,12 @@ const RESERVE_DATA = {
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'Apr 30, 2026',
+    lastUpdated: 'May 1, 2026',
     sourceUrl: 'https://www.circle.com/transparency',
-    // TODO: Verify treasuryHoldings against Apr 30, 2026 disclosure before merge — USDC mcap has grown to ~$75.7B per CoinGecko May 2026
-    treasuryHoldings: 53_500_000_000, // $53.5B in Circle Reserve Fund (T-bills + overnight repos)
+    treasuryHoldings: 66_370_000_000, // $66.37B AUM in Circle Reserve Fund (USDXX) per BlackRock as of May 1, 2026
     assets: [
-      { name: 'US Treasuries & Repos', percentage: 68, color: '#D4A437' },
-      { name: 'Cash & Bank Deposits', percentage: 32, color: '#CD7F32' },
+      { name: 'US Treasuries & Repos', percentage: 80, color: '#D4A437' },
+      { name: 'Cash & Bank Deposits', percentage: 20, color: '#CD7F32' },
     ],
   },
 };

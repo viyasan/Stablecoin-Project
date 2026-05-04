@@ -27,10 +27,9 @@ const HOLDERS: HolderData[] = [
   // Tether: $141B Treasury exposure per Q1 2026 attestation (BDO, snapshot 2026-03-31) - ranks 17th globally
   // https://tether.to/en/transparency/
   { name: 'Tether (USDT)', holdings: 141, globalRank: 17, type: 'stablecoin' },
-  // Circle USDC: ~$54B in Treasury+repos per Apr 30, 2026 weekly disclosure - ranks ~28th globally
-  // TODO: verify against latest Circle disclosure (USDC mcap has grown to ~$75.7B)
-  // https://www.circle.com/transparency
-  { name: 'Circle (USDC)', holdings: 54, globalRank: 28, type: 'stablecoin' },
+  // Circle USDC: $66.37B AUM in Circle Reserve Fund (USDXX) per BlackRock May 1, 2026 - rank ~28 globally
+  // https://www.blackrock.com/cash/en-us/products/329365/circle-reserve-fund
+  { name: 'Circle (USDC)', holdings: 66.37, globalRank: 28, type: 'stablecoin' },
 ];
 
 function formatBillions(value: number): string {
