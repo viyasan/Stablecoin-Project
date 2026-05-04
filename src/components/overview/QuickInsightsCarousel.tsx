@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
-// Last updated: April 2026
+// Last updated: May 2026
 const INSIGHTS = [
   {
     id: 1,
-    text: "USDT and USDC together control over 83% of the $318 billion stablecoin market.",
+    text: "USDT and USDC together control over 85% of the $317 billion stablecoin market.",
   },
   {
     id: 2,
@@ -101,7 +101,7 @@ export function QuickInsightsCarousel() {
           </h3>
         </div>
         <span className="text-xs text-chrome-500">
-          Last updated: April 2026
+          Last updated: May 2026
         </span>
       </div>
       <div className="px-6 py-5 flex-1 flex flex-col min-h-0">

@@ -24,10 +24,11 @@ const HOLDERS: HolderData[] = [
   { name: 'Ireland', holdings: 351.0, globalRank: 7, type: 'country', flag: '🇮🇪' },
   { name: 'Taiwan', holdings: 314.0, globalRank: 8, type: 'country', flag: '🇹🇼' },
   // Stablecoin issuers with actual global rankings
-  // Tether: ~$141B - ranks 17th globally (Source: Tether Q4 2025 attestation; Q1 2026 pending)
-  // https://tether.io/news/tether-delivers-10b-profits-in-2025-6-3b-in-excess-reserves-and-record-141-billion-exposure-in-u-s-treasury-holdings/
+  // Tether: $141B Treasury exposure per Q1 2026 attestation (BDO, snapshot 2026-03-31) - ranks 17th globally
+  // https://tether.to/en/transparency/
   { name: 'Tether (USDT)', holdings: 141, globalRank: 17, type: 'stablecoin' },
-  // Circle USDC: ~$54B in Treasury+repos as of Apr 2026 - ranks ~28th globally
+  // Circle USDC: ~$54B in Treasury+repos per Apr 30, 2026 weekly disclosure - ranks ~28th globally
+  // TODO: verify against latest Circle disclosure (USDC mcap has grown to ~$75.7B)
   // https://www.circle.com/transparency
   { name: 'Circle (USDC)', holdings: 54, globalRank: 28, type: 'stablecoin' },
 ];
