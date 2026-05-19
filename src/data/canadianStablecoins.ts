@@ -266,18 +266,18 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     ],
     fintracRegistered: true,
     audits: "Monthly attestations",
-    volume: "$325M+",
+    volume: "$250M+",
     exchangePartners: 5,
     parentCompany: {
       name: "Loon Technology Inc.",
       description:
-        "Loon Technology is on a mission to build Canada's sovereign digital dollar infrastructure. After acquiring CADC, the country's most widely used CAD stablecoin with over $325M in on-chain volume, Loon is pioneering a regulated, made-in-Canada alternative to US-dominated stablecoins.",
+        "Loon Technology is on a mission to build Canada's sovereign digital dollar infrastructure. After acquiring CADC, the country's most widely used CAD stablecoin with over $250M in on-chain volume, Loon is pioneering a regulated, made-in-Canada alternative to US-dominated stablecoins.",
       founded: "2025",
       headquarters: "Calgary, AB",
       website: "https://loon.finance",
       leadership: [{ name: "Kevin Zhang", title: "CEO & Co-Founder" }],
       keyFacts: [
-        "$325M+ on-chain volume processed",
+        "$250M+ on-chain volume processed",
         "5 institutional partners (FIs and DApps)",
         "3-second average settlement time",
       ],
@@ -298,8 +298,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
       {
         date: "2021-2025",
-        title: "$325M+ Volume",
-        description: "CADC transacts over $325M in volume",
+        title: "$250M+ Volume",
+        description: "CADC transacts over $250M in volume",
         type: "milestone",
       },
       {
@@ -337,7 +337,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       tokenLogo: "/cadc-logo.jpg",
       reserveRatio: "101%",
       custodian: "ATB Financial",
-      lastAttested: "Mar 2026",
+      lastAttested: "Apr 2026",
       attestationFrequency: "Monthly",
       chainLabel: "All chains",
       attestationUrl: "https://loon.finance/transparency",
@@ -489,7 +489,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     reserveMetadata: {
       reserveRatio: "100% (1:1)",
       custodian: "VersaBank",
-      lastAttested: "Apr 2026",
+      lastAttested: "Mar 2026",
       attestationFrequency: "Daily + Monthly (SEDAR+)",
       attestationUrl: "https://stablecorp.ca/transparency",
       chainLabel: "Ethereum",
@@ -810,9 +810,9 @@ export const timelineEvents: TimelineEvent[] = [
     stablecoinId: "qcad",
   },
   {
-    date: "Q2 2026",
+    date: "May 4, 2026",
     title: "CADD Launch",
-    description: "CAD Digital expected to launch CADD stablecoin",
+    description: "CAD Digital launches CADD, Canada's first CAD stablecoin issued by a regulated financial institution, live on Base, Ethereum and Tempo",
     type: "launch",
     stablecoinId: "tetra",
   },
