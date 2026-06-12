@@ -65,7 +65,8 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     stage: 'implemented',
     summary: 'The United States enacted the GENIUS Act (Guiding and Establishing National Innovation for US Stablecoins Act) on July 18, 2025, establishing the first comprehensive federal regulatory framework for payment stablecoins. The legislation passed with strong bipartisan support (68-30 in the Senate, 308-122 in the House).\n\nThe GENIUS Act clarifies that payment stablecoins are neither securities nor commodities, removing SEC and CFTC oversight. Instead, bank issuers are regulated by their primary federal banking regulator, while nonbank issuers are overseen by the OCC. Issuers must maintain 100% reserve backing with highly liquid assets, publish monthly reserve compositions, and honor redemptions at par within one day. Federal agencies must finalize implementing regulations by July 18, 2026, with full compliance required by January 18, 2027 (or 120 days after regulations issued). Existing issuers have until July 18, 2028 to comply.',
     keyPoints: [
-      'GENIUS Act signed into law July 18, 2025; regulations due July 2026, effective January 2027',
+      'GENIUS Act signed into law July 18, 2025; final regulations due by July 18, 2026, effective January 18, 2027 (or 120 days after rules issued)',
+      'All implementing-rule comment periods now closed (OCC May 1, Treasury June 2, FDIC & FinCEN/OFAC June 9, 2026); agencies drafting final rules ahead of the July 18, 2026 deadline',
       'OCC NPRM published Feb 25, 2026: $5M capital floor, 12-month operational backstop, 2-day redemption window (comment deadline May 1, 2026)',
       'Treasury NPRM (April 1, 2026): "substantially similar" standard for state regimes; comment deadline June 2, 2026',
       'FDIC proposed rule (April 7, 2026): PPSI requirements, 2-business-day redemption; stablecoin reserves NOT FDIC-insured on pass-through basis',
@@ -75,8 +76,8 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Payment stablecoins explicitly excluded from SEC and CFTC securities/commodities jurisdiction',
       'CBDC development effectively halted via Executive Order and Congressional opposition',
     ],
-    lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'Office of the Comptroller of the Currency (OCC), Federal Reserve, FDIC & State Regulators',
     sources: [
       {
@@ -158,7 +159,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
           'First comprehensive federal stablecoin legislation in the US',
           'Passed Senate 68-30, House 308-122 with bipartisan support',
           'Signed into law by President Trump on July 18, 2025',
-          'Full implementation regulations due by July 2026, effective November 2026',
+          'Full implementation regulations due by July 18, 2026, effective January 18, 2027 (or 120 days after final rules issued)',
         ],
       },
       {
@@ -220,8 +221,10 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     stage: 'implemented',
     summary: 'The European Union implemented the Markets in Crypto-Assets (MiCA) Regulation, the world\'s first comprehensive crypto regulatory framework. Stablecoin provisions (for ARTs and EMTs) became effective June 30, 2024, with full CASP authorization required by December 30, 2024.\n\nMiCA distinguishes between Asset-Referenced Tokens (ARTs) backed by multiple assets and Electronic Money Tokens (EMTs) backed by a single fiat currency. Issuers must be authorized credit or electronic money institutions, maintain full reserve backing, and ensure redemption at par value. The European Banking Authority (EBA) directly supervises "significant" stablecoins that pose systemic risks. As of January 2026, 17 EMT issuers are authorized across 10 EU member states. The final CASP authorization deadline is July 1, 2026, with no grace period—operating without authorization will result in penalties up to €15 million or 12.5% of annual turnover.',
     keyPoints: [
-      'MiCA fully implemented December 30, 2024; final CASP authorization deadline July 1, 2026',
-      'ESMA warns "no grace period" for July 2026 CASP deadline — operating without authorization triggers penalties up to €15M or 12.5% of turnover',
+      'MiCA fully implemented December 30, 2024; final CASP authorization deadline July 1, 2026 — now weeks away, with ESMA warning of no grace period',
+      'European Commission launched MiCA 2.0 consultation May 20, 2026 — revisiting multi-issuance stablecoin structures and the strict treatment of euro EMTs; responses due Aug 31, 2026, report by June 30, 2027',
+      'From March 2026, EMT custody/transfer services may require both MiCA authorization and a separate PSD2 payment-services license',
+      'Operating without CASP authorization triggers penalties up to €15M or 12.5% of annual turnover',
       'ESMA/EC guidance (Jan 2025): Non-compliant ARTs/EMTs must cease by March 31, 2025',
       'USDT delisted from all major EU exchanges by March 2025 due to non-compliance',
       'Circle USDC/EURC first major global stablecoin to achieve full MiCA compliance',
@@ -230,14 +233,20 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Nine-bank euro stablecoin consortium formed in Netherlands; first issuance expected H2 2026 under DNB supervision',
       'CARF/DAC8 tax reporting became effective January 1, 2026 for crypto transactions',
     ],
-    lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'European Banking Authority (EBA) & National Competent Authorities (NCAs)',
     sources: [
       {
         name: 'MiCA Regulation (EUR-Lex Official Text)',
         url: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R1114',
         type: 'legislation',
+      },
+      {
+        name: 'European Commission - MiCA 2.0 Consultation',
+        url: 'https://finance.ec.europa.eu/digital-finance/crypto-assets_en',
+        date: '2026-05-20',
+        type: 'guidance',
       },
       {
         name: 'EBA - Asset-Referenced and E-Money Tokens Page',
@@ -325,7 +334,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'FCA selected 4 sandbox firms (Monee, ReStabilise, Revolut, VVTX) from 20 applicants; testing Q1 2026',
     ],
     lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastVerified: '2026-06-12',
     regulatorName: 'Financial Conduct Authority (FCA) & Bank of England',
     sources: [
       {
@@ -414,10 +423,11 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'StraitsX XSGD acknowledged as substantially compliant with SCS framework',
       '100% reserve backing required; monthly attestations, annual audits, 5-day redemption',
       'Circle USDC holds Major Payment Institution license (June 2023)',
-      'BLOOM Thailand-SG cross-border QR payment trials on track for Q2 2026',
+      'Project BLOOM Thailand–Singapore cross-border QR corridor going live Q2 2026 (KBank Q Wallet); further corridors planned for Indonesia, Japan, Taiwan, and Hong Kong',
+      'BLOOM participants include DBS, J.P. Morgan, Standard Chartered, UOB, Circle, Temasek, and StraitsX; XSGD card volumes up ~40× YoY, issuance up ~83×',
     ],
-    lastUpdated: '2026-02',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'Monetary Authority of Singapore (MAS)',
     sources: [
       {
@@ -483,23 +493,35 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'Japan',
     isoCodes: ['JP'],
     stage: 'implemented',
-    summary: 'Japan has one of the world\'s most advanced stablecoin regulatory frameworks, predating Europe\'s MiCA. In June 2022, Parliament amended the Payment Services Act to recognize fiat-pegged tokens as "Electronic Payment Instruments" (EPI), effectively treating them as digital money. The framework became effective June 1, 2023.\n\nOnly banks, licensed money-transfer agents, and trust companies can issue stablecoins. Bank-issued stablecoins are protected by deposit insurance up to 10 million JPY. The Amendment Act 2025, enacted in May 2025, introduced new licenses for intermediary services. Stablecoins remain under Payment Services Act regulation rather than securities law.',
+    summary: 'Japan has one of the world\'s most advanced stablecoin regulatory frameworks, predating Europe\'s MiCA. In June 2022, Parliament amended the Payment Services Act to recognize fiat-pegged tokens as "Electronic Payment Instruments" (EPI), effectively treating them as digital money. The framework became effective June 1, 2023.\n\nOnly banks, licensed money-transfer agents, and trust companies can issue stablecoins. Bank-issued stablecoins are protected by deposit insurance up to 10 million JPY. The Amendment Act 2025, enacted in May 2025, introduced new licenses for intermediary services. Stablecoins remain under Payment Services Act regulation rather than securities law.\n\nIn a significant opening, the FSA activated rules on June 1, 2026 allowing qualified foreign stablecoins to circulate as EPIs, subject to equivalence tests on licensing, custody, and home-country supervision. On June 10, 2026, Japan\'s three megabanks—MUFG, Mizuho, and SMBC—signed an MOU to jointly issue a yen stablecoin, targeting live corporate transactions by March 2027.',
     keyPoints: [
-      'Payment Services Act amendment effective June 2023; Amendment Act 2025 enacted May 2025, effective by June 2026',
-      'JPYSC (SBI/Startale joint venture) launching JPY stablecoin Q2 2026',
-      'JPYC received FSA approval with MUFG partnership for distribution; megabank joint pilot approved',
-      'Only banks, money-transfer agents, and trust companies can issue stablecoins',
-      'Stablecoins classified as Electronic Payment Instruments (EPI), not securities',
+      'FSA activated rules for qualified foreign stablecoins as Electronic Payment Instruments on June 1, 2026 (equivalence tests on licensing, custody, home-country supervision)',
+      'MUFG, Mizuho, and SMBC signed an MOU June 10, 2026 to issue a joint yen stablecoin, targeting live corporate transactions by March 2027 (builds on Nov 2025 FSA pilot)',
+      'JPYC became Japan\'s first fully FSA-licensed yen stablecoin (live since October 2025; Ethereum, Avalanche, Polygon); MUFG distribution partnership',
+      'JPYSC (SBI/Startale trust-bank-backed JV) launching Q2 2026; Japan Blockchain Foundation announced EJPY (May 2026) on Japan Open Chain and Ethereum',
+      'Only banks, money-transfer agents, and trust companies can issue stablecoins; classified as Electronic Payment Instruments (EPI), not securities',
       'Bank-issued stablecoins protected by deposit insurance up to JPY 10 million',
     ],
-    lastUpdated: '2026-03',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'Financial Services Agency (FSA)',
     sources: [
       {
         name: 'FSA - Payment Services Act Overview',
         url: 'https://www.fsa.go.jp/en/',
         type: 'regulator',
+      },
+      {
+        name: 'FSA Opens to Foreign Stablecoins; Yen On-Chain Push',
+        url: 'https://en.spaziocrypto.com/stablecoins/japan-foreign-stablecoins-yen-on-chain-2026/',
+        date: '2026-06-01',
+        type: 'news',
+      },
+      {
+        name: 'MUFG, Mizuho, SMBC MOU on Joint Yen Stablecoin',
+        url: 'https://news.bitcoin.com/japans-3-biggest-banks-join-forces-to-launch-yen-stablecoin-by-march-2027/',
+        date: '2026-06-10',
+        type: 'news',
       },
       {
         name: 'Bank of Japan - Digital Currency Research',
@@ -529,10 +551,10 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Stablecoins used for remittance/payments remain under PSA (not securities regulation)',
     ],
     stablecoinIssuers: [
-      { company: 'JPYSC (SBI/Startale)', stablecoin: 'JPY stablecoin', status: 'Joint venture launching Q2 2026; FSA-licensed' },
-      { company: 'JPYC', stablecoin: 'JPYC', status: 'FSA-approved; MUFG partnership for distribution' },
-      { company: 'MUFG Bank', stablecoin: 'Progmat Coin', status: 'Major bank; developing JPY stablecoin platform; megabank joint pilot approved' },
-      { company: 'SBI Holdings', stablecoin: 'Various', status: 'Licensed financial institution; co-founder of JPYSC' },
+      { company: 'JPYC Inc.', stablecoin: 'JPYC', status: 'Live since Oct 2025; Japan\'s first fully FSA-licensed yen stablecoin (Ethereum, Avalanche, Polygon); MUFG distribution partnership' },
+      { company: 'MUFG / Mizuho / SMBC', stablecoin: 'Joint yen stablecoin', status: 'Signed MOU June 10, 2026; targeting live corporate transactions by March 2027' },
+      { company: 'JPYSC (SBI/Startale)', stablecoin: 'JPY stablecoin', status: 'Trust-bank-backed JV launching Q2 2026; FSA-licensed' },
+      { company: 'Japan Blockchain Foundation', stablecoin: 'EJPY', status: 'Announced May 2026; planned on Japan Open Chain and Ethereum' },
     ],
   },
   {
@@ -549,7 +571,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'QCAD live (VersaBank custody Feb 2026; Deloitte strategic collaboration April 2026); CADD live May 4, 2026 on Base, Ethereum, and Tempo (Tetra Trust, regulated by Alberta TBF); CADC live since 2021',
     ],
     lastUpdated: '2026-05',
-    lastVerified: '2026-05-04',
+    lastVerified: '2026-06-12',
     regulatorName: 'Bank of Canada, Canadian Securities Administrators (CSA) & Office of the Superintendent of Financial Institutions (OSFI)',
     sources: [
       {
@@ -633,11 +655,12 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Zand AED launched as first regulated multi-chain AED stablecoin (approved Nov 2025, BBB+ rated)',
       'AE Coin fully licensed; approved for federal government payments across all ministries (Feb 2026)',
       'RAKBank in-principle approval for AED stablecoin (Jan 2026); no launch date announced',
+      'Tether announced an AED-pegged stablecoin with Phoenix Group and Green Acorn Investments',
       'Federal Decree Law No. 6 of 2025 brings all crypto under CBUAE with AED 1B penalties',
       '100% backing required with daily attestations; AED 10M minimum capital for VARA',
     ],
-    lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'Central Bank of UAE (CBUAE), Virtual Assets Regulatory Authority (VARA) & ADGM FSRA',
     sources: [
       {
@@ -686,6 +709,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       { company: 'Universal Digital (ADGM)', stablecoin: 'USDU', status: 'First USD-backed Foreign Payment Token; CBUAE-registered Jan 29, 2026' },
       { company: 'Zand Trust (Zand Bank)', stablecoin: 'Zand AED', status: 'First regulated multi-chain AED stablecoin; CBUAE-approved Nov 2025; BBB+ rated' },
       { company: 'RAKBank', stablecoin: 'AED stablecoin', status: 'In-principle approval only (Jan 2026); no launch date' },
+      { company: 'Tether / Phoenix Group', stablecoin: 'AED stablecoin', status: 'Announced AED-pegged stablecoin with Green Acorn Investments; in development' },
       { company: 'Tether', stablecoin: 'USDT', status: 'Operating under VARA framework in Dubai' },
     ],
   },
@@ -704,7 +728,7 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
       'Transitional period for pre-existing issuers ended January 31, 2026',
     ],
     lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastVerified: '2026-06-12',
     regulatorName: 'Hong Kong Monetary Authority (HKMA)',
     sources: [
       {
@@ -785,13 +809,13 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     keyPoints: [
       'DLT Act in force since 2021; FINMA stablecoin guidance updated July 2024',
       'New Payment Institution license proposed October 2025 for stablecoin issuers',
-      'FinIA consultation closed Feb 6, 2026; SBA demanding banks retain direct issuance rights; Federal Council reviewing',
-      'CHF Stablecoin Sandbox launched April 8, 2026 (UBS, PostFinance, Sygnum, Raiffeisen, ZKB, BCV, Swiss Stablecoin AG)',
+      'FinIA consultation closed Feb 6, 2026; Federal Council dispatch to Parliament now expected H2 2026 at earliest (SBA pressing for banks to retain direct issuance rights)',
+      'CHF Stablecoin Sandbox (CHFD) launched April 8, 2026 (UBS, PostFinance, Sygnum, Raiffeisen, ZKB, BCV, Swiss Stablecoin AG); testing throughout 2026',
       'Stablecoins classified as deposits require banking license or bank guarantee',
       'Full backing, segregation, and par redemption required; CHF 100M limit abolished; implementation expected 2027',
     ],
-    lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'Swiss Financial Market Supervisory Authority (FINMA)',
     sources: [
       {
@@ -847,16 +871,16 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     name: 'Australia',
     isoCodes: ['AU'],
     stage: 'proposed',
-    summary: 'Australia is developing a comprehensive digital asset regulatory framework. In March 2025, the Government released its "Statement on Developing an Innovative Australian Digital Asset Industry," outlining licensing for Digital Asset Platforms and a framework for payment stablecoins under the stored value facility (SVF) regime.\n\nTreasury released exposure draft legislation in October 2025, proposing that major stablecoin issuers holding over A$100 million be authorized by APRA. ASIC now classifies stablecoins as financial products requiring an Australian Financial Services license. Non-bank stablecoins must be 1:1 collateralized. Legislation expected to be introduced to Parliament in 2026.',
+    summary: 'Australia is building its digital asset regulatory framework on two tracks. In March 2025 the Government released its "Statement on Developing an Innovative Australian Digital Asset Industry," and on April 1, 2026 Parliament passed the Corporations Amendment (Digital Assets Framework) Bill, requiring crypto exchanges and custody providers to hold an Australian Financial Services Licence (commencing 12 months after Royal Assent, with 18 months to comply).\n\nPayment stablecoins are handled separately under the Treasury Laws Amendment (Payments System Modernisation) reforms, which classify them as "tokenised stored-value facilities" under ASIC oversight, with APRA stepping in for issuers above an A$200 million threshold. Treasury released Tranche 1 draft legislation in March 2026 for consultation. ASIC classifies stablecoins as financial products requiring an AFS license, and non-bank stablecoins must be 1:1 collateralized. AUSTRAC AML/CTF obligations for digital asset services take effect July 1, 2026.',
     keyPoints: [
-      'Digital Asset Statement released March 2025; exposure draft legislation October 2025',
-      'Senate Economics Committee endorsed DAF Bill March 16, 2026; recommended passage without amendment; awaiting Senate vote',
-      'AUSTRAC AML/CTF obligations for digital asset exchanges effective March 31, 2026',
-      'ASIC classifies stablecoins as financial products requiring AFS license',
-      'Major issuers (>A$100M) to be authorized by APRA; 1:1 collateralization required',
+      'Digital Assets Framework (DAF) Bill passed Parliament April 1, 2026 — AFS licensing for crypto exchanges/custody; commences 12 months after Royal Assent, 18 months to comply',
+      'Payment stablecoins handled separately under Payments System Modernisation reforms (Tranche 1 draft, March 2026) as "tokenised stored-value facilities"',
+      'Major SVF/stablecoin issuers above A$200M must register with APRA and meet prudential standards; ASIC oversight below that threshold',
+      'AUSTRAC AML/CTF obligations for digital asset services effective July 1, 2026 (incl. Travel Rule); enrolment deadline July 29, 2026',
+      'ASIC classifies stablecoins as financial products requiring an AFS license; non-bank stablecoins must be 1:1 collateralized',
     ],
-    lastUpdated: '2026-04',
-    lastVerified: '2026-04-15',
+    lastUpdated: '2026-06',
+    lastVerified: '2026-06-12',
     regulatorName: 'Australian Treasury, ASIC & Australian Prudential Regulation Authority (APRA)',
     sources: [
       {
@@ -864,6 +888,18 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
         url: 'https://treasury.gov.au/',
         date: '2025-03',
         type: 'regulator',
+      },
+      {
+        name: 'Corporations Amendment (Digital Assets Framework) Bill 2025 - Parliament',
+        url: 'https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/bd/bd2526/26bd040',
+        date: '2026-04-01',
+        type: 'legislation',
+      },
+      {
+        name: 'Treasury - Payments System Modernisation (Tranche 1 Draft)',
+        url: 'https://ministers.treasury.gov.au/ministers/daniel-mulino-2025/media-releases/new-legislation-modernise-regulation-payment-service',
+        date: '2026-03',
+        type: 'legislation',
       },
       {
         name: 'ASIC - Crypto-Assets and Financial Products',
@@ -879,17 +915,17 @@ export const REGULATION_COUNTRIES: RegulationCountry[] = [
     regulatoryBodies: [
       { name: 'Australian Treasury', role: 'Policy development; exposure draft legislation for digital assets' },
       { name: 'Australian Securities and Investments Commission (ASIC)', role: 'Classifies stablecoins as financial products; AFS licensing' },
-      { name: 'Australian Prudential Regulation Authority (APRA)', role: 'Authorization for major SVFs and stablecoin issuers over A$100M' },
-      { name: 'AUSTRAC', role: 'AML/CTF compliance for digital asset exchanges; obligations effective March 31, 2026' },
+      { name: 'Australian Prudential Regulation Authority (APRA)', role: 'Registration and prudential standards for major SVFs and stablecoin issuers over A$200M' },
+      { name: 'AUSTRAC', role: 'AML/CTF compliance for digital asset services; obligations effective July 1, 2026' },
     ],
     reserveRequirements: [
       { requirement: '1:1 Collateralization', details: 'All non-bank issued stablecoins must be collateralized 1:1 with appropriate reserves' },
-      { requirement: 'APRA Authorization', details: 'Major issuers holding over A$100 million require APRA authorization' },
+      { requirement: 'APRA Registration', details: 'Major issuers with stored value above A$200 million must register with APRA and meet prudential standards' },
       { requirement: 'Prudential Standards', details: 'Subject to prudential regulation similar to stored value facilities' },
     ],
     issuerObligations: [
       'Obtain Australian Financial Services (AFS) license from ASIC',
-      'Major issuers (>A$100M) must be authorized by APRA',
+      'Major issuers (>A$200M stored value) must register with APRA',
       'Maintain 1:1 collateralization with appropriate reserves',
       'Comply with proposed money safeguarding obligations (Tranche 1b)',
       'Meet disclosure requirements including Product Disclosure Statement for retail',
