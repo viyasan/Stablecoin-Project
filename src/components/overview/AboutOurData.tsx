@@ -45,8 +45,8 @@ export function AboutOurData() {
               >
                 DeFiLlama
               </a>
-              , covering <span className="font-semibold text-chrome-700">200+ stablecoins</span> across{' '}
-              <span className="font-semibold text-chrome-700">110+ blockchains</span> — including
+              , covering <span className="font-semibold text-chrome-700">350+ stablecoins</span> across{' '}
+              <span className="font-semibold text-chrome-700">100+ blockchains</span> — including
               fiat-backed (USDT, USDC), crypto-backed (DAI), algorithmic, and yield-bearing
               stablecoins.
             </p>

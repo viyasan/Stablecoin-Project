@@ -434,9 +434,9 @@ export interface StablecoinReserve {
 
 // Static data from attestation reports - update quarterly/monthly
 // Sources:
-// Tether Q1 2026 (BDO, snapshot 2026-03-31): $191.8B total assets, $141B Treasuries, $20B gold, $7B BTC, $8.23B excess reserves
+// Tether Q1 2026 (BDO, snapshot 2026-03-31): $191.77B total assets, $141B Treasuries, $20B gold, $7B BTC, $8.23B excess reserves (latest attestation; Q2 2026 publishes ~late July)
 // Circle: https://www.circle.com/transparency (weekly disclosure)
-// Last updated: May 2026
+// Last updated: June 2026
 const RESERVE_DATA = {
   USDT: {
     name: 'Tether',
@@ -452,9 +452,9 @@ const RESERVE_DATA = {
   },
   USDC: {
     name: 'Circle',
-    lastUpdated: 'May 1, 2026',
+    lastUpdated: 'June 2026',
     sourceUrl: 'https://www.circle.com/transparency',
-    treasuryHoldings: 66_370_000_000, // $66.37B AUM in Circle Reserve Fund (USDXX) per BlackRock as of May 1, 2026
+    treasuryHoldings: 67_670_000_000, // $67.67B AUM in Circle Reserve Fund (USDXX) per BlackRock as of June 2026
     assets: [
       { name: 'US Treasuries & Repos', percentage: 80, color: '#D4A437' },
       { name: 'Cash & Bank Deposits', percentage: 20, color: '#CD7F32' },

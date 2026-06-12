@@ -24,12 +24,12 @@ const HOLDERS: HolderData[] = [
   { name: 'Ireland', holdings: 351.0, globalRank: 7, type: 'country', flag: '🇮🇪' },
   { name: 'Taiwan', holdings: 314.0, globalRank: 8, type: 'country', flag: '🇹🇼' },
   // Stablecoin issuers with actual global rankings
-  // Tether: $141B Treasury exposure per Q1 2026 attestation (BDO, snapshot 2026-03-31) - ranks 17th globally
+  // Tether: $141B Treasury exposure per Q1 2026 attestation (BDO, snapshot 2026-03-31) - ranks 17th globally (latest available; Q2 2026 publishes ~late July)
   // https://tether.to/en/transparency/
   { name: 'Tether (USDT)', holdings: 141, globalRank: 17, type: 'stablecoin' },
-  // Circle USDC: $66.37B AUM in Circle Reserve Fund (USDXX) per BlackRock May 1, 2026 - rank ~28 globally
+  // Circle USDC: $67.67B AUM in Circle Reserve Fund (USDXX) per BlackRock June 2026 - rank ~28 globally
   // https://www.blackrock.com/cash/en-us/products/329365/circle-reserve-fund
-  { name: 'Circle (USDC)', holdings: 66.37, globalRank: 28, type: 'stablecoin' },
+  { name: 'Circle (USDC)', holdings: 67.67, globalRank: 28, type: 'stablecoin' },
 ];
 
 function formatBillions(value: number): string {
