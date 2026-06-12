@@ -224,7 +224,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     founded: "2021",
     headquarters: "Calgary, AB",
     website: "https://loon.finance",
-    backing: "101% CAD reserves with monthly verification",
+    backing: "100% CAD reserves with monthly verification",
     custodian: "ATB Financial",
     blockchains: ["Ethereum", "Base", "Polygon", "Arbitrum"],
     backers: ["Version One Ventures", "Garage Capital"],
@@ -280,6 +280,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         "$250M+ on-chain volume processed",
         "5 institutional partners (FIs and DApps)",
         "3-second average settlement time",
+        "First Canadian stablecoin in a live remittance corridor (Canada→Mexico & Nigeria via Circle Payments Network, May 2026)",
       ],
     },
     companyTimeline: [
@@ -327,6 +328,13 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "partnership",
       },
       {
+        date: "May 18, 2026",
+        title: "Cross-Border Remittance Corridor",
+        description:
+          "Paytrie enables CADC-powered remittances from Canada to Mexico and Nigeria — converting CAD→CADC→USDC via the Circle Payments Network; first Canadian stablecoin used in an end-to-end remittance corridor",
+        type: "partnership",
+      },
+      {
         date: "TBD",
         title: "Regulatory Approval",
         description: "Pending full regulatory approval",
@@ -335,12 +343,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     ],
     reserveMetadata: {
       tokenLogo: "/cadc-logo.jpg",
-      reserveRatio: "101%",
+      reserveRatio: "100%",
       custodian: "ATB Financial",
       lastAttested: "Apr 2026",
       attestationFrequency: "Monthly",
       chainLabel: "All chains",
-      attestationUrl: "https://loon.finance/transparency",
+      attestationUrl: "https://loon.finance/transparency/",
     },
   },
   {
@@ -357,7 +365,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     website: "https://stablecorp.ca",
     backing: "1:1 CAD reserves at regulated financial institutions",
     custodian: "VersaBank & Tetra Trust",
-    blockchains: ["Ethereum", "Algorand", "Base"],
+    blockchains: ["Ethereum", "Solana", "Algorand", "Stellar"],
     backers: [
       "Coinbase Ventures",
       "Circle Ventures",
@@ -400,8 +408,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       },
     ],
     fintracRegistered: true,
-    audits: "Monthly attestations with annual audits",
-    volume: "N/A (Launched Nov 2025)",
+    audits: "Monthly attestations (Davidson & Company LLP) with annual audits",
+    volume: "Live on Kraken (Apr 2026)",
     exchangePartners: 23,
     parentCompany: {
       name: "Stablecorp Digital Currencies Inc.",
@@ -420,6 +428,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         "First to mint a Canadian dollar token in 2020",
         "Backed by Coinbase Ventures and Circle Ventures",
         "VersaBank custody agreement (Feb 2026) - first stablecoin at a Schedule I bank",
+        "Live on Circle's StableFX (Arc testnet) — first onchain CAD/USD settlement, after USDC and EURC",
         "22 ecosystem partners including exchanges and DEXs",
       ],
     },
@@ -485,6 +494,19 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         description: "QCAD launches trading on Kraken — first CAD-denominated stablecoin on a major global exchange",
         type: "milestone",
       },
+      {
+        date: "Apr 2026",
+        title: "VersaBank Begins Receiving Deposits",
+        description: "VersaBank begins accepting QCAD reserve deposits under its custody services agreement, concurrent with the Kraken listing",
+        type: "partnership",
+      },
+      {
+        date: "May 21, 2026",
+        title: "QCAD Joins Circle StableFX on Arc",
+        description:
+          "Stablecorp integrates QCAD with StableFX, Circle's institutional FX engine, and issues QCAD on Arc testnet — the first onchain CAD/USD settlement and one of the first assets on StableFX after USDC and EURC; targets the $150B/day USD/CAD corridor (sandbox now, production after Arc mainnet launch)",
+        type: "partnership",
+      },
     ],
     reserveMetadata: {
       reserveRatio: "100% (1:1)",
@@ -493,6 +515,8 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       attestationFrequency: "Daily + Monthly (SEDAR+)",
       attestationUrl: "https://stablecorp.ca/transparency",
       chainLabel: "Ethereum",
+      attestedSupply: 1000,
+      attestedSupplySource: "Independent attestation (Davidson & Company), Mar 31, 2026",
     },
   },
   {
@@ -648,10 +672,11 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       reserveRatio: "100% (1:1)",
       custodian: "Tetra Trust",
       lastAttested: "May 2026",
-      attestationFrequency: "Monthly under Alberta TBF",
-      attestationUrl: "https://tetradg.com/cadd-stablecoin/",
+      attestationFrequency: "Daily reserve report + monthly attestation (Alberta TBF)",
+      attestationUrl: "https://drive.google.com/file/d/1F5PQvP4Uoi2ZPwsuWbKl3gtA3H-Nebz_/view",
       chainLabel: "Multi-chain",
-      supplyNote: "Live since May 4, 2026 — on-chain supply tracking coming soon",
+      attestedSupply: 1_140_150,
+      attestedSupplySource: "Daily Reserve Report (CAD Digital), Jun 11, 2026",
     },
   },
 ];
@@ -815,6 +840,13 @@ export const timelineEvents: TimelineEvent[] = [
     description: "CAD Digital launches CADD, Canada's first CAD stablecoin issued by a regulated financial institution, live on Base, Ethereum and Tempo",
     type: "launch",
     stablecoinId: "tetra",
+  },
+  {
+    date: "May 18, 2026",
+    title: "CADC Powers First Remittance Corridor",
+    description: "Paytrie enables CADC-powered remittances from Canada to Mexico and Nigeria via the Circle Payments Network — the first Canadian stablecoin used in an end-to-end remittance corridor",
+    type: "partnership",
+    stablecoinId: "cadc",
   },
   {
     date: "2027",

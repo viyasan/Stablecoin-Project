@@ -45,6 +45,12 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
   const displayTotal = meta.attestedSupply ?? onChainTotal;
   const hasLiveData = !meta.supplyNote && chains !== null && chains.length > 0;
 
+  // Pre-mint case: more tokens exist on-chain than have been independently attested
+  // as issued/backed (e.g. QCAD — most on-chain supply is "allowed but not issued").
+  const attestedBacked = meta.attestedSupply ?? 0;
+  const isPremint = hasLiveData && attestedBacked > 0 && attestedBacked < onChainTotal;
+  const premintAmount = onChainTotal - attestedBacked;
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-chrome-200 overflow-hidden flex flex-col">
       {/* Header */}
@@ -69,6 +75,19 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
           <p className="text-sm text-chrome-500">{meta.supplyNote}</p>
         ) : isLoadingSupply ? (
           <div className="h-4 w-32 bg-chrome-100 rounded animate-pulse" />
+        ) : isPremint ? (
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <span className="text-base font-bold text-chrome-900">
+              {attestedBacked.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
+            </span>
+            <span className="flex items-center gap-1 text-[10px] text-gold-600 font-semibold bg-gold-50 px-1.5 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
+              Attested
+            </span>
+            <span className="text-[11px] text-chrome-400">
+              of {onChainTotal.toLocaleString('en-CA', { maximumFractionDigits: 0 })} on-chain
+            </span>
+          </div>
         ) : hasLiveData ? (
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-base font-bold text-chrome-900">
@@ -77,6 +96,16 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
             <span className="flex items-center gap-1 text-[10px] text-status-positive font-semibold bg-status-positive/10 px-1.5 py-0.5 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-status-positive" />
               Live
+            </span>
+          </div>
+        ) : meta.attestedSupply ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-base font-bold text-chrome-900">
+              {meta.attestedSupply.toLocaleString('en-CA', { maximumFractionDigits: 0 })} {stablecoin.symbol}
+            </span>
+            <span className="flex items-center gap-1 text-[10px] text-gold-600 font-semibold bg-gold-50 px-1.5 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
+              Reported
             </span>
           </div>
         ) : (
@@ -96,6 +125,39 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
                 <div className="h-1.5 w-full bg-chrome-100 rounded-full animate-pulse" />
               </div>
             ))}
+          </div>
+        ) : isPremint ? (
+          <div className="space-y-3">
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-semibold text-chrome-700">Backed &amp; attested</span>
+                <span className="text-xs text-chrome-500">{attestedBacked.toLocaleString('en-CA')}</span>
+              </div>
+              <div className="h-1.5 bg-chrome-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-red-600 rounded-full"
+                  style={{ width: `${Math.max((attestedBacked / onChainTotal) * 100, 1.5)}%` }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-semibold text-chrome-700">Pre-mint (not yet issued)</span>
+                <span className="text-xs text-chrome-500">{premintAmount.toLocaleString('en-CA')}</span>
+              </div>
+              <div className="h-1.5 bg-chrome-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-amber-400 rounded-full"
+                  style={{ width: `${(premintAmount / onChainTotal) * 100}%` }}
+                />
+              </div>
+            </div>
+            <p className="text-[11px] text-chrome-400 italic pt-0.5">
+              ≈ CA${onChainTotal.toLocaleString('en-CA')} potential reserve if fully issued at 1:1
+            </p>
+            {meta.attestedSupplySource && (
+              <p className="text-[11px] text-chrome-400 italic">{meta.attestedSupplySource}</p>
+            )}
           </div>
         ) : hasLiveData ? (
           <div className="space-y-3">
@@ -133,6 +195,21 @@ function ReserveCard({ stablecoin, chains, isLoadingSupply }: ReserveCardProps) 
                   />
                 </div>
               </div>
+            )}
+          </div>
+        ) : meta.attestedSupply ? (
+          <div className="space-y-2 pt-1">
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-semibold text-chrome-700">Cash reserves</span>
+                <span className="text-xs text-chrome-500">100%</span>
+              </div>
+              <div className="h-1.5 bg-chrome-100 rounded-full overflow-hidden">
+                <div className="h-full bg-red-600 rounded-full" style={{ width: '100%' }} />
+              </div>
+            </div>
+            {meta.attestedSupplySource && (
+              <p className="text-[11px] text-chrome-400 italic">{meta.attestedSupplySource}</p>
             )}
           </div>
         ) : (
