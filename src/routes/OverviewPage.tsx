@@ -6,7 +6,6 @@ import {
   HeroSection,
   QuickInsightsCarousel,
   TopHeadlinesList,
-  EmailOptInCard,
   WordDefinitionCard,
 } from '../components/overview';
 
@@ -23,13 +22,6 @@ export function OverviewPage() {
       <FadeInSlide>
         <HeroSection />
       </FadeInSlide>
-
-      {/* Email Opt-In Card */}
-      <section className="mb-8">
-        <FadeInSlide delay={200}>
-          <EmailOptInCard />
-        </FadeInSlide>
-      </section>
 
       {/* Word Definition + Quick Insights */}
       <section className="mb-8">

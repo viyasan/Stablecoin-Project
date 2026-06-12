@@ -2,27 +2,31 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
-// Last updated: May 2026
+// Last updated: June 2026
 const INSIGHTS = [
   {
     id: 1,
-    text: "USDT and USDC together control over 85% of the $317 billion stablecoin market.",
+    text: "USDT and USDC together control roughly 85% of the ~$315 billion stablecoin market.",
   },
   {
     id: 2,
-    text: "Ethereum and Tron blockchains host over 80% of all stablecoin value.",
+    text: "Ethereum and Tron blockchains host nearly 90% of all stablecoin value.",
   },
   {
-    id: 5,
-    text: "There are over 360+ stablecoins tracked, but only 14 have market caps exceeding $1 billion.",
+    id: 3,
+    text: "There are over 360+ stablecoins tracked, but only about 15 have market caps exceeding $1 billion.",
   },
   {
-    id: 6,
+    id: 4,
     text: "Fiat-backed stablecoins dominate, representing over 90% of total market value. 95%+ of which are USD-pegged.",
   },
   {
-    id: 7,
-    text: "The stablecoin market grew 49% in 2025, adding over $100 billion to reach $311B in total market cap.",
+    id: 5,
+    text: "The GENIUS Act, signed into law in July 2025, now sets the U.S. framework for payment stablecoins — with OCC, FDIC, and Treasury rules rolling out through 2026.",
+  },
+  {
+    id: 6,
+    text: "Yield-bearing and tokenized-treasury stablecoins — USDe, USDS, BUIDL, USDY — are among the fastest-growing, now filling much of the top 15.",
   },
 ];
 
@@ -101,7 +105,7 @@ export function QuickInsightsCarousel() {
           </h3>
         </div>
         <span className="text-xs text-chrome-500">
-          Last updated: May 2026
+          Last updated: June 2026
         </span>
       </div>
       <div className="px-6 py-5 flex-1 flex flex-col min-h-0">

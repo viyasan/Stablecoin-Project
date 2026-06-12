@@ -41,7 +41,7 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Second insight should now be visible
-    expect(screen.getByText(/Ethereum and Tron blockchains host over 80%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron blockchains host nearly 90%/i)).toBeInTheDocument();
   });
 
   it('navigates to previous insight when clicking previous button', () => {
@@ -70,8 +70,8 @@ describe('QuickInsightsCarousel', () => {
 
     const nextButton = screen.getByLabelText(/next insight/i);
 
-    // Click through all 5 insights to wrap back to first
-    for (let i = 0; i < 5; i++) {
+    // Click through all 6 insights to wrap back to first
+    for (let i = 0; i < 6; i++) {
       fireEvent.click(nextButton);
       act(() => {
         vi.advanceTimersByTime(FLIP_DELAY);
@@ -94,7 +94,7 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Should now show second insight
-    expect(screen.getByText(/Ethereum and Tron blockchains host over 80%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron blockchains host nearly 90%/i)).toBeInTheDocument();
   });
 
   it('pauses auto-rotation on hover', () => {
@@ -129,15 +129,15 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Should now show second insight
-    expect(screen.getByText(/Ethereum and Tron blockchains host over 80%/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ethereum and Tron blockchains host nearly 90%/i)).toBeInTheDocument();
   });
 
   it('shows dot indicators for each insight', () => {
     render(<QuickInsightsCarousel />);
 
-    // Should have 5 dot buttons (one for each insight)
+    // Should have 6 dot buttons (one for each insight)
     const dots = screen.getAllByRole('button', { name: /go to insight/i });
-    expect(dots).toHaveLength(5);
+    expect(dots).toHaveLength(6);
   });
 
   it('navigates to specific insight when clicking dot', () => {

@@ -8,6 +8,5 @@ export { QuickInsightsCarousel } from './QuickInsightsCarousel';
 export { ReserveCompositionCard } from './ReserveCompositionCard';
 export { TopHeadlinesList } from './TopHeadlinesList';
 export { TreasuryHoldingsCard } from './TreasuryHoldingsCard';
-export { EmailOptInCard } from './EmailOptInCard';
 export { HeroSection } from './HeroSection';
 export { WordDefinitionCard } from './WordDefinitionCard';
