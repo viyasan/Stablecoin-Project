@@ -189,20 +189,6 @@ export const canadianStablecoins: CanadianStablecoin[] = [
           "Transactix publicly launches CADX and the Open Value Network at Consensus 2025 in Toronto; attendees purchase lattes using CADX",
         type: "launch",
       },
-      {
-        date: "May 2025",
-        title: "Credit Union Partnerships",
-        description:
-          "Announces partnerships with several mid-sized credit unions in Ontario and BC for cash in/out via traditional banking interfaces",
-        type: "partnership",
-      },
-      {
-        date: "May 2025",
-        title: "Retail & Interac Pipeline",
-        description:
-          "In discussions with Shopify and Lightspeed Commerce for retailer integrations and with Interac for a stablecoin-to-eTransfer bridge mechanism",
-        type: "partnership",
-      },
     ],
     reserveMetadata: {
       reserveRatio: "TBD",
