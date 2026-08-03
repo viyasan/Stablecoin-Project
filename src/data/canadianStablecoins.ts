@@ -828,6 +828,12 @@ export const timelineEvents: TimelineEvent[] = [
     stablecoinId: "tetra",
   },
   {
+    date: "May 5, 2026",
+    title: "Visa Canada Pilots Stablecoin Settlement",
+    description: "Visa Canada and Wealthsimple launch Canada's first stablecoin settlement pilot, using USDC to settle obligations with Visa — signalling mainstream Canadian adoption of onchain settlement",
+    type: "partnership",
+  },
+  {
     date: "May 18, 2026",
     title: "CADC Powers First Remittance Corridor",
     description: "Paytrie enables CADC-powered remittances from Canada to Mexico and Nigeria via the Circle Payments Network — the first Canadian stablecoin used in an end-to-end remittance corridor",

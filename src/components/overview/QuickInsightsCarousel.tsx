@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
 // Hardcoded insights - update weekly
-// Last updated: June 2026
+// Last updated: August 2026
 const INSIGHTS = [
   {
     id: 1,
-    text: "USDT and USDC together control roughly 85% of the ~$315 billion stablecoin market.",
+    text: "USDT and USDC together control roughly 83% of the ~$300 billion stablecoin market.",
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ const INSIGHTS = [
   },
   {
     id: 3,
-    text: "There are over 360+ stablecoins tracked, but only about 15 have market caps exceeding $1 billion.",
+    text: "There are over 380 stablecoins tracked, but only about 15 have market caps exceeding $1 billion.",
   },
   {
     id: 4,
@@ -22,11 +22,15 @@ const INSIGHTS = [
   },
   {
     id: 5,
-    text: "The GENIUS Act, signed into law in July 2025, now sets the U.S. framework for payment stablecoins — with OCC, FDIC, and Treasury rules rolling out through 2026.",
+    text: "The GENIUS Act set the U.S. framework for payment stablecoins in July 2025, but regulators missed the July 18, 2026 deadline to finalize implementing rules — finalization is now expected in staggered releases later in 2026.",
   },
   {
     id: 6,
     text: "Yield-bearing and tokenized-treasury stablecoins — USDe, USDS, BUIDL, USDY — are among the fastest-growing, now filling much of the top 15.",
+  },
+  {
+    id: 7,
+    text: "Canada's Stablecoin Act (Bill C-15) took effect via Royal Assent in March 2026, with QCAD, CADD and CADC now live and draft implementing regulations expected during 2026.",
   },
 ];
 
@@ -105,7 +109,7 @@ export function QuickInsightsCarousel() {
           </h3>
         </div>
         <span className="text-xs text-chrome-500">
-          Last updated: June 2026
+          Last updated: August 2026
         </span>
       </div>
       <div className="px-6 py-5 flex-1 flex flex-col min-h-0">

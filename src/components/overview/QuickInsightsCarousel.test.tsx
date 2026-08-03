@@ -70,8 +70,8 @@ describe('QuickInsightsCarousel', () => {
 
     const nextButton = screen.getByLabelText(/next insight/i);
 
-    // Click through all 6 insights to wrap back to first
-    for (let i = 0; i < 6; i++) {
+    // Click through all insights to wrap back to first
+    for (let i = 0; i < 7; i++) {
       fireEvent.click(nextButton);
       act(() => {
         vi.advanceTimersByTime(FLIP_DELAY);
@@ -135,15 +135,15 @@ describe('QuickInsightsCarousel', () => {
   it('shows dot indicators for each insight', () => {
     render(<QuickInsightsCarousel />);
 
-    // Should have 6 dot buttons (one for each insight)
+    // Should have 7 dot buttons (one for each insight)
     const dots = screen.getAllByRole('button', { name: /go to insight/i });
-    expect(dots).toHaveLength(6);
+    expect(dots).toHaveLength(7);
   });
 
   it('navigates to specific insight when clicking dot', () => {
     render(<QuickInsightsCarousel />);
 
-    // Click on the third dot (index 2 = third insight about 250 stablecoins)
+    // Click on the third dot (index 2 = third insight about tracked stablecoins)
     const dots = screen.getAllByRole('button', { name: /go to insight/i });
     fireEvent.click(dots[2]);
 
@@ -152,6 +152,6 @@ describe('QuickInsightsCarousel', () => {
     });
 
     // Third insight should be visible
-    expect(screen.getByText(/over 360\+ stablecoins/i)).toBeInTheDocument();
+    expect(screen.getByText(/over 380 stablecoins/i)).toBeInTheDocument();
   });
 });

@@ -434,15 +434,18 @@ export interface StablecoinReserve {
 
 // Static data from attestation reports - update quarterly/monthly
 // Sources:
-// Tether Q1 2026 (BDO, snapshot 2026-03-31): $191.77B total assets, $141B Treasuries, $20B gold, $7B BTC, $8.23B excess reserves (latest attestation; Q2 2026 publishes ~late July)
+// Tether Q2 2026 (BDO, snapshot 2026-06-30, published 2026-07-31): $187.75B total assets, ~$184.6B USDT in circulation,
+//   $4.11B excess reserves, gold >146 tons (+14 tons in-quarter), secured lending cut ~15%, ~$1.5B net operating profit.
+//   Q2 press materials did NOT restate a standalone US Treasury dollar figure, so treasuryHoldings retains the last
+//   disclosed direct-Treasury number ($141B, Q1 2026 BDO). USDT >60% of global stablecoin market cap.
 // Circle: https://www.circle.com/transparency (weekly disclosure)
-// Last updated: June 2026
+// Last updated: August 2026
 const RESERVE_DATA = {
   USDT: {
     name: 'Tether',
-    lastUpdated: 'Q1 2026',
+    lastUpdated: 'Q2 2026',
     sourceUrl: 'https://tether.to/en/transparency/',
-    treasuryHoldings: 141_000_000_000, // $141B Treasury exposure per Q1 2026 attestation (BDO)
+    treasuryHoldings: 141_000_000_000, // $141B direct Treasury exposure (last disclosed, Q1 2026 BDO); Q2 attestation did not restate
     assets: [
       { name: 'US Treasuries', percentage: 73, color: '#E2B050' },
       { name: 'Gold', percentage: 10, color: '#D4A437' },

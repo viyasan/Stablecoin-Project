@@ -24,7 +24,9 @@ const HOLDERS: HolderData[] = [
   { name: 'Ireland', holdings: 351.0, globalRank: 7, type: 'country', flag: '🇮🇪' },
   { name: 'Taiwan', holdings: 314.0, globalRank: 8, type: 'country', flag: '🇹🇼' },
   // Stablecoin issuers with actual global rankings
-  // Tether: $141B Treasury exposure per Q1 2026 attestation (BDO, snapshot 2026-03-31) - ranks 17th globally (latest available; Q2 2026 publishes ~late July)
+  // Tether: $141B direct Treasury exposure - ranks 17th globally. Last disclosed in the Q1 2026 attestation (BDO,
+  // snapshot 2026-03-31); the Q2 2026 attestation (snapshot 2026-06-30, published 2026-07-31; $187.75B total assets,
+  // $4.11B excess reserves) did not restate a standalone Treasury dollar figure, so $141B is retained.
   // https://tether.to/en/transparency/
   { name: 'Tether (USDT)', holdings: 141, globalRank: 17, type: 'stablecoin' },
   // Circle USDC: $67.67B AUM in Circle Reserve Fund (USDXX) per BlackRock June 2026 - rank ~28 globally
