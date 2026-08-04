@@ -212,7 +212,7 @@ export const canadianStablecoins: CanadianStablecoin[] = [
     website: "https://loon.finance",
     backing: "100% CAD reserves with monthly verification",
     custodian: "ATB Financial",
-    blockchains: ["Ethereum", "Base", "Polygon", "Arbitrum"],
+    blockchains: ["Ethereum", "Base", "Polygon", "Arbitrum", "Solana"],
     backers: ["Version One Ventures", "Garage Capital"],
     platformIntegrations: [
       { name: "MetaMask", role: "Wallet" },
@@ -481,6 +481,12 @@ export const canadianStablecoins: CanadianStablecoin[] = [
         type: "milestone",
       },
       {
+        date: "Apr 30, 2026",
+        title: "Added to Coinbase Listing Roadmap",
+        description: "Coinbase Assets adds QCAD to its official listing roadmap, signalling a path to trading on the largest US exchange",
+        type: "milestone",
+      },
+      {
         date: "Apr 2026",
         title: "VersaBank Begins Receiving Deposits",
         description: "VersaBank begins accepting QCAD reserve deposits under its custody services agreement, concurrent with the Kraken listing",
@@ -531,9 +537,14 @@ export const canadianStablecoins: CanadianStablecoin[] = [
       "Coinbase Ventures",
     ],
     designPartners: [
-      { name: "KOHO" },
-      { name: "Float Financial" },
+      { name: "Aquanow" },
+      { name: "Capco" },
       { name: "Cybrid" },
+      { name: "Float Financial" },
+      { name: "KOHO" },
+      { name: "Sling Money" },
+      { name: "Tempo" },
+      { name: "WealthONE" },
     ],
     regulatorySteps: [
       {
